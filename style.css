@@ -13,20 +13,28 @@ body {
     line-height: 1.6;
 }
 
-/* 白文字の微発光（エグゼクティブ・グロー仕様） */
-h1, h2, h3, h4, .logo {
-    text-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
+/* 白文字の強力な発光仕様 */
+h1, h2, h3, h4 {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+}
+
+/* QLUXの「Q」専用アクセントカラー＆発光 */
+.q-accent {
+    background: linear-gradient(135deg, #00d26a 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 210, 106, 0.6);
 }
 
 /* ヘッダー */
 .site-header {
-    background: rgba(3, 5, 8, 0.92);
+    background: rgba(3, 5, 8, 0.95);
     backdrop-filter: blur(25px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 16px 24px;
+    padding: 14px 20px;
 }
 
 .header-container {
@@ -40,24 +48,26 @@ h1, h2, h3, h4, .logo {
 .logo-area {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .logo {
     font-weight: 800;
-    font-size: 22px;
+    font-size: 20px;
     color: #ffffff;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .global-badge {
-    font-size: 9px;
+    font-size: 8px;
     background: rgba(0, 210, 106, 0.15);
     color: #00d26a;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 20px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     border: 1px solid rgba(0, 210, 106, 0.3);
 }
 
@@ -68,7 +78,7 @@ h1, h2, h3, h4, .logo {
 @media(min-width: 900px) {
     .nav-links {
         display: flex;
-        gap: 28px;
+        gap: 24px;
     }
 }
 
@@ -85,48 +95,35 @@ h1, h2, h3, h4, .logo {
     text-shadow: 0 0 10px rgba(0, 210, 106, 0.5);
 }
 
+/* はみ出しを完全に防ぐ短いテキストのヘッダーボタン */
 .header-btn-glow {
     background: linear-gradient(135deg, rgba(0,210,106,0.25) 0%, rgba(56,189,248,0.25) 100%);
     border: 1px solid rgba(0, 210, 106, 0.5);
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 9px 18px;
-    border-radius: 8px;
+    padding: 7px 14px;
+    border-radius: 6px;
     text-decoration: none;
-    transition: all 0.2s;
+    white-space: nowrap;
     box-shadow: 0 0 15px rgba(0, 210, 106, 0.2);
 }
 
 .header-btn-glow:hover {
     background: #00d26a;
     color: #030508;
-    border-color: #00d26a;
-    box-shadow: 0 0 25px rgba(0, 210, 106, 0.6);
 }
 
 /* ヒーローセクション */
 .hero-section {
-    padding: 90px 20px 70px 20px;
+    padding: 80px 20px 60px 20px;
     text-align: center;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .hero-tag-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 24px;
-}
-
-@media(min-width: 480px) {
-    .hero-tag-wrapper {
-        flex-direction: row;
-        justify-content: center;
-        gap: 12px;
-    }
+    margin-bottom: 20px;
 }
 
 .hero-tag-global {
@@ -140,56 +137,44 @@ h1, h2, h3, h4, .logo {
     border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
-.hero-tag-sub {
-    font-size: 10px;
-    color: #00d26a;
-    background: rgba(0, 210, 106, 0.12);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    border: 1px solid rgba(0, 210, 106, 0.25);
-}
-
 .hero-title {
-    font-size: 38px;
+    font-size: 36px;
     font-weight: 800;
     color: #ffffff;
     line-height: 1.2;
-    margin-bottom: 24px;
-    letter-spacing: -0.5px;
+    margin-bottom: 20px;
 }
 
 @media(min-width: 768px) {
-    .hero-title { font-size: 56px; }
+    .hero-title { font-size: 52px; }
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #ffffff 20%, #38bdf8 70%, #00d26a 100%);
+    background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #00d26a 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-desc {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
-    line-height: 1.8;
-    max-width: 760px;
-    margin: 0 auto 40px auto;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 35px auto;
 }
 
 .hero-cta-group {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    max-width: 420px;
-    margin: 0 auto 60px auto;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 @media(min-width: 480px) {
     .hero-cta-group {
         flex-direction: row;
-        max-width: 560px;
+        max-width: 500px;
     }
 }
 
@@ -199,21 +184,14 @@ h1, h2, h3, h4, .logo {
     color: #030508;
     font-weight: 800;
     font-size: 13px;
-    padding: 15px 24px;
-    border-radius: 10px;
+    padding: 14px 20px;
+    border-radius: 8px;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    box-shadow: 0 4px 30px rgba(0, 210, 106, 0.45);
-    transition: transform 0.2s, background 0.2s;
-}
-
-.btn-primary-lux:hover {
-    transform: translateY(-2px);
-    background: #00ef75;
-    box-shadow: 0 6px 40px rgba(0, 210, 106, 0.65);
+    box-shadow: 0 4px 25px rgba(0, 210, 106, 0.4);
 }
 
 .btn-secondary-lux {
@@ -222,51 +200,15 @@ h1, h2, h3, h4, .logo {
     color: #ffffff;
     font-weight: 600;
     font-size: 13px;
-    padding: 15px 24px;
-    border-radius: 10px;
+    padding: 14px 20px;
+    border-radius: 8px;
     text-decoration: none;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.btn-secondary-lux:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* トラスト帯 */
-.trust-banner-lux {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 20px 0;
-    overflow: hidden;
-    background: rgba(0,0,0,0.4);
-}
-
-.trust-track {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.trust-item {
-    font-size: 12px;
-    color: #64748b;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-.trust-item span {
-    color: #00d26a;
-    font-weight: 700;
-    margin-right: 6px;
-    text-shadow: 0 0 8px rgba(0,210,106,0.4);
 }
 
 /* セクション共通 */
 .section {
-    padding: 100px 20px;
+    padding: 80px 20px;
     max-width: 1300px;
     margin: 0 auto;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -274,127 +216,115 @@ h1, h2, h3, h4, .logo {
 
 .section-header-center {
     text-align: center;
-    max-width: 750px;
-    margin: 0 auto 60px auto;
+    max-width: 700px;
+    margin: 0 auto 50px auto;
 }
 
 .section-tag {
-    font-size: 11px;
+    font-size: 10px;
     color: #00d26a;
     font-weight: 800;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 12px;
-    text-shadow: 0 0 10px rgba(0,210,106,0.4);
+    margin-bottom: 10px;
 }
 
-.section-header-center h2 {
-    font-size: 36px;
-    font-weight: 800;
+/* 中央QLUXの巨大アピール化 */
+.huge-qlux {
+    font-size: 48px;
+    font-weight: 900;
     color: #ffffff;
-    margin-bottom: 14px;
-    letter-spacing: -0.5px;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+@media(min-width: 768px) {
+    .huge-qlux { font-size: 64px; }
 }
 
 .section-desc {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
-/* ドメイングリッド */
+/* グリッド類 */
 .domain-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
 }
 
 @media(min-width: 768px) {
-    .domain-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .domain-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media(min-width: 1024px) {
-    .domain-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    .domain-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .domain-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 32px 24px;
-    position: relative;
-    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 28px 20px;
+    transition: border-color 0.3s;
 }
 
 .domain-card:hover {
-    border-color: rgba(0, 210, 106, 0.6);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 210, 106, 0.15);
+    border-color: rgba(0, 210, 106, 0.5);
 }
 
 .domain-num {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.06);
     display: block;
-    margin-bottom: 16px;
-}
-
-.domain-en {
-    font-size: 10px;
-    color: #38bdf8;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.domain-card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #ffffff;
     margin-bottom: 12px;
 }
 
-.domain-card p {
-    font-size: 13px;
-    color: #94a3b8;
-    line-height: 1.7;
+.domain-en {
+    font-size: 9px;
+    color: #38bdf8;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 6px;
 }
 
-/* AI トライブマトリクス */
+.domain-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.domain-card p {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* AI トライブ */
 .tribe-matrix {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
 }
 
 @media(min-width: 768px) {
-    .tribe-matrix {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    .tribe-matrix { grid-template-columns: repeat(3, 1fr); }
 }
 
 .tribe-box {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 32px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.tribe-box:hover {
-    border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+    gap: 14px;
 }
 
 .tribe-box-header {
@@ -404,121 +334,94 @@ h1, h2, h3, h4, .logo {
 }
 
 .t-badge {
-    font-size: 10px;
+    font-size: 9px;
     color: #38bdf8;
     font-weight: 700;
-    letter-spacing: 1.5px;
 }
 
 .t-status {
-    font-size: 10px;
+    font-size: 9px;
     color: #00d26a;
     font-weight: 700;
-    text-shadow: 0 0 8px rgba(0,210,106,0.5);
 }
 
 .tribe-box h3 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #ffffff;
 }
 
 .tribe-box p {
-    font-size: 13px;
+    font-size: 12px;
     color: #94a3b8;
-    line-height: 1.7;
 }
 
-/* テクノロジー & メッシュセクション */
+/* テクノロジー */
 .tech-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 50px;
+    gap: 40px;
     align-items: center;
 }
 
 @media(min-width: 1024px) {
-    .tech-container {
-        grid-template-columns: 1fr 1fr;
-    }
+    .tech-container { grid-template-columns: 1fr 1fr; }
 }
 
 .tech-content h2 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     color: #ffffff;
-    margin: 12px 0 20px 0;
-    line-height: 1.3;
+    margin: 10px 0 16px 0;
 }
 
 .tech-lead {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
-
-.tech-features {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.tf-item h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 6px;
-}
-
-.tf-item p {
-    font-size: 13px;
-    color: #94a3b8;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .tech-monitor-card {
-    background: linear-gradient(135deg, #070d1d 0%, #030508 100%);
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(56,189,248,0.1);
+    background: #050a14;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 16px;
+    padding: 24px;
 }
 
 .tm-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .tm-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background: #00d26a;
     border-radius: 50%;
-    box-shadow: 0 0 12px #00d26a;
+    box-shadow: 0 0 10px #00d26a;
 }
 
 .tm-title {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
 }
 
 .tm-body {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 .tm-row {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: 12px;
     color: #94a3b8;
 }
 
@@ -526,90 +429,48 @@ h1, h2, h3, h4, .logo {
     color: #00d26a;
     font-weight: 700;
     font-family: monospace;
-    text-shadow: 0 0 8px rgba(0,210,106,0.4);
 }
 
-/* 生産プロセス */
-.prod-card {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px;
-}
-
-.prod-info h3 {
-    font-size: 22px;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 10px 0 16px 0;
-}
-
-.prod-info p {
-    font-size: 14px;
-    color: #94a3b8;
-    line-height: 1.8;
-}
-
-/* コンバージョンセクション */
+/* コンバージョン */
 .conversion-section {
-    padding: 60px 20px 120px 20px;
+    padding: 40px 20px 100px 20px;
 }
 
 .conversion-lux-box {
     background: linear-gradient(135deg, #070f24 0%, #030508 100%);
     border: 1px solid rgba(0, 210, 106, 0.4);
-    border-radius: 24px;
-    padding: 60px 24px;
+    border-radius: 20px;
+    padding: 50px 20px;
     text-align: center;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 30px rgba(0,210,106,0.15);
-}
-
-.conversion-lux-box .conv-tag {
-    font-size: 11px;
-    color: #00d26a;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 12px;
-    text-shadow: 0 0 10px rgba(0,210,106,0.4);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
 }
 
 .conversion-lux-box h2 {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 800;
     color: #ffffff;
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
-}
-
-@media(min-width: 768px) {
-    .conversion-lux-box h2 { font-size: 40px; }
+    margin-bottom: 14px;
 }
 
 .conversion-lux-box p {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
-    line-height: 1.8;
-    max-width: 680px;
-    margin: 0 auto 36px auto;
+    max-width: 550px;
+    margin: 0 auto 30px auto;
 }
 
 .conv-btn-group {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    max-width: 480px;
+    gap: 12px;
+    max-width: 440px;
     margin: 0 auto;
 }
 
 @media(min-width: 480px) {
-    .conv-btn-group {
-        flex-direction: row;
-        max-width: 580px;
-    }
+    .conv-btn-group { flex-direction: row; }
 }
 
 .btn-primary-lux-glow {
@@ -617,17 +478,11 @@ h1, h2, h3, h4, .logo {
     background: #00d26a;
     color: #030508;
     font-weight: 800;
-    font-size: 13px;
-    padding: 16px 24px;
-    border-radius: 10px;
+    font-size: 12px;
+    padding: 14px 20px;
+    border-radius: 8px;
     text-decoration: none;
-    box-shadow: 0 0 35px rgba(0, 210, 106, 0.6);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-primary-lux-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 50px rgba(0, 210, 106, 0.85);
+    box-shadow: 0 0 25px rgba(0, 210, 106, 0.5);
 }
 
 .btn-outline-lux {
@@ -635,84 +490,23 @@ h1, h2, h3, h4, .logo {
     background: transparent;
     color: #ffffff;
     font-weight: 700;
-    font-size: 13px;
-    padding: 16px 24px;
-    border-radius: 10px;
+    font-size: 12px;
+    padding: 14px 20px;
+    border-radius: 8px;
     text-decoration: none;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.btn-outline-lux:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* フッター */
 .site-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     background: #010204;
-    padding: 80px 20px 40px 20px;
-}
-
-.footer-container {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
-
-@media(min-width: 900px) {
-    .footer-container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
-.footer-brand p {
-    font-size: 13px;
-    color: #64748b;
-    margin-top: 10px;
-}
-
-.footer-links-grid {
-    display: flex;
-    gap: 50px;
-    flex-wrap: wrap;
-}
-
-.fl-col h4 {
-    font-size: 13px;
-    color: #ffffff;
-    font-weight: 700;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-}
-
-.fl-col {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.fl-col a {
-    text-decoration: none;
-    font-size: 13px;
-    color: #64748b;
-    transition: color 0.2s;
-}
-
-.fl-col a:hover {
-    color: #00d26a;
+    padding: 40px 20px;
+    text-align: center;
 }
 
 .footer-bottom {
-    max-width: 1300px;
-    margin: 50px auto 0 auto;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #475569;
 }
+
