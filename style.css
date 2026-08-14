@@ -1,0 +1,277 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* モバイルフレーム（スマホ実機ビュー） */
+.mobile-browser-frame {
+    width: 100%;
+    max-width: 412px;
+    height: 860px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ブラウザ上部バー */
+.browser-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-nav {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 12px;
+}
+
+.close-btn, .menu-btn {
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+.url-bar {
+    flex-grow: 1;
+    background-color: #f1f3f4;
+    border-radius: 20px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #3c4043;
+}
+
+.sub-nav {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-top: 1px solid #f1f3f4;
+    gap: 16px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 16px;
+    color: #000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #5f6368;
+}
+
+.nav-links a.active {
+    color: #1a73e8;
+    font-weight: 500;
+    border-bottom: 2px solid #1a73e8;
+    padding-bottom: 2px;
+}
+
+/* メインコンテンツエリア（白ベースで清潔感） */
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+/* ヒーローセクション（NVIDIA風：壮大な宇宙・地球ビジュアル） */
+.hero-section {
+    background-color: #0b0f19;
+    color: #ffffff;
+    padding: 16px;
+}
+
+.hero-image-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hero-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay-text {
+    padding: 16px 4px 8px 4px;
+}
+
+.category-tag {
+    font-size: 11px;
+    color: #9aa0a6;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.hero-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.hero-desc {
+    font-size: 12px;
+    color: #bdc1c6;
+    line-height: 1.4;
+    margin-bottom: 14px;
+}
+
+.btn-read {
+    display: inline-block;
+    background-color: #00d26a; /* 爽やかなNVIDIA/エメラルドグリーン系アクセント */
+    color: #000000;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* おすすめ＆各セクション（白ベース＆クリーンなカード） */
+.recommend-section, .content-section {
+    padding: 24px 16px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.section-header h2, .section-title-bar h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #202124;
+    margin-bottom: 16px;
+}
+
+.section-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrows {
+    display: flex;
+    gap: 8px;
+}
+
+.arrow {
+    background-color: #00d26a;
+    color: #000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.card {
+    min-width: 200px;
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.card-img-wrap img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-category {
+    font-size: 10px;
+    color: #70757a;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.card-body h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #202124;
+    line-height: 1.3;
+}
+
+.section-lead {
+    font-size: 13px;
+    color: #4d5156;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.sub-card {
+    display: flex;
+    gap: 12px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    align-items: center;
+}
+
+.sub-card-text {
+    flex: 1;
+}
+
+.sub-card-text h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #202124;
+    margin: 4px 0;
+    line-height: 1.3;
+}
+
+.sub-card-desc {
+    font-size: 11px;
+    color: #5f6368;
+}
+
+.sub-card-img img {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
