@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
-    background-color: #05070b;
+    background-color: #030508;
     color: #e2e8f0;
     width: 100%;
     overflow-x: hidden;
@@ -15,9 +15,9 @@ body {
 
 /* ヘッダー */
 .site-header {
-    background: rgba(5, 7, 11, 0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(3, 5, 8, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -25,7 +25,7 @@ body {
 }
 
 .header-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -39,27 +39,27 @@ body {
 }
 
 .logo {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 22px;
     color: #ffffff;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
 .global-badge {
     font-size: 9px;
-    background: rgba(0, 210, 106, 0.15);
+    background: rgba(0, 210, 106, 0.12);
     color: #00d26a;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 20px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .nav-links {
     display: none;
 }
 
-@media(min-width: 768px) {
+@media(min-width: 900px) {
     .nav-links {
         display: flex;
         gap: 28px;
@@ -78,571 +78,611 @@ body {
     color: #00d26a;
 }
 
-.header-btn {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.header-btn-glow {
+    background: linear-gradient(135deg, rgba(0,210,106,0.2) 0%, rgba(56,189,248,0.2) 100%);
+    border: 1px solid rgba(0, 210, 106, 0.4);
     color: #ffffff;
     font-size: 12px;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 6px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 8px;
     text-decoration: none;
     transition: all 0.2s;
 }
 
-.header-btn:hover {
+.header-btn-glow:hover {
     background: #00d26a;
-    color: #05070b;
+    color: #030508;
     border-color: #00d26a;
 }
 
 /* ヒーローセクション */
 .hero-section {
-    padding: 60px 20px 40px 20px;
+    padding: 80px 20px 60px 20px;
     text-align: center;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-.hero-badge {
-    display: inline-block;
-    font-size: 11px;
+.hero-tag-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+@media(min-width: 480px) {
+    .hero-tag-wrapper {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+    }
+}
+
+.hero-tag-global {
+    font-size: 10px;
     color: #38bdf8;
     background: rgba(56, 189, 248, 0.1);
     padding: 6px 14px;
     border-radius: 20px;
     font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.hero-tag-sub {
+    font-size: 10px;
+    color: #00d26a;
+    background: rgba(0, 210, 106, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
     letter-spacing: 1px;
-    margin-bottom: 20px;
 }
 
 .hero-title {
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 38px;
+    font-weight: 800;
     color: #ffffff;
-    line-height: 1.25;
-    margin-bottom: 20px;
+    line-height: 1.2;
+    margin-bottom: 24px;
     letter-spacing: -0.5px;
 }
 
 @media(min-width: 768px) {
-    .hero-title { font-size: 52px; }
+    .hero-title { font-size: 56px; }
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-desc {
     font-size: 15px;
     color: #94a3b8;
-    line-height: 1.7;
-    max-width: 720px;
-    margin: 0 auto 32px auto;
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto 40px auto;
 }
 
 .hero-cta-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 400px;
+    gap: 14px;
+    max-width: 420px;
     margin: 0 auto 60px auto;
 }
 
 @media(min-width: 480px) {
     .hero-cta-group {
         flex-direction: row;
-        max-width: 500px;
+        max-width: 560px;
     }
 }
 
-.btn-primary {
+.btn-primary-lux {
     flex: 1;
     background: #00d26a;
-    color: #05070b;
-    font-weight: 700;
+    color: #030508;
+    font-weight: 800;
     font-size: 13px;
-    padding: 14px 24px;
-    border-radius: 8px;
+    padding: 15px 24px;
+    border-radius: 10px;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    box-shadow: 0 4px 20px rgba(0, 210, 106, 0.3);
+    box-shadow: 0 4px 25px rgba(0, 210, 106, 0.35);
     transition: transform 0.2s, background 0.2s;
 }
 
-.btn-primary:hover {
+.btn-primary-lux:hover {
     transform: translateY(-2px);
     background: #00ef75;
 }
 
-.btn-secondary {
+.btn-secondary-lux {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     color: #ffffff;
     font-weight: 600;
     font-size: 13px;
-    padding: 14px 24px;
-    border-radius: 8px;
+    padding: 15px 24px;
+    border-radius: 10px;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     transition: background 0.2s;
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+.btn-secondary-lux:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
-/* 信頼バナー */
-.trust-banner {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 30px;
-    margin-top: 20px;
+/* トラスト帯 */
+.trust-banner-lux {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px 0;
+    overflow: hidden;
 }
 
-.trust-title {
-    font-size: 11px;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-}
-
-.trust-logos {
+.trust-track {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px 32px;
+    gap: 20px;
 }
 
-.trust-logo-item {
-    font-size: 13px;
-    font-weight: 700;
+.trust-item {
+    font-size: 12px;
     color: #64748b;
+    font-weight: 600;
     letter-spacing: 1px;
+}
+
+.trust-item span {
+    color: #00d26a;
+    font-weight: 700;
+    margin-right: 6px;
 }
 
 /* セクション共通 */
 .section {
-    padding: 80px 20px;
-    max-width: 1200px;
+    padding: 100px 20px;
+    max-width: 1300px;
     margin: 0 auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .section-header-center {
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto 50px auto;
+    max-width: 750px;
+    margin: 0 auto 60px auto;
 }
 
 .section-tag {
     font-size: 11px;
     color: #00d26a;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-weight: 800;
+    letter-spacing: 2px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 10px;
-}
-
-.section-header-center h2 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
     margin-bottom: 12px;
 }
 
-.section-desc {
-    font-size: 14px;
-    color: #94a3b8;
-    line-height: 1.6;
+.section-header-center h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
 }
 
-/* ステップグリッド */
-.step-grid {
+.section-desc {
+    font-size: 15px;
+    color: #94a3b8;
+    line-height: 1.7;
+}
+
+/* ドメイングリッド（エコシステム） */
+.domain-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
 }
 
 @media(min-width: 768px) {
-    .step-grid {
+    .domain-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media(min-width: 1024px) {
-    .step-grid {
+    .domain-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-.step-card {
-    background: rgba(255, 255, 255, 0.02);
+.domain-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 16px;
+    padding: 32px 24px;
     position: relative;
-    transition: border-color 0.2s;
+    transition: border-color 0.3s, transform 0.3s;
 }
 
-.step-card:hover {
+.domain-card:hover {
     border-color: rgba(0, 210, 106, 0.4);
+    transform: translateY(-4px);
 }
 
-.step-num {
-    font-size: 28px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.1);
+.domain-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.06);
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
-.step-card h3 {
-    font-size: 16px;
+.domain-en {
+    font-size: 10px;
+    color: #38bdf8;
     font-weight: 700;
-    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
     margin-bottom: 8px;
 }
 
-.step-card p {
-    font-size: 13px;
-    color: #94a3b8;
-    line-height: 1.6;
+.domain-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
 }
 
-/* AIトライブセクション */
-.tribe-grid {
+.domain-card p {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.7;
+}
+
+/* AI トライブマトリクス */
+.tribe-matrix {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
 }
 
 @media(min-width: 768px) {
-    .tribe-grid {
+    .tribe-matrix {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-.tribe-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+.tribe-box {
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    padding: 28px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.tribe-icon {
-    font-size: 32px;
-    background: rgba(255, 255, 255, 0.05);
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+.tribe-box-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
 }
 
-.tribe-role {
+.t-badge {
     font-size: 10px;
     color: #38bdf8;
     font-weight: 700;
     letter-spacing: 1px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 4px;
 }
 
-.tribe-content h3 {
-    font-size: 17px;
+.t-status {
+    font-size: 10px;
+    color: #00d26a;
+    font-weight: 700;
+}
+
+.tribe-box h3 {
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 8px;
 }
 
-.tribe-content p {
+.tribe-box p {
     font-size: 13px;
     color: #94a3b8;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    line-height: 1.7;
 }
 
-.tribe-status {
-    font-size: 11px;
-    color: #00d26a;
-    font-weight: 600;
-}
-
-/* エコシステムセクション */
-.eco-wrapper {
+/* テクノロジー & メッシュセクション */
+.tech-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
     align-items: center;
 }
 
-@media(min-width: 900px) {
-    .eco-wrapper {
+@media(min-width: 1024px) {
+    .tech-container {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-.eco-text h2 {
-    font-size: 30px;
-    font-weight: 700;
+.tech-content h2 {
+    font-size: 32px;
+    font-weight: 800;
     color: #ffffff;
     margin: 12px 0 20px 0;
     line-height: 1.3;
 }
 
-.eco-text p {
-    font-size: 14px;
+.tech-lead {
+    font-size: 15px;
     color: #94a3b8;
-    line-height: 1.7;
-    margin-bottom: 24px;
+    line-height: 1.8;
+    margin-bottom: 30px;
 }
 
-.eco-list {
-    list-style: none;
+.tech-features {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
 }
 
-.eco-list li {
-    font-size: 13px;
-    color: #cbd5e1;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.eco-list li span {
-    color: #00d26a;
-    font-weight: bold;
-}
-
-.eco-visual {
-    background: rgba(0, 210, 106, 0.03);
-    border: 1px solid rgba(0, 210, 106, 0.2);
-    border-radius: 20px;
-    padding: 32px;
-    position: relative;
-    overflow: hidden;
-}
-
-.visual-card-inner h4 {
-    font-size: 18px;
+.tf-item h4 {
+    font-size: 15px;
     font-weight: 700;
     color: #ffffff;
-    margin: 8px 0 12px 0;
+    margin-bottom: 6px;
 }
 
-.visual-card-inner p {
+.tf-item p {
     font-size: 13px;
     color: #94a3b8;
     line-height: 1.6;
-    margin-bottom: 24px;
 }
 
-.v-tag {
-    font-size: 10px;
-    color: #00d26a;
-    font-weight: 700;
-    letter-spacing: 1px;
+.tech-monitor-card {
+    background: linear-gradient(135deg, #070d1d 0%, #030508 100%);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.v-pulse-box {
+.tm-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(0, 210, 106, 0.1);
-    padding: 10px 16px;
-    border-radius: 30px;
-    width: fit-content;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.pulse-ring {
+.tm-dot {
     width: 8px;
     height: 8px;
     background: #00d26a;
     border-radius: 50%;
     box-shadow: 0 0 10px #00d26a;
-    animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.pulse-text {
+.tm-title {
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.tm-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tm-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.status-ok {
     color: #00d26a;
-    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+/* 生産プロセス */
+.prod-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.prod-info h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 10px 0 16px 0;
+}
+
+.prod-info p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.8;
 }
 
 /* コンバージョンセクション */
 .conversion-section {
-    padding: 60px 20px 100px 20px;
+    padding: 60px 20px 120px 20px;
 }
 
-.conversion-box {
-    background: linear-gradient(135deg, #0b1329 0%, #05070b 100%);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+.conversion-lux-box {
+    background: linear-gradient(135deg, #070f24 0%, #030508 100%);
+    border: 1px solid rgba(0, 210, 106, 0.3);
     border-radius: 24px;
-    padding: 48px 24px;
+    padding: 60px 24px;
     text-align: center;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
 }
 
-.conv-badge {
+.conversion-lux-box .conv-tag {
     font-size: 11px;
-    color: #38bdf8;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    color: #00d26a;
+    font-weight: 800;
+    letter-spacing: 2px;
     text-transform: uppercase;
     display: block;
     margin-bottom: 12px;
 }
 
-.conversion-box h2 {
-    font-size: 26px;
-    font-weight: 700;
+.conversion-lux-box h2 {
+    font-size: 30px;
+    font-weight: 800;
     color: #ffffff;
     margin-bottom: 16px;
+    letter-spacing: -0.5px;
 }
 
 @media(min-width: 768px) {
-    .conversion-box h2 { font-size: 34px; }
+    .conversion-lux-box h2 { font-size: 40px; }
 }
 
-.conversion-box p {
-    font-size: 14px;
+.conversion-lux-box p {
+    font-size: 15px;
     color: #94a3b8;
-    line-height: 1.7;
-    max-width: 600px;
-    margin: 0 auto 32px auto;
+    line-height: 1.8;
+    max-width: 680px;
+    margin: 0 auto 36px auto;
 }
 
-.conv-cta {
+.conv-btn-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 450px;
+    gap: 14px;
+    max-width: 480px;
     margin: 0 auto;
 }
 
 @media(min-width: 480px) {
-    .conv-cta {
+    .conv-btn-group {
         flex-direction: row;
-        max-width: 520px;
+        max-width: 580px;
     }
 }
 
-.btn-primary-glow {
+.btn-primary-lux-glow {
     flex: 1;
     background: #00d26a;
-    color: #05070b;
-    font-weight: 700;
+    color: #030508;
+    font-weight: 800;
     font-size: 13px;
-    padding: 14px 20px;
-    border-radius: 8px;
+    padding: 16px 24px;
+    border-radius: 10px;
     text-decoration: none;
-    box-shadow: 0 0 25px rgba(0, 210, 106, 0.4);
+    box-shadow: 0 0 30px rgba(0, 210, 106, 0.45);
     transition: transform 0.2s;
 }
 
-.btn-primary-glow:hover {
+.btn-primary-lux-glow:hover {
     transform: translateY(-2px);
 }
 
-.btn-outline-white {
+.btn-outline-lux {
     flex: 1;
     background: transparent;
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 13px;
-    padding: 14px 20px;
-    border-radius: 8px;
+    padding: 16px 24px;
+    border-radius: 10px;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: background 0.2s;
+}
+
+.btn-outline-lux:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* フッター */
 .site-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: #030406;
-    padding: 60px 20px 30px 20px;
+    background: #010204;
+    padding: 80px 20px 40px 20px;
 }
 
-.footer-inner {
-    max-width: 1200px;
+.footer-container {
+    max-width: 1300px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 50px;
 }
 
-@media(min-width: 768px) {
-    .footer-inner {
+@media(min-width: 900px) {
+    .footer-container {
         flex-direction: row;
         justify-content: space-between;
     }
 }
 
-.footer-logo {
-    font-weight: 700;
-    font-size: 20px;
-    color: #ffffff;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.footer-col p {
+.footer-brand p {
     font-size: 13px;
     color: #64748b;
+    margin-top: 10px;
 }
 
-.footer-col-links {
+.footer-links-grid {
     display: flex;
-    gap: 60px;
+    gap: 50px;
+    flex-wrap: wrap;
 }
 
-.f-group h4 {
+.fl-col h4 {
     font-size: 13px;
     color: #ffffff;
     font-weight: 700;
     margin-bottom: 16px;
+    letter-spacing: 0.5px;
 }
 
-.f-group {
+.fl-col {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.f-group a {
+.fl-col a {
     text-decoration: none;
     font-size: 13px;
     color: #64748b;
     transition: color 0.2s;
 }
 
-.f-group a:hover {
+.fl-col a:hover {
     color: #00d26a;
 }
 
 .footer-bottom {
-    max-width: 1200px;
-    margin: 40px auto 0 auto;
-    padding-top: 20px;
+    max-width: 1300px;
+    margin: 50px auto 0 auto;
+    padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
     text-align: center;
     font-size: 12px;
