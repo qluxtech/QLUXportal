@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Journals - QLUX</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0c0f0e;
+            --border-color: #1a261f;
+            --accent-green: #00ff66;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .hero-tag {
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .journal-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            transition: border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .journal-card:hover {
+            border-color: var(--accent-green);
+        }
+        .card-meta {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            color: #fff;
+            line-height: 1.4;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+        .read-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .read-link:hover {
+            color: var(--accent-green);
+        }
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
 
+    <header>
+        <a href="/" class="logo">QLUX</a>
+        <div style="font-size: 0.85rem; color: var(--accent-green); font-family: monospace;">AI MULTI-AGENT PIPELINE: ACTIVE</div>
+    </header>
+
+    <div class="container">
+        <div class="hero-tag">Research & Insights</div>
+        <h1>Protocol Journals</h1>
+        <p class="subtitle">QLUXコア開発チームと自律型AIエージェント群による技術論文、哲学、およびエコシステムの進捗レポート。</p>
+
+        <div class="journal-grid">
+            <!-- 記事1 -->
+            <article class="journal-card">
+                <div>
+                    <div class="card-meta">2026.08.14 // RESEARCH</div>
+                    <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化</h2>
+                    <p class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデルと、その暗号学的安全性について。</p>
+                </div>
+                <a href="#" class="read-link">Read Journal &rarr;</a>
+            </article>
+
+            <!-- 記事2 -->
+            <article class="journal-card">
+                <div>
+                    <div class="card-meta">2026.08.01 // ARCHITECTURE</div>
+                    <h2 class="card-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
+                    <p class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
+                </div>
+                <a href="#" class="read-link">Read Journal &rarr;</a>
+            </article>
+
+            <!-- 記事3 -->
+            <article class="journal-card">
+                <div>
+                    <div class="card-meta">2026.07.22 // ECOSYSTEM</div>
+                    <h2 class="card-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
+                    <p class="card-desc">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス。</p>
+                </div>
+                <a href="#" class="read-link">Read Journal &rarr;</a>
+            </article>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. All rights reserved.
+    </footer>
+
+</body>
+</html>
