@@ -3,353 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX | Beyond The OS Platform</title>
-    <style>
-        @page {
-            size: A4 landscape;
-            margin: 0;
-            background-color: #030508;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Consolas', 'Courier New', 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background-color: #030508;
-            color: #e2e8f0;
-            padding: 20px;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Top Bar / Neural Core Header */
-        .top-status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #10b981;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .qlux-brand {
-            font-size: 22pt;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: #10b981;
-            text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-        }
-
-        .protocol-tag {
-            background-color: rgba(16, 185, 129, 0.15);
-            border: 1px solid #10b981;
-            color: #34d399;
-            font-size: 8pt;
-            padding: 3px 8px;
-            border-radius: 2px;
-            letter-spacing: 1px;
-        }
-
-        .system-metrics {
-            display: flex;
-            gap: 20px;
-            font-size: 8.5pt;
-            color: #94a3b8;
-        }
-
-        .metric-item span {
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        /* Main Grid Architecture */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 280px 1fr 320px;
-            gap: 15px;
-            flex-grow: 1;
-            height: calc(100% - 60px);
-        }
-
-        /* Left Panel: Decentralized Mesh Nodes */
-        .panel {
-            background: rgba(10, 15, 24, 0.8);
-            border: 1px solid #1e293b;
-            border-radius: 4px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .panel-header {
-            font-size: 9.5pt;
-            font-weight: bold;
-            color: #f8fafc;
-            border-left: 3px solid #10b981;
-            padding-left: 8px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .node-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        .node-card {
-            background: #0f172a;
-            border: 1px solid #334155;
-            padding: 8px 10px;
-            border-radius: 3px;
-            font-size: 8pt;
-        }
-
-        .node-title {
-            color: #38bdf8;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .node-status {
-            color: #10b981;
-        }
-
-        .node-details {
-            color: #64748b;
-            margin-top: 4px;
-            font-size: 7.5pt;
-        }
-
-        /* Center Canvas: Ambient Reality Core */
-        .center-core {
-            background: radial-gradient(circle at center, #06121e 0%, #030508 100%);
-            border: 1px solid #059669;
-            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 15px;
-        }
-
-        .visualizer-overlay {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .core-orb {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #10b981 0%, rgba(16, 185, 129, 0.05) 70%);
-            border: 2px solid #34d399;
-            box-shadow: 0 0 35px rgba(16, 185, 129, 0.5);
-            margin: 0 auto 12px auto;
-        }
-
-        .intent-prompt {
-            font-size: 14pt;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
-
-        .intent-sub {
-            font-size: 8.5pt;
-            color: #64748b;
-            margin-top: 4px;
-        }
-
-        .active-tasks-area {
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid #1e293b;
-            padding: 12px;
-            border-radius: 4px;
-            margin-top: auto;
-        }
-
-        .task-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 8.5pt;
-            padding: 6px 0;
-            border-bottom: 1px solid #1e293b;
-        }
-
-        .task-name {
-            color: #e2e8f0;
-        }
-
-        .task-progress {
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        /* Right Panel: Physical Synchronization & Compute Pipeline */
-        .telemetry-box {
-            background: #090d14;
-            border: 1px solid #1e293b;
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 3px;
-        }
-
-        .telemetry-title {
-            font-size: 7.5pt;
-            color: #94a3b8;
-            margin-bottom: 4px;
-        }
-
-        .telemetry-value {
-            font-size: 12pt;
-            font-weight: bold;
-            color: #f43f5e;
-        }
-
-        .waveform-mock {
-            height: 35px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(16, 185, 129, 0.2) 20%, 
-                rgba(16, 185, 129, 0.8) 40%, 
-                rgba(16, 185, 129, 0.1) 60%, 
-                transparent 100%);
-            border-bottom: 1px solid #10b981;
-            margin-top: 6px;
-        }
-
-        .footer-bar {
-            margin-top: 10px;
-            font-size: 7.5pt;
-            color: #475569;
-            display: flex;
-            justify-content: space-between;
-            padding-top: 5px;
-            border-top: 1px solid #0f172a;
-        }
-    </style>
+    <title>QLUX | Autonomous AI Agent Settlement</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Top Neural Status Bar -->
-    <div class="top-status">
-        <div class="logo-group">
-            <div class="qlux-brand">QLUX</div>
-            <div class="protocol-tag">AMBIENT REALITY PROTOCOL v10.0</div>
-        </div>
-        <div class="system-metrics">
-            <div class="metric-item">GLOBAL MESH NODES: <span>142,890,210 ACTIVE</span></div>
-            <div class="metric-item">LATENCY: <span>0.002 ms</span></div>
-            <div class="metric-item">COMPUTE REVENUE: <span>+$12.80/hr (RECOVERED)</span></div>
-        </div>
-    </div>
-
-    <!-- Main Core Platform Architecture -->
-    <div class="grid-container">
-
-        <!-- Left Column: Decentralized Computing Mesh -->
-        <div class="panel">
-            <div class="panel-header">1. 自律分散メッシュノード</div>
-            <div class="node-list">
-                <div class="node-card">
-                    <div class="node-title"><span>Node #8892-Tokyo</span> <span class="node-status">ONLINE</span></div>
-                    <div class="node-details">GPU Allocation: RTX 5090 / Shared 84%</div>
+    <div class="mobile-browser-frame">
+        <!-- ブラウザヘッダー -->
+        <div class="browser-header">
+            <div class="top-nav">
+                <span class="close-btn">&times;</span>
+                <div class="url-bar">
+                    <span class="secure">🔒</span>
+                    <span class="url-text">qlux.onrender.com</span>
                 </div>
-                <div class="node-card">
-                    <div class="node-title"><span>Node #1042-Zurich</span> <span class="node-status">ONLINE</span></div>
-                    <div class="node-details">Quantum Compute Bridge / Idle 12%</div>
-                </div>
-                <div class="node-card">
-                    <div class="node-title"><span>Node #5519-Dallas</span> <span class="node-status">ONLINE</span></div>
-                    <div class="node-details">High Current Telemetry Sync / Active</div>
-                </div>
-                <div class="node-card">
-                    <div class="node-title"><span>Node #9901-Berlin</span> <span class="node-status">ONLINE</span></div>
-                    <div class="node-details">Distributed Storage / Encrypted Shard</div>
-                </div>
+                <span class="menu-btn">⋮</span>
+            </div>
+            <div class="sub-nav">
+                <span class="logo">QLUX</span>
+                <nav class="nav-links">
+                    <a href="#" class="active">人工知能</a>
+                    <a href="#">シミュレーション</a>
+                    <a href="#">メッシュ＆決済</a>
+                </nav>
             </div>
         </div>
 
-        <!-- Center Column: Ambient Intent Core (Zero Screen UI) -->
-        <div class="panel center-core">
-            <div class="visualizer-overlay">
-                <div class="core-orb"></div>
-                <div class="intent-prompt">「画面操作の要らない無遅延世界」</div>
-                <div class="intent-sub">思考・物理データ・プログラム実行がダイレクトに結合する超次元レイヤー</div>
-            </div>
-
-            <div class="active-tasks-area">
-                <div class="panel-header" style="border-left-color: #38bdf8;">自律並列タスクコンパイラ</div>
-                <div class="task-row">
-                    <div class="task-name">⚡ 50V 50A 電力波形リアルタイムフィードバック & 自動パラメータ補正</div>
-                    <div class="task-progress">COMPLETED</div>
-                </div>
-                <div class="task-row">
-                    <div class="task-name">🎬 4K AI映像＆マルチモーダルモデルのバックグラウンド自律レンダリング</div>
-                    <div class="task-progress">EXECUTING (98%)</div>
-                </div>
-                <div class="task-row">
-                    <div class="task-name">🌐 分散経済圏（トークン配分）自律コントラクト決済</div>
-                    <div class="task-progress">SYNCED</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Column: Physical & Hardware Interface (フィジカル同期) -->
-        <div class="panel">
-            <div class="panel-header" style="border-left-color: #f43f5e;">2. 物理世界 (Physical Tier) 同期</div>
+        <!-- メインコンテンツ（ホワイト＆クリアなNVIDIAスタイル） -->
+        <main class="main-content">
             
-            <div class="telemetry-box">
-                <div class="telemetry-title">PHYSICAL VOLTAGE / POWER NODE</div>
-                <div class="telemetry-value">50.00 V / 50.0 A (2,500W)</div>
-                <div class="waveform-mock"></div>
-            </div>
-
-            <div class="telemetry-box">
-                <div class="telemetry-title">HARDWARE SENSOR / SIGNAL FREQUENCY</div>
-                <div class="telemetry-value" style="color: #38bdf8;">180.0 °C / 100.00 kHz</div>
-            </div>
-
-            <div class="telemetry-box" style="flex-grow: 1;">
-                <div class="telemetry-title">REAL-TIME AMBIENT CONTEXT</div>
-                <div style="font-size: 8pt; color: #cbd5e0; line-height: 1.6; margin-top: 6px;">
-                    ▶ OS・ブラウザを排除<br>
-                    ▶ アプリ起動・検索の完全無効化<br>
-                    ▶ 全世界の分散余剰計算リソースを自動統合<br>
-                    ▶ 思考＝即時物理・デジタル出力完了
+            <!-- ヒーローセクション（壮大で爽やかな宇宙・地球のビジュアル） -->
+            <section class="hero-section">
+                <div class="hero-image-wrap">
+                    <!-- 地球・宇宙の壮大でクリアなイメージ写真 -->
+                    <img src="earth-space-hero.jpg" alt="地球と宇宙のネットワーク" class="hero-img">
+                    <div class="hero-overlay-text">
+                        <span class="category-tag">データセンター / グローバル基盤</span>
+                        <h1 class="hero-title">次世代デジタル経済の鼓動：信頼の連鎖</h1>
+                        <p class="hero-desc">QLUX分散型台帳基盤は、透明性と安全性を宇宙規模で世界中に提供します。</p>
+                        <a href="#" class="btn-read">発表を読む</a>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-    </div>
+            <!-- おすすめセクション（白ベースのカード型レイアウト） -->
+            <section class="recommend-section">
+                <div class="section-header">
+                    <h2>あなたにおすすめ</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-img-wrap"><img src="card-1.jpg" alt="イベント"></div>
+                        <div class="card-body">
+                            <span class="card-category">QLUX GTC | イベント</span>
+                            <h3>すべてはここから始まる</h3>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img-wrap"><img src="card-2.jpg" alt="AI"></div>
+                        <div class="card-body">
+                            <span class="card-category">エージェント型AI | ブログ</span>
+                            <h3>AIがもたらすリアルタイム経済の革新</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Footer Bar -->
-    <div class="footer-bar">
-        <div>QLUX PROTOCOL FRAMEWORK | NON-CENTRALIZED OPERATING SYSTEM BEYOND ARCHITECTURE</div>
-        <div>CONFIDENTIAL / REVOLUTIONARY INFRASTRUCTURE 2026</div>
+            <!-- 人工知能 (AI) セクション -->
+            <section class="content-section">
+                <div class="section-title-bar">
+                    <h2>人工知能 (AI)</h2>
+                    <div class="arrows"><span class="arrow">&lt;</span><span class="arrow">&gt;</span></div>
+                </div>
+                <p class="section-lead">
+                    AIはあらゆる産業に変化をもたらしています。生成AIから分散型台帳、ナノ決済の管理まで、QLUXは企業や開発者に必要な演算能力と自律エージェント基盤を提供します。
+                </p>
+                <div class="sub-card">
+                    <div class="sub-card-text">
+                        <span class="card-category">エージェント型AI | ブログ</span>
+                        <h4>QLUXのソフトウェアパートナー企業が、数百万人のクリエイターにAIエージェントをもたらす</h4>
+                        <p class="card-desc">MCPを使用してAIと連動し、自律的ワークフローの可能性を広げています。</p>
+                    </div>
+                    <div class="sub-card-img"><img src="card-3.jpg" alt="サーバー"></div>
+                </div>
+            </section>
+
+        </main>
     </div>
 
 </body>
