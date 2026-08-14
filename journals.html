@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol Journals - QLUX</title>
+    <title>Protocol Journals // QLUX Sovereign Archive</title>
     <style>
         :root {
-            --bg-color: #050505;
-            --card-bg: #0c0f0e;
-            --border-color: #1a261f;
+            --bg-color: #030504;
+            --card-bg: #080d0a;
+            --border-color: #122218;
             --accent-green: #00ff66;
-            --text-main: #e0e0e0;
-            --text-muted: #888888;
+            --accent-dim: #00aa44;
+            --text-main: #f0f4f1;
+            --text-muted: #7a8c82;
+            --gold-glow: #ffb700;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -19,148 +21,298 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        /* 背景のサイバー・グリッド効果 */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 34, 24, 0.15) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(18, 34, 24, 0.15) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
         }
         header {
             border-bottom: 1px solid var(--border-color);
-            padding: 20px 40px;
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(3, 5, 4, 0.85);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .logo {
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: #fff;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-decoration: none;
         }
+        .logo {
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        .live-ticker {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 102, 0.05);
+            padding: 6px 14px;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 20px;
+        }
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
         .container {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 20px;
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+        .hero-section {
+            margin-bottom: 60px;
+            border-left: 3px solid var(--accent-green);
+            padding-left: 25px;
         }
         .hero-tag {
             color: var(--accent-green);
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            font-family: monospace;
             margin-bottom: 10px;
         }
         h1 {
-            font-size: 2.5rem;
-            margin-top: 0;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin: 0 0 15px 0;
             color: #fff;
+            letter-spacing: -1px;
         }
         .subtitle {
             color: var(--text-muted);
-            margin-bottom: 40px;
+            font-size: 1.1rem;
+            max-width: 700px;
         }
+        /* 非対称ダイナミック・グリッドレイアウト */
         .journal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
         }
         .journal-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 30px;
-            transition: border-color 0.3s ease;
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .journal-card.featured {
+            grid-column: span 12;
+            background: linear-gradient(135deg, #0c1711 0%, #080d0a 100%);
+            border-color: rgba(0, 255, 102, 0.3);
+        }
+        .journal-card.standard {
+            grid-column: span 6;
+        }
+        @media(max-width: 768px) {
+            .journal-card.standard { grid-column: span 12; }
+            header { padding: 15px 20px; }
+            h1 { font-size: 2rem; }
         }
         .journal-card:hover {
             border-color: var(--accent-green);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 255, 102, 0.08);
         }
         .card-meta {
             font-size: 0.75rem;
             color: var(--accent-green);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .paywall-badge {
+            background: rgba(255, 183, 0, 0.1);
+            color: var(--gold-glow);
+            border: 1px solid rgba(255, 183, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
         }
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             margin: 0 0 15px 0;
             color: #fff;
-            line-height: 1.4;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+        .journal-card.featured .card-title {
+            font-size: 2rem;
         }
         .card-desc {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
-        .read-link {
-            color: #fff;
-            text-decoration: none;
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        .price-tag {
+            font-family: monospace;
             font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        .pay-btn {
+            background-color: transparent;
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 6px;
             font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            text-decoration: none;
         }
-        .read-link:hover {
-            color: var(--accent-green);
+        .pay-btn:hover {
+            background-color: var(--accent-green);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
         }
         footer {
             border-top: 1px solid var(--border-color);
             text-align: center;
-            padding: 40px 0;
-            margin-top: 80px;
+            padding: 60px 0;
+            margin-top: 100px;
             color: var(--text-muted);
             font-size: 0.8rem;
+            background: rgba(3, 5, 4, 0.5);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="/" class="logo">QLUX</a>
-        <div style="font-size: 0.85rem; color: var(--accent-green); font-family: monospace;">AI MULTI-AGENT PIPELINE: ACTIVE</div>
+        <a href="/" class="logo-area">
+            <span class="logo">QLUX</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">// SOVEREIGN MESH</span>
+        </a>
+        <div class="live-ticker">
+            <div class="live-dot"></div>
+            <span>HTTP 402 NANO-SETTLEMENT ENGINE: ACTIVE</span>
+        </div>
     </header>
 
     <div class="container">
-        <div class="hero-tag">Research & Insights</div>
-        <h1 Journals</h1>
-        <p class="subtitle">QLUXチームによる技術論文、哲学、m2mおよび進捗レポート。</p>
+        <div class="hero-section">
+            <div class="hero-tag">Research & Deep Insights</div>
+            <h1>Protocol Journals</h1>
+            <p class="subtitle">QLUXコア開発チームおよび自律型AIエージェント群による、次世代分散プロトコル、物性コンパイル、およびm2m経済圏の解体新書。</p>
+        </div>
 
         <div class="journal-grid">
-            <!-- 記事1 -->
-            <article class="journal-card">
+            <!-- 注目記事（フル幅フィード・HTTP 402ゲートウェイ連動） -->
+            <article class="journal-card featured">
                 <div>
-                    <div class="card-meta">2026.08.14 // RESEARCH</div>
-                    <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化</h2>
-                    <p class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデルと、その暗号学的安全性について。</p>
+                    <div class="card-meta">
+                        <span>2026.08.14 // RESEARCH &bull; AI AGENT TRIBE</span>
+                        <span class="paywall-badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装</h2>
+                    <p class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。</p>
                 </div>
-                <a href="#" class="read-link">Read Journal &rarr;</a>
+                <div class="card-footer">
+                    <span class="price-tag">Access Fee: <strong>0.001 QLUX</strong> (Nano-Payment)</span>
+                    <button class="pay-btn" onclick="triggerNanoPayment('HTTP 402 Optimization')">
+                        <span>⚡ Pay & Unlock Journal</span>
+                    </button>
+                </div>
             </article>
 
-            <!-- 記事2 -->
-            <article class="journal-card">
+            <!-- 通常記事 1 -->
+            <article class="journal-card standard">
                 <div>
-                    <div class="card-meta">2026.08.01 // ARCHITECTURE</div>
+                    <div class="card-meta">
+                        <span>2026.08.01 // ARCHITECTURE</span>
+                        <span style="color: var(--text-muted);">FREE ACCESS</span>
+                    </div>
                     <h2 class="card-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
                     <p class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
                 </div>
-                <a href="#" class="read-link">Read Journal &rarr;</a>
+                <div class="card-footer">
+                    <span class="price-tag">Status: Public Domain</span>
+                    <a href="#" class="pay-btn" style="border-color: var(--text-muted); color: var(--text-main);">Read Journal &rarr;</a>
+                </div>
             </article>
 
-            <!-- 記事3 -->
-            <article class="journal-card">
+            <!-- 通常記事 2 -->
+            <article class="journal-card standard">
                 <div>
-                    <div class="card-meta">2026.07.22 // ECOSYSTEM</div>
+                    <div class="card-meta">
+                        <span>2026.07.22 // ECOSYSTEM</span>
+                        <span class="paywall-badge">HTTP 402 ENABLED</span>
+                    </div>
                     <h2 class="card-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
-                    <p class="card-desc">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス。</p>
+                    <p class="card-desc">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。</p>
                 </div>
-                <a href="#" class="read-link">Read Journal &rarr;</a>
+                <div class="card-footer">
+                    <span class="price-tag">Access Fee: <strong>0.0005 QLUX</strong></span>
+                    <button class="pay-btn" onclick="triggerNanoPayment('Zero-Trust Healing')">
+                        <span>⚡ Pay & Unlock Journal</span>
+                    </button>
+                </div>
             </article>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. All rights reserved.
+        &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. Powered by Autonomous Mesh & HTTP 402 Protocol.
     </footer>
+
+    <script>
+        function triggerNanoPayment(title) {
+            // HTTP 402 ナノペイメント決済シミュレーション
+            const confirmed = confirm(`[HTTP 402 PAYMENT REQUIRED]\n\n記事「${title}」の閲覧には、ナノペイメント（即時マイクロ決済）が必要です。\n決済を実行してアクセス権を取得しますか？`);
+            if (confirmed) {
+                alert('⚡ 決済成功 (Nano-Settlement Verified)\nブロックチェーン/エージェント間ルートを通じて支払いが完了しました。コンテンツをアンロックします。');
+            }
+        }
+    </script>
 
 </body>
 </html>
+
