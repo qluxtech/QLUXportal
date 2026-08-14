@@ -3,30 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX | Autonomous AI Agent Settlement</title>
+    <title>QLUX | Autonomous AI Agent Settlement & Cloud Infrastructure</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ブラウザヘッダー -->
-    <header class="browser-header">
-        <div class="top-nav">
-            <span class="close-btn">&times;</span>
-            <div class="url-bar">
-                <span class="secure">🔒</span>
-                <span class="url-text">qlux.onrender.com</span>
-            </div>
-            <span class="menu-btn">⋮</span>
-        </div>
-        <div class="sub-nav">
-            <span class="logo">QLUX</span>
-            <nav class="nav-links">
-                <a href="#" class="active">人工知能</a>
-                <a href="#">シミュレーション</a>
-                <a href="#">メッシュ＆決済</a>
-            </nav>
-        </div>
+    <!-- サイト専用ヘッダー -->
+    <header class="site-header">
+        <div class="logo">QLUX</div>
+        <nav class="nav-links">
+            <a href="#" class="active">人工知能</a>
+            <a href="#">シミュレーション</a>
+            <a href="#">メッシュ＆決済</a>
+        </nav>
     </header>
 
     <!-- メインコンテンツ -->
@@ -35,11 +25,11 @@
         <!-- ヒーローセクション -->
         <section class="hero-section">
             <div class="hero-image-wrap">
-                <img src="earth-space-hero.jpg" alt="地球と宇宙のネットワーク" class="hero-img">
+                <img src="earth-space-hero.jpg" alt="地球と宇宙のネットワーク" class="hero-img" onerror="this.style.display='none';">
                 <div class="hero-overlay-text">
                     <span class="category-tag">データセンター / グローバル基盤</span>
                     <h1 class="hero-title">次世代デジタル経済の鼓動：信頼の連鎖</h1>
-                    <p class="hero-desc">QLUX分散型台帳基盤は、透明性と安全性を宇宙規模で世界中に提供します。</p>
+                    <p class="hero-desc">QLUX分散型台帳基盤は、透明性と安全性を宇宙規模で世界中に提供します。自律エージェントによるリアルタイムな経済圏の構築を強力にサポート。</p>
                     <a href="#" class="btn-read">発表を読む</a>
                 </div>
             </div>
@@ -52,23 +42,27 @@
             </div>
             <div class="card-grid">
                 <div class="card">
-                    <div class="card-img-wrap"><img src="card-1.jpg" alt="イベント"></div>
+                    <div class="card-img-wrap">
+                        <img src="card-1.jpg" alt="イベント" onerror="this.style.display='none';">
+                    </div>
                     <div class="card-body">
                         <span class="card-category">QLUX GTC | イベント</span>
-                        <h3>すべてはここから始まる</h3>
+                        <h3>すべてはここから始まる：基調講演ハイライト</h3>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-img-wrap"><img src="card-2.jpg" alt="AI"></div>
+                    <div class="card-img-wrap">
+                        <img src="card-2.jpg" alt="AI" onerror="this.style.display='none';">
+                    </div>
                     <div class="card-body">
                         <span class="card-category">エージェント型AI | ブログ</span>
-                        <h3>AIがもたらすリアルタイム経済の革新</h3>
+                        <h3>AIがもたらすリアルタイム経済の革新と実例</h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 人工知能 (AI) セクション -->
+        <!-- 人工知能 (AI) セクション1 -->
         <section class="content-section">
             <div class="section-title-bar">
                 <h2>人工知能 (AI)</h2>
@@ -81,11 +75,89 @@
                 <div class="sub-card-text">
                     <span class="card-category">エージェント型AI | ブログ</span>
                     <h4>QLUXのソフトウェアパートナー企業が、数百万人のクリエイターにAIエージェントをもたらす</h4>
-                    <p class="card-desc">MCPを使用してAIと連動し、自律的ワークフローの可能性を広げています。</p>
+                    <p class="sub-card-desc">MCPを使用してAIと連動し、自律的ワークフローの可能性を広げています。</p>
                 </div>
-                <div class="sub-card-img"><img src="card-3.jpg" alt="サーバー"></div>
+                <div class="sub-card-img">
+                    <img src="card-3.jpg" alt="サーバー" onerror="this.style.display='none';">
+                </div>
             </div>
         </section>
+
+        <!-- 人工知能 (AI) セクション2 -->
+        <section class="content-section">
+            <div class="section-title-bar">
+                <h2>次世代LLM & 自律分散処理</h2>
+            </div>
+            <p class="section-lead">
+                分散されたノード間でのリアルタイム同期と、高スループットな処理を実現する最新アーキテクチャの解説。
+            </p>
+            <div class="sub-card">
+                <div class="sub-card-text">
+                    <span class="card-category">ディープラーニング | リサーチ</span>
+                    <h4>超大規模モデルの分散学習における効率化アプローチ</h4>
+                    <p class="sub-card-desc">レイテンシーを極限まで削ぎ落とした分散AI基盤の構築手法。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- デザインとシミュレーションセクション -->
+        <section class="content-section">
+            <div class="section-title-bar">
+                <h2>デザインとシミュレーション</h2>
+                <div class="arrows"><span class="arrow">&lt;</span><span class="arrow">&gt;</span></div>
+            </div>
+            <p class="section-lead">
+                量子世界シミュレーションや排熱リサイクルの動的コンパイル機能を網羅。リアルタイムな分散メッシュとハイスペック環境の連携により、極限のパフォーマンスを実現します。
+            </p>
+            <div class="sub-card">
+                <div class="sub-card-text">
+                    <span class="card-category">量子世界シミュレーション</span>
+                    <h4>未来並列シミュレーションおよび物理リサイクルコードの動的コンパイル</h4>
+                    <p class="sub-card-desc">[Q-Simulation & Entropy Engine] 3ms/t step の高速処理。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ハードウェア層・テレメトリーセクション -->
+        <section class="content-section">
+            <div class="section-title-bar">
+                <h2>ハードウェア層・物理同期</h2>
+                <div class="arrows"><span class="arrow">&lt;</span><span class="arrow">&gt;</span></div>
+            </div>
+            <p class="section-lead">
+                物理電圧・パワー制御、超低遅延ネットワークの統合管理。ハードウェアと直結したリアルタイム制御システム。
+            </p>
+            <div class="sub-card">
+                <div class="sub-card-text">
+                    <span class="card-category">PHYSICAL TIER</span>
+                    <h4>50.00 V / 50.0 A (2,500W) テレメトリー制御</h4>
+                    <p class="sub-card-desc">超低遅延 0.002ms の環境下でのデータ最適化プロセスを完全に自動化。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- グローバルメッシュ・ナノ決済セクション -->
+        <section class="content-section extra-bottom-space">
+            <div class="section-title-bar">
+                <h2>HTTP 402 ナノ決済 & メッシュ</h2>
+                <div class="arrows"><span class="arrow">&lt;</span><span class="arrow">&gt;</span></div>
+            </div>
+            <p class="section-lead">
+                高速データクエリ、分散型ハイパフォーマンスストレージ、クロスノードのオークション決済をリアルタイムで処理。
+            </p>
+            <div class="sub-card">
+                <div class="sub-card-text">
+                    <span class="card-category">GLOBAL MESH</span>
+                    <h4>Node #0492-Tokyo / #1043-Zurich 稼働監視</h4>
+                    <p class="sub-card-desc">インフラストラクチャーが完全自動で収益を集約します。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- フッターエリア -->
+        <footer class="site-footer">
+            <p>© QLUX TECHNOLOGIES GLOBAL. All rights reserved.</p>
+        </footer>
 
     </main>
 
