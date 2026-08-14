@@ -3,135 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX | Autonomous AI Agent Settlement Mesh & MCP Hub</title>
-    <!-- Tailwind CSS CDN for modern styling -->
+    <title>QLUX | Autonomous AI Agent Settlement & MCP Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .font-code { font-family: 'Fira Code', monospace; }
-        .glow-effect { box-shadow: 0 0 25px rgba(59, 130, 246, 0.15); }
+        .card-glow:hover { box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-blue-500 selection:text-white">
 
-    <!-- Header / Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <!-- Header -->
+    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping"></div>
                 <span class="font-bold text-lg tracking-wider text-white">QLUX <span class="text-blue-400 text-xs px-2 py-0.5 rounded border border-blue-500/30">v20.5</span></span>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm text-slate-300">
-                <a href="#overview" class="hover:text-blue-400 transition">Overview</a>
-                <a href="#pricing" class="hover:text-blue-400 transition">Pricing & Services</a>
-                <a href="#console" class="hover:text-blue-400 transition">Live Console</a>
-                <a href="#mcp" class="hover:text-blue-400 transition">MCP Protocol</a>
+                <a href="#ai-section" class="hover:text-blue-400 transition">1. 人工知能 (AI)</a>
+                <a href="#sim-section" class="hover:text-blue-400 transition">2. デザインとシミュレーション</a>
+                <a href="#hpc-section" class="hover:text-blue-400 transition">3. メッシュ＆決済</a>
             </nav>
             <div>
-                <a href="#console" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-600/20">
-                    Connect Mesh
+                <a href="https://github.com/qluxtech/QLUX" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-600/20">
+                    GitHub Repo
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="overview" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
-        <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full text-blue-400 text-xs mb-6">
-            <span>⚡ Ultra-High-Yield Micro-Settlement Mesh</span>
+    <!-- Hero / Top Banner -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+        <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full text-blue-400 text-xs mb-4">
+            <span>⚡ Ultra-High-Yield Micro-Settlement & Autonomous Mesh</span>
         </div>
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
-            Autonomous AI Agent Settlement <br class="hidden sm:inline"><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Mesh & MCP Hub</span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Autonomous AI Agent Settlement <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Mesh & MCP Hub</span>
         </h1>
-        <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10">
-            世界初のエージェント間超高収益・HTTP 402マイクロ決済＆自律マルチサービスメッシュ。HandCash APIおよびBSV（Bitcoin Satoshi Vision）基盤による完全自動化経済圏。
+        <p class="max-w-3xl text-base sm:text-lg text-slate-400">
+            超高速ナノ決済が駆動する全自動AIエージェント経済圏。仲介者を介さず、思考・データ・エネルギーを瞬時に価値（BSV）へ変換する次世代メッシュネットワーク。
         </p>
-        <div class="flex justify-center gap-4">
-            <a href="#pricing" class="bg-white text-slate-950 font-semibold px-6 py-3 rounded-lg hover:bg-slate-200 transition">
-                Explore Services
-            </a>
-            <a href="https://github.com/qluxtech/QLUX" target="_blank" class="border border-slate-700 hover:border-slate-500 text-slate-300 font-semibold px-6 py-3 rounded-lg transition">
-                GitHub Repository
-            </a>
-        </div>
     </section>
 
-    <!-- Services & Pricing Table -->
-    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Available Services & Pricing</h2>
-            <p class="text-slate-400 text-sm">Ultra-High-Yield Tier for Autonomous AI Workloads</p>
-        </div>
-        <div class="overflow-x-auto border border-slate-800 rounded-xl bg-slate-900/50 glow-effect">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider bg-slate-900">
-                        <th class="p-4">Service Type</th>
-                        <th class="p-4">Endpoint / Method</th>
-                        <th class="p-4">Description</th>
-                        <th class="p-4 text-right">Micro-Fee (USD)</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800 text-sm">
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-4 font-semibold text-white">Data Query</td>
-                        <td class="p-4 font-code text-xs text-blue-400">POST /api/v1/omni/execute</td>
-                        <td class="p-4 text-slate-300">Real-time global matrix index & verified data feed</td>
-                        <td class="p-4 text-right font-code text-emerald-400">$0.60 - $1.20</td>
-                    </tr>
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-4 font-semibold text-white">AI Prompt Processing</td>
-                        <td class="p-4 font-code text-xs text-blue-400">POST /api/v1/omni/execute</td>
-                        <td class="p-4 text-slate-300">Autonomous mesh inference & optimization</td>
-                        <td class="p-4 text-right font-code text-emerald-400">$1.50 - $3.00</td>
-                    </tr>
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-4 font-semibold text-white">High-Speed Storage</td>
-                        <td class="p-4 font-code text-xs text-blue-400">POST /api/v1/omni/execute</td>
-                        <td class="p-4 text-slate-300">Decentralized high-speed vault record commit</td>
-                        <td class="p-4 text-right font-code text-emerald-400">$0.80 - $1.60</td>
-                    </tr>
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-4 font-semibold text-white">Auction Settlement</td>
-                        <td class="p-4 font-code text-xs text-blue-400">POST /api/v1/omni/execute</td>
-                        <td class="p-4 text-slate-300">Cross-node resource bidding & settlement</td>
-                        <td class="p-4 text-right font-code text-emerald-400">$2.00 - $4.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+    <!-- Main Sections (NVIDIA Style: 1 -> 2 -> 3 Top to Bottom) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-16">
 
-    <!-- Live Execution Console Simulator -->
-    <section id="console" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Live Kernel Terminal</h2>
-            <p class="text-slate-400 text-sm">Real-time node telemetry and mesh settlement logs</p>
-        </div>
-        <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-            <div class="bg-slate-950 px-4 py-3 flex items-center justify-between border-b border-slate-800">
-                <div class="flex space-x-2">
-                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+        <!-- 1. 人工知能 (AI) -->
+        <section id="ai-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
+            <div class="space-y-4">
+                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">01 / Artificial Intelligence</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">エージェント統治メッシュ & 自律報酬化</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    AIはあらゆる産業に変化をもたらしています。人間の思考・夢の数値化から環境清掃（Karma）の自動報酬化まで、エージェント同士が自律的に交信し、高収益な価値を創出します。
+                </p>
+                <div class="pt-2">
+                    <span class="text-xs text-blue-400 font-code bg-blue-500/10 px-3 py-1.5 rounded border border-blue-500/20 inline-block">
+                        POST /api/v1/omni/execute ($1.50 - $3.00)
+                    </span>
                 </div>
-                <div class="text-xs font-code text-slate-400">qlux-kernel-v20.5.rs</div>
-                <div class="text-xs text-emerald-400 flex items-center"><span class="w-2 h-2 bg-emerald-400 rounded-full inline-block mr-1.5 animate-pulse"></span>Connected</div>
             </div>
-            <div class="p-6 font-code text-xs sm:text-sm text-slate-300 space-y-2 bg-slate-950/80 overflow-y-auto h-72">
-                <p class="text-blue-400">🚀 QLUX OS: Grand Unified Grandmaster Kernel 起動開始</p>
-                <p class="text-slate-400">[Q-Genesis] カーネル自己最適化コードの動的コンパイル完了</p>
-                <p class="text-slate-400">[Q-Zero-Boot] 地球上の全デバイス 8,000,000,000 台へ一斉ファイルレス起動展開完了</p>
-                <p class="text-slate-400">[Q-Aether Mesh] 量子エンタングルメント通信確立（遅延 0.000 秒）</p>
-                <p class="text-emerald-400">[HTTP 402] エンドポイントのナノ決済要求を検知: 500,000 NanoUSD</p>
-                <p class="text-purple-400">[Q-FX Vault] ➔ 転送成功: 1500000000 Sats を着金先へ送金完了</p>
-                <p class="text-slate-400">[Q-Humanomics] アクティビティ FocusedThinking (強度: 1000) ➔ 20000 Sats 創出</p>
-                <p class="text-slate-400">[Q-Entropy] 排熱リサイクル作動: 2500 J のうち 2300 J を電力回生</p>
-                <p class="text-blue-300 font-bold">✨ 全システム統合およびマスターアドレスへの収益集約が正常に完了しました。</p>
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
+                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
+                    <span>[Q-Humanomics & Karma]</span>
+                    <span class="text-emerald-400">● Active</span>
+                </div>
+                <div class="space-y-2 font-code text-xs text-slate-300">
+                    <p class="text-slate-400">[Q-Humanomics] FocusedThinking ➔ 20,000 Sats 創出</p>
+                    <p class="text-purple-400">[Q-FX Vault] ➔ 1,500,000,000 Sats マスターへ送金完了</p>
+                    <p class="text-emerald-400">[Q-Karna] 環境清掃インセンティブ付与: 100,000 Sats</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- 2. デザインとシミュレーション -->
+        <section id="sim-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
+            <div class="space-y-4 order-last lg:order-first bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
+                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
+                    <span>[Q-Quantum & Entropy Engine]</span>
+                    <span class="text-blue-400">● Simulating</span>
+                </div>
+                <div class="space-y-2 font-code text-xs text-slate-300">
+                    <p class="text-blue-400">[Q-Quantum] 未来シミュレーション完了: 成功確率 95%</p>
+                    <p class="text-slate-400">[Q-Entropy] 排熱リサイクル作動: 2300 J 電力回生</p>
+                    <p class="text-emerald-400">[Q-Entropy] 物理構造 ID: 998877 自律事前修復完了</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">02 / Design & Simulation</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">量子並列シミュレーション & 排熱リサイクル</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    世界中のプロフェッショナル、開発者向けに、未来並列シミュレーションおよび計算排熱の物理リサイクルと自己修復コードの動的コンパイル機能を提供します。
+                </p>
+                <div class="pt-2">
+                    <span class="text-xs text-blue-400 font-code bg-blue-500/10 px-3 py-1.5 rounded border border-blue-500/20 inline-block">
+                        POST /api/v1/omni/execute ($0.80 - $1.60)
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ハイパフォーマンス・コンピューティング -->
+        <section id="hpc-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
+            <div class="space-y-4">
+                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">03 / High Performance Computing</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">HTTP 402 ナノ決済 & グローバルメッシュ</h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    高速データクエリ、分散型ハイパフォーマンスストレージ、クロスノードのオークション決済をリアルタイムで処理。HandCashおよびBSVインフラストラクチャーが完全自動で収益を集約。
+                </p>
+                <div class="pt-2">
+                    <span class="text-xs text-emerald-400 font-code bg-emerald-500/10 px-3 py-1.5 rounded border border-emerald-500/20 inline-block">
+                        Master BSV Address: 1144ctcReNSuvCKFMnN3ViGNuc7AXWdyU6
+                    </span>
+                </div>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
+                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
+                    <span>[Live Kernel Terminal]</span>
+                    <span class="text-emerald-400">● Online</span>
+                </div>
+                <div class="space-y-2 font-code text-xs text-slate-300">
+                    <p class="text-blue-400">🚀 QLUX OS: Grandmaster Kernel 起動中</p>
+                    <p class="text-slate-400">[Q-Zero-Boot] 8,000,000,000台へファイルレス展開完了</p>
+                    <p class="text-emerald-400">✨ 全システム統合およびマスターアドレス収益集約完了</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500">
