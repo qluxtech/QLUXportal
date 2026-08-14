@@ -6,24 +6,10 @@
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #e5e5e5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* モバイルフレーム（スマホ実機ビュー） */
-.mobile-browser-frame {
-    width: 100%;
-    max-width: 412px;
-    height: 860px;
     background-color: #ffffff;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
+    color: #202124;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* ブラウザ上部バー */
@@ -81,6 +67,10 @@ body {
     white-space: nowrap;
 }
 
+.nav-links::-webkit-scrollbar {
+    display: none;
+}
+
 .nav-links a {
     text-decoration: none;
     font-size: 12px;
@@ -94,14 +84,13 @@ body {
     padding-bottom: 2px;
 }
 
-/* メインコンテンツエリア（白ベースで清潔感） */
+/* メインコンテンツエリア */
 .main-content {
-    flex-grow: 1;
-    overflow-y: auto;
+    width: 100%;
     background-color: #ffffff;
 }
 
-/* ヒーローセクション（NVIDIA風：壮大な宇宙・地球ビジュアル） */
+/* ヒーローセクション */
 .hero-section {
     background-color: #0b0f19;
     color: #ffffff;
@@ -148,7 +137,7 @@ body {
 
 .btn-read {
     display: inline-block;
-    background-color: #00d26a; /* 爽やかなNVIDIA/エメラルドグリーン系アクセント */
+    background-color: #00d26a;
     color: #000000;
     font-weight: 700;
     font-size: 12px;
@@ -157,7 +146,7 @@ body {
     text-decoration: none;
 }
 
-/* おすすめ＆各セクション（白ベース＆クリーンなカード） */
+/* おすすめ＆各セクション */
 .recommend-section, .content-section {
     padding: 24px 16px;
     border-bottom: 1px solid #f1f3f4;
@@ -198,6 +187,11 @@ body {
     display: flex;
     gap: 12px;
     overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.card-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .card {
@@ -275,3 +269,4 @@ body {
     border-radius: 4px;
     display: block;
 }
+
