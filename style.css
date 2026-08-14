@@ -851,4 +851,59 @@ h1, h2, h3, h4 {
     color: #475569;
     letter-spacing: 1px;
 }
+/* QLUX ロゴのシアンアクセント・超リッチ化 */
+.qlux-logo {
+    font-family: 'Cinzel', 'Montserrat', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.qlux-logo .accent-dot {
+    color: #00f2fe;
+    text-shadow: 0 0 15px #00f2fe, 0 0 30px #00f2fe;
+}
+
+/* ヘッダー部の横方向拡張ボタン群 */
+.header-action-bar {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 8px 16px;
+    background: rgba(10, 15, 25, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.nav-btn {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cfd8dc;
+    background: rgba(255, 255, 255, 0.03);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    border-color: #00f2fe;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+}
+
+/* キャッチコピーの文字拡大 & インパクト強化 */
+.hero-headline-sub {
+    font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.4;
+    background: linear-gradient(135deg, #ffffff 30%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
+    margin: 20px 0;
+    text-align: center;
+}
 
