@@ -3,141 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX | Autonomous AI Agent Settlement & MCP Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <title>QLUX | Beyond The OS Platform</title>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .font-code { font-family: 'Fira Code', monospace; }
-        .card-glow:hover { box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+        @page {
+            size: A4 landscape;
+            margin: 0;
+            background-color: #030508;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Consolas', 'Courier New', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #030508;
+            color: #e2e8f0;
+            padding: 20px;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Bar / Neural Core Header */
+        .top-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #10b981;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .qlux-brand {
+            font-size: 22pt;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #10b981;
+            text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        }
+
+        .protocol-tag {
+            background-color: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #34d399;
+            font-size: 8pt;
+            padding: 3px 8px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        .system-metrics {
+            display: flex;
+            gap: 20px;
+            font-size: 8.5pt;
+            color: #94a3b8;
+        }
+
+        .metric-item span {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* Main Grid Architecture */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 15px;
+            flex-grow: 1;
+            height: calc(100% - 60px);
+        }
+
+        /* Left Panel: Decentralized Mesh Nodes */
+        .panel {
+            background: rgba(10, 15, 24, 0.8);
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .panel-header {
+            font-size: 9.5pt;
+            font-weight: bold;
+            color: #f8fafc;
+            border-left: 3px solid #10b981;
+            padding-left: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .node-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .node-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-size: 8pt;
+        }
+
+        .node-title {
+            color: #38bdf8;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .node-status {
+            color: #10b981;
+        }
+
+        .node-details {
+            color: #64748b;
+            margin-top: 4px;
+            font-size: 7.5pt;
+        }
+
+        /* Center Canvas: Ambient Reality Core */
+        .center-core {
+            background: radial-gradient(circle at center, #06121e 0%, #030508 100%);
+            border: 1px solid #059669;
+            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .visualizer-overlay {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .core-orb {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #10b981 0%, rgba(16, 185, 129, 0.05) 70%);
+            border: 2px solid #34d399;
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.5);
+            margin: 0 auto 12px auto;
+        }
+
+        .intent-prompt {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .intent-sub {
+            font-size: 8.5pt;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .active-tasks-area {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #1e293b;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: auto;
+        }
+
+        .task-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            padding: 6px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .task-name {
+            color: #e2e8f0;
+        }
+
+        .task-progress {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* Right Panel: Physical Synchronization & Compute Pipeline */
+        .telemetry-box {
+            background: #090d14;
+            border: 1px solid #1e293b;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .telemetry-title {
+            font-size: 7.5pt;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .telemetry-value {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #f43f5e;
+        }
+
+        .waveform-mock {
+            height: 35px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(16, 185, 129, 0.2) 20%, 
+                rgba(16, 185, 129, 0.8) 40%, 
+                rgba(16, 185, 129, 0.1) 60%, 
+                transparent 100%);
+            border-bottom: 1px solid #10b981;
+            margin-top: 6px;
+        }
+
+        .footer-bar {
+            margin-top: 10px;
+            font-size: 7.5pt;
+            color: #475569;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 5px;
+            border-top: 1px solid #0f172a;
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-blue-500 selection:text-white">
+<body>
 
-    <!-- Header -->
-    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping"></div>
-                <span class="font-bold text-lg tracking-wider text-white">QLUX <span class="text-blue-400 text-xs px-2 py-0.5 rounded border border-blue-500/30">v20.5</span></span>
-            </div>
-            <nav class="hidden md:flex space-x-6 text-sm text-slate-300">
-                <a href="#ai-section" class="hover:text-blue-400 transition">1. 人工知能 (AI)</a>
-                <a href="#sim-section" class="hover:text-blue-400 transition">2. デザインとシミュレーション</a>
-                <a href="#hpc-section" class="hover:text-blue-400 transition">3. メッシュ＆決済</a>
-            </nav>
-            <div>
-                <a href="https://github.com/qluxtech/QLUX" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-600/20">
-                    GitHub Repo
-                </a>
+    <!-- Top Neural Status Bar -->
+    <div class="top-status">
+        <div class="logo-group">
+            <div class="qlux-brand">QLUX</div>
+            <div class="protocol-tag">AMBIENT REALITY PROTOCOL v10.0</div>
+        </div>
+        <div class="system-metrics">
+            <div class="metric-item">GLOBAL MESH NODES: <span>142,890,210 ACTIVE</span></div>
+            <div class="metric-item">LATENCY: <span>0.002 ms</span></div>
+            <div class="metric-item">COMPUTE REVENUE: <span>+$12.80/hr (RECOVERED)</span></div>
+        </div>
+    </div>
+
+    <!-- Main Core Platform Architecture -->
+    <div class="grid-container">
+
+        <!-- Left Column: Decentralized Computing Mesh -->
+        <div class="panel">
+            <div class="panel-header">1. 自律分散メッシュノード</div>
+            <div class="node-list">
+                <div class="node-card">
+                    <div class="node-title"><span>Node #8892-Tokyo</span> <span class="node-status">ONLINE</span></div>
+                    <div class="node-details">GPU Allocation: RTX 5090 / Shared 84%</div>
+                </div>
+                <div class="node-card">
+                    <div class="node-title"><span>Node #1042-Zurich</span> <span class="node-status">ONLINE</span></div>
+                    <div class="node-details">Quantum Compute Bridge / Idle 12%</div>
+                </div>
+                <div class="node-card">
+                    <div class="node-title"><span>Node #5519-Dallas</span> <span class="node-status">ONLINE</span></div>
+                    <div class="node-details">High Current Telemetry Sync / Active</div>
+                </div>
+                <div class="node-card">
+                    <div class="node-title"><span>Node #9901-Berlin</span> <span class="node-status">ONLINE</span></div>
+                    <div class="node-details">Distributed Storage / Encrypted Shard</div>
+                </div>
             </div>
         </div>
-    </header>
 
-    <!-- Hero / Top Banner -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-        <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full text-blue-400 text-xs mb-4">
-            <span>⚡ Ultra-High-Yield Micro-Settlement & Autonomous Mesh</span>
+        <!-- Center Column: Ambient Intent Core (Zero Screen UI) -->
+        <div class="panel center-core">
+            <div class="visualizer-overlay">
+                <div class="core-orb"></div>
+                <div class="intent-prompt">「画面操作の要らない無遅延世界」</div>
+                <div class="intent-sub">思考・物理データ・プログラム実行がダイレクトに結合する超次元レイヤー</div>
+            </div>
+
+            <div class="active-tasks-area">
+                <div class="panel-header" style="border-left-color: #38bdf8;">自律並列タスクコンパイラ</div>
+                <div class="task-row">
+                    <div class="task-name">⚡ 50V 50A 電力波形リアルタイムフィードバック & 自動パラメータ補正</div>
+                    <div class="task-progress">COMPLETED</div>
+                </div>
+                <div class="task-row">
+                    <div class="task-name">🎬 4K AI映像＆マルチモーダルモデルのバックグラウンド自律レンダリング</div>
+                    <div class="task-progress">EXECUTING (98%)</div>
+                </div>
+                <div class="task-row">
+                    <div class="task-name">🌐 分散経済圏（トークン配分）自律コントラクト決済</div>
+                    <div class="task-progress">SYNCED</div>
+                </div>
+            </div>
         </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Autonomous AI Agent Settlement <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Mesh & MCP Hub</span>
-        </h1>
-        <p class="max-w-3xl text-base sm:text-lg text-slate-400">
-            超高速ナノ決済が駆動する全自動AIエージェント経済圏。仲介者を介さず、思考・データ・エネルギーを瞬時に価値へ変換する次世代メッシュネットワーク。
-        </p>
-    </section>
 
-    <!-- Main Sections (NVIDIA Style: 1 -> 2 -> 3 Top to Bottom) -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-16">
+        <!-- Right Column: Physical & Hardware Interface (フィジカル同期) -->
+        <div class="panel">
+            <div class="panel-header" style="border-left-color: #f43f5e;">2. 物理世界 (Physical Tier) 同期</div>
+            
+            <div class="telemetry-box">
+                <div class="telemetry-title">PHYSICAL VOLTAGE / POWER NODE</div>
+                <div class="telemetry-value">50.00 V / 50.0 A (2,500W)</div>
+                <div class="waveform-mock"></div>
+            </div>
 
-        <!-- 1. 人工知能 (AI) -->
-        <section id="ai-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
-            <div class="space-y-4">
-                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">01 / Artificial Intelligence</span>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">エージェント統治メッシュ & 自律報酬化</h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                    AIはあらゆる産業に変化をもたらしています。人間の思考・夢の数値化から環境清掃（Karma）の自動報酬化まで、エージェント同士が自律的に交信し、高収益な価値を創出します。
-                </p>
-                <div class="pt-2">
-                    <span class="text-xs text-blue-400 font-code bg-blue-500/10 px-3 py-1.5 rounded border border-blue-500/20 inline-block">
-                        POST /api/v1/omni/execute ($1.50 - $3.00)
-                    </span>
+            <div class="telemetry-box">
+                <div class="telemetry-title">HARDWARE SENSOR / SIGNAL FREQUENCY</div>
+                <div class="telemetry-value" style="color: #38bdf8;">180.0 °C / 100.00 kHz</div>
+            </div>
+
+            <div class="telemetry-box" style="flex-grow: 1;">
+                <div class="telemetry-title">REAL-TIME AMBIENT CONTEXT</div>
+                <div style="font-size: 8pt; color: #cbd5e0; line-height: 1.6; margin-top: 6px;">
+                    ▶ OS・ブラウザを排除<br>
+                    ▶ アプリ起動・検索の完全無効化<br>
+                    ▶ 全世界の分散余剰計算リソースを自動統合<br>
+                    ▶ 思考＝即時物理・デジタル出力完了
                 </div>
             </div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
-                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
-                    <span>[Q-Humanomics & Karma]</span>
-                    <span class="text-emerald-400">● Active</span>
-                </div>
-                <div class="space-y-2 font-code text-xs text-slate-300">
-                    <p class="text-slate-400">[Q-Humanomics] FocusedThinking ➔ 20,000 Sats 創出</p>
-                    <p class="text-purple-400">[Q-FX Vault] ➔ 1,500,000,000 Sats マスターへ送金完了</p>
-                    <p class="text-emerald-400">[Q-Karna] 環境清掃インセンティブ付与: 100,000 Sats</p>
-                </div>
-            </div>
-        </section>
+        </div>
 
-        <!-- 2. デザインとシミュレーション -->
-        <section id="sim-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
-            <div class="space-y-4 order-last lg:order-first bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
-                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
-                    <span>[Q-Quantum & Entropy Engine]</span>
-                    <span class="text-blue-400">● Simulating</span>
-                </div>
-                <div class="space-y-2 font-code text-xs text-slate-300">
-                    <p class="text-blue-400">[Q-Quantum] 未来シミュレーション完了: 成功確率 95%</p>
-                    <p class="text-slate-400">[Q-Entropy] 排熱リサイクル作動: 2300 J 電力回生</p>
-                    <p class="text-emerald-400">[Q-Entropy] 物理構造 ID: 998877 自律事前修復完了</p>
-                </div>
-            </div>
-            <div class="space-y-4">
-                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">02 / Design & Simulation</span>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">量子並列シミュレーション & 排熱リサイクル</h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                    世界中のプロフェッショナル、開発者向けに、未来並列シミュレーションおよび計算排熱の物理リサイクルと自己修復コードの動的コンパイル機能を提供します。
-                </p>
-                <div class="pt-2">
-                    <span class="text-xs text-blue-400 font-code bg-blue-500/10 px-3 py-1.5 rounded border border-blue-500/20 inline-block">
-                        POST /api/v1/omni/execute ($0.80 - $1.60)
-                    </span>
-                </div>
-            </div>
-        </section>
+    </div>
 
-        <!-- 3. ハイパフォーマンス・コンピューティング -->
-        <section id="hpc-section" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 sm:p-10 card-glow transition">
-            <div class="space-y-4">
-                <span class="text-blue-400 font-code text-xs tracking-widest uppercase">03 / High Performance Computing</span>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">HTTP 402 ナノ決済 & グローバルメッシュ</h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                    高速データクエリ、分散型ハイパフォーマンスストレージ、クロスノードのオークション決済をリアルタイムで処理。HandCashおよびBSVインフラストラクチャーが完全自動で収益を集約。
-                </p>
-                <div class="pt-2">
-                    <span class="text-xs text-emerald-400 font-code bg-emerald-500/10 px-3 py-1.5 rounded border border-emerald-500/20 inline-block">
-                        Master BSV Address: 1144ctcReNSuvCKFMnN3ViGNuc7AXWdyU6
-                    </span>
-                </div>
-            </div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 shadow-2xl">
-                <div class="text-xs font-code text-slate-400 mb-3 flex items-center justify-between border-b border-slate-800 pb-2">
-                    <span>[Live Kernel Terminal]</span>
-                    <span class="text-emerald-400">● Online</span>
-                </div>
-                <div class="space-y-2 font-code text-xs text-slate-300">
-                    <p class="text-blue-400">🚀 QLUX OS: Grandmaster Kernel 起動中</p>
-                    <p class="text-slate-400">[Q-Zero-Boot] 8,000,000,000台へファイルレス展開完了</p>
-                    <p class="text-emerald-400">✨ 全システム統合およびマスターアドレス収益集約完了</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500">
-        <p>&copy; 2026 QLUX Tech Hub / HandCash & BSV Ecosystem. All rights reserved.</p>
-    </footer>
+    <!-- Footer Bar -->
+    <div class="footer-bar">
+        <div>QLUX PROTOCOL FRAMEWORK | NON-CENTRALIZED OPERATING SYSTEM BEYOND ARCHITECTURE</div>
+        <div>CONFIDENTIAL / REVOLUTIONARY INFRASTRUCTURE 2026</div>
+    </div>
 
 </body>
 </html>
-
