@@ -964,3 +964,32 @@ h1, h2, h3, h4 {
   }
 </style>
 
+/* --- フッター・システム・アンカー --- */
+.system-depth-footer {
+  padding: 80px 20px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.telemetry-stream {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #4CAF50; /* 稼働ステータスのグリーン */
+  letter-spacing: 2px;
+  margin-bottom: 60px;
+  opacity: 0.7;
+}
+
+.footer-manifest p {
+  margin: 5px 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.brand-id {
+  font-size: 10px !important;
+  opacity: 0.3;
+  margin-top: 20px !important;
+}
