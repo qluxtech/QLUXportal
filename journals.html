@@ -9,7 +9,7 @@
             --bg-color: #030504;
             --card-bg: #080d0a;
             --border-color: #122218;
-            --accent-green: #38bdf8;
+            --accent-green: #38bdf8; /* ハイライトカラー */
             --text-main: #f4f4f1;
             --text-muted: #7a8c82;
             --badge-bg: #0c1a12;
@@ -20,42 +20,51 @@
             font-family: sans-serif;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         .header-top {
             font-size: 0.8rem;
             color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         h1 {
-            font-size: 2.2rem;
-            margin-top: 0;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin: 0 0 15px 0;
             color: var(--text-main);
+            font-weight: normal;
         }
         .subtitle {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 30px;
         }
         .post-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 25px;
-            margin-bottom: 25px;
+            padding: 30px;
             position: relative;
             cursor: pointer;
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         .post-card:hover {
             border-color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
         }
         .card-header {
             display: flex;
@@ -63,105 +72,137 @@
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         .badge {
             background: var(--badge-bg);
             border: 1px solid var(--border-color);
             color: var(--accent-green);
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         .post-title {
             color: var(--text-main);
-            font-size: 1.4rem;
-            margin: 0 0 10px 0;
+            font-size: 1.6rem;
+            margin: 0 0 15px 0;
+            font-weight: bold;
         }
         .post-excerpt {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
             margin-bottom: 20px;
+            flex-grow: 1;
         }
         .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-            font-size: 0.85rem;
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+        .access-info {
+            color: var(--text-muted);
         }
         .action-btn {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff;
             border: none;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             cursor: pointer;
             font-weight: bold;
+            text-decoration: none;
         }
-        /* モーダル */
+        /* モーダル（詳細表示） */
         #modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 5, 4, 0.9);
+            background: rgba(3, 5, 4, 0.95);
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 40px;
             box-sizing: border-box;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             background: var(--card-bg);
             border: 1px solid var(--accent-green);
             border-radius: 8px;
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
-            padding: 30px;
+            padding: 40px;
             box-sizing: border-box;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
         }
         .close-btn {
             position: absolute;
-            top: 15px; right: 20px;
+            top: 20px; right: 30px;
             background: none;
             border: none;
-            color: var(--text-main);
-            font-size: 1.8rem;
+            color: var(--text-muted);
+            font-size: 2.5rem;
             cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+        #modal-meta {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        #modal-title {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin: 0 0 20px 0;
+        }
+        #modal-body {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            white-space: pre-line; /* 改行コードを反映させる */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-top">RESEARCH & DEEP INSIGHTS</div>
+        <div class="header-top">// SOVEREIGN MESH</div>
         <h1>QLUX Journals</h1>
         <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
         
-        <div id="posts-container">Loading journals...</div>
+        <div id="posts-container" class="posts-grid">Loading journals...</div>
     </div>
 
     <!-- 詳細閲覧モーダル -->
     <div id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModal()">&times;</button>
-            <div id="modal-meta" class="card-header" style="margin-bottom: 5px;"></div>
-            <h2 id="modal-title" class="post-title" style="color: var(--accent-green); margin-bottom: 15px;"></h2>
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
-            <p id="modal-body" style="line-height: 1.7; color: var(--text-main); white-space: pre-line;"></p>
+            <div id="modal-meta"></div>
+            <h2 id="modal-title"></h2>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+            <p id="modal-body"></p>
         </div>
     </div>
 
     <script>
         let allPosts = [];
 
+        // posts.json を読み込んで画面を構築
         fetch('posts.json')
             .then(res => res.json())
             .then(posts => {
@@ -171,6 +212,7 @@
                 posts.forEach((post, index) => {
                     const card = document.createElement('div');
                     card.className = 'post-card';
+                    // カード全体をタップ可能に
                     card.onclick = () => openModal(index);
                     
                     card.innerHTML = `
@@ -181,8 +223,8 @@
                         <h2 class="post-title">${post.title}</h2>
                         <p class="post-excerpt">${post.excerpt}</p>
                         <div class="card-footer">
-                            <span style="color: var(--text-muted);">Access: Public Domain</span>
-                            <button class="action-btn">Read Full Article &rarr;</button>
+                            <span class="access-info">Access: Public Domain</span>
+                            <span class="action-btn">Read Full Article &rarr;</span>
                         </div>
                     `;
                     container.appendChild(card);
@@ -192,17 +234,26 @@
                 document.getElementById('posts-container').innerHTML = '<p style="color: var(--text-muted);">Failed to load journals.</p>';
             });
 
+        // モーダルを開く関数
         function openModal(index) {
             const post = allPosts[index];
-            document.getElementById('modal-meta').innerHTML = `<span>${post.date} // JOURNAL</span><span class="badge">SECURE NODE</span>`;
+            document.getElementById('modal-meta').innerHTML = `${post.date} // DEEP INSIGHTS`;
             document.getElementById('modal-title').innerText = post.title;
-            document.getElementById('modal-body').innerText = post.content;
+            document.getElementById('modal-body').innerText = post.content; // ここに全文が入る
             document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 背景のスクロールを固定
         }
 
+        // モーダルを閉じる関数
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = ''; // 背景のスクロールを解除
         }
+
+        // Escキーでも閉じられるようにする
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>
