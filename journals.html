@@ -349,16 +349,21 @@
                 ACTIVE & READY
             </span>
         </div>
-
-   <!-- QLUX Journal エントラント仕様ナノペイメント・統合セクション -->
-<section style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0 20px; font-family: inherit;">
+section style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0 20px; font-family: inherit;">
     <div style="background: #090d0f; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 35px; color: #f3f4f6; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);">
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
             <div style="font-size: 0.75rem; color: #10b981; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700;">
+                
+   <!-- QLUX Journal エントラント仕様ブルー・ナノペイメント統合セクション -->
+<section style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0 20px; font-family: inherit;">
+    <div style="background: #090d0f; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 35px; color: #f3f4f6; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 0.75rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700;">
                 2026.08.14 // RESEARCH • AI AGENT TRIBE
             </div>
-            <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
+            <span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
                 HTTP 402 ENABLED
             </span>
         </div>
@@ -374,11 +379,11 @@
         <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div>
                 <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
-                <div style="font-size: 1.1rem; font-weight: 700; color: #10b981;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
+                <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
             </div>
 
-            <!-- QLUX Journal ハンドキャッシュ連動決済ボタン -->
-            <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">
+            <!-- QLUX Journal ブルー仕様決済ボタン -->
+            <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4); transition: transform 0.2s;">
                 <span>⚡ Pay & Unlock Journal</span>
             </button>
         </div>
@@ -417,23 +422,7 @@ async function createHandCashPayment(productName, amount, destinationHandle) {
         alert(`エラーが発生しました: ${error.message}`);
     }
 }
-        try {
-            const response = await fetch('https://qluxportal01.onrender.com/api/create-stripe-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ productName, amountUSD })
-            });
-            const result = await response.json();
-            if (result.success && result.url) {
-                window.location.href = result.url;
-            } else {
-                alert('決済セッションの作成に失敗しました');
-            }
-        } catch (err) {
-            console.error(err);
-            alert('通信エラーが発生しました');
-        }
-    }
+
 </script>
 </body>
 </html>
