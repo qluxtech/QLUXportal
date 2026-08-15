@@ -143,12 +143,14 @@
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff;
             border: none;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
             font-size: 0.8rem;
             cursor: pointer;
             font-weight: bold;
+            transition: opacity 0.2s;
         }
+        .action-btn:hover { opacity: 0.9; }
         .action-btn.free-btn {
             background: transparent;
             border: 1px solid var(--border-color);
@@ -163,7 +165,7 @@
             background: rgba(3, 5, 4, 0.92);
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             z-index: 1000;
             backdrop-filter: blur(5px);
@@ -174,7 +176,7 @@
             border-radius: 8px;
             max-width: 750px;
             width: 100%;
-            padding: 35px;
+            padding: 30px;
             box-sizing: border-box;
             max-height: 85vh;
             overflow-y: auto;
@@ -199,24 +201,41 @@
         }
         #modal-title {
             color: var(--text-main);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin: 0 0 15px 0;
+            line-height: 1.3;
         }
+        
+        /* 402決済ターミナルボックス */
         .locked-box {
-            border: 1px dashed var(--border-color);
-            padding: 25px;
-            text-align: center;
+            border: 1px solid var(--border-color);
+            padding: 20px;
             border-radius: 6px;
             margin: 20px 0;
             background: #050a07;
         }
-        .locked-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .locked-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: #f59e0b;
+        }
+        .terminal-log {
+            background: #020503;
+            border: 1px solid #112215;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #7a8c82;
             margin-bottom: 15px;
+            line-height: 1.5;
+            min-height: 40px;
         }
         #modal-body {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-main);
             line-height: 1.8;
             white-space: pre-line;
@@ -228,7 +247,7 @@
     <div class="container">
         <div class="top-nav">
             <span>QLUX // SOVEREIGN MESH</span>
-            <span class="engine-status">⚡ HTTP 402 NANO-SETTLEMENT ENGINE: ACTIVE</span>
+            <span class="engine-status">⚡ HTTP 402 NANO-SETTLEMENT: ACTIVE</span>
         </div>
 
         <div class="section-tag">Research & Deep Insights</div>
@@ -246,10 +265,17 @@
             <h2 id="modal-title"></h2>
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
             
-            <!-- ロック状態エリア -->
+            <!-- HTTP 402 決済ターミナル -->
             <div id="lock-section" class="locked-box">
-                <div class="locked-text" id="locked-desc">このコンテンツの閲覧にはHTTP 402ナノペイメントが必要です。</div>
-                <button class="action-btn" id="pay-btn" onclick="executePayment()">⚡ Pay & Unlock Journal</button>
+                <div class="locked-header">
+                    <span>STATUS: 402 PAYMENT REQUIRED</span>
+                    <span id="fee-badge">Fee: 0.001 QLUX</span>
+                </div>
+                <div class="terminal-log" id="terminal-log">
+                    > GET /journals/secure-payload HTTP/1.1<br>
+                    > Response: HTTP/1.1 402 Payment Required. Ready for nano-settlement.
+                </div>
+                <button class="action-btn" id="pay-btn" onclick="executePayment()" style="width: 100%;">⚡ Execute 402 Nano-Payment & Unlock</button>
             </div>
 
             <!-- アンロック後本文 -->
@@ -265,7 +291,7 @@
                 title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
                 excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。",
                 content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装に関する詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルを構築。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるかについて、暗号学的検証データと実際のソースコードを交えて徹底解説する。\n\n1. マイクロエージェント間ナノペイメントのアーキテクチャ\n2. HTTP 402ステータスコードを活用した自律プロトコル\n3. ゼロトラスト環境下における高速セットリングテスト結果",
-                fee: "0.001 QLUX (Nano-Payment)",
+                fee: "0.001 QLUX",
                 access: "paid",
                 wide: true
             },
@@ -295,7 +321,7 @@
                 title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
                 excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊力が、世界の流通構造を根本から書き換える。」",
                 content: "遅延も、手数料の壁も、国境もない世界へ。\n\nAIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、数サトシの霊力が世界の流通構造を根本から書き換える次世代の決済基盤である。\n\n・完全自動化されたクロスボーダー・ナノペイメント\n・システム・エージェント間の自律的価値交換プロトコル\n・スケーラビリティの限界を突破する分散型台帳の仕組み",
-                fee: "0.001 QLUX (Nano-Payment)",
+                fee: "0.001 QLUX",
                 access: "paid",
                 wide: true
             }
@@ -313,7 +339,7 @@
             const badgeClass = isFree ? 'badge free' : 'badge';
             const badgeText = isFree ? 'FREE ACCESS' : 'HTTP 402 ENABLED';
             const footerText = isFree ? 'Status: Public Domain' : `Access Fee: ${post.fee}`;
-            const btnText = isFree ? 'Read Journal &rarr;' : '⚡ Pay & Unlock Journal';
+            const btnText = isFree ? 'Read Journal &rarr;' : '⚡ Pay & Unlock';
             const btnClass = isFree ? 'action-btn free-btn' : 'action-btn';
 
             card.innerHTML = `
@@ -341,6 +367,7 @@
 
             const lockSection = document.getElementById('lock-section');
             const modalBody = document.getElementById('modal-body');
+            const log = document.getElementById('terminal-log');
 
             if (currentPost.access === 'free') {
                 lockSection.style.display = 'none';
@@ -348,8 +375,9 @@
             } else {
                 lockSection.style.display = 'block';
                 modalBody.style.display = 'none';
-                document.getElementById('locked-desc').innerText = `Access Fee: ${currentPost.fee} - このコンテンツの閲覧にはHTTP 402決済が必要です。`;
-                document.getElementById('pay-btn').innerText = '⚡ Pay & Unlock Journal';
+                document.getElementById('fee-badge').innerText = `Fee: ${currentPost.fee}`;
+                log.innerHTML = `> GET /journals/${index} HTTP/1.1<br>> Response: 402 Payment Required (${currentPost.fee})`;
+                document.getElementById('pay-btn').innerText = '⚡ Execute 402 Nano-Payment & Unlock';
                 document.getElementById('pay-btn').disabled = false;
             }
 
@@ -359,15 +387,21 @@
 
         function executePayment() {
             const btn = document.getElementById('pay-btn');
-            const desc = document.getElementById('locked-desc');
-            btn.innerText = '🔄 402 Protocol Settling...';
+            const log = document.getElementById('terminal-log');
+            
+            btn.innerText = '🔄 Settling Ledger...';
             btn.disabled = true;
 
+            log.innerHTML += `<br>> POST /settle --amount=${currentPost.fee}`;
+            
             setTimeout(() => {
-                desc.innerText = '✅ ナノペイメント成立：アクセス権が認証されました。';
+                log.innerHTML += `<br><span style="color: #38bdf8;">> Response: HTTP/1.1 200 OK. Signature verified.</span>`;
+            }, 500);
+
+            setTimeout(() => {
                 document.getElementById('lock-section').style.display = 'none';
                 document.getElementById('modal-body').style.display = 'block';
-            }, 800);
+            }, 1000);
         }
 
         function closeModal() {
