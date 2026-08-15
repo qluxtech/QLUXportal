@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Journals // Autonomous Planetary Loop</title>
+    <title>QLUX Journals // Executive Sovereign Mesh</title>
     <style>
         :root {
-            --bg-base: #000201;
-            --card-bg: rgba(3, 10, 7, 0.92);
-            --border-glow: rgba(56, 189, 248, 0.3);
-            --border-hover: rgba(16, 185, 129, 0.8);
+            --bg-base: #020403;
+            --card-bg: linear-gradient(145deg, rgba(6, 18, 12, 0.85), rgba(2, 8, 5, 0.95));
+            --border-glow: rgba(212, 175, 55, 0.25);
+            --border-hover: rgba(212, 175, 55, 0.7);
+            --accent-gold: #d4af37;
             --accent-cyan: #38bdf8;
             --accent-green: #10b981;
-            --accent-gold: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #8795a8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         }
 
@@ -31,17 +31,17 @@
             overflow-x: hidden;
         }
 
-        /* 宇宙空間サイバー・グリッド背景 */
+        /* 超高級エグゼクティブ・グリッド背景 */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: 
-                radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 80% 90%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
-                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px;
+                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.07) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+                linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
             z-index: -1;
             pointer-events: none;
         }
@@ -51,110 +51,111 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-            background: rgba(0, 2, 1, 0.95);
-            backdrop-filter: blur(20px);
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(2, 4, 3, 0.95);
+            backdrop-filter: blur(25px);
             position: sticky; top: 0; z-index: 100;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo { font-size: 1.15rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.6); }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 4px; color: #fff; text-shadow: 0 0 25px rgba(212, 175, 55, 0.5); }
         
         .planetary-badge {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(56, 189, 248, 0.1));
-            border: 1px solid rgba(16, 185, 129, 0.6);
-            color: var(--accent-green);
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.55rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            font-family: var(--font-mono);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .header-right { display: flex; align-items: center; gap: 10px; }
-        
-        .live-ticker {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(212, 175, 55, 0.5);
             color: var(--accent-gold);
             padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.58rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        
+        .live-ticker {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: var(--accent-gold);
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             font-family: var(--font-mono);
             letter-spacing: 1px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .ticker-dot { width: 6px; height: 6px; background: var(--accent-gold); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
 
-        /* メインコンテナ（余白を限界までタイトにし、画面全体に美しく配置） */
+        /* メインコンテナ */
         .main-container { 
-            max-width: 1200px; 
+            max-width: 1280px; 
             width: 100%;
             margin: 0 auto; 
-            padding: 20px 16px 20px 16px; 
+            padding: 30px 20px 40px 20px; 
         }
         
         .section-header {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding-bottom: 16px;
         }
 
-        .section-tag { font-size: 0.6rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; font-family: var(--font-mono); font-weight: 700; }
-        h1 { font-size: 1.5rem; margin: 0; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff 30%, #64748b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        @media(min-width: 768px) { h1 { font-size: 2rem; } }
+        .section-tag { font-size: 0.65rem; color: var(--accent-gold); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-mono); font-weight: 700; }
+        h1 { font-size: 1.8rem; margin: 0; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        @media(min-width: 768px) { h1 { font-size: 2.4rem; } }
 
         .loop-status-pill {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: var(--accent-green);
             background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 4px 10px;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 5px 12px;
             border-radius: 20px;
         }
 
-        /* フルオートブロググリッド */
+        /* エグゼクティブ・グリッド */
         .journals-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 14px;
+            gap: 20px;
         }
         @media(min-width: 768px) {
-            .journals-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .journals-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .post-card.wide { grid-column: span 2; }
         }
 
-        /* 超立体ハイテクカード */
+        /* 超重厚ハイテク・カード */
         .post-card {
-            background-color: var(--card-bg);
-            backdrop-filter: blur(16px);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 16px;
+            padding: 24px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; justify-content: space-between;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        @media(min-width: 768px) { .post-card { padding: 22px; } }
+        @media(min-width: 768px) { .post-card { padding: 32px; } }
 
         .post-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.06), transparent 70%);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -162,74 +163,75 @@
 
         .post-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -8px rgba(16, 185, 129, 0.25), 0 0 20px rgba(56, 189, 248, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.25), 0 0 30px rgba(16, 185, 129, 0.15);
         }
         .post-card:hover::before { opacity: 1; }
 
         .card-header {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.58rem; color: var(--text-muted); margin-bottom: 8px;
-            text-transform: uppercase; letter-spacing: 0.8px; font-family: var(--font-mono);
+            font-size: 0.62rem; color: var(--text-muted); margin-bottom: 12px;
+            text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono);
         }
 
         .badge {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: var(--accent-green);
-            padding: 2px 6px; border-radius: 4px;
-            font-size: 0.52rem; letter-spacing: 0.8px; font-family: var(--font-mono);
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+            padding: 3px 8px; border-radius: 6px;
+            font-size: 0.56rem; letter-spacing: 1px; font-family: var(--font-mono);
         }
         .badge.free { border-color: rgba(255, 255, 255, 0.15); color: var(--text-muted); background: rgba(255, 255, 255, 0.03); }
 
-        .post-title { color: var(--text-main); font-size: 1rem; margin: 0 0 6px 0; font-weight: 800; line-height: 1.35; letter-spacing: -0.2px; }
-        @media(min-width: 768px) { .post-title { font-size: 1.15rem; } }
+        .post-title { color: var(--text-main); font-size: 1.15rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.4; letter-spacing: -0.2px; }
+        @media(min-width: 768px) { .post-title { font-size: 1.35rem; } }
 
-        .post-excerpt { color: var(--text-muted); font-size: 0.78rem; line-height: 1.5; margin-bottom: 14px; }
+        .post-excerpt { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; }
 
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 10px; margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 14px; margin-top: auto;
         }
         
-        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.62rem; }
+        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.68rem; }
 
         .action-btn {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: #fff; border: none; 
-            padding: 6px 14px; 
+            background: linear-gradient(135deg, #d4af37, #aa8c2c);
+            color: #020403; border: none; 
+            padding: 8px 18px; 
             border-radius: 50px;
-            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.8px; 
+            font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; 
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex; align-items: center; gap: 4px;
+            display: inline-flex; align-items: center; gap: 6px;
         }
         .action-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.6);
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            transform: scale(1.05);
+            box-shadow: 0 6px 22px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #e5be42, #d4af37);
         }
         .action-btn.free-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-main);
             box-shadow: none;
         }
         .action-btn.free-btn:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(56, 189, 248, 0.12);
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
         }
 
-        /* 底部自動ループ・アクティビティターミナル（世界一の全自動感を演出） */
+        /* 底部ライブターミナル */
         .auto-loop-ticker {
-            margin-top: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            border-radius: 8px;
-            padding: 10px 14px;
+            margin-top: 24px;
+            background: rgba(2, 4, 3, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 14px 18px;
             font-family: var(--font-mono);
-            font-size: 0.62rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             display: flex;
             justify-content: space-between;
@@ -237,50 +239,49 @@
         }
         .auto-loop-ticker span { color: var(--accent-green); }
 
-        /* ポップアップ（モーダルウィンドウ） */
+        /* モーダルウィンドウ */
         #modal {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 2, 1, 0.88); justify-content: center; align-items: center;
-            padding: 12px; box-sizing: border-box; z-index: 1000;
-            backdrop-filter: blur(25px);
-            animation: fadeIn 0.2s ease;
+            background: rgba(2, 4, 3, 0.9); justify-content: center; align-items: center;
+            padding: 16px; box-sizing: border-box; z-index: 1000;
+            backdrop-filter: blur(30px);
+            animation: fadeIn 0.25s ease;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-content {
-            background: rgba(4, 12, 8, 0.98);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 14px; max-width: 680px; width: 100%; padding: 22px;
-            box-sizing: border-box; max-height: 85vh; overflow-y: auto; position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(56, 189, 248, 0.2);
+            background: linear-gradient(145deg, rgba(8, 22, 15, 0.98), rgba(2, 8, 5, 0.98));
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 18px; max-width: 740px; width: 100%; padding: 32px;
+            box-sizing: border-box; max-height: 88vh; overflow-y: auto; position: relative;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(212, 175, 55, 0.2);
         }
-        @media(min-width: 768px) { .modal-content { padding: 30px; } }
 
         .close-btn { 
-            position: absolute; top: 14px; right: 14px; 
+            position: absolute; top: 18px; right: 18px; 
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); 
-            color: var(--text-muted); width: 26px; height: 26px; border-radius: 50%;
+            color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; cursor: pointer; transition: all 0.2s;
+            font-size: 1.2rem; cursor: pointer; transition: all 0.2s;
         }
-        .close-btn:hover { color: #fff; border-color: var(--accent-cyan); background: rgba(56,189,248,0.2); }
+        .close-btn:hover { color: #fff; border-color: var(--accent-gold); background: rgba(212,175,255,0.15); }
 
-        #modal-meta { font-size: 0.6rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-family: var(--font-mono); }
-        #modal-title { color: var(--text-main); font-size: 1.2rem; margin: 0 0 12px 0; font-weight: 800; letter-spacing: -0.2px; }
-        @media(min-width: 768px) { #modal-title { font-size: 1.4rem; } }
+        #modal-meta { font-size: 0.65rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-family: var(--font-mono); }
+        #modal-title { color: var(--text-main); font-size: 1.35rem; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.2px; }
+        @media(min-width: 768px) { #modal-title { font-size: 1.6rem; } }
         
-        .locked-box { border: 1px solid rgba(245, 158, 11, 0.35); padding: 14px; border-radius: 8px; margin: 14px 0; background: rgba(245, 158, 11, 0.04); }
-        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.62rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
+        .locked-box { border: 1px solid rgba(212, 175, 55, 0.4); padding: 18px; border-radius: 10px; margin: 18px 0; background: rgba(212, 175, 55, 0.05); }
+        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.68rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
         
-        .terminal-log { background: #000201; border: 1px solid rgba(255, 255, 255, 0.06); padding: 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
-        #modal-body { font-size: 0.85rem; color: var(--text-main); line-height: 1.65; white-space: pre-line; display: none; }
+        .terminal-log { background: #010302; border: 1px solid rgba(255, 255, 255, 0.06); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+        #modal-body { font-size: 0.92rem; color: var(--text-main); line-height: 1.8; white-space: pre-line; display: none; }
     </style>
 </head>
 <body>
     <div class="header-bar">
         <div class="logo-area">
             <div class="logo">QLUX</div>
-            <div class="planetary-badge">Autonomous Loop</div>
+            <div class="planetary-badge">Executive Sovereign</div>
         </div>
         <div class="header-right">
             <div class="live-ticker">
@@ -293,37 +294,95 @@
     <div class="main-container">
         <div class="section-header">
             <div>
-                <div class="section-tag">Planetary Sovereign Stream</div>
+                <div class="section-tag">Executive Intelligence Feed</div>
                 <h1>QLUX Journals</h1>
             </div>
-            <div class="loop-status-pill">⚡ FULL-AUTO SYNC</div>
+            <div class="loop-status-pill">⚡ 100% FULL-AUTO SYNC</div>
         </div>
         
-        <div class="journals-grid" id="journals-container">
-            <!-- 動的カード挿入エリア -->
+        <div class="journals-grid">
+            <div class="post-card wide" onclick="openJournal(1)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装</h2>
+                    <p class="post-excerpt">仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <div class="post-card" onclick="openJournal(2)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.01 // ARCHITECTURE</span>
+                        <span class="badge free">FREE ACCESS</span>
+                    </div>
+                    <h2 class="post-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
+                    <p class="post-excerpt">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Status: Public Domain</span>
+                    <button class="action-btn free-btn">Read Journal &rarr;</button>
+                </div>
+            </div>
+
+            <div class="post-card" onclick="openJournal(3)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.07.22 // ECOSYSTEM</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
+                    <p class="post-excerpt">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 5 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <div class="post-card wide" onclick="openJournal(4)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤</h2>
+                    <p class="post-excerpt">遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。「数サトシの霊刀」が世界流通構造を根本から書き換える。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
         </div>
 
         <div class="auto-loop-ticker">
-            <div>[AUTO-LOOP ENGINE]: Node heartbeat active. Synchronizing peer ledgers...</div>
-            <span id="live-counter">Sats Flow: 1,420 / sec</span>
+            <div>[EXECUTIVE LOOP ENGINE]: Peer nodes synchronized. Zero friction settlement active.</div>
+            <span id="live-counter">Sats Flow: 1,840 / sec</span>
         </div>
     </div>
 
-    <!-- ポップアップ（モーダルウィンドウ） -->
+    <!-- モーダルウィンドウ -->
     <div id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <div id="modal-meta"></div>
             <h2 id="modal-title"></h2>
-            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 14px 0;">
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 18px 0;">
             
             <div id="lock-section" class="locked-box" style="display:none;">
                 <div class="locked-header">
                     <span>STATUS: 402 PAYMENT REQUIRED</span>
                     <span id="fee-badge">Fee: 0 Sats</span>
                 </div>
-                <div class="terminal-log" id="terminal-log">> Initializing HTTP 402 Handshake...</div>
-                <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 10px; justify-content: center; font-size: 0.7rem;">⚡ Pay & Unlock Session</button>
+                <div class="terminal-log" id="terminal-log">> Initializing HTTP 402 Executive Handshake...</div>
+                <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 12px; justify-content: center; font-size: 0.75rem;">⚡ Pay & Unlock Session</button>
             </div>
 
             <p id="modal-body"></p>
@@ -334,74 +393,36 @@
         let currentJournalId = null;
         let currentFeeSats = 0;
 
-        // 全自動ブログループのデータフィード
         const JOURNALS = {
             1: {
                 date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
                 title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
-                excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。",
                 content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
                 fee: 10,
-                access: "paid",
-                wide: true
+                access: "paid"
             },
             2: {
                 date: "2026.08.01 // ARCHITECTURE",
                 title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
-                excerpt: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。",
                 content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
                 fee: 0,
-                access: "free",
-                wide: false
+                access: "free"
             },
             3: {
                 date: "2026.07.22 // ECOSYSTEM",
                 title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
-                excerpt: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。",
                 content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
                 fee: 5,
-                access: "paid",
-                wide: false
+                access: "paid"
             },
             4: {
                 date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
                 title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
-                excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。",
                 content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
                 fee: 10,
-                access: "paid",
-                wide: true
+                access: "paid"
             }
         };
-
-        function renderJournals() {
-            const container = document.getElementById('journals-container');
-            container.innerHTML = '';
-
-            Object.keys(JOURNALS).forEach(id => {
-                const post = JOURNALS[id];
-                const card = document.createElement('div');
-                card.className = `post-card ${post.wide ? 'wide' : ''}`;
-                card.onclick = () => openJournal(id);
-
-                const isPaid = post.access === 'paid';
-                card.innerHTML = `
-                    <div>
-                        <div class="card-header">
-                            <span>${post.date}</span>
-                            <span class="badge ${isPaid ? '' : 'free'}">${isPaid ? 'HTTP 402 ENABLED' : 'FREE ACCESS'}</span>
-                        </div>
-                        <h2 class="post-title">${post.title}</h2>
-                        <p class="post-excerpt">${post.excerpt}</p>
-                    </div>
-                    <div class="card-footer">
-                        <span class="fee-info">${isPaid ? `Access Fee: ${post.fee} Sats` : 'Status: Public Domain'}</span>
-                        <button class="action-btn ${isPaid ? '' : 'free-btn'}">${isPaid ? '⚡ Pay & Unlock' : 'Read Journal &rarr;'}</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
 
         function openJournal(id) {
             currentJournalId = id;
@@ -409,11 +430,11 @@
             if (!post) return;
 
             const log = document.getElementById('terminal-log');
-            log.innerHTML = `> GET /api/journals/${id} HTTP/1.1<br>> Connecting to sovereign node...`;
+            log.innerHTML = `> GET /api/journals/${id} HTTP/1.1<br>> Connecting to executive sovereign node...`;
 
             if (post.access === 'paid') {
                 currentFeeSats = post.fee;
-                document.getElementById('modal-meta').innerHTML = `402 GATEWAY // AUTH REQUIRED`;
+                document.getElementById('modal-meta').innerHTML = `402 GATEWAY // EXECUTIVE AUTH REQUIRED`;
                 document.getElementById('fee-badge').innerText = `Fee: ${currentFeeSats} Sats`;
                 log.innerHTML += `<br><span style="color: var(--accent-gold);">> Response: 402 Payment Required (${currentFeeSats} Sats)</span>`;
                 
@@ -421,30 +442,4 @@
                 document.getElementById('modal-body').style.display = 'none';
                 document.getElementById('pay-btn').disabled = false;
                 document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
-                document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
-            } else {
-                document.getElementById('modal-meta').innerHTML = post.date;
-                document.getElementById('modal-title').innerText = post.title;
-                document.getElementById('modal-body').innerText = post.content;
-                
-                document.getElementById('lock-section').style.display = 'none';
-                document.getElementById('modal-body').style.display = 'block';
-            }
-
-            document.getElementById('modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function executeNanoPayment() {
-            const btn = document.getElementById('pay-btn');
-            const log = document.getElementById('terminal-log');
-            
-            btn.innerText = '🔄 Settling Ledger...';
-            btn.disabled = true;
-
-            log.innerHTML += `<br>> POST /api/settle --amount=${currentFeeSats}sats`;
-
-            setTimeout(() => {
-                log.innerHTML += `<br>> Ledger settled. Token acquired.`;
-                log.innerHTML += `<br>> Retrying GET with Authorization & Proof headers...`;
-  
+                document.getElementById('modal-title').innerText = "Protected 
