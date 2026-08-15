@@ -337,9 +337,9 @@
     }
 </style>
 
-<div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
-    <button class="payment-btn" onclick="createHandCashPayment('QLUXプレミアム', 1.5, 'あなたの受取ハンドル')">HandCash</button>
-    <button class="payment-btn" onclick="createStripeCheckout('QLUXプレミアム', 1.5)">Credit / Pay</button>
+<div class="payment-container" style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
+  <button class="btn-global-trigger" onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')">HandCash</button>
+  <button class="btn-global-trigger" onclick="createStripeCheckout('QLUXプレミアム', 1.5)">Credit / Pay</button>
 </div>
 
     </div>
