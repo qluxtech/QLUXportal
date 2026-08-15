@@ -313,6 +313,55 @@
         }
     </script>
 
+    <!-- HandCash 決済ボタン -->
+    <div style="text-align: center; margin: 40px 0;">
+        <button onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')" style="background: #00ff66; color: #030504; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            HandCashで支払う ($1.50)
+        </button>
+    </div>
+
+    <!-- HandCash 決済用JavaScript -->
+    <script>
+        async function createHandCashPayment(productName, amount, destinationHandle) {
+            const backendUrl = 'https://qluxportal01.onrender.com/api/payment-requests';
+
+            try {
+                console.log('決済リクエストを送信中...');
+                
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productName: productName,
+                        amount: amount,
+                        destinationHandle: destinationHandle
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
+                }
+
+                console.log('決済リクエスト作成成功:', result.data);
+
+                if (result.data && result.data.paymentUrl) {
+                    alert('決済ページを作成しました！支払い画面へ移動します。');
+                    window.location.href = result.data.paymentUrl;
+                } else {
+                    alert('決済リクエストが正常に登録されました。');
+                }
+
+            } catch (error) {
+                console.error('決済エラー:', error);
+                alert(`エラーが発生しました: ${error.message}`);
+            }
+        }
+    </script>
+    
 </body>
 </html>
 
