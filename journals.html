@@ -349,16 +349,45 @@
         仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。
     </p>
     
-    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; flex-wrap: wrap; gap: 12px;">
-        <span style="font-size: 0.85rem; color: #9ca3af;">Access Fee: <strong style="color: #38bdf8;">0.001 QLUX</strong> (Nano-Payment)</span>
+    <!-- HandCashナノペイメント・統合決済セクション -->
+<section style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0 20px; font-family: inherit;">
+    <div style="background: #090d0f; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 35px; color: #f3f4f6; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);">
         
-        <!-- 確実に機能するエンタープライズ決済ボタン -->
-        <a href="https://buy.stripe.com/your-checkout-link" target="_blank" rel="noopener noreferrer" style="background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); transition: opacity 0.2s;">
-            <span>⚡ Pay & Unlock Journal (Stripe / Secure Checkout)</span>
-        </a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 0.75rem; color: #10b981; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700;">
+                // NANO-SETTLEMENT PROTOCOL (HTTP 402)
+            </div>
+            <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
+                ACTIVE & READY
+            </span>
+        </div>
+
+        <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: #ffffff;">
+            自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化
+        </h3>
+        
+        <p style="color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
+            仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通によりネットワークのレジリエンスを極限まで高める実証データとエンドポイント。
+        </p>
+
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Required Access Fee</div>
+                <div style="font-size: 1.1rem; font-weight: 700; color: #10b981;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
+            </div>
+
+            <!-- HandCash 決済トリガーボタン -->
+            <button onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">
+                <span>⚡ Pay with HandCash</span>
+            </button>
+        </div>
+
+        <div style="margin-top: 20px; font-size: 0.75rem; color: #6b7280; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <span>Instant settlement via BSV / HandCash API</span>
+            <span>Zero-friction cryptographic verification</span>
+        </div>
     </div>
-</div>
-  
+</section>
 
    <!-- HandCash・Stripe 決済用JavaScript -->
 <script>
