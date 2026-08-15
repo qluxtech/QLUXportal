@@ -1,4 +1,4 @@
-*, *::before, *::after {
+す*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -939,4 +939,28 @@ h1, h2, h3, h4 {
     box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
 }
 
+<style>
+  /* 世界を惹きつける磁場ボタン */
+  .btn-global-trigger {
+    position: relative;
+    padding: 24px 60px;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease;
+  }
+  .btn-global-trigger:hover {
+    background: #ffffff;
+    color: #000;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+    transform: scale(1.02);
+  }
+</style>
 
