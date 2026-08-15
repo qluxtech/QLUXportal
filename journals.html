@@ -344,64 +344,63 @@
    <!-- HandCash・Stripe 決済用JavaScript -->
 <script>
     async function createHandCashPayment(productName, amount, destinationHandle) {
-            try {
-                console.log('決済リクエストを送信中...');
-                
-                const response = await fetch(backendUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        productName: productName,
-                        amount: amount,
-                        destinationHandle: destinationHandle
-                    })
-                });
+        const backendUrl = 'https://qluxportal01.onrender.com/api/payment-requests';
+        try {
+            console.log('決済リクエストを送信中...');
 
-                const result = await response.json();
+            const response = await fetch(backendUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productName: productName,
+                    amount: amount,
+                    destinationHandle: destinationHandle
+                })
+            });
 
-                if (!response.ok) {
-                    throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
-                }
+            const result = await response.json();
 
-                console.log('決済リクエスト作成成功:', result.data);
-
-                if (result.data && result.data.paymentUrl) {
-                    alert('決済ページを作成しました！支払い画面へ移動します。');
-                    window.location.href = result.data.paymentUrl;
-                } else {
-                    alert('決済リクエストが正常に登録されました。');
-                }
-
-            } catch (error) {
-                console.error('決済エラー:', error);
-                alert(`エラーが発生しました: ${error.message}`);
+            if (!response.ok) {
+                throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
             }
-        }
 
-                // Stripe Checkout へジャンプする関数
-        async function createStripeCheckout(productName, amountUSD) {
-            try {
-                const response = await fetch('https://qluxportal01.onrender.com/api/create-stripe-checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productName, amountUSD })
-                });
-                const result = await response.json();
-                if (result.success && result.url) {
-                    window.location.href = result.url;
-                } else {
-                    alert('決済セッションの作成に失敗しました');
-                }
-            } catch (err) {
-                console.error(err);
-                alert('通信エラーが発生しました');
+            console.log('決済リクエスト作成成功:', result.data);
+
+            if (result.data && result.data.paymentUrl) {
+                alert('決済ページを作成しました！支払い画面に移動します。');
+                window.location.href = result.data.paymentUrl;
+            } else {
+                alert('決済リクエストが正常に登録されました。');
             }
-        }
 
-    </script>
-    
+        } catch (error) {
+            console.error('決済エラー:', error);
+            alert(`エラーが発生しました: ${error.message}`);
+        }
+    }
+
+    // Stripe Checkout へジャンプする関数
+    async function createStripeCheckout(productName, amountUSD) {
+        try {
+            const response = await fetch('https://qluxportal01.onrender.com/api/create-stripe-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productName, amountUSD })
+            });
+            const result = await response.json();
+            if (result.success && result.url) {
+                window.location.href = result.url;
+            } else {
+                alert('決済セッションの作成に失敗しました');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('通信エラーが発生しました');
+        }
+    }
+</script>
 </body>
 </html>
 
