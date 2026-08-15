@@ -320,6 +320,13 @@
         </button>
     </div>
 
+        <!-- 日本・一般向け: クレジットカード / Apple Pay (Stripe) -->
+    <div style="text-align: center; margin: 20px 0;">
+        <button onclick="createStripeCheckout('QLUXプレミアム', 1.5)" style="background: #635bff; color: #ffffff; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            💳 クレジットカード / Apple Pay ($1.50)
+        </button>
+    </div>
+
     <!-- HandCash 決済用JavaScript -->
     <script>
         async function createHandCashPayment(productName, amount, destinationHandle) {
@@ -360,6 +367,27 @@
                 alert(`エラーが発生しました: ${error.message}`);
             }
         }
+
+                // Stripe Checkout へジャンプする関数
+        async function createStripeCheckout(productName, amountUSD) {
+            try {
+                const response = await fetch('https://qluxportal01.onrender.com/api/create-stripe-checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productName, amountUSD })
+                });
+                const result = await response.json();
+                if (result.success && result.url) {
+                    window.location.href = result.url;
+                } else {
+                    alert('決済セッションの作成に失敗しました');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('通信エラーが発生しました');
+            }
+        }
+
     </script>
     
 </body>
