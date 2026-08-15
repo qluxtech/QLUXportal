@@ -51,7 +51,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 48px;
+            padding: 20px 24px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             background: rgba(1, 4, 3, 0.85);
             backdrop-filter: blur(20px);
@@ -59,44 +59,50 @@
             position: sticky; top: 0; z-index: 100;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 16px; }
-        .logo { font-size: 1.3rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.3); }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.3); }
         
         .planetary-badge {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(56, 189, 248, 0.05));
             border: 1px solid rgba(16, 185, 129, 0.35);
             color: var(--accent-green);
-            padding: 5px 14px;
+            padding: 4px 10px;
             border-radius: 30px;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             font-family: var(--font-mono);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
         }
 
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
         
         .active-settle-badge {
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: var(--accent-gold);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.68rem;
-            font-family: var(--font-mono);
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+            display: none; /* モバイル表示最適化のため非表示 */
+        }
+        @media(min-width: 768px) {
+            .active-settle-badge {
+                display: block;
+                background: rgba(245, 158, 11, 0.08);
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                color: var(--accent-gold);
+                padding: 6px 14px;
+                border-radius: 8px;
+                font-size: 0.68rem;
+                font-family: var(--font-mono);
+                letter-spacing: 1.5px;
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+            }
         }
 
-        .nav-links { display: flex; gap: 10px; }
+        .nav-links { display: flex; gap: 8px; }
         .nav-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,49 +115,50 @@
         }
 
         /* メインコンテナ */
-        .main-container { max-width: 1280px; margin: 0 auto; padding: 60px 24px 100px 24px; }
+        .main-container { max-width: 1280px; margin: 0 auto; padding: 40px 20px 80px 20px; }
         
         .section-header {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             position: relative;
         }
         .section-header::after {
             content: '';
             position: absolute;
-            bottom: -20px; left: 0; width: 60px; height: 2px;
+            bottom: -15px; left: 0; width: 60px; height: 2px;
             background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
             border-radius: 2px;
         }
 
-        .section-tag { font-size: 0.72rem; color: var(--accent-cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; font-family: var(--font-mono); font-weight: 700; }
-        h1 { font-size: 3rem; margin: 0 0 12px 0; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, #fff 30%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; max-width: 800px; }
+        .section-tag { font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-family: var(--font-mono); font-weight: 700; }
+        h1 { font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 900; letter-spacing: -1px; background: linear-gradient(135deg, #fff 30%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         /* グリッドレイアウト */
         .journals-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 24px;
+            gap: 20px;
         }
         @media(min-width: 768px) {
-            .journals-grid { grid-template-columns: repeat(2, 1fr); }
+            .journals-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .post-card.wide { grid-column: span 2; }
         }
 
-        /* カードデザイン (グラスモーフィズム ＆ ネオンボーダー) */
+        /* カードデザイン */
         .post-card {
             background-color: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-glow);
             border-radius: 16px;
-            padding: 32px;
+            padding: 24px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; justify-content: space-between;
             position: relative;
             overflow: hidden;
         }
+        @media(min-width: 768px) { .post-card { padding: 32px; } }
 
         .post-card::before {
             content: '';
@@ -173,40 +180,42 @@
 
         .card-header {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.7rem; color: var(--text-muted); margin-bottom: 16px;
-            text-transform: uppercase; letter-spacing: 1.5px; font-family: var(--font-mono);
+            font-size: 0.65rem; color: var(--text-muted); margin-bottom: 14px;
+            text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono);
         }
 
         .badge {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
             color: var(--accent-green);
-            padding: 4px 10px; border-radius: 6px;
-            font-size: 0.62rem; letter-spacing: 1.5px; font-family: var(--font-mono);
+            padding: 3px 8px; border-radius: 6px;
+            font-size: 0.6rem; letter-spacing: 1px; font-family: var(--font-mono);
         }
         .badge.free { border-color: rgba(255, 255, 255, 0.1); color: var(--text-muted); background: rgba(255, 255, 255, 0.02); }
 
-        .post-title { color: var(--text-main); font-size: 1.35rem; margin: 0 0 12px 0; font-weight: 800; line-height: 1.4; letter-spacing: -0.5px; }
-        .post-excerpt { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 28px; }
+        .post-title { color: var(--text-main); font-size: 1.2rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.35; letter-spacing: -0.3px; }
+        @media(min-width: 768px) { .post-title { font-size: 1.35rem; } }
+
+        .post-excerpt { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 24px; }
 
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px; margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 16px; margin-top: auto;
         }
         
-        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.5px; }
+        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
 
-        /* 超カッコいい丸み（ピル型）ボタン */
+        /* ピル型ボタン */
         .action-btn {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff; border: none; 
-            padding: 10px 22px; 
-            border-radius: 50px; /* 完全なピル型ラウンド */
-            font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; 
+            padding: 8px 18px; 
+            border-radius: 50px;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; 
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(2, 132, 199, 0.4);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; gap: 6px;
         }
         .action-btn:hover {
             transform: scale(1.05);
@@ -229,38 +238,38 @@
         #modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(1, 4, 3, 0.85); justify-content: center; align-items: center;
-            padding: 24px; box-sizing: border-box; z-index: 1000;
+            padding: 16px; box-sizing: border-box; z-index: 1000;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            animation: fadeIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-content {
             background: rgba(6, 12, 9, 0.95);
             border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px; max-width: 800px; width: 100%; padding: 45px;
+            border-radius: 20px; max-width: 800px; width: 100%; padding: 28px;
             box-sizing: border-box; max-height: 85vh; overflow-y: auto; position: relative;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
         }
+        @media(min-width: 768px) { .modal-content { padding: 45px; } }
 
         .close-btn { 
-            position: absolute; top: 24px; right: 28px; 
+            position: absolute; top: 20px; right: 20px; 
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
-            color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%;
+            color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; cursor: pointer; transition: all 0.2s;
+            font-size: 1.2rem; cursor: pointer; transition: all 0.2s;
         }
         .close-btn:hover { color: #fff; border-color: var(--accent-cyan); background: rgba(56,189,248,0.1); }
 
-        #modal-meta { font-size: 0.72rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px; font-family: var(--font-mono); }
-        #modal-title { color: var(--text-main); font-size: 1.75rem; margin: 0 0 20px 0; font-weight: 800; letter-spacing: -0.5px; }
+        #modal-meta { font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-family: var(--font-mono); }
+        #modal-title { color: var(--text-main); font-size: 1.4rem; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.3px; }
+        @media(min-width: 768px) { #modal-title { font-size: 1.75rem; } }
         
-        .locked-box { border: 1px solid rgba(245, 158, 11, 0.25); padding: 24px; border-radius: 14px; margin: 24px 0; background: rgba(245, 158, 11, 0.03); }
-        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 0.72rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; letter-spacing: 1px; }
+        .locked-box { border: 1px solid rgba(245, 158, 11, 0.25); padding: 20px; border-radius: 12px; margin: 20px 0; background: rgba(245, 158, 11, 0.03); }
+        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.7rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
         
-        .terminal-log { background: #010302; border: 1px solid rgba(255, 255, 255, 0.06); padding: 16px; border-radius: 10px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; }
-        #modal-body { font-size: 1rem; color: var(--text-main); line-height: 1.9; white-space: pre-line; display: none; }
+        .terminal-log { background: #010302; border: 1px solid rgba(255, 255, 255, 0.06); padding: 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+        #modal-body { font-size: 0.95rem; color: var(--text-main); line-height: 1.8; white-space: pre-line; display: none; }
     </style>
 </head>
 <body>
@@ -293,7 +302,7 @@
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <div id="modal-meta"></div>
             <h2 id="modal-title"></h2>
-            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 24px 0;">
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 20px 0;">
             
             <div id="lock-section" class="locked-box" style="display:none;">
                 <div class="locked-header">
@@ -301,7 +310,7 @@
                     <span id="fee-badge">Fee: 0 Sats</span>
                 </div>
                 <div class="terminal-log" id="terminal-log">> Initializing HTTP 402 Handshake...</div>
-                <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 14px; justify-content: center; font-size: 0.8rem;">⚡ Pay & Unlock Session</button>
+                <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 12px; justify-content: center; font-size: 0.75rem;">⚡ Pay & Unlock Session</button>
             </div>
 
             <p id="modal-body"></p>
@@ -317,9 +326,16 @@
                 id: 1,
                 date: "2026.08.14",
                 category: "RESEARCH • AI AGENT TRIBE",
-                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
-                excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。",
-                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
+                title: `自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装`,
+                excerpt: `仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。`,
+                content: `自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。
+
+仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。
+
+【主要ハイライト】
+• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成
+• 10サトシ単位でのアトミック決済トランザクション
+• 自律エージェントの負荷分散とノード協調プロセス`,
                 feeText: "Access Fee: 10 Sats",
                 feeSats: 10,
                 access: "paid",
@@ -329,9 +345,11 @@
                 id: 2,
                 date: "2026.08.01",
                 category: "ARCHITECTURE",
-                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
-                excerpt: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。",
-                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
+                title: `高密度物性コンパイルと熱共鳴制御の統合フェーズ`,
+                excerpt: `ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。`,
+                content: `ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。
+
+物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。`,
                 feeText: "Status: Public Domain",
                 feeSats: 0,
                 access: "free",
@@ -341,9 +359,11 @@
                 id: 3,
                 date: "2026.07.22",
                 category: "ECOSYSTEM",
-                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
-                excerpt: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。",
-                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
+                title: `プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム`,
+                excerpt: `グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。`,
+                content: `グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。
+
+障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。`,
                 feeText: "Access Fee: 5 Sats",
                 feeSats: 5,
                 access: "paid",
@@ -353,9 +373,11 @@
                 id: 4,
                 date: "2026.08.14",
                 category: "RESEARCH • AI AGENT TRIBE",
-                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
-                excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。",
-                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
+                title: `境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤`,
+                excerpt: `遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。`,
+                content: `遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。
+
+私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。`,
                 feeText: "Access Fee: 10 Sats",
                 feeSats: 10,
                 access: "paid",
@@ -436,7 +458,3 @@
             setTimeout(() => {
                 log.innerHTML += `<br>> Ledger settled. Token acquired.`;
                 log.innerHTML += `<br>> Retrying GET with Authorization & Proof headers...`;
-                log.innerHTML += `<br><span style="color: var(--accent-cyan);">> Response: HTTP/1.1 200 OK. Signature verified. Payload unlocked.</span>`;
-                
-                setTimeout(() => {
-                    const post = JOURNAL_DATA.find(p 
