@@ -352,7 +352,15 @@
                 HTTP 402 ENABLED
             </span>
         </div>
-
+       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+    <div>
+        <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
+        <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
+    </div>
+    <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルとナノペイメント実装', 0.001, 'qlux')" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; border: 1px solid rgba(56, 189, 248, 0.4); padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+        <span>⚡ Pay & Unlock Journal</span>
+    </button>
+</div>
         <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: #ffffff;">
             境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤
         </h3>
@@ -360,17 +368,46 @@
         <p style="color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
             遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの重力が、世界の流通構造を根本から書き換える。」
         </p>
+<script>
+async function createHandCashPayment(productName, amount, destinationHandle) {
+    const backendUrl = '/api/payment-requests';
+    try {
+        console.log('HandCash決済リクエストを送信中...');
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productName, amount, destinationHandle })
+        });
+        
+        let result = {};
+        const text = await response.text();
+        if (text) {
+            try {
+                result = JSON.parse(text);
+            } catch (e) {
+                console.warn('JSONパース警告:', text);
+            }
+        }
 
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
-            <div>
-                <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
-                <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
-            </div>
+        if (!response.ok) {
+            throw new Error(result.error || result.message || `決済リクエストの作成に失敗しました (HTTP ${response.status})`);
+        }
 
-            <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4); transition: transform 0.2s;">
-                <span>⚡ Pay & Unlock Journal</span>
-            </button>
-        </div>
+        console.log('決済リクエスト作成成功:', result);
+        const paymentUrl = result.data?.paymentUrl || result.paymentUrl;
+        
+        if (paymentUrl) {
+            alert('決済ページを生成しました！支払い画面に移動します。');
+            window.location.href = paymentUrl;
+        } else {
+            throw new Error('決済URLが取得できませんでした。');
+        }
+    } catch (error) {
+        console.error('決済エラー:', error);
+        alert(`エラーが発生しました: ${error.message}`);
+    }
+}
+</script>
 
         <div style="margin-top: 20px; font-size: 0.75rem; color: #6b7280; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
             <span>// NANO-SETTLEMENT PROTOCOL (HTTP 402)</span>
