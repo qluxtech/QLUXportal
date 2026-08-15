@@ -3,9 +3,19 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const cors = require('cors');
-app.use(cors());
 app.use(express.json());
+
+// 外部ライブラリ不要のCORS許可設定
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
+
 
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
 const APP_SECRET = process.env.APP_SECRET || 'YOUR_APP_SECRET';
