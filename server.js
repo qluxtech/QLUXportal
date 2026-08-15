@@ -3,6 +3,8 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
