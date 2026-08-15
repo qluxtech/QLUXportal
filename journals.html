@@ -221,7 +221,7 @@
         <h1>QLUX Journals</h1>
         <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
         
-        <div id="posts-container" class="journals-grid">Loading journals...</div>
+        <div id="posts-container" class="journals-grid"></div>
     </div>
 
     <!-- モーダル -->
@@ -236,51 +236,84 @@
     </div>
 
     <script>
-        let allPosts = [];
+        // すべての記事データをインラインで完全網羅
+        const allPosts = [
+            {
+                date: "2026.08.14",
+                category: "RESEARCH • AI AGENT TRIBE",
+                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
+                excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装に関する詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルを構築。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるかについて、暗号学的検証データと実際のソースコードを交えて徹底解説する。\n\n1. マイクロエージェント間ナノペイメントのアーキテクチャ\n2. HTTP 402ステータスコードを活用した自律プロトコル\n3. ゼロトラスト環境下における高速セットリングテスト結果",
+                fee: "0.001 QLUX (Nano-Payment)",
+                access: "paid",
+                wide: true
+            },
+            {
+                date: "2026.08.01",
+                category: "ARCHITECTURE",
+                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
+                excerpt: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。",
+                content: "ハードウェアとソフトウェアの境界を完全に溶解させる次世代マテリアル・インフラストラクチャの設計思想について。\n\n高密度物性コンパイル技術により、物理的な制約をコードレベルで最適化し、熱共鳴制御を統合することで極限までの効率化を実現する。",
+                fee: "Free Access",
+                access: "free",
+                wide: false
+            },
+            {
+                date: "2026.07.22",
+                category: "ECOSYSTEM",
+                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
+                excerpt: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。\n\n中央集権的な管理者を必要とせず、ノード同士が自律的に異常を検知・隔離し、瞬時にネットワークを自己修復するアルゴリズムの実装詳細。",
+                fee: "0.0005 QLUX",
+                access: "paid",
+                wide: false
+            },
+            {
+                date: "2026.08.14",
+                category: "RESEARCH • AI AGENT TRIBE",
+                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
+                excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊力が、世界の流通構造を根本から書き換える。」",
+                content: "遅延も、手数料の壁も、国境もない世界へ。\n\nAIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、数サトシの霊力が世界の流通構造を根本から書き換える次世代の決済基盤である。\n\n・完全自動化されたクロスボーダー・ナノペイメント\n・システム・エージェント間の自律的価値交換プロトコル\n・スケーラビリティの限界を突破する分散型台帳の仕組み",
+                fee: "0.001 QLUX (Nano-Payment)",
+                access: "paid",
+                wide: true
+            }
+        ];
 
-        fetch('posts.json')
-            .then(res => res.json())
-            .then(posts => {
-                allPosts = posts;
-                const container = document.getElementById('posts-container');
-                container.innerHTML = '';
-                
-                posts.forEach((post, index) => {
-                    const card = document.createElement('div');
-                    card.className = `post-card ${post.wide ? 'wide' : ''}`;
-                    card.onclick = () => openModal(index);
+        const container = document.getElementById('posts-container');
+        
+        allPosts.forEach((post, index) => {
+            const card = document.createElement('div');
+            card.className = `post-card ${post.wide ? 'wide' : ''}`;
+            card.onclick = () => openModal(index);
 
-                    const isFree = post.access === 'free';
-                    const badgeClass = isFree ? 'badge free' : 'badge';
-                    const badgeText = isFree ? 'FREE ACCESS' : 'HTTP 402 ENABLED';
-                    const footerText = isFree ? 'Status: Public Domain' : `Access Fee: ${post.fee || '0.001 QLUX'}`;
-                    const btnText = isFree ? 'Read Journal &rarr;' : '⚡ Pay & Unlock Journal';
-                    const btnClass = isFree ? 'action-btn free-btn' : 'action-btn';
+            const isFree = post.access === 'free';
+            const badgeClass = isFree ? 'badge free' : 'badge';
+            const badgeText = isFree ? 'FREE ACCESS' : 'HTTP 402 ENABLED';
+            const footerText = isFree ? 'Status: Public Domain' : `Access Fee: ${post.fee}`;
+            const btnText = isFree ? 'Read Journal &rarr;' : '⚡ Pay & Unlock Journal';
+            const btnClass = isFree ? 'action-btn free-btn' : 'action-btn';
 
-                    card.innerHTML = `
-                        <div>
-                            <div class="card-header">
-                                <span>${post.date} // ${post.category || 'ARCHIVE'}</span>
-                                <span class="${badgeClass}">${badgeText}</span>
-                            </div>
-                            <h2 class="post-title">${post.title}</h2>
-                            <p class="post-excerpt">${post.excerpt}</p>
-                        </div>
-                        <div class="card-footer">
-                            <span class="fee-info">${footerText}</span>
-                            <button class="${btnClass}">${btnText}</button>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(err => {
-                document.getElementById('posts-container').innerHTML = '<p style="color: var(--text-muted);">Failed to load journals.</p>';
-            });
+            card.innerHTML = `
+                <div>
+                    <div class="card-header">
+                        <span>${post.date} // ${post.category}</span>
+                        <span class="${badgeClass}">${badgeText}</span>
+                    </div>
+                    <h2 class="post-title">${post.title}</h2>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">${footerText}</span>
+                    <button class="${btnClass}">${btnText}</button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
 
         function openModal(index) {
             const post = allPosts[index];
-            document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category || 'JOURNAL'}`;
+            document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category}`;
             document.getElementById('modal-title').innerText = post.title;
             document.getElementById('modal-body').innerText = post.content;
             document.getElementById('modal').style.display = 'flex';
