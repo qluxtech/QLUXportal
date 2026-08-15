@@ -341,14 +341,9 @@
   <button class="btn-global-trigger" onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')">HandCash</button>
   <button class="btn-global-trigger" onclick="createStripeCheckout('QLUXプレミアム', 1.5)">Credit / Pay</button>
 </div>
-
-    </div>
-
-    <!-- HandCash 決済用JavaScript -->
-    <script>
-        async function createHandCashPayment(productName, amount, destinationHandle) {
-            const backendUrl = 'https://qluxportal01.onrender.com/api/payment-requests';
-
+   <!-- HandCash・Stripe 決済用JavaScript -->
+<script>
+    async function createHandCashPayment(productName, amount, destinationHandle) {
             try {
                 console.log('決済リクエストを送信中...');
                 
