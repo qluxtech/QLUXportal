@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '/etc/secrets/.env' });
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
