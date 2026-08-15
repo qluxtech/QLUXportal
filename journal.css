@@ -1,0 +1,48 @@
+/* --- Journalページ専用 システム・アンカー --- */
+.system-depth-footer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 60px auto 0 auto;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.telemetry-stream {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.62rem;
+  color: #10b981;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  opacity: 0.85;
+  display: flex;
+  gap: 20px;
+}
+
+.footer-manifest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-manifest p {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  color: #f3f4f6;
+  font-weight: 600;
+}
+
+.footer-manifest .brand-id {
+  font-size: 0.58rem !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #d4af37;
+  opacity: 0.6;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
