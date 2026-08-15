@@ -350,75 +350,73 @@
             </span>
         </div>
 
+   <!-- QLUX Journal エントラント仕様ナノペイメント・統合セクション -->
+<section style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0 20px; font-family: inherit;">
+    <div style="background: #090d0f; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 35px; color: #f3f4f6; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 0.75rem; color: #10b981; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700;">
+                2026.08.14 // RESEARCH • AI AGENT TRIBE
+            </div>
+            <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
+                HTTP 402 ENABLED
+            </span>
+        </div>
+
         <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: #ffffff;">
-            自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化
+            自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装
         </h3>
         
         <p style="color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
-            仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通によりネットワークのレジリエンスを極限まで高める実証データとエンドポイント。
+            仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。
         </p>
 
         <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div>
-                <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Required Access Fee</div>
+                <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
                 <div style="font-size: 1.1rem; font-weight: 700; color: #10b981;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
             </div>
 
-            <!-- HandCash 決済トリガーボタン -->
-            <button onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">
-                <span>⚡ Pay with HandCash</span>
+            <!-- QLUX Journal ハンドキャッシュ連動決済ボタン -->
+            <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装', 1.5, '$あなたの受取ハンドル')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">
+                <span>⚡ Pay & Unlock Journal</span>
             </button>
         </div>
 
         <div style="margin-top: 20px; font-size: 0.75rem; color: #6b7280; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-            <span>Instant settlement via BSV / HandCash API</span>
-            <span>Zero-friction cryptographic verification</span>
+            <span>// NANO-SETTLEMENT PROTOCOL (HTTP 402)</span>
+            <span>ACTIVE & READY</span>
         </div>
     </div>
 </section>
 
-   <!-- HandCash・Stripe 決済用JavaScript -->
+<!-- HandCash ナノペイメント処理用JavaScript -->
 <script>
-    async function createHandCashPayment(productName, amount, destinationHandle) {
-        const backendUrl = 'https://qluxportal01.onrender.com/api/payment-requests';
-        try {
-            console.log('決済リクエストを送信中...');
-
-            const response = await fetch(backendUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    productName: productName,
-                    amount: amount,
-                    destinationHandle: destinationHandle
-                })
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
-            }
-
-            console.log('決済リクエスト作成成功:', result.data);
-
-            if (result.data && result.data.paymentUrl) {
-                alert('決済ページを作成しました！支払い画面に移動します。');
-                window.location.href = result.data.paymentUrl;
-            } else {
-                alert('決済リクエストが正常に登録されました。');
-            }
-
-        } catch (error) {
-            console.error('決済エラー:', error);
-            alert(`エラーが発生しました: ${error.message}`);
+async function createHandCashPayment(productName, amount, destinationHandle) {
+    const backendUrl = 'https://qluxportal101.onrender.com/api/payment-requests';
+    try {
+        console.log('決済リクエストを送信中...');
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productName, amount, destinationHandle })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
         }
+        console.log('決済リクエスト作成成功:', result.data);
+        if (result.data && result.data.paymentUrl) {
+            alert('決済ページを作成しました！支払い画面に移動します。');
+            window.location.href = result.data.paymentUrl;
+        } else {
+            alert('決済リクエストが正常に登録されました。');
+        }
+    } catch (error) {
+        console.error('決済エラー:', error);
+        alert(`エラーが発生しました: ${error.message}`);
     }
-
-    // Stripe Checkout へジャンプする関数
-    async function createStripeCheckout(productName, amountUSD) {
+}
         try {
             const response = await fetch('https://qluxportal01.onrender.com/api/create-stripe-checkout', {
                 method: 'POST',
