@@ -84,14 +84,14 @@
             padding: 25px;
             position: relative;
             cursor: pointer;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .post-card:hover {
             border-color: var(--accent-green);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
         }
         .card-header {
             display: flex;
@@ -247,12 +247,10 @@
                 
                 posts.forEach((post, index) => {
                     const card = document.createElement('div');
-                    // 1番目や4番目など、指定またはインデックスで横長（wide）カードにする
-                    const isWide = (index === 0 || index === 3 || post.wide);
-                    card.className = `post-card ${isWide ? 'wide' : ''}`;
+                    card.className = `post-card ${post.wide ? 'wide' : ''}`;
                     card.onclick = () => openModal(index);
 
-                    const isFree = post.access === 'free' || !post.fee;
+                    const isFree = post.access === 'free';
                     const badgeClass = isFree ? 'badge free' : 'badge';
                     const badgeText = isFree ? 'FREE ACCESS' : 'HTTP 402 ENABLED';
                     const footerText = isFree ? 'Status: Public Domain' : `Access Fee: ${post.fee || '0.001 QLUX'}`;
