@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
     `);
 });
 
-
 // 環境変数または直接定義の認証情報
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
 const APP_SECRET = process.env.APP_SECRET || 'YOUR_APP_SECRET';
