@@ -382,7 +382,7 @@
 <!-- HandCash ナノペイメント処理用JavaScript -->
 <script>
 async function createHandCashPayment(productName, amount, destinationHandle) {
-    const backendUrl = 'https://qluxportal101.onrender.com/api/payment-requests';
+    const backendUrl = '/api/payment-requests';
     try {
         console.log('決済リクエストを送信中...');
         const response = await fetch(backendUrl, {
