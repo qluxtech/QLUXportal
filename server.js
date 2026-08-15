@@ -4,6 +4,33 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const app = express();
 app.use(express.json());
 
+/**
+ * 根元（トップページ）へのアクセス用ハンドラー
+ * ブラウザで開いたときに "Cannot GET /" にならないようにします
+ */
+app.get('/', (req, res) => {
+    res.send(`
+        <html>
+            <head>
+                <title>QLUX HandCash Backend</title>
+                <style>
+                    body { font-family: sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding-top: 50px; }
+                    .card { background: #1e293b; display: inline-block; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+                    h1 { color: #38bdf8; }
+                </style>
+            </head>
+            <body>
+                <div class="card">
+                    <h1>QLUX HandCash API Backend</h1>
+                    <p>Status: <span style="color: #4ade80;">Running Successfully 🚀</span></p>
+                    <p>Endpoint /api/payment-requests is ready.</p>
+                </div>
+            </body>
+        </html>
+    `);
+});
+
+
 // 環境変数または直接定義の認証情報
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
 const APP_SECRET = process.env.APP_SECRET || 'YOUR_APP_SECRET';
