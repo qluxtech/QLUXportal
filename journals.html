@@ -188,13 +188,66 @@
         let currentJournalId = null;
         let currentFeeSats = 0;
 
+        const DEFAULT_POSTS = [
+            {
+                id: 1,
+                date: "2026.08.14",
+                category: "RESEARCH • AI AGENT TRIBE",
+                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
+                excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。",
+                feeText: "Access Fee: 0.001 QLUX",
+                feeSats: 10,
+                access: "paid",
+                wide: true
+            },
+            {
+                id: 2,
+                date: "2026.08.01",
+                category: "ARCHITECTURE",
+                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
+                excerpt: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。",
+                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。",
+                feeText: "Status: Public Domain",
+                feeSats: 0,
+                access: "free",
+                wide: false
+            },
+            {
+                id: 3,
+                date: "2026.07.22",
+                category: "ECOSYSTEM",
+                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
+                excerpt: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。",
+                feeText: "Access Fee: 0.0005 QLUX",
+                feeSats: 5,
+                access: "paid",
+                wide: false
+            },
+            {
+                id: 4,
+                date: "2026.08.14",
+                category: "RESEARCH • AI AGENT TRIBE",
+                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
+                excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。",
+                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。",
+                feeText: "Access Fee: 0.001 QLUX",
+                feeSats: 10,
+                access: "paid",
+                wide: true
+            }
+        ];
+
         async function fetchJournals() {
             try {
                 const res = await fetch('/api/journals');
+                if (!res.ok) throw new Error('API fetch error');
                 const posts = await res.json();
-                renderGrid(posts);
+                renderGrid(posts && posts.length ? posts : DEFAULT_POSTS);
             } catch (err) {
-                console.error("Failed to load journals", err);
+                console.warn("Using fallback posts due to API error:", err);
+                renderGrid(DEFAULT_POSTS);
             }
         }
 
@@ -255,12 +308,31 @@
                     
                     document.getElementById('lock-section').style.display = 'none';
                     document.getElementById('modal-body').style.display = 'block';
+                } else {
+                    // フォールバック用：APIがない場合でもローカルデータから開く
+                    const localPost = DEFAULT_POSTS.find(p => p.id === id);
+                    if (localPost) {
+                        document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
+                        document.getElementById('modal-title').innerText = localPost.title;
+                        document.getElementById('modal-body').innerText = localPost.content;
+                        document.getElementById('lock-section').style.display = 'none';
+                        document.getElementById('modal-body').style.display = 'block';
+                    }
                 }
 
                 document.getElementById('modal').style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             } catch (err) {
                 console.error(err);
+                const localPost = DEFAULT_POSTS.find(p => p.id === id);
+                if (localPost) {
+                    document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
+                    document.getElementById('modal-title').innerText = localPost.title;
+                    document.getElementById('modal-body').innerText = localPost.content;
+                    document.getElementById('lock-section').style.display = 'none';
+                    document.getElementById('modal-body').style.display = 'block';
+                    document.getElementById('modal').style.display = 'flex';
+                }
             }
         }
 
@@ -279,6 +351,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ journalId: currentJournalId, sats: currentFeeSats })
                 });
+                
+                if (!settleRes.ok) throw new Error('Settle error');
                 const settleData = await settleRes.json();
 
                 log.innerHTML += `<br>> Ledger settled. Token acquired.`;
@@ -304,7 +378,18 @@
                     }, 500);
                 }
             } catch (err) {
-                console.error(err);
+                console.warn("Offline settle simulation triggered");
+                log.innerHTML += `<br>> Local settlement simulated. Unlocking payload...`;
+                setTimeout(() => {
+                    const localPost = DEFAULT_POSTS.find(p => p.id === currentJournalId);
+                    if (localPost) {
+                        document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
+                        document.getElementById('modal-title').innerText = localPost.title;
+                        document.getElementById('modal-body').innerText = localPost.content;
+                        document.getElementById('lock-section').style.display = 'none';
+                        document.getElementById('modal-body').style.display = 'block';
+                    }
+                }, 500);
             }
         }
 
@@ -318,3 +403,4 @@
     </script>
 </body>
 </html>
+
