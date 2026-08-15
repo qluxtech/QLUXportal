@@ -6,10 +6,10 @@
     <title>QLUX Journals // Planetary Sovereign Mesh</title>
     <style>
         :root {
-            --bg-base: #010403;
-            --card-bg: rgba(6, 12, 9, 0.75);
-            --border-glow: rgba(56, 189, 248, 0.15);
-            --border-hover: rgba(56, 189, 248, 0.5);
+            --bg-base: #020604;
+            --card-bg: rgba(6, 16, 11, 0.85);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --border-hover: rgba(56, 189, 248, 0.6);
             --accent-cyan: #38bdf8;
             --accent-green: #10b981;
             --accent-gold: #f59e0b;
@@ -27,23 +27,24 @@
             margin: 0; padding: 0;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 近未来オーロラ背景エフェクト */
+        /* 近未来オーロラ＆グリッド背景 */
         body::before {
             content: '';
             position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                linear-gradient(rgba(56, 189, 248, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
             z-index: -1;
             pointer-events: none;
-            animation: auroraShift 20s ease infinite alternate;
-        }
-
-        @keyframes auroraShift {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-30px) scale(1.05); }
         }
 
         /* ヘッダー */
@@ -51,31 +52,31 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(1, 4, 3, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(2, 6, 4, 0.9);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             position: sticky; top: 0; z-index: 100;
         }
 
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.3); }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.4); }
         
         .planetary-badge {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(56, 189, 248, 0.05));
-            border: 1px solid rgba(16, 185, 129, 0.35);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(56, 189, 248, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.4);
             color: var(--accent-green);
             padding: 4px 10px;
             border-radius: 30px;
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             font-family: var(--font-mono);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
         }
 
-        .header-right { display: flex; align-items: center; gap: 12px; }
+        .header-right { display: flex; align-items: center; gap: 10px; }
         
         .active-settle-badge {
             display: none;
@@ -83,22 +84,22 @@
         @media(min-width: 768px) {
             .active-settle-badge {
                 display: block;
-                background: rgba(245, 158, 11, 0.08);
-                border: 1px solid rgba(245, 158, 11, 0.3);
+                background: rgba(245, 158, 11, 0.1);
+                border: 1px solid rgba(245, 158, 11, 0.35);
                 color: var(--accent-gold);
                 padding: 6px 14px;
                 border-radius: 8px;
                 font-size: 0.68rem;
                 font-family: var(--font-mono);
                 letter-spacing: 1.5px;
-                box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
             }
         }
 
         .nav-links { display: flex; gap: 8px; }
         .nav-btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             padding: 6px 12px;
             border-radius: 20px;
@@ -110,15 +111,21 @@
         .nav-btn:hover {
             border-color: var(--accent-cyan);
             color: #fff;
-            background: rgba(56, 189, 248, 0.08);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.1);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
         }
 
-        /* メインコンテナ */
-        .main-container { max-width: 1280px; margin: 0 auto; padding: 40px 20px 80px 20px; }
+        /* メインコンテナ（余分な空白を排除しつつ美しいバランスを構築） */
+        .main-container { 
+            max-width: 1200px; 
+            width: 100%;
+            margin: 0 auto; 
+            padding: 36px 20px 60px 20px; 
+            flex: 1;
+        }
         
         .section-header {
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             position: relative;
         }
         .section-header::after {
@@ -129,9 +136,9 @@
             border-radius: 2px;
         }
 
-        .section-tag { font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-family: var(--font-mono); font-weight: 700; }
-        h1 { font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 900; letter-spacing: -1px; background: linear-gradient(135deg, #fff 30%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .section-tag { font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 8px; font-family: var(--font-mono); font-weight: 700; }
+        h1 { font-size: 2.1rem; margin: 0 0 10px 0; font-weight: 900; letter-spacing: -1px; background: linear-gradient(135deg, #fff 30%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
 
         /* グリッドレイアウト */
         .journals-grid {
@@ -144,11 +151,11 @@
             .post-card.wide { grid-column: span 2; }
         }
 
-        /* カードデザイン */
+        /* 超立体カードデザイン */
         .post-card {
             background-color: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-glow);
             border-radius: 16px;
             padding: 24px;
@@ -158,13 +165,13 @@
             position: relative;
             overflow: hidden;
         }
-        @media(min-width: 768px) { .post-card { padding: 32px; } }
+        @media(min-width: 768px) { .post-card { padding: 30px; } }
 
         .post-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), transparent 60%);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.06), transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
@@ -172,46 +179,46 @@
 
         .post-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15), 0 0 30px rgba(16, 185, 129, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -15px rgba(56, 189, 248, 0.2), 0 0 35px rgba(16, 185, 129, 0.1);
         }
 
         .post-card:hover::before { opacity: 1; }
 
         .card-header {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.65rem; color: var(--text-muted); margin-bottom: 14px;
+            font-size: 0.62rem; color: var(--text-muted); margin-bottom: 14px;
             text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono);
         }
 
         .badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             color: var(--accent-green);
-            padding: 3px 8px; border-radius: 6px;
-            font-size: 0.6rem; letter-spacing: 1px; font-family: var(--font-mono);
+            padding: 3px 9px; border-radius: 6px;
+            font-size: 0.58rem; letter-spacing: 1px; font-family: var(--font-mono);
         }
-        .badge.free { border-color: rgba(255, 255, 255, 0.1); color: var(--text-muted); background: rgba(255, 255, 255, 0.02); }
+        .badge.free { border-color: rgba(255, 255, 255, 0.12); color: var(--text-muted); background: rgba(255, 255, 255, 0.03); }
 
-        .post-title { color: var(--text-main); font-size: 1.2rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.35; letter-spacing: -0.3px; }
-        @media(min-width: 768px) { .post-title { font-size: 1.35rem; } }
+        .post-title { color: var(--text-main); font-size: 1.15rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.35; letter-spacing: -0.3px; }
+        @media(min-width: 768px) { .post-title { font-size: 1.3rem; } }
 
-        .post-excerpt { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 24px; }
+        .post-excerpt { color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; margin-bottom: 24px; }
 
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 16px; margin-top: auto;
         }
         
-        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
+        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.7rem; }
 
-        /* ピル型ボタン */
+        /* 超カッコいいピル型ネオンボタン */
         .action-btn {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff; border: none; 
             padding: 8px 18px; 
             border-radius: 50px;
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; 
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; 
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(2, 132, 199, 0.4);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -219,57 +226,59 @@
         }
         .action-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.6);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.65);
             background: linear-gradient(135deg, #0ea5e9, #0284c7);
         }
         .action-btn.free-btn {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--text-main);
             box-shadow: none;
         }
         .action-btn.free-btn:hover {
             border-color: var(--accent-cyan);
-            background: rgba(56, 189, 248, 0.1);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.12);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
         }
 
-        /* モーダルウィンドウ */
+        /* ポップアップ（モーダルウィンドウ） */
         #modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(1, 4, 3, 0.85); justify-content: center; align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 6, 4, 0.85); justify-content: center; align-items: center;
             padding: 16px; box-sizing: border-box; z-index: 1000;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
+            animation: fadeIn 0.25s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-content {
-            background: rgba(6, 12, 9, 0.95);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px; max-width: 800px; width: 100%; padding: 28px;
+            background: rgba(6, 16, 11, 0.96);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 20px; max-width: 760px; width: 100%; padding: 28px;
             box-sizing: border-box; max-height: 85vh; overflow-y: auto; position: relative;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(56, 189, 248, 0.15);
         }
-        @media(min-width: 768px) { .modal-content { padding: 45px; } }
+        @media(min-width: 768px) { .modal-content { padding: 40px; } }
 
         .close-btn { 
             position: absolute; top: 20px; right: 20px; 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); 
             color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; cursor: pointer; transition: all 0.2s;
         }
-        .close-btn:hover { color: #fff; border-color: var(--accent-cyan); background: rgba(56,189,248,0.1); }
+        .close-btn:hover { color: #fff; border-color: var(--accent-cyan); background: rgba(56,189,248,0.15); }
 
-        #modal-meta { font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-family: var(--font-mono); }
-        #modal-title { color: var(--text-main); font-size: 1.4rem; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.3px; }
-        @media(min-width: 768px) { #modal-title { font-size: 1.75rem; } }
+        #modal-meta { font-size: 0.68rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-family: var(--font-mono); }
+        #modal-title { color: var(--text-main); font-size: 1.35rem; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.3px; }
+        @media(min-width: 768px) { #modal-title { font-size: 1.65rem; } }
         
-        .locked-box { border: 1px solid rgba(245, 158, 11, 0.25); padding: 20px; border-radius: 12px; margin: 20px 0; background: rgba(245, 158, 11, 0.03); }
-        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.7rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
+        .locked-box { border: 1px solid rgba(245, 158, 11, 0.3); padding: 18px; border-radius: 12px; margin: 20px 0; background: rgba(245, 158, 11, 0.04); }
+        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.68rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
         
-        .terminal-log { background: #010302; border: 1px solid rgba(255, 255, 255, 0.06); padding: 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
-        #modal-body { font-size: 0.95rem; color: var(--text-main); line-height: 1.8; white-space: pre-line; display: none; }
+        .terminal-log { background: #010403; border: 1px solid rgba(255, 255, 255, 0.06); padding: 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+        #modal-body { font-size: 0.92rem; color: var(--text-main); line-height: 1.8; white-space: pre-line; display: none; }
     </style>
 </head>
 <body>
@@ -294,7 +303,7 @@
             <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
         </div>
         
-        <!-- HTMLにカードを直接物理配置（JSエラーに完全非依存） -->
+        <!-- カードグリッド -->
         <div class="journals-grid">
             
             <!-- 記事 1 -->
@@ -364,13 +373,13 @@
         </div>
     </div>
 
-    <!-- モーダルウィンドウ -->
+    <!-- ポップアップ（モーダルウィンドウ） -->
     <div id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <div id="modal-meta"></div>
             <h2 id="modal-title"></h2>
-            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 20px 0;">
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 18px 0;">
             
             <div id="lock-section" class="locked-box" style="display:none;">
                 <div class="locked-header">
@@ -438,10 +447,4 @@
                 document.getElementById('modal-body').style.display = 'none';
                 document.getElementById('pay-btn').disabled = false;
                 document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
-                document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
-            } else {
-                document.getElementById('modal-meta').innerHTML = post.date;
-                document.getElementById('modal-title').innerText = post.title;
-                document.getElementById('modal-body').innerText = post.content;
-                
           
