@@ -1,4 +1,3 @@
-require('dotenv').config({ path: '/etc/secrets/.env' });
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -16,7 +15,6 @@ app.use((req, res, next) => {
     }
     next();
 });
-
 
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
 const APP_SECRET = process.env.APP_SECRET || 'db01ad39e1f40529f286f11dd4fcd554d097b5d25f55d195fcc086f120eab84f';
@@ -39,7 +37,7 @@ app.get('/', (req, res) => {
                 <title>QLUX Multi-Gateway Backend</title>
                 <style>
                     body { font-family: sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding-top: 50px; }
-                    .card { background: #1e293b; display: inline-block; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+                    .card { background: #1e293b; display: inline-block; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
                     h1 { color: #38bdf8; }
                 </style>
             </head>
@@ -53,9 +51,7 @@ app.get('/', (req, res) => {
     `);
 });
 
-/**
- * ① HandCash APIプロキシ層
- */
+// ① HandCash APIプロキシ層
 app.post('/api/payment-requests', async (req, res) => {
     try {
         const { productName, amount, destinationHandle } = req.body;
@@ -81,13 +77,11 @@ app.post('/api/payment-requests', async (req, res) => {
     }
 });
 
-/**
- * ② 日本市場向け：Stripe 決済セッション作成エンドポイント
- */
+// ② 日本市場向け：Stripe 決済セッション作成エンドポイント
 app.post('/api/create-stripe-checkout', async (req, res) => {
     try {
         const { productName, amountUSD } = req.body;
-        const unitAmountJPY = Math.round(Number(amountUSD) * 150 * 100); // USDから日本円換算（セント単位）
+        const unitAmount_JPY = Math.round(Number(amountUSD) * 150 * 100);
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -98,25 +92,24 @@ app.post('/api/create-stripe-checkout', async (req, res) => {
                         product_data: {
                             name: productName || 'QLUX Journal Access',
                         },
-                        unit_amount: unitAmountJPY,
+                        unit_amount: unitAmount_JPY,
                     },
                     quantity: 1,
                 },
             ],
             mode: 'payment',
-            success_url: `https://qluxportal01.onrender.com/?success=true`,
-            cancel_url: `https://qluxportal01.onrender.com/?canceled=true`,
+            success_url: 'https://qluxportal01.onrender.com/?success=true',
+            cancel_url: 'https://qluxportal01.onrender.com/?canceled=true',
         });
 
         res.json({ success: true, url: session.url });
-    } catch (error) {
-        console.error('Stripe Checkout Error:', error);
-        res.status(500).json({ success: false, error: error.message });
+    } catch (err) {
+        console.error('Stripe Checkout Error:', err);
+        res.status(500).json({ success: false, error: err.message });
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-    console.log(`QLUX Multi-Gateway Backend running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
-
