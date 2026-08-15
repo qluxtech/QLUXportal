@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 
 const APP_ID = process.env.APP_ID || '6a7987969b239d1da6e89505';
-const APP_SECRET = process.env.APP_SECRET || 'YOUR_APP_SECRET';
+const APP_SECRET = process.env.APP_SECRET || 'db01ad39e1f40529f286f11dd4fcd554d097b5d25f55d195fcc086f120eab84f';
 const AUTH_TOKEN = process.env.AUTH_TOKEN || 'bf5d7f6fbc24d129ff5d833854e576b2c80f9e085368a2bd5fb3748c04130f22';
 const BASE_URL = 'https://cloud.handcash.io/v3';
 
