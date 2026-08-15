@@ -3,463 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Journals // QLUX Sovereign Archive</title>
+    <title>QLUX Journals // Sovereign Node</title>
     <style>
-    :root {
-        --bg-color: #030504;
-        --card-bg: #080d0a;
-        --border-color: #122218;
-        --accent-green: #38bdf8;
-        --accent-dim: #0284c7;
-        --text-main: #f4f4f1;
-        --text-muted: #7a8c82;
-        --gold-glow: #ffb700;
-    }
-
+        :root {
+            --bg-color: #030504;
+            --card-bg: #080d0a;
+            --border-color: #122218;
+            --accent-green: #38bdf8;
+            --text-main: #f4f4f1;
+            --text-muted: #7a8c82;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
+            font-family: sans-serif;
             margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-        /* 背景のサイバー・グリッド効果 */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 34, 24, 0.15) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(18, 34, 24, 0.15) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-        }
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(3, 5, 4, 0.85);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-        .logo {
-            font-weight: 900;
-            letter-spacing: 3px;
-            color: #fff;
-            font-size: 1.2rem;
-        }
-        .live-ticker {
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            font-family: monospace;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(56, 189, 248, 0.05);
-            padding: 6px 14px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-
-            border-radius: 20px;
-        }
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
+            padding: 20px;
         }
         .container {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 30px;
-        }
-        .hero-section {
-            margin-bottom: 60px;
-            border-left: 3px solid var(--accent-green);
-            padding-left: 25px;
-        }
-        .hero-tag {
-            color: var(--accent-green);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-family: monospace;
-            margin-bottom: 10px;
+            max-width: 800px;
+            margin: 0 auto;
         }
         h1 {
-            font-size: 3rem;
-            margin: 0 0 15px 0;
-            color: #fff;
-            letter-spacing: -1px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
         }
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 700px;
-        }
-        /* 非対称ダイナミック・グリッドレイアウト */
-        .journal-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 30px;
-        }
-        .journal-card {
+        .post-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 35px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-        .journal-card.featured {
-            grid-column: span 12;
-            background: linear-gradient(135deg, #0c1711 0%, #080d0a 100%);
-            border-color: rgba(56, 189, 248, 0.3);
-        }
-        .journal-card.standard {
-            grid-column: span 6;
-        }
-        @media(max-width: 768px) {
-            .journal-card.standard { grid-column: span 12; }
-            header { padding: 15px 20px; }
-            h1 { font-size: 2rem; }
-        }
-        .journal-card:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.08);
-
-        }
-        .card-meta {
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            margin-bottom: 15px;
-            font-family: monospace;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .paywall-badge {
-            background: rgba(255, 183, 0, 0.1);
-            color: var(--gold-glow);
-            border: 1px solid rgba(255, 183, 0, 0.3);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            margin: 0 0 15px 0;
-            color: #fff;
-            line-height: 1.35;
-            font-weight: 700;
-        }
-        .journal-card.featured .card-title {
-            font-size: 2rem;
-        }
-        .card-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-        .price-tag {
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--text-main);
-        }
-        .pay-btn {
-            background-color: transparent;
-            color: var(--accent-green);
-            border: 1px solid var(--accent-green);
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            transition: border-color 0.2s;
+        }
+        .post-card:hover {
+            border-color: var(--accent-green);
+        }
+        .post-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .post-title {
+            color: var(--accent-green);
+            margin-top: 0;
+        }
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--accent-green);
+            font-size: 0.9rem;
             text-decoration: none;
         }
-        .pay-btn:hover {
-            background-color: var(--accent-green);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        /* モーダル（詳細閲覧用） */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 5, 4, 0.85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 100;
         }
-        footer {
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 60px 0;
-            margin-top: 100px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            background: rgba(3, 5, 4, 0.5);
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            box-sizing: border-box;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <a href="/" class="logo-area">
-            <span class="logo">QLUX</span>
-            <span style="font-size: 0.8rem; color: var(--text-muted);">// SOVEREIGN MESH</span>
-        </a>
-        <div class="live-ticker">
-            <div class="live-dot"></div>
-            <span>HTTP 402 NANO-SETTLEMENT ENGINE: ACTIVE</span>
-        </div>
-    </header>
-
     <div class="container">
-        <div class="hero-section">
-            <div class="hero-tag">Research & Deep Insights</div>
-            <h1>QLUX Journals</h1>
-            <p class="subtitle"> ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</p>
-        </div>
-
-        <div class="journal-grid">
-            <!-- 注目記事（フル幅フィード・HTTP 402ゲートウェイ連動） -->
-            <article class="journal-card featured">
-                <div>
-                    <div class="card-meta">
-                        <span>2026.08.14 // RESEARCH &bull; AI AGENT TRIBE</span>
-                        <span class="paywall-badge">HTTP 402 ENABLED</span>
-                    </div>
-                    <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最適化とナノペイメント実装</h2>
-                    <p class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを極限まで高めるか、その暗号学的検証データとソースコードを公開。</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">Access Fee: <strong>0.001 QLUX</strong> (Nano-Payment)</span>
-                    <button class="pay-btn" onclick="triggerNanoPayment('HTTP 402 Optimization')">
-                        <span>⚡ Pay & Unlock Journal</span>
-                    </button>
-                </div>
-            </article>
-
-            <!-- 通常記事 1 -->
-            <article class="journal-card standard">
-                <div>
-                    <div class="card-meta">
-                        <span>2026.08.01 // ARCHITECTURE</span>
-                        <span style="color: var(--text-muted);">FREE ACCESS</span>
-                    </div>
-                    <h2 class="card-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
-                    <p class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">Status: Public Domain</span>
-                    <a href="#" class="pay-btn" style="border-color: var(--text-muted); color: var(--text-main);">Read Journal &rarr;</a>
-                </div>
-            </article>
-
-            <!-- 通常記事 2 -->
-            <article class="journal-card standard">
-                <div>
-                    <div class="card-meta">
-                        <span>2026.07.22 // ECOSYSTEM</span>
-                        <span class="paywall-badge">HTTP 402 ENABLED</span>
-                    </div>
-                    <h2 class="card-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
-                    <p class="card-desc">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">Access Fee: <strong>0.0005 QLUX</strong></span>
-                    <button class="pay-btn" onclick="triggerNanoPayment('Zero-Trust Healing')">
-                        <span>⚡ Pay & Unlock Journal</span>
-                    </button>
-                </div>
-            </article>
-        </div>
+        <h1>QLUX Journals</h1>
+        <div id="posts-container">Loading journals...</div>
     </div>
 
-    <footer>
-        &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. Powered by Autonomous Mesh & HTTP 402 Protocol.
-    </footer>
+    <!-- 記事詳細モーダル -->
+    <div id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModalDirect()">&times;</button>
+            <div id="modal-date" class="post-date"></div>
+            <h2 id="modal-title" class="post-title"></h2>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
+            <p id="modal-body" style="line-height: 1.6; color: var(--text-main);"></p>
+        </div>
+    </div>
 
     <script>
-        function triggerNanoPayment(title) {
-            // HTTP 402 ナノペイメント決済シミュレーション
-            const confirmed = confirm(`[HTTP 402 PAYMENT REQUIRED]\n\n記事「${title}」の閲覧には、ナノペイメント（即時マイクロ決済）が必要です。\n決済を実行してアクセス権を取得しますか？`);
-            if (confirmed) {
-                alert('⚡ 決済成功 (Nano-Settlement Verified)\nブロックチェーン/エージェント間ルートを通じて支払いが完了しました。コンテンツをアンロックします。');
-            }
+        let allPosts = [];
+
+        fetch('posts.json')
+            .then(response => response.json())
+            .then(posts => {
+                allPosts = posts;
+                const container = document.getElementById('posts-container');
+                container.innerHTML = '';
+                posts.forEach((post, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'post-card';
+                    card.onclick = () => openModal(index);
+                    card.innerHTML = `
+                        <div class="post-date">${post.date}</div>
+                        <h2 class="post-title">${post.title}</h2>
+                        <p>${post.excerpt}</p>
+                        <span class="read-more">Read Full Article &rarr;</span>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => {
+                document.getElementById('posts-container').innerHTML = 'Failed to load journals.';
+            });
+
+        function openModal(index) {
+            const post = allPosts[index];
+            document.getElementById('modal-date').innerText = post.date;
+            document.getElementById('modal-title').innerText = post.title;
+            document.getElementById('modal-body').innerText = post.content;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function closeModalDirect() {
+            document.getElementById('modal').style.display = 'none';
         }
     </script>
-
-    <!-- 新しい洗練された決済ボタン -->
-<style>
-    .payment-btn {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #fff;
-        padding: 16px 32px;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .payment-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 10px 30px rgba(99, 89, 255, 0.3);
-        border-color: rgba(99, 89, 255, 0.5);
-    }
-</style>
-    
-    <!-- QLUX Journal ブルー＆シアン仕様・フラット統合セクション -->
-<section style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: inherit;">
-    <div style="background: #090d0f; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 35px; color: #f3f4f6; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <div style="font-size: 0.75rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700;">
-                2026.08.14 // RESEARCH • AI AGENT TRIBE
-            </div>
-            <span style="background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
-                HTTP 402 ENABLED
-            </span>
-        </div>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
-    <div>
-        <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
-        <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
-    </div>
-    <button onclick="createHandCashPayment('自律型AIトライブ間におけるHTTP 402プロトコルとナノペイメント実装', 0.001, 'qlux')" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; border: 1px solid rgba(56, 189, 248, 0.4); padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
-        <span>⚡ Pay & Unlock Journal</span>
-    </button>
-</div>
-        <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: #ffffff;">
-            境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤
-        </h3>
-        
-        <p style="color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;">
-            遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの重力が、世界の流通構造を根本から書き換える。」
-        </p>
-<script>
-async function createHandCashPayment(productName, amount, destinationHandle) {
-    const backendUrl = '/api/payment-requests';
-    try {
-        console.log('HandCash決済リクエストを送信中...');
-        const response = await fetch(backendUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productName, amount, destinationHandle })
-        });
-        
-        let result = {};
-        const text = await response.text();
-       <script>
-async function createHandCashPayment(productName, amount, destinationHandle) {
-    const backendUrl = '/api/payment-requests';
-    try {
-        console.log('HandCash決済リクエストを送信中...');
-        const response = await fetch(backendUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productName, amount, destinationHandle })
-        });
-        
-        let result = {};
-        const text = await response.text();
-        if (text) {
-            try {
-                result = JSON.parse(text);
-            } catch (e) {
-                console.warn('JSONパース警告:', text);
-            }
-        }
-
-        if (!response.ok) {
-            throw new Error(result.error || result.message || `決済リクエストの作成に失敗しました (HTTP ${response.status})`);
-        }
-
-        console.log('決済リクエスト作成成功:', result);
-        const paymentUrl = result.data?.paymentUrl || result.paymentUrl;
-        
-        if (paymentUrl) {
-            alert('決済ページを生成しました！支払い画面に移動します。');
-            window.location.href = paymentUrl;
-        } else {
-            throw new Error('決済URLが取得できませんでした。');
-        }
-    } catch (error) {
-        console.error('決済エラー:', error);
-        alert(`エラーが発生しました: ${error.message}`);
-    }
-}
-</script>
-
-<!-- HandCash ナノペイメント処理用JavaScript -->
-<script>
-async function createHandCashPayment(productName, amount, destinationHandle) {
-    const backendUrl = '/api/payment-requests';
-    try {
-        console.log('決済リクエストを送信中...');
-        const response = await fetch(backendUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productName, amount, destinationHandle })
-        });
-        let result = {};
-const text = await response.text();
-if (text) {
-    try {
-        result = JSON.parse(text);
-    } catch (e) {
-        console.warn('JSONパース失敗:', text);
-    }
-}
-
-if (!response.ok) {
-    throw new Error(result.error?.message || result.message || `サーバーエラー (HTTP ${response.status})`);
-}
-        console.log('決済リクエスト作成成功:', result.data);
-        if (result.data && result.data.paymentUrl) {
-            alert('決済ページを作成しました！支払い画面に移動します。');
-            window.location.href = result.data.paymentUrl;
-        } else {
-            alert('決済リクエストが正常に登録されました。');
-        }
-    } catch (error) {
-        console.error('決済エラー:', error);
-        alert(`エラーが発生しました: ${error.message}`);
-    }
-}
-
-</script>
 </body>
 </html>
 
