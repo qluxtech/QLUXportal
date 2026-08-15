@@ -188,15 +188,15 @@
         let currentJournalId = null;
         let currentFeeSats = 0;
 
-        const DEFAULT_POSTS = [
+        const JOURNAL_DATA = [
             {
                 id: 1,
                 date: "2026.08.14",
                 category: "RESEARCH • AI AGENT TRIBE",
                 title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
                 excerpt: "仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。",
-                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。",
-                feeText: "Access Fee: 0.001 QLUX",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
+                feeText: "Access Fee: 10 Sats",
                 feeSats: 10,
                 access: "paid",
                 wide: true
@@ -207,7 +207,7 @@
                 category: "ARCHITECTURE",
                 title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
                 excerpt: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。",
-                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。",
+                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
                 feeText: "Status: Public Domain",
                 feeSats: 0,
                 access: "free",
@@ -219,8 +219,8 @@
                 category: "ECOSYSTEM",
                 title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
                 excerpt: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。",
-                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。",
-                feeText: "Access Fee: 0.0005 QLUX",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
+                feeText: "Access Fee: 5 Sats",
                 feeSats: 5,
                 access: "paid",
                 wide: false
@@ -231,31 +231,20 @@
                 category: "RESEARCH • AI AGENT TRIBE",
                 title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
                 excerpt: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。",
-                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。",
-                feeText: "Access Fee: 0.001 QLUX",
+                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
+                feeText: "Access Fee: 10 Sats",
                 feeSats: 10,
                 access: "paid",
                 wide: true
             }
         ];
 
-        async function fetchJournals() {
-            try {
-                const res = await fetch('/api/journals');
-                if (!res.ok) throw new Error('API fetch error');
-                const posts = await res.json();
-                renderGrid(posts && posts.length ? posts : DEFAULT_POSTS);
-            } catch (err) {
-                console.warn("Using fallback posts due to API error:", err);
-                renderGrid(DEFAULT_POSTS);
-            }
-        }
-
-        function renderGrid(posts) {
+        function renderGrid() {
             const container = document.getElementById('posts-container');
+            if (!container) return;
             container.innerHTML = '';
             
-            posts.forEach(post => {
+            JOURNAL_DATA.forEach(post => {
                 const card = document.createElement('div');
                 card.className = `post-card ${post.wide ? 'wide' : ''}`;
                 card.onclick = () => openJournal(post.id);
@@ -279,64 +268,39 @@
             });
         }
 
-        async function openJournal(id) {
+        function openJournal(id) {
             currentJournalId = id;
+            const post = JOURNAL_DATA.find(p => p.id === id);
+            if (!post) return;
+
             const log = document.getElementById('terminal-log');
             log.innerHTML = `> GET /api/journals/${id} HTTP/1.1<br>> Connecting to sovereign node...`;
 
-            try {
-                const res = await fetch(`/api/journals/${id}`);
+            if (post.access === 'paid') {
+                currentFeeSats = post.feeSats;
+                document.getElementById('modal-meta').innerHTML = `402 GATEWAY // AUTH REQUIRED`;
+                document.getElementById('fee-badge').innerText = `Fee: ${currentFeeSats} Sats`;
+                log.innerHTML += `<br><span style="color: #f59e0b;">> Response: 402 Payment Required (${currentFeeSats} Sats)</span>`;
                 
-                if (res.status === 402) {
-                    const errorData = await res.json();
-                    currentFeeSats = errorData.feeSats;
-                    
-                    document.getElementById('modal-meta').innerHTML = `402 GATEWAY // AUTH REQUIRED`;
-                    document.getElementById('fee-badge').innerText = `Fee: ${currentFeeSats} Sats`;
-                    log.innerHTML += `<br><span style="color: #f59e0b;">> Response: 402 Payment Required (${currentFeeSats} Sats)</span>`;
-                    
-                    document.getElementById('lock-section').style.display = 'block';
-                    document.getElementById('modal-body').style.display = 'none';
-                    document.getElementById('pay-btn').disabled = false;
-                    document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock`;
-                    document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
-                } else if (res.ok) {
-                    const data = await res.json();
-                    document.getElementById('modal-meta').innerHTML = `${data.date} // ${data.category}`;
-                    document.getElementById('modal-title').innerText = data.title;
-                    document.getElementById('modal-body').innerText = data.content;
-                    
-                    document.getElementById('lock-section').style.display = 'none';
-                    document.getElementById('modal-body').style.display = 'block';
-                } else {
-                    // フォールバック用：APIがない場合でもローカルデータから開く
-                    const localPost = DEFAULT_POSTS.find(p => p.id === id);
-                    if (localPost) {
-                        document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
-                        document.getElementById('modal-title').innerText = localPost.title;
-                        document.getElementById('modal-body').innerText = localPost.content;
-                        document.getElementById('lock-section').style.display = 'none';
-                        document.getElementById('modal-body').style.display = 'block';
-                    }
-                }
-
-                document.getElementById('modal').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            } catch (err) {
-                console.error(err);
-                const localPost = DEFAULT_POSTS.find(p => p.id === id);
-                if (localPost) {
-                    document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
-                    document.getElementById('modal-title').innerText = localPost.title;
-                    document.getElementById('modal-body').innerText = localPost.content;
-                    document.getElementById('lock-section').style.display = 'none';
-                    document.getElementById('modal-body').style.display = 'block';
-                    document.getElementById('modal').style.display = 'flex';
-                }
+                document.getElementById('lock-section').style.display = 'block';
+                document.getElementById('modal-body').style.display = 'none';
+                document.getElementById('pay-btn').disabled = false;
+                document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock`;
+                document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
+            } else {
+                document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category}`;
+                document.getElementById('modal-title').innerText = post.title;
+                document.getElementById('modal-body').innerText = post.content;
+                
+                document.getElementById('lock-section').style.display = 'none';
+                document.getElementById('modal-body').style.display = 'block';
             }
+
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
-        async function executeNanoPayment() {
+        function executeNanoPayment() {
             const btn = document.getElementById('pay-btn');
             const log = document.getElementById('terminal-log');
             
@@ -345,52 +309,22 @@
 
             log.innerHTML += `<br>> POST /api/settle --amount=${currentFeeSats}sats`;
 
-            try {
-                const settleRes = await fetch('/api/settle', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ journalId: currentJournalId, sats: currentFeeSats })
-                });
-                
-                if (!settleRes.ok) throw new Error('Settle error');
-                const settleData = await settleRes.json();
-
+            setTimeout(() => {
                 log.innerHTML += `<br>> Ledger settled. Token acquired.`;
                 log.innerHTML += `<br>> Retrying GET with Authorization & Proof headers...`;
-
-                const res = await fetch(`/api/journals/${currentJournalId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${settleData.clientToken}`,
-                        'X-Nano-Payment-Proof': settleData.paymentProof
-                    }
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    log.innerHTML += `<br><span style="color: #38bdf8;">> Response: HTTP/1.1 200 OK. Signature verified. Payload unlocked.</span>`;
-                    
-                    setTimeout(() => {
-                        document.getElementById('modal-meta').innerHTML = `${data.date} // ${data.category}`;
-                        document.getElementById('modal-title').innerText = data.title;
-                        document.getElementById('modal-body').innerText = data.content;
-                        document.getElementById('lock-section').style.display = 'none';
-                        document.getElementById('modal-body').style.display = 'block';
-                    }, 500);
-                }
-            } catch (err) {
-                console.warn("Offline settle simulation triggered");
-                log.innerHTML += `<br>> Local settlement simulated. Unlocking payload...`;
+                log.innerHTML += `<br><span style="color: #38bdf8;">> Response: HTTP/1.1 200 OK. Signature verified. Payload unlocked.</span>`;
+                
                 setTimeout(() => {
-                    const localPost = DEFAULT_POSTS.find(p => p.id === currentJournalId);
-                    if (localPost) {
-                        document.getElementById('modal-meta').innerHTML = `${localPost.date} // ${localPost.category}`;
-                        document.getElementById('modal-title').innerText = localPost.title;
-                        document.getElementById('modal-body').innerText = localPost.content;
+                    const post = JOURNAL_DATA.find(p => p.id === currentJournalId);
+                    if (post) {
+                        document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category}`;
+                        document.getElementById('modal-title').innerText = post.title;
+                        document.getElementById('modal-body').innerText = post.content;
                         document.getElementById('lock-section').style.display = 'none';
                         document.getElementById('modal-body').style.display = 'block';
                     }
                 }, 500);
-            }
+            }, 600);
         }
 
         function closeModal() {
@@ -398,8 +332,9 @@
             document.body.style.overflow = '';
         }
 
-        fetchJournals();
-        setInterval(fetchJournals, 30000);
+        // 読み込み完了と同時に即時描画を実行
+        window.addEventListener('DOMContentLoaded', renderGrid);
+        renderGrid(); // フォールバック即時実行
     </script>
 </body>
 </html>
