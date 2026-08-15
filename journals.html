@@ -495,18 +495,53 @@
                                        </p>
                     </div>
                 </div>
-            </div> <!-- 2番目のカードの終了 -->
-        </div> <!-- journals-grid の閉じタグ -->
+                    </div> <!-- 2番目のカードの終了 -->
+    </div> <!-- メインの journals-grid の終了 -->
 
-        <!-- システムフッター（カードの外側・最下部） -->
-        <div style="width: 100%; max-width: 1200px; margin: 60px auto 20px auto; padding: 40px 20px; border-top: 1px solid rgba(212, 175, 55, 0.25); text-align: center; box-sizing: border-box;">
-          <div style="font-family: monospace; font-size: 10px; color: #10b981; letter-spacing: 2px; margin-bottom: 16px; opacity: 0.85;">
-            CORE_LOAD: 88.4% &nbsp;&nbsp; NODE_STATUS: ACTIVE
+    <!-- 全自動マルチジャンル・フィード & ユニバーサル・ゲートウェイ・コンテナ -->
+    <div style="width: 100%; max-width: 1280px; margin: 60px auto 0 auto; padding: 40px 20px; box-sizing: border-box; border-top: 1px solid rgba(212, 175, 55, 0.25);">
+      
+      <!-- システム神経系ステータス・バー -->
+      <div style="display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-size: 11px; color: #10b981; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 12px; margin-bottom: 30px;">
+        <span>GATEWAY_STATUS: UNIVERSAL_ACTIVE</span>
+        <span>SWARM_NODES: 1,024_SYNCED</span>
+        <span>HTTP_402_PROTOCOL: NATIVE_ZKP</span>
+      </div>
+
+      <!-- ダイナミック・ジャーナル・グリッド（全ジャンル自動展開） -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        
+        <!-- 自動生成記事カード -->
+        <article onclick="executeSwarmUnlock(this)" style="background: rgba(10, 10, 10, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div style="font-family: monospace; font-size: 10px; color: #d4af37; letter-spacing: 2px; margin-bottom: 12px;">
+            // UNIVERSE_SYNC : SWARM_ECONOMY
           </div>
-          <p style="margin: 0 0 8px 0; font-size: 13px; letter-spacing: 1px; color: #f3f4f6; font-weight: 600;">
-            摩擦を、解体する。知性を、直結させる。
+          <h3 style="color: #f3f4f6; font-size: 1.1rem; margin: 0 0 12px 0; line-height: 1.4;">
+            HTTP 402ユニバーサル・ゲートウェイによるグローバル・ナノペイメント自動化の実証
+          </h3>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6; margin: 0 0 20px 0;">
+            仲介者を完全に排除し、AIエージェント群がP2P層でサトシ単位の価値を自律循環させるプロトコルの全検証データ。
           </p>
-          <p style="margin: 0; font-size: 10px; font-family: monospace; color: #d4af37; opacity: 0.6; letter-spacing: 2px;">
-            QLUX // DISTRIBUTED_SOVEREIGNTY
-          </p>
-        </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 16px; margin-top: 16px;">
+            <span style="font-family: monospace; font-size: 11px; color: #10b981;">Access Fee: 5 Sats</span>
+            <button style="background: #d4af37; color: #000; border: none; padding: 6px 14px; font-family: monospace; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: pointer;">
+              ⚡ PAY & UNLOCK
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- 最下部システム・アンカー -->
+    <div style="width: 100%; max-width: 1200px; margin: 60px auto 20px auto; padding: 40px 20px; border-top: 1px solid rgba(212, 175, 55, 0.25); text-align: center; box-sizing: border-box;">
+      <div style="font-family: monospace; font-size: 10px; color: #10b981; letter-spacing: 2px; margin-bottom: 16px; opacity: 0.85;">
+        CORE_LOAD: 99.9% &nbsp;&nbsp; NODE_STATUS: GLOBAL_SOVEREIGN
+      </div>
+      <p style="margin: 0 0 8px 0; font-size: 13px; letter-spacing: 1px; color: #f3f4f6; font-weight: 600;">
+        摩擦を、解体する。知性を、直結させる。
+      </p>
+      <p style="margin: 0; font-size: 10px; font-family: monospace; color: #d4af37; opacity: 0.6; letter-spacing: 2px;">
+        QLUX // UNIVERSAL_GATEWAY_ACTIVE
+      </p>
+    </div>
