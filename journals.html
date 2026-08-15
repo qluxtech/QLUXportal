@@ -496,4 +496,133 @@
         </div>
     </div>
 
-    <!-- スマホ完
+    <!-- スマホ完全対応ポップアップ・モーダル -->
+    <div id="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-scroll-area">
+                <div id="modal-meta"></div>
+                <h2 id="modal-title"></h2>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0;">
+                
+                <div id="lock-section" class="locked-box" style="display:none;">
+                    <div class="locked-header">
+                        <span>STATUS: 402 PAYMENT REQUIRED</span>
+                        <span id="fee-badge">Fee: 0 Sats</span>
+                    </div>
+                    <div class="terminal-log" id="terminal-log">> Initializing HTTP 402 Executive Handshake...</div>
+                    <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 12px; justify-content: center; font-size: 0.78rem;">⚡ Pay & Unlock Session</button>
+                </div>
+
+                <p id="modal-body"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentJournalId = null;
+        let currentFeeSats = 0;
+
+        const JOURNALS = {
+            1: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
+                fee: 10,
+                access: "paid"
+            },
+            2: {
+                date: "2026.08.01 // ARCHITECTURE",
+                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
+                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
+                fee: 0,
+                access: "free"
+            },
+            3: {
+                date: "2026.07.22 // ECOSYSTEM",
+                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
+                fee: 5,
+                access: "paid"
+            },
+            4: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
+                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
+                fee: 10,
+                access: "paid"
+            }
+        };
+
+        function openJournal(id) {
+            currentJournalId = id;
+            const post = JOURNALS[id];
+            if (!post) return;
+
+            const log = document.getElementById('terminal-log');
+            log.innerHTML = `> GET /api/journals/${id} HTTP/1.1<br>> Connecting to executive sovereign node...`;
+
+            if (post.access === 'paid') {
+                currentFeeSats = post.fee;
+                document.getElementById('modal-meta').innerHTML = `402 GATEWAY // EXECUTIVE AUTH REQUIRED`;
+                document.getElementById('fee-badge').innerText = `Fee: ${currentFeeSats} Sats`;
+                log.innerHTML += `<br><span style="color: var(--accent-gold);">> Response: 402 Payment Required (${currentFeeSats} Sats)</span>`;
+                
+                document.getElementById('lock-section').style.display = 'block';
+                document.getElementById('modal-body').style.display = 'none';
+                document.getElementById('pay-btn').disabled = false;
+                document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
+                document.getElementById('modal-title').innerText = "Protected Executive Journal";
+            } else {
+                document.getElementById('modal-meta').innerHTML = post.date;
+                document.getElementById('modal-title').innerText = post.title;
+                document.getElementById('modal-body').innerText = post.content;
+                
+                document.getElementById('lock-section').style.display = 'none';
+                document.getElementById('modal-body').style.display = 'block';
+            }
+
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function executeNanoPayment() {
+            const btn = document.getElementById('pay-btn');
+            const log = document.getElementById('terminal-log');
+            
+            btn.innerText = '🔄 Settling Executive Ledger...';
+            btn.disabled = true;
+
+            log.innerHTML += `<br>> POST /api/settle --amount=${currentFeeSats}sats`;
+
+            setTimeout(() => {
+                log.innerHTML += `<br>> Ledger settled securely. Token acquired.`;
+                log.innerHTML += `<br>> Retrying GET with Authorization & Proof headers...`;
+                log.innerHTML += `<br><span style="color: var(--accent-gold);">> Response: HTTP/1.1 200 OK. Sovereign signature verified. Payload unlocked.</span>`;
+                
+                setTimeout(() => {
+                    const post = JOURNALS[currentJournalId];
+                    if (post) {
+                        document.getElementById('modal-meta').innerHTML = post.date;
+                        document.getElementById('modal-title').innerText = post.title;
+                        document.getElementById('modal-body').innerText = post.content;
+                        document.getElementById('lock-section').style.display = 'none';
+                        document.getElementById('modal-body').style.display = 'block';
+                    }
+                }, 400);
+            }, 500);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        setInterval(() => {
+            const randomFlow = Math.floor(Math.random() * 400) + 1600;
+            document.getElementById('live-counter').innerText = `Sats Flow: ${randomFlow.toLocaleString()} / sec`;
+        }, 3000);
+    </script>
+</body>
+</html>
