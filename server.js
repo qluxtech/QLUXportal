@@ -1,6 +1,6 @@
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')('sk_test_51Tm5UH6CeX7bmDt0nh8KtXocMwZvtZZsyIHHjpuQQ0V1UiWEerbAhnNywxnb5veKNkDippuqqwNR03s2EiPxBvuq00xWTJFgr4');
 
 const app = express();
 app.use(express.json());
