@@ -352,7 +352,7 @@
                 HTTP 402 ENABLED
             </span>
         </div>
-       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
     <div>
         <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 4px;">Access Fee</div>
         <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">0.001 QLUX <span style="font-size: 0.75rem; color: #6b7280; font-weight: normal;">(Nano-Payment)</span></div>
@@ -369,6 +369,19 @@
             遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの重力が、世界の流通構造を根本から書き換える。」
         </p>
 <script>
+async function createHandCashPayment(productName, amount, destinationHandle) {
+    const backendUrl = '/api/payment-requests';
+    try {
+        console.log('HandCash決済リクエストを送信中...');
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productName, amount, destinationHandle })
+        });
+        
+        let result = {};
+        const text = await response.text();
+       <script>
 async function createHandCashPayment(productName, amount, destinationHandle) {
     const backendUrl = '/api/payment-requests';
     try {
@@ -408,13 +421,6 @@ async function createHandCashPayment(productName, amount, destinationHandle) {
     }
 }
 </script>
-
-        <div style="margin-top: 20px; font-size: 0.75rem; color: #6b7280; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-            <span>// NANO-SETTLEMENT PROTOCOL (HTTP 402)</span>
-            <span>ACTIVE & READY</span>
-        </div>
-    </div>
-</section>
 
 <!-- HandCash ナノペイメント処理用JavaScript -->
 <script>
