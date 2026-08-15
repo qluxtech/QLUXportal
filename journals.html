@@ -390,10 +390,19 @@ async function createHandCashPayment(productName, amount, destinationHandle) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ productName, amount, destinationHandle })
         });
-        const result = await response.json();
-        if (!response.ok) {
-            throw new Error(result.error?.message || '決済リクエストの作成に失敗しました');
-        }
+        let result = {};
+const text = await response.text();
+if (text) {
+    try {
+        result = JSON.parse(text);
+    } catch (e) {
+        console.warn('JSONパース失敗:', text);
+    }
+}
+
+if (!response.ok) {
+    throw new Error(result.error?.message || result.message || `サーバーエラー (HTTP ${response.status})`);
+}
         console.log('決済リクエスト作成成功:', result.data);
         if (result.data && result.data.paymentUrl) {
             alert('決済ページを作成しました！支払い画面に移動します。');
