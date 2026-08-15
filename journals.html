@@ -313,18 +313,35 @@
         }
     </script>
 
-    <!-- HandCash 決済ボタン -->
-    <div style="text-align: center; margin: 40px 0;">
-        <button onclick="createHandCashPayment('QLUXプレミアム', 1.5, '$あなたの受取ハンドル')" style="background: #00ff66; color: #030504; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
-            HandCashで支払う ($1.50)
-        </button>
-    </div>
+    <!-- 新しい洗練された決済ボタン -->
+<style>
+    .payment-btn {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .payment-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(99, 89, 255, 0.3);
+        border-color: rgba(99, 89, 255, 0.5);
+    }
+</style>
 
-        <!-- 日本・一般向け: クレジットカード / Apple Pay (Stripe) -->
-    <div style="text-align: center; margin: 20px 0;">
-        <button onclick="createStripeCheckout('QLUXプレミアム', 1.5)" style="background: #635bff; color: #ffffff; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
-            💳 クレジットカード / Apple Pay ($1.50)
-        </button>
+<div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
+    <button class="payment-btn" onclick="createHandCashPayment('QLUXプレミアム', 1.5, 'あなたの受取ハンドル')">HandCash</button>
+    <button class="payment-btn" onclick="createStripeCheckout('QLUXプレミアム', 1.5)">Credit / Pay</button>
+</div>
+
     </div>
 
     <!-- HandCash 決済用JavaScript -->
