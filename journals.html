@@ -202,11 +202,25 @@
             font-size: 1.6rem;
             margin: 0 0 15px 0;
         }
+        .locked-box {
+            border: 1px dashed var(--border-color);
+            padding: 25px;
+            text-align: center;
+            border-radius: 6px;
+            margin: 20px 0;
+            background: #050a07;
+        }
+        .locked-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
         #modal-body {
             font-size: 1rem;
             color: var(--text-main);
             line-height: 1.8;
             white-space: pre-line;
+            display: none;
         }
     </style>
 </head>
@@ -231,12 +245,19 @@
             <div id="modal-meta"></div>
             <h2 id="modal-title"></h2>
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            
+            <!-- ロック状態エリア -->
+            <div id="lock-section" class="locked-box">
+                <div class="locked-text" id="locked-desc">このコンテンツの閲覧にはHTTP 402ナノペイメントが必要です。</div>
+                <button class="action-btn" id="pay-btn" onclick="executePayment()">⚡ Pay & Unlock Journal</button>
+            </div>
+
+            <!-- アンロック後本文 -->
             <p id="modal-body"></p>
         </div>
     </div>
 
     <script>
-        // すべての記事データをインラインで完全網羅
         const allPosts = [
             {
                 date: "2026.08.14",
@@ -280,6 +301,7 @@
             }
         ];
 
+        let currentPost = null;
         const container = document.getElementById('posts-container');
         
         allPosts.forEach((post, index) => {
@@ -312,12 +334,40 @@
         });
 
         function openModal(index) {
-            const post = allPosts[index];
-            document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category}`;
-            document.getElementById('modal-title').innerText = post.title;
-            document.getElementById('modal-body').innerText = post.content;
+            currentPost = allPosts[index];
+            document.getElementById('modal-meta').innerHTML = `${currentPost.date} // ${currentPost.category}`;
+            document.getElementById('modal-title').innerText = currentPost.title;
+            document.getElementById('modal-body').innerText = currentPost.content;
+
+            const lockSection = document.getElementById('lock-section');
+            const modalBody = document.getElementById('modal-body');
+
+            if (currentPost.access === 'free') {
+                lockSection.style.display = 'none';
+                modalBody.style.display = 'block';
+            } else {
+                lockSection.style.display = 'block';
+                modalBody.style.display = 'none';
+                document.getElementById('locked-desc').innerText = `Access Fee: ${currentPost.fee} - このコンテンツの閲覧にはHTTP 402決済が必要です。`;
+                document.getElementById('pay-btn').innerText = '⚡ Pay & Unlock Journal';
+                document.getElementById('pay-btn').disabled = false;
+            }
+
             document.getElementById('modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
+        }
+
+        function executePayment() {
+            const btn = document.getElementById('pay-btn');
+            const desc = document.getElementById('locked-desc');
+            btn.innerText = '🔄 402 Protocol Settling...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                desc.innerText = '✅ ナノペイメント成立：アクセス権が認証されました。';
+                document.getElementById('lock-section').style.display = 'none';
+                document.getElementById('modal-body').style.display = 'block';
+            }, 800);
         }
 
         function closeModal() {
