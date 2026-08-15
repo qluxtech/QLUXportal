@@ -78,7 +78,7 @@
         .header-right { display: flex; align-items: center; gap: 12px; }
         
         .active-settle-badge {
-            display: none; /* モバイル表示最適化のため非表示 */
+            display: none;
         }
         @media(min-width: 768px) {
             .active-settle-badge {
@@ -294,9 +294,77 @@
             <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
         </div>
         
-        <div id="posts-container" class="journals-grid"></div>
+        <!-- HTMLにカードを直接物理配置（JSエラーに完全非依存） -->
+        <div class="journals-grid">
+            
+            <!-- 記事 1 -->
+            <div class="post-card wide" onclick="openJournal(1)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装</h2>
+                    <p class="post-excerpt">仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <!-- 記事 2 -->
+            <div class="post-card" onclick="openJournal(2)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.01 // ARCHITECTURE</span>
+                        <span class="badge free">FREE ACCESS</span>
+                    </div>
+                    <h2 class="post-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
+                    <p class="post-excerpt">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Status: Public Domain</span>
+                    <button class="action-btn free-btn">Read Journal &rarr;</button>
+                </div>
+            </div>
+
+            <!-- 記事 3 -->
+            <div class="post-card" onclick="openJournal(3)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.07.22 // ECOSYSTEM</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
+                    <p class="post-excerpt">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 5 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <!-- 記事 4 -->
+            <div class="post-card wide" onclick="openJournal(4)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤</h2>
+                    <p class="post-excerpt">遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <!-- モーダルウィンドウ -->
     <div id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -321,109 +389,47 @@
         let currentJournalId = null;
         let currentFeeSats = 0;
 
-        const JOURNAL_DATA = [
-            {
-                id: 1,
-                date: "2026.08.14",
-                category: "RESEARCH • AI AGENT TRIBE",
-                title: `自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装`,
-                excerpt: `仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。`,
-                content: `自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。
-
-仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。
-
-【主要ハイライト】
-• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成
-• 10サトシ単位でのアトミック決済トランザクション
-• 自律エージェントの負荷分散とノード協調プロセス`,
-                feeText: "Access Fee: 10 Sats",
-                feeSats: 10,
-                access: "paid",
-                wide: true
+        const JOURNAL_DATABASE = {
+            1: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
+                fee: 10,
+                access: "paid"
             },
-            {
-                id: 2,
-                date: "2026.08.01",
-                category: "ARCHITECTURE",
-                title: `高密度物性コンパイルと熱共鳴制御の統合フェーズ`,
-                excerpt: `ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。`,
-                content: `ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。
-
-物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。`,
-                feeText: "Status: Public Domain",
-                feeSats: 0,
-                access: "free",
-                wide: false
+            2: {
+                date: "2026.08.01 // ARCHITECTURE",
+                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
+                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
+                fee: 0,
+                access: "free"
             },
-            {
-                id: 3,
-                date: "2026.07.22",
-                category: "ECOSYSTEM",
-                title: `プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム`,
-                excerpt: `グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。`,
-                content: `グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。
-
-障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。`,
-                feeText: "Access Fee: 5 Sats",
-                feeSats: 5,
-                access: "paid",
-                wide: false
+            3: {
+                date: "2026.07.22 // ECOSYSTEM",
+                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
+                fee: 5,
+                access: "paid"
             },
-            {
-                id: 4,
-                date: "2026.08.14",
-                category: "RESEARCH • AI AGENT TRIBE",
-                title: `境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤`,
-                excerpt: `遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。`,
-                content: `遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。
-
-私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。`,
-                feeText: "Access Fee: 10 Sats",
-                feeSats: 10,
-                access: "paid",
-                wide: true
+            4: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
+                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
+                fee: 10,
+                access: "paid"
             }
-        ];
-
-        function renderGrid() {
-            const container = document.getElementById('posts-container');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            JOURNAL_DATA.forEach(post => {
-                const card = document.createElement('div');
-                card.className = `post-card ${post.wide ? 'wide' : ''}`;
-                card.onclick = () => openJournal(post.id);
-
-                const isFree = post.access === 'free';
-                card.innerHTML = `
-                    <div>
-                        <div class="card-header">
-                            <span>${post.date} // ${post.category}</span>
-                            <span class="${isFree ? 'badge free' : 'badge'}">${isFree ? 'FREE ACCESS' : 'HTTP 402 ENABLED'}</span>
-                        </div>
-                        <h2 class="post-title">${post.title}</h2>
-                        <p class="post-excerpt">${post.excerpt}</p>
-                    </div>
-                    <div class="card-footer">
-                        <span class="fee-info">${post.feeText}</span>
-                        <button class="${isFree ? 'action-btn free-btn' : 'action-btn'}">${isFree ? 'Read Journal &rarr;' : '⚡ Pay & Unlock'}</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+        };
 
         function openJournal(id) {
             currentJournalId = id;
-            const post = JOURNAL_DATA.find(p => p.id === id);
+            const post = JOURNAL_DATABASE[id];
             if (!post) return;
 
             const log = document.getElementById('terminal-log');
             log.innerHTML = `> GET /api/journals/${id} HTTP/1.1<br>> Connecting to sovereign node...`;
 
             if (post.access === 'paid') {
-                currentFeeSats = post.feeSats;
+                currentFeeSats = post.fee;
                 document.getElementById('modal-meta').innerHTML = `402 GATEWAY // AUTH REQUIRED`;
                 document.getElementById('fee-badge').innerText = `Fee: ${currentFeeSats} Sats`;
                 log.innerHTML += `<br><span style="color: var(--accent-gold);">> Response: 402 Payment Required (${currentFeeSats} Sats)</span>`;
@@ -434,27 +440,8 @@
                 document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
                 document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
             } else {
-                document.getElementById('modal-meta').innerHTML = `${post.date} // ${post.category}`;
+                document.getElementById('modal-meta').innerHTML = post.date;
                 document.getElementById('modal-title').innerText = post.title;
                 document.getElementById('modal-body').innerText = post.content;
                 
-                document.getElementById('lock-section').style.display = 'none';
-                document.getElementById('modal-body').style.display = 'block';
-            }
-
-            document.getElementById('modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function executeNanoPayment() {
-            const btn = document.getElementById('pay-btn');
-            const log = document.getElementById('terminal-log');
-            
-            btn.innerText = '🔄 Settling Ledger...';
-            btn.disabled = true;
-
-            log.innerHTML += `<br>> POST /api/settle --amount=${currentFeeSats}sats`;
-
-            setTimeout(() => {
-                log.innerHTML += `<br>> Ledger settled. Token acquired.`;
-                log.innerHTML += `<br>> Retrying GET with Authorization & Proof headers...`;
+          
