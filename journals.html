@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-base: #000201;
-            --card-bg: rgba(4, 12, 8, 0.92);
+            --card-bg: rgba(4, 12, 8, 0.95);
             --border-glow: rgba(56, 189, 248, 0.25);
             --border-hover: rgba(56, 189, 248, 0.8);
             --accent-cyan: #38bdf8;
@@ -27,6 +27,7 @@
             margin: 0; 
             padding: 0;
             width: 100%;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
@@ -113,12 +114,12 @@
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
         }
 
-        /* メインコンテンツ（余白を完全にタイトに最適化） */
+        /* メインコンテンツ（余白を完全にタイト化） */
         .main-container { 
             max-width: 1100px; 
             width: 100%;
             margin: 0 auto; 
-            padding: 24px 16px 40px 16px; 
+            padding: 24px 16px 30px 16px; 
         }
         
         .section-header {
@@ -138,7 +139,7 @@
         @media(min-width: 768px) { h1 { font-size: 2.2rem; } }
         .subtitle { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
-        /* グリッドレイアウト（無駄な隙間を排除） */
+        /* グリッドレイアウト */
         .journals-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -209,7 +210,6 @@
         
         .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.65rem; }
 
-        /* 超カッコいいピル型ネオンボタン */
         .action-btn {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #fff; border: none; 
@@ -300,10 +300,7 @@
             <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
         </div>
         
-        <!-- カードグリッド -->
         <div class="journals-grid">
-            
-            <!-- 記事 1 -->
             <div class="post-card wide" onclick="openJournal(1)">
                 <div>
                     <div class="card-header">
@@ -319,7 +316,6 @@
                 </div>
             </div>
 
-            <!-- 記事 2 -->
             <div class="post-card" onclick="openJournal(2)">
                 <div>
                     <div class="card-header">
@@ -335,7 +331,6 @@
                 </div>
             </div>
 
-            <!-- 記事 3 -->
             <div class="post-card" onclick="openJournal(3)">
                 <div>
                     <div class="card-header">
@@ -351,7 +346,6 @@
                 </div>
             </div>
 
-            <!-- 記事 4 -->
             <div class="post-card wide" onclick="openJournal(4)">
                 <div>
                     <div class="card-header">
@@ -366,7 +360,6 @@
                     <button class="action-btn">⚡ Pay & Unlock</button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -444,4 +437,7 @@
                 document.getElementById('modal-body').style.display = 'none';
                 document.getElementById('pay-btn').disabled = false;
                 document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
-                document.getElementById('modal-title').innerText = "Protect
+                document.getElementById('modal-title').innerText = "Protected Sovereign Journal";
+            } else {
+                document.getElementById('modal-meta').innerHTML = post.date;
+                document.getElemen
