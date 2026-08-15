@@ -1,147 +1,448 @@
 const express = require('express');
-const crypto = require('crypto');
 const path = require('path');
-
 const app = express();
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-const SERVER_SECRET = crypto.randomBytes(32).toString('hex');
-
-// 自律型ブログ・ループエンジンの状態管理
-class BlogLoopState {
-    constructor() {
-        this.articles = [];
-        this.channelNonce = 0;
-        this.agentBalance = 1000; // エージェント保有サトシ
-        this.nodeBalance = 0;     // ノード収益サトシ
-        this.initializeDefaultArticles();
-    }
-
-    initializeDefaultArticles() {
-        // 初期記事の自動ロード
-        for (let i = 1; i <= 3; i++) {
-            this.articles.push({
-                id: i,
-                date: `2026.08.${14 + i}`,
-                category: "RESEARCH • AI AGENT TRIBE",
-                title: `Autonomous Mesh Report #${i}: Sovereign Nano-Dynamics`,
-                excerpt: `[HTTP 402 PAYLOAD] Dynamic decentralized telemetry data sequence ${i}. Zero intermediaries.`,
-                content: `自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装レポート #${i}。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。`,
-                feeSats: i * 5,
-                access: "paid",
-                wide: i === 1
-            });
-        }
-    }
-
-    // バックグラウンドでの記事自動生成シミュレーション
-    spawnNewArticle() {
-        const newId = this.articles.length + 1;
-        const newArticle = {
-            id: newId,
-            date: "2026.08.15",
-            category: "ECOSYSTEM • DYNAMIC LOOP",
-            title: `Loop Engineering Insight #${newId}: Zero-Trust State Transition`,
-            excerpt: "ループエンジニアリングによって自動生成された最新のセトリング検証ログと分散型メッシュの拡張性について。",
-            content: `ループエンジニアリング駆動によりリアルタイム生成された記事 #${newId。\n\nオフチェーンでの高速ナノペイメントと、確定時のオンチェーン・セトリングが完全に同期した状態での実戦テストデータ。`,
-            feeSats: 15,
-            access: "paid",
-            wide: false
-        };
-        this.articles.unshift(newArticle); // 新着を先頭に追加
-    }
-}
-
-const loopState = new BlogLoopState();
-
-// 一定時間ごとに自動で新しい記事を生成（ループの継続）
-setInterval(() => {
-    loopState.spawnNewArticle();
-    console.log(`[LOOP ENGINE] New autonomous article generated. Total articles: ${loopState.articles.length}`);
-}, 60000); // 1分ごとに自動生成
-
-// 記事一覧API（メタデータのみ）
-app.get('/api/journals', (req, res) => {
-    const list = loopState.articles.map(j => ({
-        id: j.id,
-        date: j.date,
-        category: j.category,
-        title: j.title,
-        excerpt: j.excerpt,
-        feeSats: j.feeSats,
-        access: j.access,
-        wide: j.wide
-    }));
-    res.json(list);
-});
-
-// HTTP 402 ＆ ステートチャネル検証つき個別記事取得API
-app.get('/api/journals/:id', (req, res) => {
-    const journalId = parseInt(req.params.id);
-    const journal = loopState.articles.find(j => j.id === journalId);
-
-    if (!journal) {
-        return res.status(404).json({ error: "Journal not found" });
-    }
-
-    const authHeader = req.headers['authorization'];
-    const paymentProof = req.headers['x-nano-payment-proof'];
-
-    if (!authHeader || !paymentProof) {
-        res.setHeader('X-Nano-Required-Sats', journal.feeSats);
-        return.status(402).json({
-            error: "Payment Required",
-            message: "HTTP 402 Nano-payment required to access this resource.",
-            feeSats: journal.feeSats,
-            currency: "SAT"
-        });
-    }
-
-    try {
-        // 暗号署名検証
-        const expectedSignature = crypto
-            .createHmac('sha256', SERVER_SECRET)
-            .update(`${journalId}:${journal.feeSats}:${authHeader}`)
-            .digest('hex');
-
-        if (paymentProof !== expectedSignature) {
-            return.status(403).json({ error: "Invalid payment proof signature." });
-        }
-
-        return res.json(journal);
-    } catch (err) {
-        return.status(500).json({ error: "Settlement verification error." });
-    }
-});
-
-// オフチェーン決済・ステート更新・セトリング処理エンドポイント
-app.post('/api/settle', (req, res) => {
-    const { journalId, sats } = req.body;
-    
-    loopState.channelNonce++;
-    loopState.agentBalance -= sats;
-    loopState.nodeBalance += sats;
-
-    const clientToken = crypto.randomBytes(16).toString('hex');
-    const signature = crypto
-        .createHmac('sha256', SERVER_SECRET)
-        .update(`${journalId}:${sats}:${clientToken}`)
-        .digest('hex');
-
-    console.log(`[SETTLEMENT LOOP] Tx Nonce: ${loopState.channelNonce} | Paid: ${sats} sats | Agent Bal: ${loopState.agentBalance} | Node Bal: ${loopState.nodeBalance}`);
-
-    res.json({
-        success: true,
-        clientToken: clientToken,
-        paymentProof: signature,
-        settledSats: sats,
-        nonce: loopState.channelNonce
-    });
-});
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`QLUX Autonomous Loop Engine Server running on port ${PORT}`);
-});
 
+app.use(express.json());
+
+// 超最適化された完全版HTMLを配信
+const htmlContent = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX Journals // Planetary Sovereign Mesh</title>
+    <style>
+        :root {
+            --bg-base: #000201;
+            --card-bg: rgba(4, 12, 8, 0.95);
+            --border-glow: rgba(56, 189, 248, 0.25);
+            --border-hover: rgba(56, 189, 248, 0.8);
+            --accent-cyan: #38bdf8;
+            --accent-green: #10b981;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0; 
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 宇宙空間サイバー・グリッド背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 90%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                linear-gradient(rgba(56, 189, 248, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.025) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ヘッダー */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+            background: rgba(0, 2, 1, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo { font-size: 1.15rem; font-weight: 900; letter-spacing: 3px; color: #fff; text-shadow: 0 0 20px rgba(56,189,248,0.5); }
+        
+        .planetary-badge {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(56, 189, 248, 0.08));
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: var(--accent-green);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        
+        .active-settle-badge {
+            display: none;
+        }
+        @media(min-width: 768px) {
+            .active-settle-badge {
+                display: block;
+                background: rgba(245, 158, 11, 0.1);
+                border: 1px solid rgba(245, 158, 11, 0.4);
+                color: var(--accent-gold);
+                padding: 5px 12px;
+                border-radius: 6px;
+                font-size: 0.65rem;
+                font-family: var(--font-mono);
+                letter-spacing: 1px;
+                box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+            }
+        }
+
+        .nav-links { display: flex; gap: 6px; }
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 0.65rem;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-btn:hover {
+            border-color: var(--accent-cyan);
+            color: #fff;
+            background: rgba(56, 189, 248, 0.12);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        /* メインコンテンツ（余白を完全にタイトに収める） */
+        .main-container { 
+            max-width: 1100px; 
+            width: 100%;
+            margin: 0 auto; 
+            padding: 24px 16px 30px 16px; 
+        }
+        
+        .section-header {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 0; width: 50px; height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        .section-tag { font-size: 0.65rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-mono); font-weight: 700; }
+        h1 { font-size: 1.75rem; margin: 0 0 8px 0; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff 20%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        @media(min-width: 768px) { h1 { font-size: 2.2rem; } }
+        .subtitle { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+
+        /* グリッドレイアウト */
+        .journals-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media(min-width: 768px) {
+            .journals-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .post-card.wide { grid-column: span 2; }
+        }
+
+        /* 超立体ハイテクカード */
+        .post-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        @media(min-width: 768px) { .post-card { padding: 26px; } }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .post-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.25), 0 0 25px rgba(16, 185, 129, 0.15);
+        }
+        .post-card:hover::before { opacity: 1; }
+
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.58rem; color: var(--text-muted); margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.8px; font-family: var(--font-mono);
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--accent-green);
+            padding: 2px 7px; border-radius: 5px;
+            font-size: 0.55rem; letter-spacing: 0.8px; font-family: var(--font-mono);
+        }
+        .badge.free { border-color: rgba(255, 255, 255, 0.15); color: var(--text-muted); background: rgba(255, 255, 255, 0.03); }
+
+        .post-title { color: var(--text-main); font-size: 1.05rem; margin: 0 0 8px 0; font-weight: 800; line-height: 1.35; letter-spacing: -0.2px; }
+        @media(min-width: 768px) { .post-title { font-size: 1.25rem; } }
+
+        .post-excerpt { color: var(--text-muted); font-size: 0.8rem; line-height: 1.55; margin-bottom: 18px; }
+
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 12px; margin-top: auto;
+        }
+        
+        .fee-info { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.65rem; }
+
+        .action-btn {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff; border: none; 
+            padding: 7px 16px; 
+            border-radius: 50px;
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; 
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.7);
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+        .action-btn.free-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: var(--text-main);
+            box-shadow: none;
+        }
+        .action-btn.free-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.15);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.3);
+        }
+
+        /* ポップアップ（モーダルウィンドウ） */
+        #modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 2, 1, 0.88); justify-content: center; align-items: center;
+            padding: 12px; box-sizing: border-box; z-index: 1000;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            animation: fadeIn 0.2s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-content {
+            background: rgba(4, 12, 8, 0.97);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 16px; max-width: 700px; width: 100%; padding: 24px;
+            box-sizing: border-box; max-height: 85vh; overflow-y: auto; position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(56, 189, 248, 0.2);
+        }
+        @media(min-width: 768px) { .modal-content { padding: 36px; } }
+
+        .close-btn { 
+            position: absolute; top: 16px; right: 16px; 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); 
+            color: var(--text-muted); width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; cursor: pointer; transition: all 0.2s;
+        }
+        .close-btn:hover { color: #fff; border-color: var(--accent-cyan); background: rgba(56,189,248,0.2); }
+
+        #modal-meta { font-size: 0.62rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; font-family: var(--font-mono); }
+        #modal-title { color: var(--text-main); font-size: 1.25rem; margin: 0 0 14px 0; font-weight: 800; letter-spacing: -0.2px; }
+        @media(min-width: 768px) { #modal-title { font-size: 1.5rem; } }
+        
+        .locked-box { border: 1px solid rgba(245, 158, 11, 0.35); padding: 16px; border-radius: 10px; margin: 16px 0; background: rgba(245, 158, 11, 0.05); }
+        .locked-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.65rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: 700; }
+        
+        .terminal-log { background: #000201; border: 1px solid rgba(255, 255, 255, 0.06); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+        #modal-body { font-size: 0.88rem; color: var(--text-main); line-height: 1.7; white-space: pre-line; display: none; }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="logo-area">
+            <div class="logo">QLUX</div>
+            <div class="planetary-badge">Planetary Sovereign</div>
+        </div>
+        <div class="header-right">
+            <div class="active-settle-badge">⚡ HTTP 402 NANO-SETTLEMENT: ACTIVE</div>
+            <div class="nav-links">
+                <button class="nav-btn">Console</button>
+                <button class="nav-btn">Access Protocol</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="section-header">
+            <div class="section-tag">Research & Deep Insights</div>
+            <h1>QLUX Journals</h1>
+            <div class="subtitle">ここから先は、QLUXが定義する領域だ。QLUXは、すべての限界を過去にする。</div>
+        </div>
+        
+        <div class="journals-grid">
+            <div class="post-card wide" onclick="openJournal(1)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装</h2>
+                    <p class="post-excerpt">仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がいかにしてネットワークのレジリエンスを高めるか、その検証データとソースコードを公開。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <div class="post-card" onclick="openJournal(2)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.01 // ARCHITECTURE</span>
+                        <span class="badge free">FREE ACCESS</span>
+                    </div>
+                    <h2 class="post-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
+                    <p class="post-excerpt">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Status: Public Domain</span>
+                    <button class="action-btn free-btn">Read Journal &rarr;</button>
+                </div>
+            </div>
+
+            <div class="post-card" onclick="openJournal(3)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.07.22 // ECOSYSTEM</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</h2>
+                    <p class="post-excerpt">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチ。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 5 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+
+            <div class="post-card wide" onclick="openJournal(4)">
+                <div>
+                    <div class="card-header">
+                        <span>2026.08.14 // RESEARCH • AI AGENT TRIBE</span>
+                        <span class="badge">HTTP 402 ENABLED</span>
+                    </div>
+                    <h2 class="post-title">境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤</h2>
+                    <p class="post-excerpt">遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。私たちが構築したのは、「数サトシの霊刀」が、世界の流通構造を根本から書き換える。</p>
+                </div>
+                <div class="card-footer">
+                    <span class="fee-info">Access Fee: 10 Sats</span>
+                    <button class="action-btn">⚡ Pay & Unlock</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ポップアップ（モーダルウィンドウ） -->
+    <div id="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="modal-meta"></div>
+            <h2 id="modal-title"></h2>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0;">
+            
+            <div id="lock-section" class="locked-box" style="display:none;">
+                <div class="locked-header">
+                    <span>STATUS: 402 PAYMENT REQUIRED</span>
+                    <span id="fee-badge">Fee: 0 Sats</span>
+                </div>
+                <div class="terminal-log" id="terminal-log">> Initializing HTTP 402 Handshake...</div>
+                <button class="action-btn" id="pay-btn" onclick="executeNanoPayment()" style="width: 100%; padding: 11px; justify-content: center; font-size: 0.72rem;">⚡ Pay & Unlock Session</button>
+            </div>
+
+            <p id="modal-body"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentJournalId = null;
+        let currentFeeSats = 0;
+
+        const JOURNAL_DATABASE = {
+            1: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装",
+                content: "自律型AIトライブ間におけるHTTP 402プロトコルの実戦的最最適化とナノペイメント実装の詳細レポート。\n\n仲介者を完全に排除したマイクロエージェント間の即時決済モデルにより、ネットワークのレジリエンスが劇的に向上するメカニズムを解説。\n\n【主要ハイライト】\n• ゼロ・インタミディアリー（仲介者ゼロ）による直接合意形成\n• 10サトシ単位でのアトミック決済トランザクション\n• 自律エージェントの負荷分散とノード協調プロセス",
+                fee: 10,
+                access: "paid"
+            },
+            2: {
+                date: "2026.08.01 // ARCHITECTURE",
+                title: "高密度物性コンパイルと熱共鳴制御の統合フェーズ",
+                content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。\n\n物理的構造体とデジタル制御層が完全に同期することで、エネルギー損失を極限まで低減させるアーキテクチャの全容を公開。",
+                fee: 0,
+                access: "free"
+            },
+            3: {
+                date: "2026.07.22 // ECOSYSTEM",
+                title: "プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム",
+                content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス構築アプローチの全記録。\n\n障害発生時に中央サーバーを介さず、周辺ノードが自律的にルーティングを再構築するメカニズムについて詳解。",
+                fee: 5,
+                access: "paid"
+            },
+            4: {
+                date: "2026.08.14 // RESEARCH • AI AGENT TRIBE",
+                title: "境界なき知性へ、摩擦なき対価を。QLUXがデザインする次世代の決済基盤",
+                content: "遅延も、手数料の壁も、国境もない。AIとシステムが自律的に交信し、ナノ単位の価値を瞬時に約定させる。\n\n私たちが構築した「数サトシの霊刀」が、世界の流通構造を根本から書き換えるパラダイムシフトの記録。",
+                fee: 10,
+                access: "paid"
+            }
+        };
+
+        function openJournal(id) {
+            currentJournalId = id;
+            const post = JOURNAL_DATABASE[id];
+            if (!post) return;
+
+            const log = document.getElementById('terminal-log');
+            log.innerHTML = \`> GET /api/journals/\${id} HTTP/1.1<br>> Connecting to sovereign node...\`;
+
+            if (post.access === 'paid') {
+                currentFeeSats = post.fee;
+                document.getElementById('modal-meta').innerHTML = \`402 GATEWAY // AUTH REQUIRED\`;
+                document.getElementById('fee-badge').innerText = \`Fee: \${currentFeeSats} Sats\`;
+                log.innerHTML += \`<br><span style="color: var(--accent-gold);">> Response: 402 Payment Required (\${currentFeeSats} Sats)</span>\`;
+                
+                document.getElementById('lock-section').style.display = 'block';
+                document.getElementById('modal-body').style.display = 'none';
+                document.getElementById('pay-btn').disabled = false;
+                document.getElementById('pay-btn').innerText = \`⚡ Pay & Unlock Session\`;
+                d
