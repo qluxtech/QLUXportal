@@ -28,7 +28,6 @@
             padding: 0;
             width: 100%;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         /* 超高級エグゼクティブ・グリッド背景 */
@@ -97,12 +96,11 @@
             max-width: 1280px; 
             width: 100%;
             margin: 0 auto; 
-            padding: 30px 20px 40px 20px; 
+            padding: 30px 20px 60px 20px; 
         }
         
         .section-header {
             margin-bottom: 30px;
-            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -144,7 +142,9 @@
             padding: 24px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; justify-content: space-between;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between;
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -245,9 +245,7 @@
             background: rgba(2, 4, 3, 0.9); justify-content: center; align-items: center;
             padding: 16px; box-sizing: border-box; z-index: 1000;
             backdrop-filter: blur(30px);
-            animation: fadeIn 0.25s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-content {
             background: linear-gradient(145deg, rgba(8, 22, 15, 0.98), rgba(2, 8, 5, 0.98));
@@ -262,12 +260,12 @@
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); 
             color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: all 0.2s;
+            font-size: 1.2rem; cursor: pointer;
         }
         .close-btn:hover { color: #fff; border-color: var(--accent-gold); background: rgba(212,175,255,0.15); }
 
         #modal-meta { font-size: 0.65rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-family: var(--font-mono); }
-        #modal-title { color: var(--text-main); font-size: 1.35rem; margin: 0 0 16px 0; font-weight: 800; letter-spacing: -0.2px; }
+        #modal-title { color: var(--text-main); font-size: 1.35rem; margin: 0 0 16px 0; font-weight: 800; }
         @media(min-width: 768px) { #modal-title { font-size: 1.6rem; } }
         
         .locked-box { border: 1px solid rgba(212, 175, 55, 0.4); padding: 18px; border-radius: 10px; margin: 18px 0; background: rgba(212, 175, 55, 0.05); }
@@ -300,6 +298,7 @@
             <div class="loop-status-pill">⚡ 100% FULL-AUTO SYNC</div>
         </div>
         
+        <!-- 物理的に直接HTMLに焼き込んだカード群 -->
         <div class="journals-grid">
             <div class="post-card wide" onclick="openJournal(1)">
                 <div>
@@ -442,4 +441,7 @@
                 document.getElementById('modal-body').style.display = 'none';
                 document.getElementById('pay-btn').disabled = false;
                 document.getElementById('pay-btn').innerText = `⚡ Pay & Unlock Session`;
-                document.getElementById('modal-title').innerText = "Protected 
+                document.getElementById('modal-title').innerText = "Protected Executive Journal";
+            } else {
+                document.getElementById('modal-meta').innerHTML = post.date;
+                document.getElementById(
