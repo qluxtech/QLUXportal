@@ -302,19 +302,15 @@
     </div>
 </div>
 
-let currentMethodName = '';
+// --- 決済・通知処理用関数 ---
 
 function selectMethod(methodName) {
     currentMethodName = methodName;
     const modal = document.getElementById('payment-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
+    if (modal) modal.style.display = 'flex';
     
-    // すべての決済セクションを一旦非表示にする
     document.querySelectorAll('.pay-section').forEach(el => el.style.display = 'none');
     
-    // 選択された手法に応じて該当セクションだけを表示
     if (methodName.includes("Bitcoin SV")) {
         const el = document.getElementById('section-bsv');
         if (el) el.style.display = 'block';
@@ -335,7 +331,12 @@ function closeModal() {
     if (modal) modal.style.display = 'none';
 }
 
-// 自動配信ボタンのON/OFFトグル
+function executeUnlock() {
+    alert('決済処理を検知しました。アセットをインポートします。');
+    closeModal();
+}
+
+// --- 自動配信ボタン用 ---
 let isAutoDispatchActive = false;
 function toggleAutoDispatch() {
     isAutoDispatchActive = !isAutoDispatchActive;
@@ -346,11 +347,6 @@ function toggleAutoDispatch() {
             el.style.background = isAutoDispatchActive ? "#059669" : "";
         }
     });
-}
-
-function executeUnlock() {
-    alert(currentMethodName + ' による検証を完了しました。アセットのアクセスを許可します。');
-    closeModal();
 }
 
 }<script>
