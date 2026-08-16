@@ -302,53 +302,57 @@
     </div>
 </div>
 
-function executeOnChainUnlock(methodName) {
-    const btn = event.target;
-    btn.innerText = 'オンチェーン検証中（ダイナミック更新）...';
-    btn.style.background = '#eab308';
+let currentMethodName = '';
+
+function selectMethod(methodName) {
+    currentMethodName = methodName;
+    const modal = document.getElementById('payment-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
     
-    setTimeout(() => {
-        globalInventory.remaining = Math.max(0, globalInventory.remaining - 1);
-        if (globalInventory.remaining === 2) {
-            globalInventory.currentPrice = 7500;
-            globalInventory.priceLabel = "7,500 JPY (価格改定・残り2枠)";
-        } else if (globalInventory.remaining === 1) {
-            globalInventory.currentPrice = 10000;
-            globalInventory.priceLabel = "10,000 JPY (最終総括・残り1枠)";
-        } else if (globalInventory.remaining === 0) {
-            globalInventory.priceLabel = "SOLD OUT (完売)";
+    // すべての決済セクションを一旦非表示にする
+    document.querySelectorAll('.pay-section').forEach(el => el.style.display = 'none');
+    
+    // 選択された手法に応じて該当セクションだけを表示
+    if (methodName.includes("Bitcoin SV")) {
+        const el = document.getElementById('section-bsv');
+        if (el) el.style.display = 'block';
+    } else if (methodName.includes("Lightning")) {
+        const el = document.getElementById('section-lightning');
+        if (el) el.style.display = 'block';
+    } else if (methodName.includes("銀行振込")) {
+        const el = document.getElementById('section-bank');
+        if (el) el.style.display = 'block';
+    } else {
+        const el = document.getElementById('section-bsv');
+        if (el) el.style.display = 'block';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('payment-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+// 自動配信ボタンのON/OFFトグル
+let isAutoDispatchActive = false;
+function toggleAutoDispatch() {
+    isAutoDispatchActive = !isAutoDispatchActive;
+    const btns = document.querySelectorAll('button, div, span');
+    btns.forEach(el => {
+        if (el.innerText && el.innerText.includes('自動配信')) {
+            el.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
+            el.style.background = isAutoDispatchActive ? "#059669" : "";
         }
-        
-        alert(methodName + ' による検証完了、アセットのインポートおよびシークレットDAOへのアクセスを許可しました。');
-        
-        if (activeTargetRef) {
-            const bodyEl = document.getElementById('body-' + activeTargetRef);
-            const snippetEl = document.getElementById('snippet-' + activeTargetRef);
-            const btnEl = document.getElementById('btn-' + activeTargetRef);
-            
-            if (bodyEl) bodyEl.style.filter = 'none';
-            if (snippetEl) {
-                snippetEl.style.filter = 'none';
-                snippetEl.insertAdjacentHTML('afterend', `
-                    <div style="margin:10px 0; padding:12px; background:#0f172a; border:1px solid #22c55e; border-radius:8px;">
-                        <p style="color:#22c55e; font-weight:bold; font-size:11px;">[SUCCESS] オンチェーン決済完了</p>
-                        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.previousElementSibling.innerText)" style="padding:6px 12px; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:4px; font-size:10px; cursor:pointer; margin-top:6px;">
-                            ▼ 閲覧用コードをクリップボードにインポート
-                        </button>
-                        <a href="https://discord.gg/qlux-secret" target="_blank" style="display:block; text-align:center; margin-top:8px; color:#38bdf8; font-size:10px; text-decoration:none;">
-                            🚀 [特権] QLUXシークレット・開発官DAOへ参加す
-                        </a>
-                    </div>
-                `);
-            }
-            if (btnEl) {
-                btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
-                btnEl.style.background = '#22c55e';
-                btnEl.disabled = true;
-            }
-        }
-        closeModal();
-    }, 1500);
+    });
+}
+
+function executeUnlock() {
+    alert(currentMethodName + ' による検証を完了しました。アセットのアクセスを許可します。');
+    closeModal();
+}
+
 }<script>
 </div>
 <html>
