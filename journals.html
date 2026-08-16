@@ -245,165 +245,62 @@
   </div>
 
   <script>
-    function selectMethod(methodName) {
-    const view = document.getElementById('action-view');
-    const form = document.getElementById('view-form');
-    if (!view || !form) return;
-    
-    view.style.display = 'block';
-    
-    let contentHtml = '';
+    <!-- 決済モーダル本体 -->
+<div id="payment-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:99999; align-items:center; justify-content:center;">
+    <div style="background:#020617; padding:20px; border-radius:12px; border:1px solid #1e293b; width:90%; max-width:400px; text-align:left;">
+        
+        <h3 style="color:#f8fafc; font-size:14px; margin-bottom:15px; border-bottom:1px solid #334155; padding-bottom:10px;" id="modal-title">決済方法を選択</h3>
+        <p style="color:#fbbf24; font-size:12px; margin-bottom:12px;">現在の請求金額: <b id="modal-price">150 JPY</b></p>
 
-    if (methodName.includes("Bitcoin SV")) {
-        const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
-        contentHtml = `
-            <div style="padding:10px; text-align:center;">
-                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Bitcoin SV ダイレクトチェーン送金</p>
-                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-                
-                <!-- QRコード（画像準拠・白背景） -->
-                <div style="background:white; display:inline-block; padding:8px; border-radius:8px; margin-bottom:10px;">
-                    <img src="${qrUrl}" style="width:140px; height:140px; display:block;">
-                </div>
-                
-                <!-- レガシーアドレス -->
-                <div style="background:#0f172a; padding:8px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; margin-bottom:10px; user-select:all;">
-                    ${WALLET_ADDR_BSV}
-                </div>
-
-                <!-- Handcash / Paymail 情報 -->
-                <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:10px; text-align:left; border:1px solid #334155;">
-                    <p style="color:#38bdf8; font-size:11px; font-weight:bold; margin-bottom:4px;">■ Handcash Paymail (簡単送金)</p>
-                    <div style="font-family:monospace; font-size:11px; color:#f8fafc; user-select:all;">
-                        $daisuke <!-- ※ご自身のHandcashハンドルに変更してください -->
-                    </div>
-                </div>
-
-                <!-- 注意書きボックス（画像準拠） -->
-                <div style="background:#064e3b; border:1px solid #059669; padding:10px; border-radius:6px; text-align:left; margin-bottom:10px;">
-                    <p style="color:#34d399; font-size:10px; line-height:1.4; margin:0;">
-                        ⚠️ BSV からのみ送信してください。他のトークンを送信したり、他のブロックチェーンから送信したりすると、資金が永久に失われます。
-                    </p>
-                </div>
+        <!-- ① Bitcoin SV 決済エリア -->
+        <div class="pay-section" id="section-bsv" style="display:none; text-align:center;">
+            <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:12px;">Bitcoin SV ダイレクトチェーン送金</p>
+            <div style="background:white; display:inline-block; padding:6px; border-radius:6px; margin-bottom:8px;">
+                <img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=bitcoin-sv:1Mb61HohUEg8eAnkV9uTTV7R235tuy95" style="width:130px; height:130px; display:block;">
             </div>
-        `;
-    // 自動配信ボタンの状態管理とトグル処理
-let isAutoDispatchActive = false;
-function toggleAutoDispatch() {
-    isAutoDispatchActive = !isAutoDispatchActive;
-    // 画面上の自動配信ボタン（IDまたはクラスで取得）
-    const btns = document.querySelectorAll('button, div');
-    btns.forEach(el => {
-        if (el.innerText && el.innerText.includes('自動配信')) {
-            el.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
-            el.style.background = isAutoDispatchActive ? "#059669" : "";
-            el.style.color = isAutoDispatchActive ? "#ffffff" : "";
-        }
-    });
-}
-
-let activeTargetRef = null;
-
-function openModal(title, targetId) {
-    activeTargetRef = targetId;
-    const modal = document.getElementById('payment-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        modal.style.zIndex = '99999';
-    }
-}
-
-function closeModal() {
-    const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'none';
-    const view = document.getElementById('action-view');
-    if (view) view.style.display = 'none';
-    const form = document.getElementById('view-form');
-    if (form) form.innerHTML = '';
-}
-
-function selectMethod(methodName) {
-    const view = document.getElementById('action-view');
-    const form = document.getElementById('view-form');
-    if (!view || !form) return;
-    
-    view.style.display = 'block';
-    
-    let contentHtml = '';
-
-    if (methodName.includes("Bitcoin SV")) {
-        const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
-        contentHtml = `
-            <div style="padding:10px; text-align:center;">
-                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Bitcoin SV ダイレクトチェーン送金</p>
-                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-                
-                <div style="background:white; display:inline-block; padding:8px; border-radius:8px; margin-bottom:10px;">
-                    <img src="${qrUrl}" style="width:140px; height:140px; display:block;">
-                </div>
-                
-                <div style="background:#0f172a; padding:8px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; margin-bottom:10px; user-select:all;">
-                    ${WALLET_ADDR_BSV}
-                </div>
-
-                <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:10px; text-align:left; border:1px solid #334155;">
-                    <p style="color:#38bdf8; font-size:11px; font-weight:bold; margin-bottom:4px;">■ Handcash Paymail (簡単送金)</p>
-                    <div style="font-family:monospace; font-size:11px; color:#f8fafc; user-select:all;">
-                        $daisuke
-                    </div>
-                </div>
-
-                <div style="background:#064e3b; border:1px solid #059669; padding:10px; border-radius:6px; text-align:left; margin-bottom:10px;">
-                    <p style="color:#34d399; font-size:10px; line-height:1.4; margin:0;">
-                        ⚠️ BSV からのみ送信してください。他のトークンを送信したり、他のブロックチェーンから送信したりすると、資金が永久に失われます。
-                    </p>
-                </div>
+            <div style="background:#0f172a; padding:6px; border-radius:6px; font-family:monospace; font-size:9px; color:#94a3b8; margin-bottom:8px; word-break:break-all; user-select:all;">
+                1Mb61HohUEg8eAnkV9uTTV7R235tuy95
             </div>
-        `;
-    } else if (methodName.includes("Lightning")) {
-        contentHtml = `
-            <div style="padding:10px; text-align:left;">
-                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Lightning Network マイクロペイメント</p>
-                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-                <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; user-select:all; margin-bottom:12px;">
-                    lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhhyetkd9kx2ersd9nk2mmw8y6qjdes49
-                </div>
+            <div style="background:#0f172a; padding:8px; border-radius:6px; margin-bottom:8px; text-align:left; border:1px solid #334155;">
+                <p style="color:#38bdf8; font-size:10px; font-weight:bold; margin-bottom:2px;">■ Handcash Paymail</p>
+                <div style="font-family:monospace; font-size:10px; color:#f8fafc; user-select:all;">$daisuke</div>
             </div>
-        `;
-    } else if (methodName.includes("銀行振込")) {
-        contentHtml = `
-            <div style="padding:10px; text-align:left;">
-                <p style="color:#fbbf24; font-weight:bold; margin-bottom:8px; font-size:13px;">みずほ銀行 (法人・機関投資家向け)</p>
-                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-                <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1; margin-bottom:8px;">
-                    <p style="margin:0;">銀行名：みずほ銀行</p>
-                    <p style="margin:0;">支店番号：676</p>
-                    <p style="margin:0;">科目：普通預金</p>
-                    <p style="margin:0;">口座番号：3035385</p>
-                    <p style="margin:0;">口座名義：ヒグチ ダイスケ</p>
-                </div>
-                <p style="font-size:9px; color:#64748b;">※ 振込完了後、照合のため「REF: [記事ID]」を名義末尾に付加してください。</p>
+            <div style="background:#064e3b; border:1px solid #059669; padding:8px; border-radius:6px; text-align:left; margin-bottom:10px;">
+                <p style="color:#34d399; font-size:9px; line-height:1.3; margin:0;">⚠️ BSV からのみ送信してください。他のチェーンから送ると資金が失われます。</p>
             </div>
-        `;
-    } else {
-        contentHtml = `
-            <div style="padding:15px; text-align:center;">
-                <p style="color:#38bdf8; font-weight:bold; margin-bottom:10px; font-size:13px;">${methodName} プロトコル接続</p>
-                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-                <p style="font-size:11px; color:#94a3b8; margin-bottom:15px;">トラストレスな直接交換およびゼロ知識証明によるクリアランス処理を実行します。</p>
-            </div>
-        `;
-    }
-    
-    form.innerHTML = `
-        <div style="background:#020617; padding:15px; border-radius:12px; border:1px solid #1e293b;">
-            ${contentHtml}
-            <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:12px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">
-                送金・振込完了を通知する
-            </button>
         </div>
-    `;
-}
+
+        <!-- ② Lightning Network 決済エリア -->
+        <div class="pay-section" id="section-lightning" style="display:none;">
+            <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:12px;">Lightning Network マイクロペイメント</p>
+            <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:9px; word-break:break-all; color:#94a3b8; user-select:all; margin-bottom:10px;">
+                lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhhyetkd9kx2ersd9nk2mmw8y6qjdes49
+            </div>
+        </div>
+
+        <!-- ③ 銀行振込エリア -->
+        <div class="pay-section" id="section-bank" style="display:none;">
+            <p style="color:#fbbf24; font-weight:bold; margin-bottom:8px; font-size:12px;">みずほ銀行 (法人・機関投資家向け)</p>
+            <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1; margin-bottom:8px;">
+                <p style="margin:0;">銀行名：みずほ銀行</p>
+                <p style="margin:0;">支店番号：676</p>
+                <p style="margin:0;">科目：普通預金</p>
+                <p style="margin:0;">口座番号：3035385</p>
+                <p style="margin:0;">口座名義：ヒグチ ダイスケ</p>
+            </div>
+            <p style="font-size:9px; color:#64748b;">※ 振込後「REF: [記事ID]」を名義末尾に付加してください。</p>
+        </div>
+
+        <!-- 共通ボタン類 -->
+        <button onclick="executeUnlock()" style="width:100%; padding:12px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">
+            送金・振込完了を通知する
+        </button>
+        <button onclick="closeModal()" style="width:100%; padding:10px; background:transparent; color:#94a3b8; border:1px solid #334155; border-radius:8px; font-size:12px; cursor:pointer; margin-top:8px;">
+            キャンセルして戻る
+        </button>
+
+    </div>
+</div>
 
 function executeOnChainUnlock(methodName) {
     const btn = event.target;
