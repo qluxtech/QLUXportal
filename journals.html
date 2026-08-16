@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX // V.DIRECT OMNI-LEDGER</title>
+  <title>QLUX Technologies // FIAT-TO-OMNI SOVEREIGN LEDGER</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -58,8 +58,8 @@
       backdrop-filter: blur(20px);
     }
     .brand-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    .brand-title { font-size: 22px; font-weight: 950; color: #fff; letter-spacing: 3px; text-shadow: 0 0 15px rgba(52,211,153,0.4); }
-    .brand-sub { font-size: 9px; background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-accent); font-weight: bold; }
+    .brand-title { font-size: 20px; font-weight: 950; color: #fff; letter-spacing: 2px; text-shadow: 0 0 15px rgba(52,211,153,0.4); }
+    .brand-sub { font-size: 9px; background: rgba(251, 191, 36, 0.15); color: var(--text-gold); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.4); font-weight: bold; }
 
     .header-actions { display: flex; gap: 8px; align-items: center; }
     .btn-action-mode {
@@ -107,7 +107,7 @@
     
     .card-top-banner {
       height: 90px;
-      background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(1,4,9,0.95) 100%);
+      background: linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(1,4,9,0.95) 100%);
       border-bottom: 1px solid var(--border-accent);
       padding: 14px 20px;
       display: flex;
@@ -115,7 +115,7 @@
       align-items: flex-start;
     }
     .tag-badge { font-size: 9px; background: #000; color: var(--text-cyan); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.4); font-weight: bold; }
-    .tag-badge.hyper { color: var(--text-gold); border-color: rgba(251,191,36,0.4); }
+    .tag-badge.fiat { color: var(--text-gold); border-color: rgba(251,191,36,0.4); }
 
     .card-content { padding: 24px; }
     .card-meta { font-size: 10px; color: var(--text-emerald); margin-bottom: 8px; }
@@ -155,6 +155,7 @@
       box-shadow: 0 4px 15px rgba(251,191,36,0.4);
     }
 
+    /* モーダル共通 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -168,14 +169,40 @@
     }
     .modal-box {
       background: var(--bg-card);
-      border: 1px solid var(--text-cyan);
+      border: 1px solid var(--text-gold);
       border-radius: 16px;
       width: 100%;
-      max-width: 600px;
+      max-width: 520px;
       padding: 25px;
       color: #cbd5e1;
     }
-    .modal-box h3 { color: #fff; font-size: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--border-accent); padding-bottom: 10px; }
+    .modal-box h3 { color: #fff; font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid rgba(251,191,36,0.3); padding-bottom: 10px; }
+    
+    .gateway-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab-btn {
+      flex: 1; background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; font-family: monospace;
+    }
+    .tab-btn.active { background: rgba(251, 191, 36, 0.15); color: var(--text-gold); border-color: var(--text-gold); }
+
+    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+    .crypto-option {
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      font-family: monospace;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .crypto-option:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.1); }
+    .crypto-name { font-weight: bold; font-size: 12px; color: var(--text-gold); }
+    .crypto-sub { font-size: 9px; color: var(--text-muted); margin-top: 4px; }
+    
+    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 10px; }
+
     .form-group { margin-bottom: 15px; }
     .form-group label { display: block; font-size: 10px; color: var(--text-cyan); margin-bottom: 6px; font-weight: bold; }
     .form-control {
@@ -188,27 +215,24 @@
       border-radius: 6px;
       font-size: 12px;
     }
-    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-    .btn-submit { flex: 1; background: var(--text-gold); color: #000; border: none; padding: 12px; font-weight: 950; border-radius: 6px; cursor: pointer; font-size: 12px; }
-    .btn-cancel { flex: 1; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
   </style>
 </head>
 <body ontouchmove="triggerNeuralResonance(event)" onmousemove="triggerNeuralResonance(event)">
 
   <!-- 統合ティッカー -->
   <div class="hyper-ticker">
-    <div class="status-quantum">TARGET: <span style="color:var(--text-gold);">vlisdirect@gmail.com</span></div>
-    <div>AUTONOMOUS SWARM: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
+    <div class="status-quantum">GATEWAY STATUS: <span style="color:var(--text-gold);">ACTIVE (FIAT & MULTI-CRYPTO)</span></div>
+    <div>AUTONOMOUS AGENT: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
   </div>
 
   <!-- ヘッダー -->
   <header class="blog-header">
     <div class="brand-area" id="admin-trigger" title="ロゴ3回タップでアドミン開放">
-      <span class="brand-title">QLUX</span>
-      <span class="brand-sub">SOVEREIGN 402</span>
+      <span class="brand-title">QLUX Technologies</span>
+      <span class="brand-sub">GATEWAY</span>
     </div>
     <div class="header-actions">
-      <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 AI自動執筆: OFF</button>
+      <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 自動執筆: OFF</button>
       <button class="admin-badge" id="btn-admin-panel" onclick="openHyperEditor()">⚡ デプロイ</button>
     </div>
   </header>
@@ -216,59 +240,118 @@
   <!-- メインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// DIRECT LIGHTNING RECURSIVE STREAM</span>
-      <span style="font-size: 10px; color: var(--text-emerald);">LNURL: ACTIVE</span>
+      <span>// RECURSIVE STREAM & PAYMENT GATEWAY</span>
+      <span style="font-size: 10px; color: var(--text-gold);">JPY/USD & ALL CRYPTO SYNC</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">AI SWARM // DIRECT 402</span>
-          <span class="tag-badge hyper">10 SATS TARGET</span>
+          <span class="tag-badge">FIAT ON-RAMP // OMNI-SYNC</span>
+          <span class="tag-badge fiat">JPY/USD -> CRYPTO FLOW</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // DESTINATION: vlisdirect@gmail.com</div>
-          <h2 class="card-title">ライトニングアドレス直結によるリアルタイム自動入金の証明</h2>
-          <p class="card-desc">閲覧者がナノ決済を実行した瞬間、仲介者なしであなたのWallet of Satoshiへ直接サトシが着金する完全な経済循環。</p>
-          <div class="quantum-hash-box">PAYMENT TARGET: lightning:vlisdirect@gmail.com</div>
+          <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES CORE PROTOCOL</div>
+          <h2 class="card-title">法定通貨（日本円/ドル）からの即時暗号資産エクスチェンジと自律決済</h2>
+          <p class="card-desc">暗号資産を未所持のユーザーでも、クレジットカードや決済プロバイダ経由で円から直接資産を流し込み、即座にアクセス権を獲得。</p>
+          <div class="quantum-hash-box">PROTOCOL: MOONPAY / CHANGENOW INTEGRATED ENGINE</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 10 Sats</span>
-            <button class="btn-hyper" onclick="payToLightningAddress(10, 'ニューラル共鳴とAI自動執筆の証明')">⚡ vlisdirectへ 10 Sats 決済</button>
+            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 150 JPY / 10 Sats</span>
+            <button class="btn-hyper" onclick="openGatewayModal('法定通貨（日本円/ドル）からの即時暗号資産エクスチェンジと自律決済')">💳 円または暗号通貨で決済</button>
           </div>
         </div>
       </article>
     </div>
   </main>
 
+  <!-- 決済・オンランプ統合選択モーダル -->
+  <div class="modal-overlay" id="gateway-modal">
+    <div class="modal-box">
+      <h3>// SELECT PAYMENT METHOD</h3>
+      <div class="gateway-tabs">
+        <button class="tab-btn active" id="btn-tab-fiat" onclick="switchTab('fiat')">💳 法定通貨 (JPY / USD)</button>
+        <button class="tab-btn" id="btn-tab-crypto" onclick="switchTab('crypto')">🌐 全暗号通貨選択</button>
+      </div>
+
+      <!-- 法定通貨オンランプ画面 -->
+      <div id="view-fiat">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">クレジットカードまたは各決済サービスを用いて、日本円から自動で仮想通貨に変換し決済します。</p>
+        <div class="form-group">
+          <label>支払い額選択</label>
+          <select id="fiat-amount" class="form-control">
+            <option value="150">150 JPY (スタンダードアクセス)</option>
+            <option value="500">500 JPY (プレミアムパス)</option>
+            <option value="1500">1,500 JPY (フルアクセス)</option>
+          </select>
+        </div>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="processFiatCheckout('MoonPay (Credit Card)')">
+            <div class="crypto-name">💳 クレカ / デビット</div>
+            <div class="crypto-sub">MoonPay / Wert</div>
+          </button>
+          <button class="crypto-option" onclick="processFiatCheckout('au PAY / Mobile Pay')">
+            <div class="crypto-name">📱 スマホ決済 (au PAY等)</div>
+            <div class="crypto-sub">Instant Conversion</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 暗号通貨選択画面 -->
+      <div id="view-crypto" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">所持している暗号通貨ネットワークを選択してください。</p>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="processCryptoPayment('Bitcoin Lightning', 'vlisdirect@gmail.com')">
+            <div class="crypto-name">⚡ Bitcoin (LN)</div>
+            <div class="crypto-sub">vlisdirect@gmail.com</div>
+          </button>
+          <button class="crypto-option" onclick="processCryptoPayment('USDT (TRC-20)', 'TRC20_YOUR_WALLET_ADDRESS')">
+            <div class="crypto-name">₮ USDT (TRC)</div>
+            <div class="crypto-sub">Tron Network</div>
+          </button>
+          <button class="crypto-option" onclick="processCryptoPayment('USDT / ETH (ERC-20)', '0x_YOUR_WALLET_ADDRESS')">
+            <div class="crypto-name">Ξ USDT / ETH</div>
+            <div class="crypto-sub">Ethereum Main/L2</div>
+          </button>
+          <button class="crypto-option" onclick="processCryptoPayment('Solana (SOL / USDC)', 'SOL_YOUR_WALLET_ADDRESS')">
+            <div class="crypto-name">◎ Solana</div>
+            <div class="crypto-sub">SPL Token</div>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-close-modal" onclick="closeGatewayModal()">キャンセル</button>
+    </div>
+  </div>
+
   <!-- デプロイモーダル -->
   <div class="modal-overlay" id="hyper-modal">
     <div class="modal-box">
-      <h3>// QLUX : MANUAL IPFS DEPLOY</h3>
+      <h3>// QLUS Technologies : MANUAL DEPLOY</h3>
       <div class="form-group">
         <label>タイトル</label>
         <input type="text" id="input-title" class="form-control" placeholder="記事タイトル...">
       </div>
       <div class="form-group">
         <label>プロトコルタグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="TAG // DIRECT">
+        <input type="text" id="input-tag" class="form-control" placeholder="TAG // CORE">
       </div>
       <div class="form-group">
         <label>要約データ</label>
         <input type="text" id="input-desc" class="form-control" placeholder="要約文...">
       </div>
-      <div class="modal-actions">
-        <button class="btn-submit" onclick="deployHyperContent()">🌌 IPFSへ即時デプロイ</button>
-        <button class="btn-cancel" onclick="closeHyperEditor()">Cancel</button>
+      <div class="modal-actions" style="display:flex; gap:10px; margin-top:20px;">
+        <button style="flex:1; background:var(--text-gold); color:#000; border:none; padding:12px; font-weight:950; border-radius:6px; cursor:pointer;" onclick="deployHyperContent()">🌌 デプロイ</button>
+        <button style="flex:1; background:transparent; border:1px solid #64748b; color:var(--text-muted); padding:12px; border-radius:6px; cursor:pointer;" onclick="closeHyperEditor()">Cancel</button>
       </div>
     </div>
   </div>
 
   <!-- 制御スクリプト -->
   <script>
-    const MY_LIGHTNING_ADDRESS = "vlisdirect@gmail.com";
     let tapCount = 0;
     let swarmActive = false;
     let swarmInterval = null;
+    let currentArticleTitle = '';
 
     function triggerNeuralResonance(e) {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -292,35 +375,77 @@
     function openHyperEditor() { document.getElementById('hyper-modal').style.display = 'flex'; }
     function closeHyperEditor() { document.getElementById('hyper-modal').style.display = 'none'; }
 
-    // AI自動執筆ループ
+    function openGatewayModal(title) {
+      currentArticleTitle = title;
+      document.getElementById('gateway-modal').style.display = 'flex';
+    }
+    function closeGatewayModal() {
+      document.getElementById('gateway-modal').style.display = 'none';
+    }
+
+    function switchTab(mode) {
+      const btnFiat = document.getElementById('btn-tab-fiat');
+      const btnCrypto = document.getElementById('btn-tab-crypto');
+      const viewFiat = document.getElementById('view-fiat');
+      const viewCrypto = document.getElementById('view-crypto');
+
+      if (mode === 'fiat') {
+        btnFiat.classList.add('active');
+        btnCrypto.classList.remove('active');
+        viewFiat.style.display = 'block';
+        viewCrypto.style.display = 'none';
+      } else {
+        btnCrypto.classList.add('active');
+        btnFiat.classList.remove('active');
+        viewCrypto.style.display = 'block';
+        viewFiat.style.display = 'none';
+      }
+    }
+
+    function processFiatCheckout(providerName) {
+      const amount = document.getElementById('fiat-amount').value;
+      closeGatewayModal();
+      alert(`💳 [ ${providerName} オンランプ決済 ]\n\n選択額: ${amount} JPY\n対象記事: 「${currentArticleTitle}」\n\n決済ゲートウェイを起動しました。完了後、アクセストークンが自動発行されます。`);
+    }
+
+    function processCryptoPayment(assetName, targetDestination) {
+      closeGatewayModal();
+      if (assetName.includes('Bitcoin')) {
+        const lightningUri = `lightning:${targetDestination}?amount=10&comment=${encodeURIComponent(currentArticleTitle)}`;
+        window.location.href = lightningUri;
+      } else {
+        alert(`🌐 [ ${assetName} 決済ゲートウェイ ]\n\n受取先アドレス:\n${targetDestination}\n\n指定アセットでの決済シグナルを受信しました。ウォレットアプリより上記アドレスへ送金を完了してください。`);
+      }
+    }
+
+    // 自動執筆ループ
     function toggleSwarmAutoPilot() {
       swarmActive = !swarmActive;
       const btn = document.querySelector('.btn-action-mode');
       const statusText = document.getElementById('swarm-status-text');
       
       if (swarmActive) {
-        btn.innerText = '🤖 AI自動執筆: ON';
+        btn.innerText = '🤖 自動執筆: ON';
         btn.style.borderColor = 'var(--text-emerald)';
         btn.style.color = 'var(--text-emerald)';
-        statusText.innerText = 'ACTIVE (SWARM DEPLOYING)';
-        alert('🤖 AI自動執筆ループが起動しました。');
+        statusText.innerText = 'ACTIVE (AUTONOMOUS)';
+        alert('🤖 自動執筆ループが起動しました。');
         
         swarmInterval = setInterval(() => {
           const aiTopics = [
-            { title: "自律型AIノード群による経済圏最適化のリアルタイム観測", tag: "AI SWARM // AUTO", desc: "vlisdirect@gmail.com へ直結する自動生成ナノペイメントログ。" },
-            { title: "量子もつれナノスワップにおけるレイテンシ完全消滅の検証", tag: "QUANTUM // AUTO", desc: "分散ネットワーク全体で瞬時に価値と情報が双方向に同期されたデータ。" },
-            { title: "マテリアル・コンパイルとブロックチェーン同期の融合領域", tag: "MATERIAL // AUTO", desc: "デジタルコードの書き換えが物理物性制御へ直結するプロセスの自動記録。" }
+            { title: "法定通貨とクロスチェーン流動性のリアルタイムブリッジ機構", tag: "GATEWAY // AUTO", desc: "円建て決済からスマートコントラクトへの自動変換プロセス。" },
+            { title: "AI駆動型オンランプ・最適ルート選択エンジンの検証", tag: "SYSTEM // AUTO", desc: "手数料とレイテンシを最小化するエクスチェンジ自動化の記録。" }
           ];
           const selected = aiTopics[Math.floor(Math.random() * aiTopics.length)];
-          appendNewArticle(selected.title, selected.tag, selected.desc, 'AI SWARM AUTO-GEN');
+          appendNewArticle(selected.title, selected.tag, selected.desc, 'AUTO-GEN');
         }, 12000);
       } else {
-        btn.innerText = '🤖 AI自動執筆: OFF';
+        btn.innerText = '🤖 自動執筆: OFF';
         btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
         btn.style.color = 'var(--text-cyan)';
         statusText.innerText = 'STANDBY';
         clearInterval(swarmInterval);
-        alert('🤖 AI自動執筆ループを停止しました。');
+        alert('🤖 自動執筆ループを停止しました。');
       }
     }
 
@@ -331,17 +456,17 @@
       newCard.className = 'journal-card';
       newCard.innerHTML = `
         <div class="card-top-banner">
-          <span class="tag-badge hyper">${tag}</span>
+          <span class="tag-badge fiat">${tag}</span>
           <span class="tag-badge" style="color:var(--text-emerald); border-color:var(--text-emerald);">${sourceLabel}</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // DESTINATION: ${MY_LIGHTNING_ADDRESS}</div>
+          <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES SYNC</div>
           <h2 class="card-title">${title}</h2>
           <p class="card-desc">${desc}</p>
-          <div class="quantum-hash-box">PAYMENT TARGET: lightning:${MY_LIGHTNING_ADDRESS}</div>
+          <div class="quantum-hash-box">PERMA-HASH: ipfs://${ipfsHash}</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 10 Sats</span>
-            <button class="btn-hyper" onclick="payToLightningAddress(10, '${title}')">⚡ vlisdirectへ 10 Sats 決済</button>
+            <span class="price-tag" style="color:var(--text-gold);">Fiat / Multi-Asset Access</span>
+            <button class="btn-hyper" onclick="openGatewayModal('${title}')">💳 円または暗号通貨で決済</button>
           </div>
         </div>
       `;
@@ -350,35 +475,14 @@
 
     function deployHyperContent() {
       const title = document.getElementById('input-title').value;
-      const tag = document.getElementById('input-tag').value || 'MANUAL CORE';
+      const tag = document.getElementById('input-tag').value || 'CORE';
       const desc = document.getElementById('input-desc').value;
       if (!title || !desc) { alert('項目を入力してください。'); return; }
-      appendNewArticle(title, tag, desc, 'MANUAL ZK-DEPLOY');
+      appendNewArticle(title, tag, desc, 'MANUAL DEPLOY');
       closeHyperEditor();
-      alert('🌌 IPFSへのデプロイメントが完了しました。');
-    }
-
-    // 4. ライトニングアドレス（vlisdirect@gmail.com）への実動決済トリガー
-    async function payToLightningAddress(sats, memo) {
-      // ユーザーのウォレットアプリ（Wallet of SatoshiやAlbyなど）を起動するためのLNURLペイメントスキーム
-      const lightningUri = `lightning:${MY_LIGHTNING_ADDRESS}?amount=${sats}&comment=${encodeURIComponent(memo)}`;
-      
-      // WebLNがブラウザにある場合は直接ポップアップ試行
-      if (window.webln) {
-        try {
-          await window.webln.enable();
-          alert(`⚡ WebLN経由で ${MY_LIGHTNING_ADDRESS} へ ${sats} Sats の送金をリクエストします...`);
-          return;
-        } catch(e) {
-          console.log(e);
-        }
-      }
-
-      // モバイル・通常ブラウザ環境の場合：Lightning URIスキームを開いて Wallet of Satoshiアプリをダイレクト起動
-      if (confirm(`⚡ 決済アプリ（Wallet of Satoshi等）を起動し、\n[ ${MY_LIGHTNING_ADDRESS} ] へ ${sats} Sats を送金しますか？\n\nOKを押すとあなたのウォレットアプリが直接立ち上がります。`)) {
-        window.location.href = lightningUri;
-      }
+      alert('🌌 デプロイが完了しました。');
     }
   </script>
 </body>
 </html>
+
