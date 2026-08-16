@@ -245,188 +245,98 @@
   </div>
 
   <script>
-   // --- QLUX Ultimate Scarcity & Dynamic Pricing Engine v9.0 ---
-const WALLET_ADDR_BSV = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
-
-// ダイナミック・プライシングと限定数の状態管理
-let globalInventory = {
-    remaining: 3,
-    currentPrice: 5000,
-    priceLabel: "5,000 JPY (最高位テクニカル解析・開発アセット権)"
-};
-
-const ARTICLE_DATA_POOL = [
-    {
-        category: "ZERO-KNOWLEDGE ARCHITECTURE",
-        title: "ゼロ知識証明ロールアップにおけるステート圧縮と検証コストの劇的削減",
-        body: "多次元ツリー構造を用いて、ブロックチェーン上のトランザクション検証コストを95%削減。スケーラビリティを向上させ、ガス代のボトルネックを解消します。",
-        benefits: ["検証速度: 12x向上", "手数料削減: -95%", "データ占有率: 1/10に圧縮"],
-        snippet: "// ZK-State Compression Core\nasync function compressStateTree(rootNode) {\n    return await zkSnark.generateProof(rootNode, { optimize: 'aggressive' });\n}"
-    },
-    {
-        category: "POST-QUANTUM CRYPTOGRAPHY",
-        title: "格子暗号による次世代セキュリティ：量子攻撃完全耐性プロトコル",
-        body: "将来の量子コンピュータによる秘密鍵解析を無効化。現在のRSA/ECCアルゴリズムからの完全移行を可能にする次世代セキュリティアセット。",
-        benefits: ["耐量子耐性: 100%", "署名検証遅延: < 2ms", "安全性スコア: 最高等級"],
-        snippet: "// Lattice Signature Verifier\nfunction verifyQuantumResistant(sig, pubKey) {\n    return NTRU_Verify(sig, pubKey, Q_LATTICE_PARAM);\n}"
-    }
-];
-
-// 自動配信ボタン
-document.addEventListener('DOMContentLoaded', () => {
-    const streamBtn = document.getElementById('stream-btn');
-    if (streamBtn) {
-        streamBtn.onclick = () => {
-            const isOn = streamBtn.innerText.includes('OFF');
-            streamBtn.innerText = isOn ? '自動配信: ON' : '自動配信: OFF';
-            streamBtn.style.borderColor = isOn ? '#22c55e' : '';
-            if (isOn) {
-                window.streamInterval = setInterval(appendArticle, 6000);
-            } else {
-                clearInterval(window.streamInterval);
-            }
-        };
-    }
-});
-
-let activeTargetRef = null;
-
-function openModal(title, targetId) {
-    activeTargetRef = targetId;
-    const modal = document.getElementById('payment-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        modal.style.zIndex = '99999';
-    }
-}
-
-function selectMethod(methodName) {
+    function selectMethod(methodName) {
     const view = document.getElementById('action-view');
     const form = document.getElementById('view-form');
     if (!view || !form) return;
     
     view.style.display = 'block';
     
-    form.innerHTML = `
-        <div style="background:#020617; padding:20px; border-radius:12px; border:1px solid #1e293b; text-align:left;">
-            <h3 style="color:#f8fafc; font-size:14px; margin-bottom:15px; border-bottom:1px solid #334155; padding-bottom:10px;">決済方法を選択 (${methodName})</h3>
-            <p style="color:#fbbf24; font-size:12px; margin-bottom:12px;">現在の請求金額: <b>${globalInventory.priceLabel}</b></p>
-            
-            <!-- LNURL決済 -->
-            <div style="margin-bottom:20px;">
-                <p style="color:#38bdf8; font-size:11px; margin-bottom:5px;">■ Lightning Network (即時決済)</p>
-                <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; user-select:all;">
+    let contentHtml = '';
+
+    if (methodName.includes("Bitcoin SV")) {
+        const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
+        contentHtml = `
+            <div style="padding:10px; text-align:center;">
+                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Bitcoin SV ダイレクトチェーン送金</p>
+                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
+                
+                <!-- QRコード（画像準拠・白背景） -->
+                <div style="background:white; display:inline-block; padding:8px; border-radius:8px; margin-bottom:10px;">
+                    <img src="${qrUrl}" style="width:140px; height:140px; display:block;">
+                </div>
+                
+                <!-- レガシーアドレス -->
+                <div style="background:#0f172a; padding:8px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; margin-bottom:10px; user-select:all;">
+                    ${WALLET_ADDR_BSV}
+                </div>
+
+                <!-- Handcash / Paymail 情報 -->
+                <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:10px; text-align:left; border:1px solid #334155;">
+                    <p style="color:#38bdf8; font-size:11px; font-weight:bold; margin-bottom:4px;">■ Handcash Paymail (簡単送金)</p>
+                    <div style="font-family:monospace; font-size:11px; color:#f8fafc; user-select:all;">
+                        $daisuke <!-- ※ご自身のHandcashハンドルに変更してください -->
+                    </div>
+                </div>
+
+                <!-- 注意書きボックス（画像準拠） -->
+                <div style="background:#064e3b; border:1px solid #059669; padding:10px; border-radius:6px; text-align:left; margin-bottom:10px;">
+                    <p style="color:#34d399; font-size:10px; line-height:1.4; margin:0;">
+                        ⚠️ BSV からのみ送信してください。他のトークンを送信したり、他のブロックチェーンから送信したりすると、資金が永久に失われます。
+                    </p>
+                </div>
+            </div>
+        `;
+    } else if (methodName.includes("Lightning")) {
+        contentHtml = `
+            <div style="padding:10px; text-align:left;">
+                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Lightning Network マイクロペイメント</p>
+                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
+                <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; user-select:all; margin-bottom:12px;">
                     lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhhyetkd9kx2ersd9nk2mmw8y6qjdes49
                 </div>
             </div>
-
-            <!-- 銀行振込 -->
-            <div style="margin-bottom:20px;">
-                <p style="color:#fbbf24; font-size:11px; margin-bottom:5px;">■ みずほ銀行 (法人・機関投資家向け)</p>
-                <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1;">
+        `;
+    } else if (methodName.includes("銀行振込")) {
+        contentHtml = `
+            <div style="padding:10px; text-align:left;">
+                <p style="color:#fbbf24; font-weight:bold; margin-bottom:8px; font-size:13px;">みずほ銀行 (法人・機関投資家向け)</p>
+                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
+                <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1; margin-bottom:8px;">
                     <p style="margin:0;">銀行名：みずほ銀行</p>
                     <p style="margin:0;">支店番号：676</p>
                     <p style="margin:0;">科目：普通預金</p>
                     <p style="margin:0;">口座番号：3035385</p>
                     <p style="margin:0;">口座名義：ヒグチ ダイスケ</p>
                 </div>
-                <p style="font-size:9px; color:#64748b; margin-top:8px;">※ 振込完了後、照合のため「REF: [記事ID]」を振込依頼人名義の末尾に付加してください。</p>
+                <p style="font-size:9px; color:#64748b;">※ 振込完了後、照合のため「REF: [記事ID]」を名義末尾に付加してください。</p>
             </div>
-
-            <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:14px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+        `;
+    } else {
+        contentHtml = `
+            <div style="padding:15px; text-align:center;">
+                <p style="color:#38bdf8; font-weight:bold; margin-bottom:10px; font-size:13px;">${methodName} プロトコル接続</p>
+                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
+                <p style="font-size:11px; color:#94a3b8; margin-bottom:15px;">トラストレスな直接交換およびゼロ知識証明によるクリアランス処理を実行します。</p>
+            </div>
+        `;
+    }
+    
+    form.innerHTML = `
+        <div style="background:#020617; padding:15px; border-radius:12px; border:1px solid #1e293b;">
+            ${contentHtml}
+            <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:12px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">
                 送金・振込完了を通知する
             </button>
         </div>
     `;
 }
 
-function executeOnChainUnlock(methodName) {
-    const btn = event.target;
-    btn.innerText = 'オンチェーン検証中 (ダイナミック更新)...';
-    btn.style.background = '#eab308';
-    
-    setTimeout(() => {
-        // 購入成功に伴うインベントリ変動（残数減少・価格高騰のダイナミック・プライシング）
-        globalInventory.remaining = Math.max(0, globalInventory.remaining - 1);
-        if (globalInventory.remaining === 2) {
-            globalInventory.currentPrice = 7500;
-            globalInventory.priceLabel = "7,500 JPY (価格改定・残り2枠)";
-        } else if (globalInventory.remaining === 1) {
-            globalInventory.currentPrice = 10000;
-            globalInventory.priceLabel = "10,000 JPY (最終緊迫・残り1枠)";
-        } else if (globalInventory.remaining === 0) {
-            globalInventory.priceLabel = "SOLD OUT (完売)";
-        }
-
-        alert(`${methodName} による検証完了。アセットのインポート権およびシークレットDAOへのアクセスを許可しました。`);
-        
-        if (activeTargetRef) {
-            const bodyEl = document.getElementById('body-' + activeTargetRef);
-            const snippetEl = document.getElementById('snippet-'  + activeTargetRef);
-            const btnEl = document.getElementById('btn-' + activeTargetRef);
-            
-            if (bodyEl) bodyEl.style.filter = 'none';
-            if (snippetEl) {
-                snippetEl.style.filter = 'none';
-                // コピーボタン ＆ シークレットDAO招待状の同時発動
-                snippetEl.insertAdjacentHTML('afterend', `
-                    <div style="margin:10px 0; padding:12px; background:#0f172a; border:1px solid #22c55e; border-radius:8px;">
-                        <p style="color:#22c55e; font-size:11px; font-weight:bold; margin-bottom:6px;">[SUCCESS] オンチェーン同期＆ライセンス発行完了</p>
-                        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.previousElementSibling.innerText); alert('開発用コードをコピーしました。');" style="width:100%; margin-bottom:8px; padding:8px; background:#1e293b; border:1px solid #38bdf8; color:#38bdf8; cursor:pointer; font-size:11px; font-weight:bold;">
-                            [▼] 開発用コードをクリップボードにインポート
-                        </button>
-                        <a href="https://discord.gg/qlux-secret" target="_blank" style="display:block; text-align:center; padding:8px; background:#2563eb; color:white; text-decoration:none; border-radius:4px; font-size:11px; font-weight:bold;">
-                            🚀 [特典] QLUXシークレット・開発者DAOへ参加する
-                        </a>
-                    </div>
-                `);
-            }
-            if (btnEl) {
-                btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
-                btnEl.style.background = '#22c55e';
-                btnEl.disabled = true;
-            }
-        }
-        closeModal();
-    }, 2000);
+function closeModal() {
+    const modal = document.getElementById('payment-modal');
+    if (modal) modal.style.display = 'none';
+    const view = document.getElementById('action-view');
+    if (view) view.style.display = 'none';
+    const form = document.getElementById('view-form');
+    if (form) form.innerHTML = '';
 }
-
-function appendArticle() {
-    const container = document.getElementById('feed-container');
-    if (!container) return;
-    const data = ARTICLE_DATA_POOL[Math.floor(Math.random() * ARTICLE_DATA_POOL.length)];
-    const refid = 'QX-' + Math.floor(Math.random() * 90000 + 10000);
-    const benefitList = data.benefits.map(b => `<li style="margin-bottom:4px;">&check; ${b}</li>`).join('');
-    
-    const card = document.createElement('article');
-    card.className = 'article-card';
-    card.innerHTML = `
-        <div style="font-size:11px; color:#94a3b8; margin-bottom:8px;">2026.08.16 // ${data.category} &bull; REF: ${refid}</div>
-        <h2 style="color:#fff; font-size:18px; margin-bottom:10px;">${data.title}</h2>
-        
-        <!-- 限定数＆ダイナミックプライシングのリアルタイム表示バッジ -->
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e1b4b; padding:8px 12px; border-radius:6px; border:1px solid #6366f1; margin-bottom:12px;">
-            <span style="color:#a5b4fc; font-size:11px; font-weight:bold;">🔥 残り限定枠: <span style="color:#f43f5e; font-size:13px;">${globalInventory.remaining} セット</span></span>
-            <span style="color:#fbbf24; font-size:11px; font-weight:bold;">現在価格: ${globalInventory.currentPrice.toLocaleString()} JPY</span>
-        </div>
-
-        <div style="background:#0f172a; padding:12px; border-radius:8px; border-left:4px solid #38bdf8; margin-bottom:12px;">
-            <p style="color:#e2e8f0; font-size:13px; font-weight:bold; margin-bottom:6px;">本解析データによる技術的メリット:</p>
-            <ul style="color:#cbd5e1; font-size:12px; list-style:none; padding:0;">${benefitList}</ul>
-        </div>
-        
-        <div id="body-${refid}" style="color:#cbd5e1; font-size:14px; margin-bottom:12px; filter: blur(8px); user-select: none;">${data.body}</div>
-        <div id="snippet-${refid}" style="background:#030712; padding:10px; border-radius:6px; font-family:monospace; font-size:11px; color:#38bdf8; margin-bottom:12px; filter: blur(8px); overflow-x:auto;">${data.snippet}</div>
-        
-        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #1e293b; padding-top:15px;">
-            <span style="color:#fbbf24; font-weight:bold; font-size:13px;">${globalInventory.priceLabel}</span>
-            <button id="btn-${refid}" class="btn-access" onclick="openModal('${data.title.replace(/'/g, "")}', '${refid}')" ${globalInventory.remaining === 0 ? 'disabled style="background:#64748b;"' : 'style="background:#e11d48; color:white; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;"'}>
-                ${globalInventory.remaining === 0 ? '完売 (SOLD OUT)' : 'インポート権を購入する'}
-            </button>
-        </div>
-    `;
-    container.prepend(card);
-}
-</script>
-</body>
-</html>
