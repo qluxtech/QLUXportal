@@ -300,15 +300,26 @@
 
     </div>
 </div>
+let currentMethodName = 'Bitcoin SV';
+let activeTargetRef = null;
 
-// --- 決済・通知処理用関数 ---
+// ① 記事の「決済して記事を読む」ボタンから呼ばれる
+function openModal(title, refId) {
+    activeTargetRef = refId;
+    const modal = document.getElementById('payment-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+    selectMethod('Bitcoin SV');
+}
 
+// ② モーダル内の決済タブ・カード切替
 function selectMethod(methodName) {
     currentMethodName = methodName;
-    const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'flex';
     
-    document.querySelectorAll('.pay-section').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pay-section').forEach(el => {
+        el.style.display = 'none';
+    });
     
     if (methodName.includes("Bitcoin SV")) {
         const el = document.getElementById('section-bsv');
@@ -325,27 +336,39 @@ function selectMethod(methodName) {
     }
 }
 
+// ③ モーダルを閉じる
 function closeModal() {
     const modal = document.getElementById('payment-modal');
     if (modal) modal.style.display = 'none';
 }
 
+// ④ 決済完了・通知ボタン
 function executeUnlock() {
-    alert('決済処理を検知しました。アセットをインポートします。');
+    alert(currentMethodName + ' による検証を完了しました。アセットのアクセスを許可します。');
+    
+    if (activeTargetRef) {
+        const btnEl = document.getElementById('btn-' + activeTargetRef);
+        if (btnEl) {
+            btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
+            btnEl.style.background = '#22c55e';
+            btnEl.disabled = true;
+        }
+    }
     closeModal();
 }
 
-// --- 自動配信ボタン用 ---
+// ⑤ 自動配信ボタンの切り替え
 let isAutoDispatchActive = false;
-function toggleAutoDispatch() {
+function toggleStream() {
     isAutoDispatchActive = !isAutoDispatchActive;
-    const btns = document.querySelectorAll('button, div, span');
-    btns.forEach(el => {
-        if (el.innerText && el.innerText.includes('自動配信')) {
-            el.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
-            el.style.background = isAutoDispatchActive ? "#059669" : "";
-        }
-    });
+    const btn = document.getElementById('stream-btn');
+    if (btn) {
+        btn.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
+        btn.style.background = isAutoDispatchActive ? "#059669" : "";
+    }
+}
+function toggleAutoDispatch() {
+    toggleStream();
 }
 
 }<script>
