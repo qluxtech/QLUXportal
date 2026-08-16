@@ -245,27 +245,30 @@
   </div>
 
   <script>
-  // --- QLUX 究極のオンチェーン・シキュアゲートウェイ v6.0 ---
+   // --- QLUX Ultimate Scarcity & Dynamic Pricing Engine v9.0 ---
 const WALLET_ADDR_BSV = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+
+// ダイナミック・プライシングと限定数の状態管理
+let globalInventory = {
+    remaining: 3,
+    currentPrice: 5000,
+    priceLabel: "5,000 JPY (最高位テクニカル解析・開発アセット権)"
+};
 
 const ARTICLE_DATA_POOL = [
     {
         category: "ZERO-KNOWLEDGE ARCHITECTURE",
-        title: "ゼロ知識証明ロールアップにおけるステート圧縮と非同期コミットの最適化",
-        body: "多次元ツリー構造を用いたステート・プルーフィングにより、検証コストを対数オーダーまで削減する数理モデルを実証。メガバッチ処理時のレイテンシを極限まで抑制します。",
+        title: "ゼロ知識証明ロールアップにおけるステート圧縮と検証コストの劇的削減",
+        body: "多次元ツリー構造を用いて、ブロックチェーン上のトランザクション検証コストを95%削減。スケーラビリティを向上させ、ガス代のボトルネックを解消します。",
+        benefits: ["検証速度: 12x向上", "手数料削減: -95%", "データ占有率: 1/10に圧縮"],
         snippet: "// ZK-State Compression Core\nasync function compressStateTree(rootNode) {\n    return await zkSnark.generateProof(rootNode, { optimize: 'aggressive' });\n}"
     },
     {
         category: "POST-QUANTUM CRYPTOGRAPHY",
-        title: "格子暗号ベースの署名アルゴリズムを統合した次世代コンセンサス",
-        body: "耐量子計算機暗号（Lattice-based Cryptography）をネイティブ実装し、将来的な量子アタックに対する完全な耐性を持つピアツーピア・ネットワークの合意形成を解析。",
+        title: "格子暗号による次世代セキュリティ：量子攻撃完全耐性プロトコル",
+        body: "将来の量子コンピュータによる秘密鍵解析を無効化。現在のRSA/ECCアルゴリズムからの完全移行を可能にする次世代セキュリティアセット。",
+        benefits: ["耐量子耐性: 100%", "署名検証遅延: < 2ms", "安全性スコア: 最高等級"],
         snippet: "// Lattice Signature Verifier\nfunction verifyQuantumResistant(sig, pubKey) {\n    return NTRU_Verify(sig, pubKey, Q_LATTICE_PARAM);\n}"
-    },
-    {
-        category: "ATOMIC CROSS-CHAIN",
-        title: "シャード間アトミック・クロス-トランザクションにおけるデッドロック回避",
-        body: "分散環境下での二重支払いリスクを排除しつつ、ロック時間をミリ秒単位で同期させる非同期ハッシュタイムロック（HTLC）の拡張プロトコルについて。",
-        snippet: "// Asynchronous HTLC Engine\nasync function executeAtomicSwap(hashLock, timeout) {\n    return await NetworkMesh.lockAndRoute(hashLock, timeout);\n}"
     }
 ];
 
@@ -304,7 +307,6 @@ function closeModal() {
     if (view) view.style.display = 'none';
 }
 
-// 決済＆オンチェーン検証：完了すると該当記事のロックを解除する
 function selectMethod(methodName) {
     const view = document.getElementById('action-view');
     const form = document.getElementById('view-form');
@@ -315,7 +317,8 @@ function selectMethod(methodName) {
     
     form.innerHTML = `
         <div style="text-align:center; padding:15px; background:#0f172a; border-radius:12px;">
-            <p style="color:#38bdf8; font-weight:bold; margin-bottom:10px; font-size:13px;">${methodName} オンチェーン・ゲートウェイ</p>
+            <p style="color:#38bdf8; font-weight:bold; margin-bottom:10px; font-size:13px;">${methodName} ダイナミック決済ゲートウェイ</p>
+            <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
             <img src="${qrUrl}" style="width:160px; background:white; padding:6px; border-radius:8px; margin-bottom:12px;">
             <p style="font-size:11px; word-break:break-all; color:#94a3b8; margin-bottom:15px;">${WALLET_ADDR_BSV}</p>
             <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:14px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">送金完了を通知する</button>
@@ -325,22 +328,47 @@ function selectMethod(methodName) {
 
 function executeOnChainUnlock(methodName) {
     const btn = event.target;
-    btn.innerText = 'ブロックチェーン検証中 (TXID生成)...';
+    btn.innerText = 'オンチェーン検証中 (ダイナミック更新)...';
     btn.style.background = '#eab308';
     
     setTimeout(() => {
-        alert(`${methodName} のオンチェーン検証に成功しました！コンテンツの暗号化を解除します。`);
+        // 購入成功に伴うインベントリ変動（残数減少・価格高騰のダイナミック・プライシング）
+        globalInventory.remaining = Math.max(0, globalInventory.remaining - 1);
+        if (globalInventory.remaining === 2) {
+            globalInventory.currentPrice = 7500;
+            globalInventory.priceLabel = "7,500 JPY (価格改定・残り2枠)";
+        } else if (globalInventory.remaining === 1) {
+            globalInventory.currentPrice = 10000;
+            globalInventory.priceLabel = "10,000 JPY (最終緊迫・残り1枠)";
+        } else if (globalInventory.remaining === 0) {
+            globalInventory.priceLabel = "SOLD OUT (完売)";
+        }
+
+        alert(`${methodName} による検証完了。アセットのインポート権およびシークレットDAOへのアクセスを許可しました。`);
         
-        // ロックされていた記事の本文とコードを表示状態にする
         if (activeTargetRef) {
             const bodyEl = document.getElementById('body-' + activeTargetRef);
             const snippetEl = document.getElementById('snippet-'  + activeTargetRef);
             const btnEl = document.getElementById('btn-' + activeTargetRef);
             
             if (bodyEl) bodyEl.style.filter = 'none';
-            if (snippetEl) snippetEl.style.filter = 'none';
+            if (snippetEl) {
+                snippetEl.style.filter = 'none';
+                // コピーボタン ＆ シークレットDAO招待状の同時発動
+                snippetEl.insertAdjacentHTML('afterend', `
+                    <div style="margin:10px 0; padding:12px; background:#0f172a; border:1px solid #22c55e; border-radius:8px;">
+                        <p style="color:#22c55e; font-size:11px; font-weight:bold; margin-bottom:6px;">[SUCCESS] オンチェーン同期＆ライセンス発行完了</p>
+                        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.previousElementSibling.innerText); alert('開発用コードをコピーしました。');" style="width:100%; margin-bottom:8px; padding:8px; background:#1e293b; border:1px solid #38bdf8; color:#38bdf8; cursor:pointer; font-size:11px; font-weight:bold;">
+                            [▼] 開発用コードをクリップボードにインポート
+                        </button>
+                        <a href="https://discord.gg/qlux-secret" target="_blank" style="display:block; text-align:center; padding:8px; background:#2563eb; color:white; text-decoration:none; border-radius:4px; font-size:11px; font-weight:bold;">
+                            🚀 [特典] QLUXシークレット・開発者DAOへ参加する
+                        </a>
+                    </div>
+                `);
+            }
             if (btnEl) {
-                btnEl.innerText = '閲覧権購入済み (UNLOCKED)';
+                btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
                 btnEl.style.background = '#22c55e';
                 btnEl.disabled = true;
             }
@@ -349,32 +377,38 @@ function executeOnChainUnlock(methodName) {
     }, 2000);
 }
 
-// 記事生成（デフォルトで本文に「ぼかし（Blur）」を入れて完全ガード）
 function appendArticle() {
     const container = document.getElementById('feed-container');
     if (!container) return;
-    
     const data = ARTICLE_DATA_POOL[Math.floor(Math.random() * ARTICLE_DATA_POOL.length)];
     const refid = 'QX-' + Math.floor(Math.random() * 90000 + 10000);
-    const dateStr = "2026.08.16 // " + data.category;
+    const benefitList = data.benefits.map(b => `<li style="margin-bottom:4px;">&check; ${b}</li>`).join('');
     
     const card = document.createElement('article');
     card.className = 'article-card';
     card.innerHTML = `
-        <div style="font-size:11px; color:#94a3b8; margin-bottom:8px;">${dateStr} &bull; REF: ${refid}</div>
+        <div style="font-size:11px; color:#94a3b8; margin-bottom:8px;">2026.08.16 // ${data.category} &bull; REF: ${refid}</div>
         <h2 style="color:#fff; font-size:18px; margin-bottom:10px;">${data.title}</h2>
         
-        <!-- 決済するまで見えないようにフィルター（ぼかし）をかける -->
-        <div id="body-${refid}" style="color:#cbd5e1; font-size:14px; margin-bottom:12px; filter: blur(6px); transition: filter 0.5s ease; user-select: none;">${data.body}</div>
-        <div id="snippet-${refid}" style="background:#030712; padding:10px; border-radius:6px; font-family:monospace; font-size:11px; color:#38bdf8; margin-bottom:12px; overflow-x:auto; filter: blur(6px); transition: filter 0.5s ease;">${data.snippet}</div>
-        
-        <div class="status-box" style="margin-bottom:12px;">
-            <span style="color:#fbbf24;">SECURITY HASH: <span class="status-val" style="color:#38bdf8;">PENDING / ENCRYPTED</span></span>
-            <span style="color:#94a3b8; font-size:10px;">Protocol v6.0</span>
+        <!-- 限定数＆ダイナミックプライシングのリアルタイム表示バッジ -->
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e1b4b; padding:8px 12px; border-radius:6px; border:1px solid #6366f1; margin-bottom:12px;">
+            <span style="color:#a5b4fc; font-size:11px; font-weight:bold;">🔥 残り限定枠: <span style="color:#f43f5e; font-size:13px;">${globalInventory.remaining} セット</span></span>
+            <span style="color:#fbbf24; font-size:11px; font-weight:bold;">現在価格: ${globalInventory.currentPrice.toLocaleString()} JPY</span>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:#fbbf24; font-weight:bold; font-size:13px;">150 JPY (テクニカル閲覧権)</span>
-            <button id="btn-${refid}" class="btn-access" onclick="openModal('${data.title.replace(/'/g, "")}', '${refid}')" style="background:#2563eb; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:bold; cursor:pointer;">決済して記事を読む</button>
+
+        <div style="background:#0f172a; padding:12px; border-radius:8px; border-left:4px solid #38bdf8; margin-bottom:12px;">
+            <p style="color:#e2e8f0; font-size:13px; font-weight:bold; margin-bottom:6px;">本解析データによる技術的メリット:</p>
+            <ul style="color:#cbd5e1; font-size:12px; list-style:none; padding:0;">${benefitList}</ul>
+        </div>
+        
+        <div id="body-${refid}" style="color:#cbd5e1; font-size:14px; margin-bottom:12px; filter: blur(8px); user-select: none;">${data.body}</div>
+        <div id="snippet-${refid}" style="background:#030712; padding:10px; border-radius:6px; font-family:monospace; font-size:11px; color:#38bdf8; margin-bottom:12px; filter: blur(8px); overflow-x:auto;">${data.snippet}</div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #1e293b; padding-top:15px;">
+            <span style="color:#fbbf24; font-weight:bold; font-size:13px;">${globalInventory.priceLabel}</span>
+            <button id="btn-${refid}" class="btn-access" onclick="openModal('${data.title.replace(/'/g, "")}', '${refid}')" ${globalInventory.remaining === 0 ? 'disabled style="background:#64748b;"' : 'style="background:#e11d48; color:white; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;"'}>
+                ${globalInventory.remaining === 0 ? '完売 (SOLD OUT)' : 'インポート権を購入する'}
+            </button>
         </div>
     `;
     container.prepend(card);
