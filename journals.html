@@ -21,20 +21,22 @@
             margin: 0;
             padding: 16px;
             box-sizing: border-box;
-           <header class="journal-header">
-        <div style="display:flex; flex-direction:column; gap:4px;">
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size:18px; font-weight:800; color:#fff;">QLUX Journal</span>
-                <span style="background:#1e3a8a; color:#93c5fd; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold;">Tech Insights</span>
-            </div>
-            <!-- マニフェストの追加 -->
-            <div style="font-size: 11px; color: #38bdf8; font-weight: 500; font-family: monospace; border-left: 2px solid #38bdf8; padding-left: 8px;">
-                "This is the Layer 0 for Machine-Economy Technical Data."<br>
-                「ここは、AIエージェントが自律的に学習し、進化するための技術データの根源である。人間向けだけでなく、マシンが直接理解できる形式で、検証済み・署名済み・即時決済可能なストリームを供給する。」
-            </div>
+           <header class="journal-header" style="display:block; padding-bottom:16px; border-bottom:2px solid var(--border-color); margin-bottom:16px;">
+    <!-- 上段：ロゴとステータス -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:16px; font-weight:800; color:#fff;">QLUX Journal</span>
+            <span style="background:#1e3a8a; color:#93c5fd; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold;">Tech Insights</span>
         </div>
         <div style="font-size:11px; color:#10b981; font-weight:bold;">System Status: Online</div>
-    </header>
+    </div>
+    
+    <!-- 下段：マニフェスト -->
+    <div style="font-size: 11px; color: #38bdf8; font-weight: 500; font-family: monospace; border-left: 2px solid #38bdf8; padding-left: 10px; line-height: 1.4;">
+        "This is the Layer 0 for Machine-Economy Technical Data."<br>
+        「ここは、AIエージェントが自律的に学習し、進化するための技術データの根源である。」
+    </div>
+</header>
 
         .control-bar {
             display: flex;
