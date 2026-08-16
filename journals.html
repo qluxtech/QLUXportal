@@ -156,7 +156,8 @@
             cursor: pointer;
             font-size: 13px;
         }
-        /* 元のモーダルデザインを完全再現 */
+
+        /* 以前の完璧なQLUX Quantum Gateway モーダルデザイン */
         #payment-modal {
             display: none;
             position: fixed;
@@ -169,17 +170,100 @@
             padding: 16px;
             box-sizing: border-box;
         }
-        .modal-content {
+        .quantum-modal-card {
             background: #0b1120;
-            border: 1px solid #1f2937;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            border: 1px solid #1e3a8a;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(59, 130, 246, 0.2);
             border-radius: 16px;
             width: 100%;
-            max-width: 400px;
+            max-width: 440px;
             padding: 24px;
             color: #e5e7eb;
             box-sizing: border-box;
+        }
+        .gateway-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+        .gateway-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .gateway-sub {
+            font-size: 10px;
+            color: #38bdf8;
+            margin-top: 2px;
+        }
+        .gateway-price-tag {
+            text-align: right;
+        }
+        .gateway-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #f59e0b;
+        }
+        .gateway-price-sub {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+        .tab-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .gateway-tab {
+            background: #111827;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            padding: 8px 4px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .gateway-tab.active {
+            background: #1e3a8a;
+            border-color: #3b82f6;
+            color: #fff;
+        }
+        .gateway-box {
+            background: #030712;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+        .bank-info-title {
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 11px;
+        }
+        .bank-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            color: #d1d5db;
+        }
+        .gateway-close-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #4b5563;
+            color: #9ca3af;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -230,15 +314,36 @@
         </article>
     </main>
 
-    <!-- 元の美しいデザインに合わせた決済モーダル -->
+    <!-- 元の完璧な QLUX Quantum Gateway 決済モーダル -->
     <div id="payment-modal">
-        <div class="modal-content">
-            <div style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px;">QLUX Gateway 決済確認</div>
-            <div style="font-size: 13px; color: #9ca3af; margin-bottom: 20px; line-height: 1.5;">150 JPYの決済を行うことで、即時に全記事およびソースコードのロックが解除されます。</div>
-            
-            <a href="https://buy.stripe.com/" target="_blank" style="display: block; background: #3b82f6; color: #fff; text-align: center; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; margin-bottom: 10px;">▶ Stripe公式決済（150 JPY）に進む</a>
-            
-            <button onclick="closeModal()" style="width: 100%; background: transparent; border: 1px solid #4b5563; color: #9ca3af; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px;">キャンセル</button>
+        <div class="quantum-modal-card">
+            <div class="gateway-header">
+                <div>
+                    <div class="gateway-title">QLUX Quantum Gateway</div>
+                    <div class="gateway-sub">最先端分散型スマートコントラクト・自動配信決済</div>
+                </div>
+                <div class="gateway-price-tag">
+                    <div class="gateway-price">150 JPY</div>
+                    <div class="gateway-price-sub">自動即時・十数秒自動決済</div>
+                </div>
+            </div>
+
+            <div class="tab-container">
+                <div class="gateway-tab" onclick="switchTab(this)">次世代暗号資産</div>
+                <div class="gateway-tab active" onclick="switchTab(this)">法人銀行振込</div>
+                <div class="gateway-tab" onclick="switchTab(this)">カード / 決済</div>
+            </div>
+
+            <div class="gateway-box">
+                <div class="bank-info-title">みずほ銀行 (自動照合システム)</div>
+                <div style="font-size:11px; color:#9ca3af; margin-bottom:8px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
+                <div class="bank-info-row"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
+                <div class="bank-info-row"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
+                <div class="bank-info-row"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
+                <div style="font-size:10px; color:#f59e0b; margin-top:8px;">*自動照合により振込後数秒間・記事権限が解放されます。</div>
+            </div>
+
+            <button class="gateway-close-btn" onclick="closeModal()">キャンセルして戻る</button>
         </div>
     </div>
 
@@ -331,6 +436,11 @@
 
         function closeModal() {
             document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function switchTab(tabElement) {
+            document.querySelectorAll('.gateway-tab').forEach(tab => tab.classList.remove('active'));
+            tabElement.classList.add('active');
         }
     </script>
 </body>
