@@ -150,7 +150,7 @@
 
   <div class="control-bar">
     <span style="font-size:11px; color:var(--text-muted);">アーキテクチャ自動配信ストリーム</span>
-    <button id="stream-btn" class="btn-toggle-stream" onclick="toggleStream()">自動配信: OFF</button>
+    <button id="stream-btn" class="btn-toggle-stream" onclick="let isOff = this.innerText.includes('OFF'); this.innerText = isOff ? '自動配信: ON' : '自動配信: OFF'; this.style.background = isOff ? '#059669' : '';">自動配信: OFF</button>
   </div>
 
   <main class="journal-container" id="feed-container">
@@ -173,7 +173,7 @@
       </div>
       <div class="article-footer">
         <span class="price-label">150 JPY (テクニカル閲覧権)</span>
-        <button class="btn-access" onclick="openModal('分散型インフラストラクチャにおける高スループット非同期処理の設計思想', 'art-1')">決済して記事を読む</button>
+        <button class="btn-access" id="btn-art-1" onclick="document.getElementById('payment-modal').style.display='flex'">決済して記事を読む</button>
       </div>
     </article>
   </main>
