@@ -157,30 +157,30 @@
             font-size: 13px;
         }
 
-        /* 拡大＆ゆとりを持たせたポップアップモーダルデザイン */
+        /* ご要望に合わせた「大きく・ゆとりを持たせた（上下左右に約3cm分相当の余裕）」モーダルデザイン */
         #payment-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(4px);
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(6px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            padding: 36px;
             box-sizing: border-box;
         }
         .quantum-modal-card {
             background: #0b1120;
             border: 1px solid #1e3a8a;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(59, 130, 246, 0.35);
+            border-radius: 24px;
             width: 100%;
-            max-width: 500px;
-            padding: 32px;
+            max-width: 620px;
+            padding: 40px;
             color: #e5e7eb;
             box-sizing: border-box;
-            max-height: 90vh;
+            max-height: 92vh;
             overflow-y: auto;
         }
         .gateway-header {
@@ -188,44 +188,44 @@
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 1px solid #1f2937;
-            padding-bottom: 18px;
-            margin-bottom: 20px;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
         }
         .gateway-title {
-            font-size: 18px;
+            font-size: 21px;
             font-weight: 800;
             color: #fff;
         }
         .gateway-sub {
-            font-size: 11px;
+            font-size: 12px;
             color: #38bdf8;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .gateway-price-tag {
             text-align: right;
         }
         .gateway-price {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             color: #f59e0b;
         }
         .gateway-price-sub {
-            font-size: 10px;
+            font-size: 11px;
             color: #9ca3af;
         }
         .tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
         .gateway-tab {
             background: #111827;
             border: 1px solid #374151;
             color: #9ca3af;
-            padding: 10px 6px;
-            border-radius: 10px;
-            font-size: 12px;
+            padding: 12px 8px;
+            border-radius: 12px;
+            font-size: 13px;
             font-weight: bold;
             text-align: center;
             cursor: pointer;
@@ -239,18 +239,18 @@
         .gateway-box {
             background: #030712;
             border: 1px solid #1f2937;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 20px;
-            font-size: 13px;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            font-size: 14px;
         }
         .gateway-close-btn {
             width: 100%;
             background: transparent;
             border: 1px solid #4b5563;
             color: #9ca3af;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
@@ -304,13 +304,13 @@
         </article>
     </main>
 
-    <!-- 拡大＆BSVアドレスを復元した決済モーダル -->
+    <!-- QLUXpay へ名称変更＆拡大・ゆとりを持たせたポップアップモーダル -->
     <div id="payment-modal">
         <div class="quantum-modal-card">
             <div class="gateway-header">
                 <div>
-                    <div class="gateway-title">QLUX Quantum Gateway</div>
-                    <div class="gateway-sub">最先端分散型スマートコントラクト・自動配信決済</div>
+                    <div class="gateway-title">QLUXpay</div>
+                    <div class="gateway-sub">分散型スマートコントラクト・自動配信決済システム</div>
                 </div>
                 <div class="gateway-price-tag">
                     <div class="gateway-price">150 JPY</div>
@@ -326,37 +326,36 @@
 
             <!-- Bitcoin SV 決済エリア -->
             <div id="pane-bsv" class="gateway-box">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">Bitcoin SV (BSV) ダイレクトチェーン送金</div>
-                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">以下の宛先へ直接送金してください。自動検知して即時ロックが解除されます。</div>
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">Bitcoin SV (BSV) ダイレクトチェーン送金</div>
+                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">以下の宛先へ直接送金してください。自動検知して即時ロックが解除されます。</div>
                 
-                <div style="background:#111827; padding:10px; border-radius:8px; font-family:monospace; font-size:12px; color:#38bdf8; word-break:break-all; margin-bottom:12px; border:1px solid #374151;">
+                <div style="background:#111827; padding:14px; border-radius:10px; font-family:monospace; font-size:13px; color:#38bdf8; word-break:break-all; margin-bottom:14px; border:1px solid #374151;">
                     1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95
                 </div>
 
-                <div style="text-align:center; background:#fff; padding:12px; border-radius:8px; margin-bottom:12px;">
-                    <!-- QRコード画像プレースホルダー（必要に応じて実URLに変更可能） -->
-                    <div style="font-size:11px; color:#111827; font-weight:bold; margin-bottom:4px;">SCAN WITH ANY BSV WALLET</div>
+                <div style="text-align:center; background:#fff; padding:16px; border-radius:10px; margin-bottom:14px;">
+                    <div style="font-size:11px; color:#111827; font-weight:bold; margin-bottom:6px;">SCAN WITH ANY BSV WALLET</div>
                     <div style="font-family:monospace; font-size:10px; color:#555; word-break:break-all;">bitcoin:1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95?amount=...</div>
                 </div>
 
-                <div style="font-size:11px; color:#f59e0b;">*BSVチェーン以外からの送金は資金が永久に失われますのでご注意ください。</div>
+                <div style="font-size:12px; color:#f59e0b;">*BSVチェーン以外からの送金は資金が永久に失われますのでご注意ください。</div>
             </div>
 
             <!-- 銀行振込エリア（初期非表示） -->
             <div id="pane-bank" class="gateway-box" style="display:none;">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">みずほ銀行 (自動照合システム)</div>
-                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
-                <div style="font-size:11px; color:#f59e0b; margin-top:8px;">*自動照合により振込後数秒間で記事権限が解放されます。</div>
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">みずほ銀行 (自動照合システム)</div>
+                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
+                <div style="font-size:12px; color:#f59e0b; margin-top:10px;">*自動照合により振込後数秒間で記事権限が解放されます。</div>
             </div>
 
             <!-- カード決済エリア（初期非表示） -->
             <div id="pane-card" class="gateway-box" style="display:none;">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">クレジットカード / Stripe 決済</div>
-                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">セキュアな外部決済インフラを通じて即時決済を行います。</div>
-                <button style="width:100%; background:#3b82f6; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="alert('Stripe決済へ移行します')">Stripe公式決済 (150 JPY) に進む</button>
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">クレジットカード / Stripe 決済</div>
+                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">セキュアな外部決済インフラを通じて即時決済を行います。</div>
+                <button style="width:100%; background:#3b82f6; color:#fff; border:none; padding:14px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="alert('Stripe決済へ移行します')">Stripe公式決済 (150 JPY) に進む</button>
             </div>
 
             <button class="gateway-close-btn" onclick="closeModal()">キャンセルして戻る</button>
