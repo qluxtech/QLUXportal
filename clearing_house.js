@@ -1,21 +1,26 @@
-// 全地球規模クリアリングハウスのコア・ロジック
 class ClearingHouse {
-  constructor() {
-    this.globalLedger = new Map(); // 秒間数百万件の決済を高速処理
-  }
+    constructor() {
+        this.revenuePoolJPY = 0;
+        this.infrastructureCostRatio = 0.4; // 40%をインフラ維持費へ
+        this.developerRewardRatio = 0.6;    // 60%を開発・エコシステム拡張へ
+    }
 
-  processMicroTransaction(accessRequest) {
-    const { user_id, node_id, sats_amount } = accessRequest;
-    
-    // 1. ZKPによるアクセスの正当性検証
-    // 2. ミリ秒単位でのナノペイメント即時清算
-    this.updateLedger(node_id, sats_amount);
-    
-    return { status: "SETTLED", timestamp: Date.now() };
-  }
+    processMicrotransaction(amountJPY, articleId) {
+        console.log(`[ClearingHouse] Processing microtransaction of ¥${amountJPY} for Article: ${articleId}`);
+        this.revenuePoolJPY += amountJPY;
+        this.distributeFunds();
+    }
 
-  updateLedger(node_id, amount) {
-    // 演算力に応じた価値のリアルタイム還流
-  }
+    distributeFunds() {
+        const infraAllocation = this.revenuePoolJPY * this.infrastructureCostRatio;
+        const devAllocation = this.revenuePoolJPY * this.developerRewardRatio;
+
+        console.log(`[Autonomous Ledger] Reinvesting ¥${infraAllocation.toFixed(2)} into Cloud Infrastructure (Render/AWS).`);
+        console.log(`[Autonomous Ledger] Distributing ¥${devAllocation.toFixed(2)} to Contributor Node Pool.`);
+        
+        // 収益プールのリセットまたは次サイクルへの持ち越し処理
+        this.revenuePoolJPY = 0;
+    }
 }
 
+module.exports = ClearingHouse;
