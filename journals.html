@@ -179,227 +179,122 @@
     </article>
   </main>
 
-  <div class="modal-overlay" id="payment-modal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <span>セキュア決済ゲートウェイ</span>
-        <span style="color:var(--text-gold); font-size:13px;">150 JPY</span>
-      </div>
-      
-      <div class="payment-tabs">
-    <button class="tab-btn active" onclick="
-        document.getElementById('tab-crypto').style.display='grid';
-        document.getElementById('tab-bank').style.display='none';
-        document.getElementById('tab-card').style.display='none';
-      <div id="tab-crypto" class="pay-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='Bitcoin SV (BSV) ダイレクト送金';
-        document.getElementById('view-desc').innerHTML='アドレスへ直接送金してください。<br><b style=\'user-select:all;\'>1Mb61HohUEg8uAnkV9UT7R23Stuy95</b>';
-    ">
-        <div class="pay-card-title">Bitcoin SV (BSV)</div>
-        <div class="pay-card-desc">ダイレクトチェーン送金</div>
-    </div>
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='Lightning Network マイクロペイメント';
-        document.getElementById('view-desc').innerHTML='以下のインボイスに送金してください。<br><b style=\'user-select:all;\'>lnur1ldp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwn3d3h82unvawghyetdk9xx2crsd9nk2mww8</b>';
-    ">
-        <div class="pay-card-title">Lightning Network</div>
-        <div class="pay-card-desc">即時過疎マイクロペイメント</div>
-    </div>
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='ZKP ゼロ知識証明';
-        document.getElementById('view-desc').innerHTML='プライバシー保護クリアランスによる認証を行います。';
-    ">
-        <div class="pay-card-title">ZKP ゼロ知識証明</div>
-        <div class="pay-card-desc">プライバシー保護クリアランス</div>
-    </div>
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='アトミック・スワップ';
-        document.getElementById('view-desc').innerHTML='トラストレス直接交換を実行します。';
-    ">
-        <div class="pay-card-title">アトミック・スワップ</div>
-        <div class="pay-card-desc">トラストレス直接交換</div>
-    </div>
-</div>
-
-<div id="tab-bank" class="pay-grid" style="display: none; grid-template-columns: 1fr;">
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='銀行振込 口座情報';
-        document.getElementById('view-desc').innerHTML='<b>銀行名:</b> みずほ銀行（法人・機関投資家向け）<br><b>支店番号:</b> 676<br><b>科目:</b> 普通預金<br><b>口座番号:</b> <span style=\'user-select:all;\'>3035385</span><br><b>口座名義:</b> ヒグチ ダイスケ<br><span style=\'color:#fbb24;\'>※ 振込後「REF: {記事ID}」を各端末末尾に付加してください。</span>';
-    ">
-        <div class="pay-card-title">GMOあおぞらネット銀行 (自動振込システム)</div>
-        <div class="pay-card-desc">法人名義照合によるリアルタイム報酬付与</div>
-    </div>
-</div>
-
-<div id="tab-card" class="pay-grid" style="display: none; grid-template-columns: 1fr;">
-    <div class="pay-card" onclick="
-        let v = document.getElementById('action-view');
-        v.style.display='block';
-        document.getElementById('view-title').innerText='クレジットカード / Google Pay';
-        document.getElementById('view-desc').innerHTML='Stripe決済ゲートウェイを呼び出します（準備中）。';
-    ">
-        <div class="pay-card-title">クレジットカード / Google Pay</div>
-        <div class="pay-card-desc">セキュア・即時決済処理</div>
-    </div>
-</div>
-
-        <div id="action-view" class="action-view">
-          <div id="view-title" style="font-weight:600; color:var(--text-gold); margin-bottom:6px; font-size:12px;"></div>
-          <div id="view-desc" style="color:var(--text-muted); margin-bottom:10px; font-size:11px; line-height:1.4;"></div>
-          <div id="view-form"></div>
-        </div>
-      </div>
-
-      <button class="btn-close" onclick="closeModal()">キャンセルして戻る</button>
-    </div>
-  </div>
-
-  <div class="alert-overlay" id="alert-modal">
-    <div class="alert-box">
-      <div style="font-size:13px; color:var(--text-blue); margin-bottom:12px; font-weight:700;">アクセス権の付与が完了しました</div>
-      <div class="alert-msg" id="alert-msg-text"></div>
-      <button class="btn-ok" onclick="closeAlert()">確認</button>
-    </div>
-  </div>
-
-  <script>
-    <!-- 決済モーダル本体 -->
-<div id="payment-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:99999; align-items:center; justify-content:center;">
-    <div style="background:#020617; padding:20px; border-radius:12px; border:1px solid #1e293b; width:90%; max-width:400px; text-align:left;">
+  <div class="modal-overlay" id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.85); z-index: 1000; justify-content: center; align-items: center; padding: 16px;">
+    <div class="modal-box" style="background: var(--bg-card); border: 1px solid #374151; border-radius: 12px; width: 100%; max-width: 460px; display: flex; flex-direction: column; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); color: #e5e7eb; box-sizing: border-box;">
         
-        <h3 style="color:#f8fafc; font-size:14px; margin-bottom:15px; border-bottom:1px solid #334155; padding-bottom:10px;" id="modal-title">決済方法を選択</h3>
-        <p style="color:#fbbf24; font-size:12px; margin-bottom:12px;">現在の請求金額: <b id="modal-price">150 JPY</b></p>
+        <!-- ヘッダー -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2037; padding-bottom: 10px; margin-bottom: 12px;">
+            <span style="font-size: 15px; font-weight: 700; color: #fff;">セキュア決済ゲートウェイ</span>
+            <span style="color: var(--text-gold); font-size: 13px;">150 JPY</span>
+        </div>
 
-        <!-- ① Bitcoin SV 決済エリア -->
-        <div class="pay-section" id="section-bsv" style="display:none; text-align:center;">
-            <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:12px;">Bitcoin SV ダイレクトチェーン送金</p>
-            <div style="background:white; display:inline-block; padding:6px; border-radius:6px; margin-bottom:8px;">
-                <img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=bitcoin-sv:1Mb61HohUEg8eAnkV9uTTV7R235tuy95" style="width:130px; height:130px; display:block;">
+        <!-- タブ切り替え -->
+        <div class="payment-tabs" style="display: flex; gap: 6px; margin-bottom: 12px;">
+            <button class="tab-btn active" onclick="
+                document.getElementById('tab-crypto').style.display='grid';
+                document.getElementById('tab-bank').style.display='none';
+                document.getElementById('tab-card').style.display='none';
+                this.classList.add('active');
+                this.nextElementSibling.classList.remove('active');
+                this.nextElementSibling.nextElementSibling.classList.remove('active');
+            " style="flex:1; background:#0b1120; border:1px solid #374151; color:var(--text-muted); padding:8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">暗号資産決済</button>
+            
+            <button class="tab-btn" onclick="
+                document.getElementById('tab-bank').style.display='grid';
+                document.getElementById('tab-crypto').style.display='none';
+                document.getElementById('tab-card').style.display='none';
+                this.classList.add('active');
+                this.previousElementSibling.classList.remove('active');
+                this.nextElementSibling.classList.remove('active');
+            " style="flex:1; background:#0b1120; border:1px solid #374151; color:var(--text-muted); padding:8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">銀行振込</button>
+            
+            <button class="tab-btn" onclick="
+                document.getElementById('tab-card').style.display='grid';
+                document.getElementById('tab-crypto').style.display='none';
+                document.getElementById('tab-bank').style.display='none';
+                this.classList.add('active');
+                this.previousElementSibling.classList.remove('active');
+                this.previousElementSibling.previousElementSibling.classList.remove('active');
+            " style="flex:1; background:#0b1120; border:1px solid #374151; color:var(--text-muted); padding:8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">カード</button>
+        </div>
+
+        <!-- 各決済手段一覧 -->
+        <div style="display: flex; flex-direction: column; gap: 10px; max-height: 220px; overflow-y: auto; margin-bottom: 12px;">
+            
+            <!-- 暗号資産一覧 -->
+            <div id="tab-crypto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='Bitcoin SV (BSV) ダイレクト送金';
+                    document.getElementById('view-desc').innerHTML='アドレスへ直接送金してください。<br><b style=\'user-select:all; color:#38bdf8;\'>1Mb61HohUEg8uAnkV9UT7R23Stuy95</b>';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:10px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">Bitcoin SV (BSV)</div>
+                    <div style="font-size:10px; color:var(--text-muted);">ダイレクトチェーン送金</div>
+                </div>
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='Lightning Network マイクロペイメント';
+                    document.getElementById('view-desc').innerHTML='以下のインボイスに送金してください。<br><b style=\'user-select:all; color:#38bdf8; word-break:break-all;\'>lnur1ldp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwn3d3h82unvawghyetdk9xx2crsd9nk2mww8</b>';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:10px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">Lightning Network</div>
+                    <div style="font-size:10px; color:var(--text-muted);">即時過疎マイクロペイメント</div>
+                </div>
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='ZKP ゼロ知識証明';
+                    document.getElementById('view-desc').innerHTML='プライバシー保護クリアランスによる認証を行います。';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:10px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">ZKP ゼロ知識証明</div>
+                    <div style="font-size:10px; color:var(--text-muted);">プライバシー保護クリアランス</div>
+                </div>
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='アトミック・スワップ';
+                    document.getElementById('view-desc').innerHTML='トラストレス直接交換を実行します。';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:10px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">アトミック・スワップ</div>
+                    <div style="font-size:10px; color:var(--text-muted);">トラストレス直接交換</div>
+                </div>
             </div>
-            <div style="background:#0f172a; padding:6px; border-radius:6px; font-family:monospace; font-size:9px; color:#94a3b8; margin-bottom:8px; word-break:break-all; user-select:all;">
-                1Mb61HohUEg8eAnkV9uTTV7R235tuy95
+
+            <!-- 銀行振込一覧 -->
+            <div id="tab-bank" style="display: none; grid-template-columns: 1fr;">
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='みずほ銀行 振込口座情報';
+                    document.getElementById('view-desc').innerHTML='<b>銀行名:</b> みずほ銀行<br><b>支店番号:</b> 676<br><b>科目:</b> 普通預金<br><b>口座番号:</b> <span style=\'user-select:all; color:#38bdf8; font-size:13px;\'>3035385</span><br><b>口座名義:</b> ヒグチ ダイスケ<br><span style=\'color:#fbb24;\'>※振込後「REF: {記事ID}」を付加してください。</span>';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:12px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">みずほ銀行 (自動振込システム)</div>
+                    <div style="font-size:10px; color:var(--text-muted);">法人名義照合によるリアルタイム報酬付与</div>
+                </div>
             </div>
-            <div style="background:#0f172a; padding:8px; border-radius:6px; margin-bottom:8px; text-align:left; border:1px solid #334155;">
-                <p style="color:#38bdf8; font-size:10px; font-weight:bold; margin-bottom:2px;">■ Handcash Paymail</p>
-                <div style="font-family:monospace; font-size:10px; color:#f8fafc; user-select:all;">$daisuke</div>
-            </div>
-            <div style="background:#064e3b; border:1px solid #059669; padding:8px; border-radius:6px; text-align:left; margin-bottom:10px;">
-                <p style="color:#34d399; font-size:9px; line-height:1.3; margin:0;">⚠️ BSV からのみ送信してください。他のチェーンから送ると資金が失われます。</p>
+
+            <!-- カード一覧 -->
+            <div id="tab-card" style="display: none; grid-template-columns: 1fr;">
+                <div onclick="
+                    let v = document.getElementById('action-view');
+                    v.style.display='block';
+                    document.getElementById('view-title').innerText='クレジットカード / Google Pay';
+                    document.getElementById('view-desc').innerHTML='決済ゲートウェイを呼び出します（準備中）。';
+                " style="background:#0b1120; border:1px solid #1f2037; padding:12px; border-radius:8px; cursor:pointer;">
+                    <div style="font-weight:600; font-size:12px; color:#fff;">クレジットカード / Google Pay</div>
+                    <div style="font-size:10px; color:var(--text-muted);">セキュア・即時決済処理</div>
+                </div>
             </div>
         </div>
 
-        <!-- ② Lightning Network 決済エリア -->
-        <div class="pay-section" id="section-lightning" style="display:none;">
-            <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:12px;">Lightning Network マイクロペイメント</p>
-            <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:9px; word-break:break-all; color:#94a3b8; user-select:all; margin-bottom:10px;">
-                lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhhyetkd9kx2ersd9nk2mmw8y6qjdes49
-            </div>
+        <!-- アドレス・詳細表示エリア -->
+        <div id="action-view" style="background: #0b1120; border: 1px solid #1f2037; padding: 12px; border-radius: 8px; display: none; margin-bottom: 12px;">
+            <div id="view-title" style="font-weight: 600; color: var(--text-gold); margin-bottom: 6px; font-size: 12px;"></div>
+            <div id="view-desc" style="color: var(--text-muted); font-size: 11px; line-height: 1.4;"></div>
         </div>
 
-        <!-- ③ 銀行振込エリア -->
-        <div class="pay-section" id="section-bank" style="display:none;">
-            <p style="color:#fbbf24; font-weight:bold; margin-bottom:8px; font-size:12px;">みずほ銀行 (法人・機関投資家向け)</p>
-            <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1; margin-bottom:8px;">
-                <p style="margin:0;">銀行名：みずほ銀行</p>
-                <p style="margin:0;">支店番号：676</p>
-                <p style="margin:0;">科目：普通預金</p>
-                <p style="margin:0;">口座番号：3035385</p>
-                <p style="margin:0;">口座名義：ヒグチ ダイスケ</p>
-            </div>
-            <p style="font-size:9px; color:#64748b;">※ 振込後「REF: [記事ID]」を名義末尾に付加してください。</p>
-        </div>
-
-        <!-- 共通ボタン類 --> 
-      <button onclick="executeUnlock()" style="...">送金・振込完了を通知する</button>
-      </button>
-        <button onclick="closeModal()" style="width:100%; padding:10px; background:transparent; color:#94a3b8; border:1px solid #334155; border-radius:8px; font-size:12px; cursor:pointer; margin-top:8px;">
-            キャンセルして戻る
-        </button>
-
+        <!-- キャンセルボタン（常に直下に綺麗に収まる） -->
+        <button class="btn-close" onclick="document.getElementById('payment-modal').style.display='none'" style="width: 100%; background: transparent; border: 1px solid #4b5563; color: var(--text-muted); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600;">キャンセルして戻る</button>
     </div>
 </div>
-let currentMethodName = 'Bitcoin SV';
-let activeTargetRef = null;
-
-// ① 記事の「決済して記事を読む」ボタンから呼ばれる
-function openModal(title, refId) {
-    activeTargetRef = refId;
-    const modal = document.getElementById('payment-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-    selectMethod('Bitcoin SV');
-}
-
-// ② モーダル内の決済タブ・カード切替
-function selectMethod(methodName) {
-    currentMethodName = methodName;
-    
-    document.querySelectorAll('.pay-section').forEach(el => {
-        el.style.display = 'none';
-    });
-    
-    if (methodName.includes("Bitcoin SV")) {
-        const el = document.getElementById('section-bsv');
-        if (el) el.style.display = 'block';
-    } else if (methodName.includes("Lightning")) {
-        const el = document.getElementById('section-lightning');
-        if (el) el.style.display = 'block';
-    } else if (methodName.includes("銀行振込")) {
-        const el = document.getElementById('section-bank');
-        if (el) el.style.display = 'block';
-    } else {
-        const el = document.getElementById('section-bsv');
-        if (el) el.style.display = 'block';
-    }
-}
-
-// ③ モーダルを閉じる
-function closeModal() {
-    const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'none';
-}
-
-// ④ 決済完了・通知ボタン
-function executeUnlock() {
-    alert(currentMethodName + ' による検証を完了しました。アセットのアクセスを許可します。');
-    
-    if (activeTargetRef) {
-        const btnEl = document.getElementById('btn-' + activeTargetRef);
-        if (btnEl) {
-            btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
-            btnEl.style.background = '#22c55e';
-            btnEl.disabled = true;
-        }
-    }
-    closeModal();
-}
-
-// ⑤ 自動配信ボタンの切り替え
-let isAutoDispatchActive = false;
-function toggleStream() {
-    isAutoDispatchActive = !isAutoDispatchActive;
-    const btn = document.getElementById('stream-btn');
-    if (btn) {
-        btn.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
-        btn.style.background = isAutoDispatchActive ? "#059669" : "";
-    }
-}
-function toggleAutoDispatch() {
-    toggleStream();
-}
-
-}<script>
-</div>
-<html>
