@@ -157,7 +157,7 @@
             font-size: 13px;
         }
 
-        /* 以前の完璧なQLUX Quantum Gateway モーダルデザイン */
+        /* 拡大＆ゆとりを持たせたポップアップモーダルデザイン */
         #payment-modal {
             display: none;
             position: fixed;
@@ -167,63 +167,65 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 24px;
             box-sizing: border-box;
         }
         .quantum-modal-card {
             background: #0b1120;
             border: 1px solid #1e3a8a;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
             width: 100%;
-            max-width: 440px;
-            padding: 24px;
+            max-width: 500px;
+            padding: 32px;
             color: #e5e7eb;
             box-sizing: border-box;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .gateway-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 1px solid #1f2937;
-            padding-bottom: 14px;
-            margin-bottom: 16px;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
         }
         .gateway-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
             color: #fff;
         }
         .gateway-sub {
-            font-size: 10px;
+            font-size: 11px;
             color: #38bdf8;
-            margin-top: 2px;
+            margin-top: 4px;
         }
         .gateway-price-tag {
             text-align: right;
         }
         .gateway-price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
             color: #f59e0b;
         }
         .gateway-price-sub {
-            font-size: 9px;
+            font-size: 10px;
             color: #9ca3af;
         }
         .tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         .gateway-tab {
             background: #111827;
             border: 1px solid #374151;
             color: #9ca3af;
-            padding: 8px 4px;
-            border-radius: 8px;
-            font-size: 11px;
+            padding: 10px 6px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: bold;
             text-align: center;
             cursor: pointer;
@@ -237,33 +239,21 @@
         .gateway-box {
             background: #030712;
             border: 1px solid #1f2937;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 16px;
-            font-size: 12px;
-        }
-        .bank-info-title {
-            color: #38bdf8;
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 11px;
-        }
-        .bank-info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-            color: #d1d5db;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            font-size: 13px;
         }
         .gateway-close-btn {
             width: 100%;
             background: transparent;
             border: 1px solid #4b5563;
             color: #9ca3af;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -287,7 +277,7 @@
             <div class="article-meta"><span>2026.08.17 // SYSTEMS ARCHITECTURE</span><span>REF: QX-8801</span></div>
             <h2 class="article-title">分散型インフラストラクチャにおける高スループット非同期処理の設計思想</h2>
             <div class="article-body">
-                <p>現代の大規模分散システムにおいて、単一障害点を排除したピアツーピアのデータ同期と高効率な負荷分散は不可欠な要素です。本稿では、中央集権的なボトルネックを回避しつつ、ミリ単位での整合性を維持する分散コンセンサス・プロトコルの核心に迫ります。</p>
+                <p>現代の大規模分散システムにおいて、単一障害点を排除したピアツーピアのデータ同期と高効率な負荷分散は不可欠な要素です。</p>
                 <div class="code-snippet">// Public Preview Interface<br>function getClusterStatus() { return "Active Peer Node"; }</div>
                 
                 <div class="paywall-locked">
@@ -297,8 +287,8 @@
                         <p>エッジ層での演算処理を極限まで高め、改ざん耐性をミリ秒単位で担保する完全自律型コンセンサスアルゴリズムの詳細ロジック。</p>
                     </div>
                     <div class="paywall-overlay">
-                        <div style="color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔒 プレミアム・テクニカル限定エリア</div>
-                        <div style="color: #9ca3af; font-size: 12px; margin-bottom: 10px;">完全なソースコードと全自動同期の全容を即時アンロック</div>
+                        <div style="color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 6px;">🔒 プレミアム・テクニカル限定エリア</div>
+                        <div style="color: #9ca3af; font-size: 13px; margin-bottom: 12px;">完全なソースコードと全自動同期の全容を即時アンロック</div>
                         <button class="btn-access" onclick="openModal()">150 JPY で全コードを解放する</button>
                     </div>
                 </div>
@@ -314,7 +304,7 @@
         </article>
     </main>
 
-    <!-- 元の完璧な QLUX Quantum Gateway 決済モーダル -->
+    <!-- 拡大＆BSVアドレスを復元した決済モーダル -->
     <div id="payment-modal">
         <div class="quantum-modal-card">
             <div class="gateway-header">
@@ -329,18 +319,44 @@
             </div>
 
             <div class="tab-container">
-                <div class="gateway-tab" onclick="switchTab(this)">次世代暗号資産</div>
-                <div class="gateway-tab active" onclick="switchTab(this)">法人銀行振込</div>
-                <div class="gateway-tab" onclick="switchTab(this)">カード / 決済</div>
+                <div class="gateway-tab active" onclick="switchTab(this, 'bsv')">Bitcoin SV (BSV)</div>
+                <div class="gateway-tab" onclick="switchTab(this, 'bank')">法人銀行振込</div>
+                <div class="gateway-tab" onclick="switchTab(this, 'card')">カード / 決済</div>
             </div>
 
-            <div class="gateway-box">
-                <div class="bank-info-title">みずほ銀行 (自動照合システム)</div>
-                <div style="font-size:11px; color:#9ca3af; margin-bottom:8px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
-                <div class="bank-info-row"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
-                <div class="bank-info-row"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
-                <div class="bank-info-row"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
-                <div style="font-size:10px; color:#f59e0b; margin-top:8px;">*自動照合により振込後数秒間・記事権限が解放されます。</div>
+            <!-- Bitcoin SV 決済エリア -->
+            <div id="pane-bsv" class="gateway-box">
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">Bitcoin SV (BSV) ダイレクトチェーン送金</div>
+                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">以下の宛先へ直接送金してください。自動検知して即時ロックが解除されます。</div>
+                
+                <div style="background:#111827; padding:10px; border-radius:8px; font-family:monospace; font-size:12px; color:#38bdf8; word-break:break-all; margin-bottom:12px; border:1px solid #374151;">
+                    1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95
+                </div>
+
+                <div style="text-align:center; background:#fff; padding:12px; border-radius:8px; margin-bottom:12px;">
+                    <!-- QRコード画像プレースホルダー（必要に応じて実URLに変更可能） -->
+                    <div style="font-size:11px; color:#111827; font-weight:bold; margin-bottom:4px;">SCAN WITH ANY BSV WALLET</div>
+                    <div style="font-family:monospace; font-size:10px; color:#555; word-break:break-all;">bitcoin:1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95?amount=...</div>
+                </div>
+
+                <div style="font-size:11px; color:#f59e0b;">*BSVチェーン以外からの送金は資金が永久に失われますのでご注意ください。</div>
+            </div>
+
+            <!-- 銀行振込エリア（初期非表示） -->
+            <div id="pane-bank" class="gateway-box" style="display:none;">
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">みずほ銀行 (自動照合システム)</div>
+                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#d1d5db;"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
+                <div style="font-size:11px; color:#f59e0b; margin-top:8px;">*自動照合により振込後数秒間で記事権限が解放されます。</div>
+            </div>
+
+            <!-- カード決済エリア（初期非表示） -->
+            <div id="pane-card" class="gateway-box" style="display:none;">
+                <div style="color:#38bdf8; font-weight:bold; margin-bottom:6px; font-size:13px;">クレジットカード / Stripe 決済</div>
+                <div style="font-size:12px; color:#9ca3af; margin-bottom:12px;">セキュアな外部決済インフラを通じて即時決済を行います。</div>
+                <button style="width:100%; background:#3b82f6; color:#fff; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="alert('Stripe決済へ移行します')">Stripe公式決済 (150 JPY) に進む</button>
             </div>
 
             <button class="gateway-close-btn" onclick="closeModal()">キャンセルして戻る</button>
@@ -412,8 +428,8 @@
                             <p>エッジ層での演算処理を極限まで高め、改ざん耐性をミリ秒単位で担保する完全自律型コンセンサスアルゴリズムの詳細ロジック。</p>
                         </div>
                         <div class="paywall-overlay">
-                            <div style="color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 4px;">🔒 プレミアム・テクニカル限定エリア</div>
-                            <div style="color: #9ca3af; font-size: 12px; margin-bottom: 10px;">完全なソースコードと全自動同期の全容を即時アンロック</div>
+                            <div style="color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 6px;">🔒 プレミアム・テクニカル限定エリア</div>
+                            <div style="color: #9ca3af; font-size: 13px; margin-bottom: 12px;">完全なソースコードと全自動同期の全容を即時アンロック</div>
                             <button class="btn-access" onclick="openModal()">150 JPY で全コードを解放する</button>
                         </div>
                     </div>
@@ -438,9 +454,17 @@
             document.getElementById('payment-modal').style.display = 'none';
         }
 
-        function switchTab(tabElement) {
+        function switchTab(tabElement, type) {
             document.querySelectorAll('.gateway-tab').forEach(tab => tab.classList.remove('active'));
             tabElement.classList.add('active');
+
+            document.getElementById('pane-bsv').style.display = 'none';
+            document.getElementById('pane-bank').style.display = 'none';
+            document.getElementById('pane-card').style.display = 'none';
+
+            if (type === 'bsv') document.getElementById('pane-bsv').style.display = 'block';
+            if (type === 'bank') document.getElementById('pane-bank').style.display = 'block';
+            if (type === 'card') document.getElementById('pane-card').style.display = 'block';
         }
     </script>
 </body>
