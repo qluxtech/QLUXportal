@@ -178,23 +178,23 @@
       </div>
     </article>
   </main>
- <div class="modal-overlay" id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.95); z-index: 1000; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box; backdrop-filter: blur(10px);">
-    <div class="modal-box" style="background: linear-gradient(145deg, #0b1120, #030712); border: 2px solid #3b82f6; border-radius: 28px; width: 100%; max-width: 680px; display: flex; flex-direction: column; padding: 42px; box-shadow: 0 30px 70px rgba(0,0,0,0.98), 0 0 40px rgba(59, 130, 246, 0.25); color: #e5e7eb; box-sizing: border-box;">
+<div class="modal-overlay" id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.96); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(12px);">
+    <div class="modal-box" style="background: linear-gradient(145deg, #0b1120, #030712); border: 2px solid #3b82f6; border-radius: 32px; width: 100%; max-width: 740px; display: flex; flex-direction: column; padding: 48px; box-shadow: 0 35px 80px rgba(0,0,0,0.99), 0 0 50px rgba(59, 130, 246, 0.3); color: #e5e7eb; box-sizing: border-box;">
         
         <!-- ヘッダー -->
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1f2937; padding-bottom: 20px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1f2937; padding-bottom: 24px; margin-bottom: 28px;">
             <div>
-                <div style="font-size: 24px; font-weight: 800; color: #fff; letter-spacing: 0.5px;">QLUX Quantum Gateway</div>
-                <div style="font-size: 13px; color: #38bdf8; margin-top: 4px;">日本最高峰・セキュア自動配信スマート決済システム</div>
+                <div style="font-size: 26px; font-weight: 800; color: #fff; letter-spacing: 0.5px;">QLUX Quantum Gateway</div>
+                <div style="font-size: 14px; color: #38bdf8; margin-top: 6px;">日本最高峰・完全自律型スマートコントラクト・自動配信決済</div>
             </div>
             <div style="text-align: right;">
-                <span style="color: var(--text-gold); font-size: 22px; font-weight: 800;">150 JPY</span>
-                <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">SSL暗号化・即時自動同期</div>
+                <span style="color: var(--text-gold); font-size: 24px; font-weight: 800;">150 JPY</span>
+                <div style="font-size: 12px; color: #9ca3af; margin-top: 2px;">SSL暗号化・即時自動同期</div>
             </div>
         </div>
 
         <!-- タブ切り替え -->
-        <div class="payment-tabs" style="display: flex; gap: 14px; margin-bottom: 24px;">
+        <div class="payment-tabs" style="display: flex; gap: 16px; margin-bottom: 28px;">
             <button class="tab-btn active" onclick="
                 document.getElementById('tab-crypto').style.display='grid';
                 document.getElementById('tab-bank').style.display='none';
@@ -202,7 +202,7 @@
                 this.classList.add('active');
                 this.nextElementSibling.classList.remove('active');
                 this.nextElementSibling.nextElementSibling.classList.remove('active');
-            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#fff; padding:16px; border-radius:14px; cursor:pointer; font-size:15px; font-weight:700; transition:all 0.3s;">次世代暗号資産</button>
+            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#fff; padding:18px; border-radius:16px; cursor:pointer; font-size:16px; font-weight:700; transition:all 0.3s;">次世代暗号資産</button>
             
             <button class="tab-btn" onclick="
                 document.getElementById('tab-bank').style.display='grid';
@@ -211,7 +211,7 @@
                 this.classList.add('active');
                 this.previousElementSibling.classList.remove('active');
                 this.nextElementSibling.classList.remove('active');
-            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#9ca3af; padding:16px; border-radius:14px; cursor:pointer; font-size:15px; font-weight:700; transition:all 0.3s;">法人銀行振込</button>
+            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#9ca3af; padding:18px; border-radius:16px; cursor:pointer; font-size:16px; font-weight:700; transition:all 0.3s;">法人銀行振込</button>
             
             <button class="tab-btn" onclick="
                 document.getElementById('tab-card').style.display='grid';
@@ -220,33 +220,34 @@
                 this.classList.add('active');
                 this.previousElementSibling.classList.remove('active');
                 this.previousElementSibling.previousElementSibling.classList.remove('active');
-            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#9ca3af; padding:16px; border-radius:14px; cursor:pointer; font-size:15px; font-weight:700; transition:all 0.3s;">カード / 決済</button>
+            " style="flex:1; background:#111827; border:1px solid #4b5563; color:#9ca3af; padding:18px; border-radius:16px; cursor:pointer; font-size:16px; font-weight:700; transition:all 0.3s;">カード / 決済</button>
         </div>
 
         <!-- 各決済手段一覧 -->
-        <div style="display: flex; flex-direction: column; gap: 16px; max-height: 360px; overflow-y: auto; margin-bottom: 24px; padding-right: 4px;">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-height: 400px; overflow-y: auto; margin-bottom: 28px; padding-right: 6px;">
             
             <!-- 暗号資産一覧 -->
-            <div id="tab-crypto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div id="tab-crypto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                 <div onclick="
                     let v = document.getElementById('action-view');
                     v.style.display='block';
+                    let bsvAddr = '1Mb61HohUEg8uAnkV9UT7R23Stuy95';
                     document.getElementById('view-title-div').innerText='Bitcoin SV (BSV) ダイレクトスマート契約送金';
-                    document.getElementById('view-desc').innerHTML='ネイティブBSVチェーン上のスマートコントラクトアドレスです。<br><span style=\'user-select:all; color:#38bdf8; font-size:14px; font-family:monospace; background:#030712; padding:8px; display:block; margin-top:8px; border-radius:8px;\'>1Mb61HohUEg8uAnkV9UT7R23Stuy95</span>';
-                " style="background:#111827; border:1px solid #374151; padding:20px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">Bitcoin SV (BSV)</div>
-                    <div style="font-size:13px; color:#9ca3af; margin-top:6px;">高スループット即時処理</div>
+                    document.getElementById('view-desc').innerHTML='ネイティブBSVチェーン上のスマートコントラクトアドレスです。<br><span style=\'user-select:all; color:#38bdf8; font-size:15px; font-family:monospace; background:#030712; padding:10px; display:block; margin-top:10px; border-radius:10px;\'>' + bsvAddr + '</span>';
+                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">Bitcoin SV (BSV)</div>
+                    <div style="font-size:14px; color:#9ca3af; margin-top:6px;">高スループット即時処理</div>
                 </div>
 
                 <div onclick="
                     let v = document.getElementById('action-view');
                     v.style.display='block';
-                    let lnInvoice = 'lnur1ldp68gurn' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                    let lnInvoice = 'lnur1ldp' + [...Array(24)].map(() => Math.floor(Math.random() * 36).toString(36)).join('');
                     document.getElementById('view-title-div').innerText='Lightning Network 自動生成インボイス';
-                    document.getElementById('view-desc').innerHTML='即時マイクロペイメント用インボイスを動的生成しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:13px; font-family:monospace; background:#030712; padding:8px; display:block; margin-top:8px; border-radius:8px; word-break:break-all;\'>' + lnInvoice + '</span>';
-                " style="background:#111827; border:1px solid #374151; padding:20px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">Lightning Network</div>
-                    <div style="font-size:13px; color:#9ca3af; margin-top:6px;">ゼロレイテンシ決済</div>
+                    document.getElementById('view-desc').innerHTML='即時マイクロペイメント用インボイスを動的生成しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:14px; font-family:monospace; background:#030712; padding:10px; display:block; margin-top:10px; border-radius:10px; word-break:break-all;\'>' + lnInvoice + '</span>';
+                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">Lightning Network</div>
+                    <div style="font-size:14px; color:#9ca3af; margin-top:6px;">ゼロレイテンシ決済</div>
                 </div>
 
                 <div onclick="
@@ -254,10 +255,10 @@
                     v.style.display='block';
                     let zkpHash = '0xzkp_' + [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
                     document.getElementById('view-title-div').innerText='ZKP ゼロ知識証明（ZK-SNARKs認証）';
-                    document.getElementById('view-desc').innerHTML='完全プライバシー保護型クリアランス証明を自動発行しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:13px; font-family:monospace; background:#030712; padding:8px; display:block; margin-top:8px; border-radius:8px; word-break:break-all;\'>' + zkpHash + '</span>';
-                " style="background:#111827; border:1px solid #374151; padding:20px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">ZKP ゼロ知識証明</div>
-                    <div style="font-size:13px; color:#9ca3af; margin-top:6px;">暗号学的プライバシー</div>
+                    document.getElementById('view-desc').innerHTML='完全プライバシー保護型クリアランス証明を自動発行しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:14px; font-family:monospace; background:#030712; padding:10px; display:block; margin-top:10px; border-radius:10px; word-break:break-all;\'>' + zkpHash + '</span>';
+                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">ZKP ゼロ知識証明</div>
+                    <div style="font-size:14px; color:#9ca3af; margin-top:6px;">暗号学的プライバシー</div>
                 </div>
 
                 <div onclick="
@@ -265,10 +266,10 @@
                     v.style.display='block';
                     let htlcHash = '0xhtlc_' + [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
                     document.getElementById('view-title-div').innerText='アトミック・スワップ (HTLC自動生成)';
-                    document.getElementById('view-desc').innerHTML='ハッシュ時間ロック契約 (HTLC) をリアルタイム自動生成しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:13px; font-family:monospace; background:#030712; padding:8px; display:block; margin-top:8px; border-radius:8px; word-break:break-all;\'>' + htlcHash + '</span><span style=\'color:#f59e0b; display:block; margin-top:6px; font-size:12px;\'>[クロスチェーン・トラストレス交換準備完了]</span>';
-                " style="background:#111827; border:1px solid #374151; padding:20px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">アトミック・スワップ</div>
-                    <div style="font-size:13px; color:#9ca3af; margin-top:6px;">トラストレス分散交換</div>
+                    document.getElementById('view-desc').innerHTML='ハッシュ時間ロック契約 (HTLC) をリアルタイム自動生成しました。<br><span style=\'user-select:all; color:#38bdf8; font-size:14px; font-family:monospace; background:#030712; padding:10px; display:block; margin-top:10px; border-radius:10px; word-break:break-all;\'>' + htlcHash + '</span><span style=\'color:#f59e0b; display:block; margin-top:8px; font-size:13px;\'>[クロスチェーン・トラストレス交換準備完了]</span>';
+                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">アトミック・スワップ</div>
+                    <div style="font-size:14px; color:#9ca3af; margin-top:6px;">トラストレス分散交換</div>
                 </div>
             </div>
 
@@ -278,34 +279,34 @@
                     let v = document.getElementById('action-view');
                     v.style.display='block';
                     document.getElementById('view-title-div').innerText='みずほ銀行 リアルタイム自動照合口座';
-                    document.getElementById('view-desc').innerHTML='<b>銀行名:</b> みずほ銀行 (支店コード: 676)<br><b>口座番号:</b> <span style=\'user-select:all; color:#38bdf8; font-size:16px;\'>3035385</span> (普通)<br><b>口座名義:</b> ヒグチ ダイスケ<br><span style=\'color:#f59e0b; display:block; margin-top:8px;\'>※AI自動照合により振込後即時報酬・記事権限が解放されます。</span>';
-                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">みずほ銀行 (自動照合システム)</div>
-                    <div style="font-size:13px; color:#9ca3af; margin-top:6px;">法人名義・記事IDリアルタイム自動突き合わせ</div>
+                    document.getElementById('view-desc').innerHTML='<b>銀行名:</b> みずほ銀行 (支店コード: 676)<br><b>口座番号:</b> <span style=\'user-select:all; color:#38bdf8; font-size:17px;\'>3035385</span> (普通)<br><b>口座名義:</b> ヒグチ ダイスケ<br><span style=\'color:#f59e0b; display:block; margin-top:10px;\'>※AI自動照合により振込後即時報酬・記事権限が解放されます。</span>';
+                " style="background:#111827; border:1px solid #374151; padding:24px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">みずほ銀行 (自動照合システム)</div>
+                    <div style="font-size:14px; color:#9ca3af; margin-top:6px;">法人名義・記事IDリアルタイム自動突き合わせ</div>
                 </div>
             </div>
 
-            <!-- カード決済一覧（実運用セキュア接続） -->
-            <div id="tab-card" style="display: grid; grid-template-columns: 1fr;">
+            <!-- カード決済一覧 -->
+            <div id="tab-card" style="display: none; grid-template-columns: 1fr;">
                 <div onclick="
                     let v = document.getElementById('action-view');
                     v.style.display='block';
                     document.getElementById('view-title-div').innerText='Stripe / Apple Pay / Google Pay 本番決済';
-                    document.getElementById('view-desc').innerHTML='PCI DSS準拠のセキュア決済環境へ接続します。<br><a href=\'https://buy.stripe.com/\' target=\'_blank\' style=\'display:block; margin-top:12px; background:#3b82f6; color:#fff; text-align:center; text-decoration:none; padding:14px 20px; border-radius:10px; font-weight:bold; font-size:15px; box-shadow:0 4px 12px rgba(59,130,246,0.4);\'>▶ 150 JPY のカード決済（Stripeセッション）を起動</a>';
-                " style="background:#111827; border:1px solid #374151; padding:22px; border-radius:16px; cursor:pointer;">
-                    <div style="font-weight:700; font-size:16px; color:#fff;">クレジットカード / Apple Pay / Google Pay</div>
-                    <div style="font-size:13px; color:#38bdf8; margin-top:6px;">▶ タップして公式Stripe決済画面を開く</div>
+                    document.getElementById('view-desc').innerHTML='PCI DSS準拠のセキュア決済環境へ接続します。<br><a href=\'https://buy.stripe.com/\' target=\'_blank\' style=\'display:block; margin-top:14px; background:#3b82f6; color:#fff; text-align:center; text-decoration:none; padding:16px 24px; border-radius:12px; font-weight:bold; font-size:16px; box-shadow:0 6px 16px rgba(59,130,246,0.4);\'>▶ 150 JPY のカード決済（Stripeセッション）を起動</a>';
+                " style="background:#111827; border:1px solid #374151; padding:24px; border-radius:18px; cursor:pointer;">
+                    <div style="font-weight:700; font-size:17px; color:#fff;">クレジットカード / Apple Pay / Google Pay</div>
+                    <div style="font-size:14px; color:#38bdf8; margin-top:6px;">▶ タップして公式Stripe決済画面を開く</div>
                 </div>
             </div>
         </div>
 
         <!-- アドレス・詳細表示エリア -->
-        <div id="action-view" style="background: #030712; border: 1px solid #3b82f6; padding: 20px; border-radius: 16px; display: none; margin-bottom: 24px;">
-            <div id="view-title-div" style="font-weight: 700; color: var(--text-gold); margin-bottom: 8px; font-size: 15px;"></div>
-            <div id="view-desc" style="color: #d1d5db; font-size: 14px; line-height: 1.6;"></div>
+        <div id="action-view" style="background: #030712; border: 1px solid #3b82f6; padding: 22px; border-radius: 18px; display: none; margin-bottom: 28px;">
+            <div id="view-title-div" style="font-weight: 700; color: var(--text-gold); margin-bottom: 10px; font-size: 16px;"></div>
+            <div id="view-desc" style="color: #d1d5db; font-size: 15px; line-height: 1.7;"></div>
         </div>
 
         <!-- キャンセルボタン -->
-        <button class="btn-close" onclick="document.getElementById('payment-modal').style.display='none'" style="width: 100%; background: transparent; border: 2px solid #4b5563; color: #e5e7eb; padding: 18px; border-radius: 16px; cursor: pointer; font-weight: 700; font-size: 16px;">キャンセルして戻る</button>
+        <button class="btn-close" onclick="document.getElementById('payment-modal').style.display='none'" style="width: 100%; background: transparent; border: 2px solid #4b5563; color: #e5e7eb; padding: 20px; border-radius: 18px; cursor: pointer; font-weight: 700; font-size: 17px;">キャンセルして戻る</button>
     </div>
 </div>
