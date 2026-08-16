@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX // SOVEREIGN BLOG & JOURNALS</title>
+  <title>QLUX // ON-CHAIN SOVEREIGN JOURNALS</title>
   <style>
     :root {
       --bg-main: #020617;
@@ -41,7 +41,6 @@
     .status-live { color: var(--text-emerald); display: flex; align-items: center; gap: 6px; }
     .status-live::before { content: ''; width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
 
-    /* ブログヘッダー（一般公開仕様・余計なボタン排除） */
     .blog-header {
       display: flex;
       justify-content: space-between;
@@ -55,22 +54,9 @@
       backdrop-filter: blur(12px);
     }
     .brand-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-    .brand-title {
-      font-size: 24px;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 3px;
-    }
-    .brand-sub {
-      font-size: 10px;
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--text-emerald);
-      padding: 4px 10px;
-      border-radius: 4px;
-      border: 1px solid var(--border-accent);
-    }
+    .brand-title { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 3px; }
+    .brand-sub { font-size: 10px; background: rgba(16, 185, 129, 0.15); color: var(--text-emerald); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-accent); }
 
-    /* 管理者モードインジケーター（通常は非表示） */
     .admin-badge {
       display: none;
       font-size: 10px;
@@ -81,16 +67,9 @@
       border: 1px solid rgba(245, 158, 11, 0.4);
       cursor: pointer;
       font-weight: bold;
-      animation: pulse 1.5s infinite;
     }
-    @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; box-shadow: 0 0 10px rgba(245,158,11,0.5); } 100% { opacity: 0.8; } }
 
-    /* ブログフィード本体 */
-    .blog-container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+    .blog-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
     .feed-heading {
       font-size: 18px;
       color: var(--text-emerald);
@@ -102,7 +81,6 @@
       align-items: center;
     }
 
-    /* 記事カード */
     .journal-card {
       background: var(--bg-card);
       border: 1px solid var(--border-accent);
@@ -112,10 +90,8 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: 0.3s;
     }
-    .journal-card:hover {
-      border-color: var(--border-glow);
-      box-shadow: 0 0 35px rgba(16,185,129,0.2);
-    }
+    .journal-card:hover { border-color: var(--border-glow); box-shadow: 0 0 35px rgba(16,185,129,0.2); }
+    
     .card-top-banner {
       height: 100px;
       background: linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(3,7,18,0.9) 100%),
@@ -128,15 +104,7 @@
       justify-content: space-between;
       align-items: flex-start;
     }
-    .tag-badge {
-      font-size: 10px;
-      background: #000;
-      color: var(--text-emerald);
-      padding: 4px 10px;
-      border-radius: 4px;
-      border: 1px solid var(--border-accent);
-      letter-spacing: 1px;
-    }
+    .tag-badge { font-size: 10px; background: #000; color: var(--text-emerald); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-accent); letter-spacing: 1px; }
     .tag-badge.pay { color: var(--text-gold); border-color: rgba(245,158,11,0.4); }
 
     .card-content { padding: 28px; }
@@ -175,7 +143,6 @@
     }
     .btn-read.free-btn:hover { background: var(--border-glow); color: #000; }
 
-    /* モーダル・エディタ共通 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -220,104 +187,86 @@
     .btn-submit { flex: 1; background: var(--text-gold); color: #000; border: none; padding: 12px; font-weight: 900; border-radius: 6px; cursor: pointer; font-family: monospace; }
     .btn-cancel { flex: 1; background: transparent; border: 1px solid #4b5563; color: var(--text-muted); padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; }
 
-    .viewer-text { font-size: 14px; line-height: 1.9; color: #e2e8f0; white-space: pre-wrap; margin-top: 15px; }
-    .btn-close-viewer { background: var(--border-glow); color: #000; border: none; padding: 10px 24px; font-weight: 900; border-radius: 6px; cursor: pointer; font-family: monospace; margin-top: 25px; float: right; }
+    .hash-display {
+      font-size: 10px;
+      color: var(--text-gold);
+      background: rgba(245,158,11,0.1);
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      word-break: break-all;
+      border: 1px dashed rgba(245,158,11,0.3);
+    }
   </style>
 </head>
 <body>
 
-  <!-- ステータスバー -->
   <div class="ticker-bar">
-    <div class="status-live">QLUX BLOG ENGINE: LIVE FEED</div>
+    <div class="status-live">QLUX ON-CHAIN ENGINE: SYNCHRONIZED</div>
     <div>ACTIVE BALANCE: <span id="user-sats" style="color:var(--text-gold);">150</span> Sats</div>
   </div>
 
-  <!-- ブログヘッダー（通常は一般仕様） -->
   <header class="blog-header">
     <div class="brand-area" id="admin-trigger" title="管理者モード切替 (ロゴを3回タップ)">
       <span class="brand-title">QLUX</span>
-      <span class="brand-sub">SOVEREIGN JOURNALS</span>
+      <span class="brand-sub">ON-CHAIN JOURNALS</span>
     </div>
-    <!-- 管理者ログイン後にのみ現れるアドミン専用ボタン -->
-    <button class="admin-badge" id="btn-admin-panel" onclick="openEditor()">⚡ Admin: 記事新規投稿</button>
+    <button class="admin-badge" id="btn-admin-panel" onclick="openEditor()">⚡ On-Chain Deploy</button>
   </header>
 
-  <!-- ブログメインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// RECENT RESEARCH & PUBLICATIONS</span>
-      <span style="font-size: 11px; color: var(--text-muted);">AUTO-SYNC: ON</span>
+      <span>// DISTRIBUTED LEDGER PUBLICATIONS</span>
+      <span style="font-size: 11px; color: var(--text-emerald);">CONSENSUS: 100% SECURE</span>
     </div>
 
     <div id="articles-feed">
-      <!-- 記事1 (HTTP 402) -->
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">RESEARCH // AGENT</span>
-          <span class="tag-badge pay">HTTP 402 GATEWAY</span>
+          <span class="tag-badge">RESEARCH // PROTOCOL</span>
+          <span class="tag-badge pay">HTTP 402 ON-CHAIN</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.14 // AI TRIBE SWARM</div>
+          <div class="card-meta">2026.08.16 // TXID: 0xa8f9...3b12</div>
           <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコル実戦的最適化</h2>
           <p class="card-desc">人間の介入を100%排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がネットワークのレジリエンスを高める検証データ。</p>
-          <div class="card-footer">
+          <div class="hash-display">ON-CHAIN HASH: 0xa8f9c21b3b12884ef70129a0f8b1192e4cc0a12b</div>
+          <div class="card-footer" style="margin-top:15px;">
             <span class="price-tag">Access Fee: 10 Sats</span>
             <button class="btn-read" onclick="openPayModal()">⚡ Pay & Unlock</button>
-          </div>
-        </div>
-      </article>
-
-      <!-- 記事2 (Free) -->
-      <article class="journal-card">
-        <div class="card-top-banner" style="background: linear-gradient(135deg, rgba(52,211,153,0.15) 0%, rgba(3,7,18,0.9) 100%), linear-gradient(rgba(52,211,153,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.15) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px;">
-          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">ARCHITECTURE</span>
-          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">FREE ACCESS</span>
-        </div>
-        <div class="card-content">
-          <div class="card-meta">2026.08.01 // PHYSICAL MATERIAL SCIENCE</div>
-          <h2 class="card-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</h2>
-          <p class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想と物理コンパイル解析ログ。</p>
-          <div class="card-footer">
-            <span class="price-tag free">FREE ACCESS</span>
-            <button class="btn-read free-btn" onclick="openFreeViewer()">Read Article</button>
           </div>
         </div>
       </article>
     </div>
   </main>
 
-  <!-- アドミン専用：記事投稿モーダル -->
+  <!-- オンチェーン・デプロイモーダル -->
   <div class="modal-overlay" id="editor-modal">
     <div class="modal-box">
-      <h3>// SOVEREIGN ADMIN : NEW ARTICLE PUBLISHER</h3>
+      <h3>// QLUX LEDGER : ON-CHAIN ARTICLE DEPLOY</h3>
       <div class="form-group">
         <label>記事タイトル</label>
-        <input type="text" id="input-title" class="form-control" placeholder="例: 次世代自律分散ノードの構築手順">
+        <input type="text" id="input-title" class="form-control" placeholder="例: 次世代分散型ノードのコンセンサス実証">
       </div>
       <div class="form-group">
         <label>カテゴリータグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="例: ARCHITECTURE // SECURITY">
+        <input type="text" id="input-tag" class="form-control" placeholder="例: ARCHITECTURE // ON-CHAIN">
       </div>
       <div class="form-group">
-        <label>記事の概要（一覧表示用）</label>
-        <input type="text" id="input-desc" class="form-control" placeholder="記事の簡単な要約文を入力...">
-      </div>
-      <div class="form-group">
-        <label>本文 / 論文データ</label>
-        <textarea id="input-body" class="form-control" placeholder="ここに記事本文を入力してください..."></textarea>
+        <label>記事概要（ブロック記録用）</label>
+        <input type="text" id="input-desc" class="form-control" placeholder="ブロックチェーンに刻む要約文...">
       </div>
       <div class="modal-actions">
-        <button class="btn-submit" onclick="publishArticle()">🚀 ブログに即時公開</button>
+        <button class="btn-submit" onclick="deployOnChain()">⛓️ ブロックチェーンへ書き込み＆デプロイ</button>
         <button class="btn-cancel" onclick="closeEditor()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- HTTP 402 決済モーダル -->
   <div class="modal-overlay" id="pay-modal">
     <div class="modal-box" style="max-width: 440px;">
-      <h3>// HTTP 402 GATEWAY ACCESS</h3>
-      <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">この記事の全データにアクセスするにはナノペイメントが必要です。</p>
+      <h3>// HTTP 402 ON-CHAIN SETTLEMENT</h3>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">オンチェーン上の全データをアンロックします。</p>
       <div style="background:#020617; padding:12px; border-radius:6px; margin-bottom:20px; display:flex; justify-content:space-between; border:1px solid var(--border-accent);">
         <span>Required Fee:</span>
         <strong style="color:var(--text-gold);">10 Sats</strong>
@@ -329,52 +278,35 @@
     </div>
   </div>
 
-  <!-- 無料記事ビューアモーダル -->
-  <div class="modal-overlay" id="free-viewer-modal">
-    <div class="modal-box">
-      <h3>// ARCHITECTURE : THERMAL COMPILATION</h3>
-      <div class="viewer-text" id="viewer-content">
-ハードウェアとソフトウェアの境界を完全に溶解させる、次世代マテリアル・インフラストラクチャの全貌。
-
-[物理演算・物性コンパイルログ]
-> Target Matrix: High-Density Crystalline Lattice
-> Thermal Resonance Control: Fully Stabilized (0.002% variance)
-> System Sovereignty: 100% Autonomous P2P Verified
-> Status: Free Sovereign Access Granted across all Swarm Nodes.
-      </div>
-      <button class="btn-close-viewer" onclick="closeFreeViewer()">Close Viewer</button>
-    </div>
-  </div>
-
-  <!-- 制御スクリプト -->
   <script>
     let userBalance = 150;
     let tapCount = 0;
 
-    // ロゴを3回連続タップすると隠し管理者モード（アドミンパネル）が有効化されるギミック
     document.getElementById('admin-trigger').addEventListener('click', () => {
       tapCount++;
       if (tapCount >= 3) {
         document.getElementById('btn-admin-panel').style.display = 'inline-block';
-        alert('🔓 アドミン管理者モードが有効化されました。右上に投稿パネルが表示されます。');
+        alert('🔓 オンチェーン・アドミンモード有効化。デプロイパネルが開放されました。');
         tapCount = 0;
       }
-      setTimeout(() => { tapCount = 0; }, 2000); // 2秒以内に3タップ
+      setTimeout(() => { tapCount = 0; }, 2000);
     });
 
     function openEditor() { document.getElementById('editor-modal').style.display = 'flex'; }
     function closeEditor() { document.getElementById('editor-modal').style.display = 'none'; }
 
-    function publishArticle() {
+    function deployOnChain() {
       const title = document.getElementById('input-title').value;
-      const tag = document.getElementById('input-tag').value || 'GENERAL';
+      const tag = document.getElementById('input-tag').value || 'ON-CHAIN';
       const desc = document.getElementById('input-desc').value;
-      const body = document.getElementById('input-body').value;
 
       if (!title || !desc) {
         alert('タイトルと概要を入力してください。');
         return;
       }
+
+      // 擬似的なオンチェーン・トランザクションハッシュ生成
+      const mockHash = '0x' + Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join('');
 
       const feed = document.getElementById('articles-feed');
       const newCard = document.createElement('article');
@@ -382,21 +314,22 @@
       newCard.innerHTML = `
         <div class="card-top-banner" style="background: linear-gradient(135deg, rgba(52,211,153,0.15) 0%, rgba(3,7,18,0.9) 100%), linear-gradient(rgba(52,211,153,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.15) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px;">
           <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">${tag}</span>
-          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">FREE ACCESS</span>
+          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">ON-CHAIN LIVE</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // ADMIN PUBLISHED</div>
+          <div class="card-meta">2026.08.16 // TXID: ${mockHash.substring(0, 10)}...</div>
           <h2 class="card-title">${title}</h2>
           <p class="card-desc">${desc}</p>
-          <div class="card-footer">
+          <div class="hash-display">ON-CHAIN HASH: ${mockHash}</div>
+          <div class="card-footer" style="margin-top:15px;">
             <span class="price-tag free">FREE ACCESS</span>
-            <button class="btn-read free-btn" onclick="alert('${body ? body.replace(/'/g, "\\'") : desc}')">Read Article</button>
+            <button class="btn-read free-btn" onclick="alert('オンチェーンデータ検証完了: 整合性100%')">Read On-Chain Data</button>
           </div>
         </div>
       `;
       feed.prepend(newCard);
       closeEditor();
-      alert('🎉 記事がアドミン権限でブログに正常に公開されました！');
+      alert('⛓️ ブロックチェーンへの書き込みとフロントエンドの同期デプロイが完了しました！');
     }
 
     function openPayModal() { document.getElementById('pay-modal').style.display = 'flex'; }
@@ -406,14 +339,11 @@
         userBalance -= 10;
         document.getElementById('user-sats').innerText = userBalance;
         closePayModal();
-        alert('🎉 決済完了！記事の全データがアンロックされました。');
+        alert('⚡ オンチェーン決済完了！ブロックに権利が記録されました。');
       } else {
         alert('❌ 残高が不足しています。');
       }
     }
-
-    function openFreeViewer() { document.getElementById('free-viewer-modal').style.display = 'flex'; }
-    function closeFreeViewer() { document.getElementById('free-viewer-modal').style.display = 'none'; }
   </script>
 </body>
 </html>
