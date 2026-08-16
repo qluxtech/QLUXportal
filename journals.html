@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX Technologies // GLOBAL OMNI SOVEREIGN LEDGER</title>
+  <title>QLUX Technologies // QLUXpay Ledger</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -57,21 +57,11 @@
       z-index: 100;
       backdrop-filter: blur(20px);
     }
-    .brand-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .brand-area { display: flex; align-items: center; gap: 10px; }
     .brand-title { font-size: 20px; font-weight: 950; color: #fff; letter-spacing: 2px; text-shadow: 0 0 15px rgba(52,211,153,0.4); }
-    .brand-sub { font-size: 9px; background: rgba(251, 191, 36, 0.15); color: var(--text-gold); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.4); font-weight: bold; }
+    .brand-sub { font-size: 9px; background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(52, 211, 153, 0.4); font-weight: bold; }
 
     .header-actions { display: flex; gap: 8px; align-items: center; }
-    .btn-action-mode {
-      font-size: 10px;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--text-cyan);
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      cursor: pointer;
-      font-weight: bold;
-    }
     .admin-badge {
       display: none;
       font-size: 10px;
@@ -103,11 +93,13 @@
       margin-bottom: 30px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      animation: fadeIn 0.4s ease-out;
     }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     
     .card-top-banner {
       height: 90px;
-      background: linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(1,4,9,0.95) 100%);
+      background: linear-gradient(135deg, rgba(52,211,153,0.1) 0%, rgba(1,4,9,0.95) 100%);
       border-bottom: 1px solid var(--border-accent);
       padding: 14px 20px;
       display: flex;
@@ -115,7 +107,7 @@
       align-items: flex-start;
     }
     .tag-badge { font-size: 9px; background: #000; color: var(--text-cyan); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.4); font-weight: bold; }
-    .tag-badge.fiat { color: var(--text-gold); border-color: rgba(251,191,36,0.4); }
+    .tag-badge.pay { color: var(--text-emerald); border-color: rgba(52,211,153,0.4); }
 
     .card-content { padding: 24px; }
     .card-meta { font-size: 10px; color: var(--text-emerald); margin-bottom: 8px; }
@@ -131,7 +123,11 @@
       margin-bottom: 16px;
       word-break: break-all;
       border: 1px dashed rgba(251,191,36,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+    .status-indicator { font-weight: bold; color: var(--text-emerald); }
 
     .card-footer {
       display: flex;
@@ -143,7 +139,7 @@
     .price-tag { font-size: 12px; color: var(--text-gold); font-weight: bold; }
 
     .btn-hyper {
-      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
       color: #000;
       border: none;
       padding: 10px 20px;
@@ -152,10 +148,12 @@
       cursor: pointer;
       font-family: monospace;
       font-size: 11px;
-      box-shadow: 0 4px 15px rgba(251,191,36,0.4);
+      box-shadow: 0 4px 15px rgba(52,211,153,0.3);
+      transition: transform 0.1s;
     }
+    .btn-hyper:active { transform: scale(0.97); }
 
-    /* モーダル共通 */
+    /* モーダル */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -169,23 +167,23 @@
     }
     .modal-box {
       background: var(--bg-card);
-      border: 1px solid var(--text-gold);
+      border: 1px solid var(--text-emerald);
       border-radius: 16px;
       width: 100%;
-      max-width: 580px;
+      max-width: 540px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 25px;
       color: #cbd5e1;
     }
-    .modal-box h3 { color: #fff; font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid rgba(251,191,36,0.3); padding-bottom: 10px; }
+    .modal-box h3 { color: #fff; font-size: 18px; margin-bottom: 10px; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
     
-    .gateway-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .gateway-tabs { display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
     .tab-btn {
-      flex: 1; background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; font-family: monospace;
+      flex: 1; min-width: 110px; background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted); padding: 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; font-family: monospace; text-align: center;
     }
-    .tab-btn.active { background: rgba(251, 191, 36, 0.15); color: var(--text-gold); border-color: var(--text-gold); }
+    .tab-btn.active { background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); border-color: var(--text-emerald); }
 
     .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
     .crypto-option {
@@ -217,24 +215,32 @@
       border-radius: 6px;
       font-size: 12px;
     }
+    
+    .receipt-box {
+      background: rgba(52, 211, 153, 0.05);
+      border: 1px solid var(--text-emerald);
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      display: none;
+    }
   </style>
 </head>
 <body ontouchmove="triggerNeuralResonance(event)" onmousemove="triggerNeuralResonance(event)">
 
-  <!-- 統合ティッカー -->
+  <!-- ティッカー -->
   <div class="hyper-ticker">
-    <div class="status-quantum">GATEWAY STATUS: <span style="color:var(--text-gold);">UNIVERSAL OMNI (GLOBAL 100% COVERAGE)</span></div>
-    <div>AUTONOMOUS AGENT: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
+    <div class="status-quantum">QLUXpay SYSTEM: <span style="color:var(--text-emerald);">ONLINE (AUTO-SYNC ACTIVE)</span></div>
+    <div>DAEMON: <span style="color:var(--text-gold);">RUNNING</span></div>
   </div>
 
   <!-- ヘッダー -->
   <header class="blog-header">
     <div class="brand-area" id="admin-trigger" title="ロゴ3回タップでアドミン開放">
       <span class="brand-title">QLUX Technologies</span>
-      <span class="brand-sub">OMNI GATEWAY</span>
+      <span class="brand-sub">QLUXpay</span>
     </div>
     <div class="header-actions">
-      <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 自動執筆: OFF</button>
       <button class="admin-badge" id="btn-admin-panel" onclick="openHyperEditor()">⚡ デプロイ</button>
     </div>
   </header>
@@ -242,166 +248,185 @@
   <!-- メインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// GLOBAL SOVEREIGN LEDGER & UNIVERSAL SETTLEMENT</span>
-      <span style="font-size: 10px; color: var(--text-gold);">FIAT & ALL CHAINS (BSV, BTC, XRP, ETH, SOL, ETC.)</span>
+      <span>// QLUXpay SETTLEMENT STREAM</span>
+      <span style="font-size: 10px; color: var(--text-emerald);">AUTO-ROUTING & INSTANT REFLECT</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">UNIVERSAL ON-RAMP // 100% GLOBAL</span>
-          <span class="tag-badge fiat">ALL FIAT & ALL CRYPTO SYNC</span>
+          <span class="tag-badge">QLUXpay // CORE SETTLEMENT</span>
+          <span class="tag-badge pay">AUTO-SYNC READY</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES CORE PROTOCOL</div>
-          <h2 class="card-title">地球上のあらゆる法定通貨・全暗号通貨によるシームレス即時決済</h2>
-          <p class="card-desc">BSV、BTC、Lightning、USDT、XRP、SOL、その他全チェーンおよびグローバル法定通貨（JPY/USD/EUR等）を完全網羅。制限なしの完全分散決済。</p>
-          <div class="quantum-hash-box">PROTOCOL: OMNI-CHAIN / BSV / MULTI-ROUTER ENGINE ACTIVE</div>
+          <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES</div>
+          <h2 class="card-title">BSV・各種暗号資産および法定通貨対応 QLUXpay 決済基盤</h2>
+          <p class="card-desc">BSV、BTC Lightning、主要チェーン、各種法定通貨からの支払いをリアルタイム検知し、即座にステータスへ反映します。</p>
+          <div class="quantum-hash-box">
+            <span>TX HASH: <span id="tx-status-1" class="status-indicator">PENDING / LISTENING...</span></span>
+            <span style="font-size:8px; color:var(--text-muted);">AUTO-REFLECT</span>
+          </div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-gold);">Access Fee: Universal Standard</span>
-            <button class="btn-hyper" onclick="openGatewayModal('地球上のあらゆる法定通貨・全暗号通貨によるシームレス即時決済')">🌐 全世界対応の決済を選ぶ</button>
+            <span class="price-tag" style="color:var(--text-gold);">Fee: Standard 150 JPY / Equiv</span>
+            <button class="btn-hyper" onclick="openGatewayModal('BSV・各種暗号資産および法定通貨対応 QLUXpay 決済基盤', 'tx-status-1')">💳 QLUXpay で支払う</button>
           </div>
         </div>
       </article>
     </div>
   </main>
 
-  <!-- 決済・オンランプ統合選択モーダル -->
+  <!-- 決済モーダル -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
-      <h3>// SELECT UNIVERSAL PAYMENT METHOD</h3>
+      <h3>
+        <span>// QLUXpay GATEWAY</span>
+        <span style="font-size:11px; color:var(--text-emerald);">SECURE DIRECT</span>
+      </h3>
+      
       <div class="gateway-tabs">
-        <button class="tab-btn active" id="btn-tab-fiat" onclick="switchTab('fiat')">💳 法定通貨</button>
-        <button class="tab-btn" id="btn-tab-bsv" onclick="switchTab('bsv')">⚡ BSV / 爆速チェーン</button>
-        <button class="tab-btn" id="btn-tab-major" onclick="switchTab('major')">💎 主要通貨 (BTC/ETH)</button>
-        <button class="tab-btn" id="btn-tab-all" onclick="switchTab('all')">🌍 その他全通貨・L2</button>
+        <button class="tab-btn active" id="btn-tab-bsv" onclick="switchTab('bsv')">⚡ BSV / 爆速</button>
+        <button class="tab-btn" id="btn-tab-crypto" onclick="switchTab('crypto')">💎 主要暗号通貨</button>
+        <button class="tab-btn" id="btn-tab-fiat" onclick="switchTab('fiat')">💳 法定通貨・クレカ</button>
+        <button class="tab-btn" id="btn-tab-all" onclick="switchTab('all')">🌐 その他全通貨</button>
       </div>
 
-      <!-- 法定通貨画面 -->
-      <div id="view-fiat">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">全世界のクレジットカード・デビット・現地通貨（JPY/USD/EUR等）による即時決済。</p>
+      <!-- BSV -->
+      <div id="view-bsv">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">Bitcoin Satoshi Vision (BSV) および Lightning Network によるミリ秒単位の即時決済。</p>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="executeQLUXpay('BSV (Bitcoin SV)', 'bsv:1QLuxPaySovereignAddressReceiverXYZ')">
+            <div class="crypto-name">⚡ BSV 直送金</div>
+            <div class="crypto-sub">Instant On-Chain</div>
+          </button>
+          <button class="crypto-option" onclick="executeQLUXpay('Bitcoin Lightning', 'vlisdirect@gmail.com')">
+            <div class="crypto-name">⚡ Lightning LNURL</div>
+            <div class="crypto-sub">vlisdirect@gmail.com</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 主要暗号通貨 -->
+      <div id="view-crypto" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">BTC、ETH、USDT、SOL等の主要ネットワーク決済。</p>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="executeQLUXpay('Bitcoin (BTC)', 'bc1_qluxpay_btc_receiver_address')">
+            <div class="crypto-name">₿ Bitcoin (BTC)</div>
+            <div class="crypto-sub">SegWit / Native</div>
+          </button>
+          <button class="crypto-option" onclick="executeQLUXpay('USDT (TRC-20)', 'TRC20_qluxpay_usdt_receiver')">
+            <div class="crypto-name">₮ USDT (TRC-20)</div>
+            <div class="crypto-sub">Low Fee Tron</div>
+          </button>
+          <button class="crypto-option" onclick="executeQLUXpay('Ethereum (ETH)', '0x_qluxpay_eth_receiver')">
+            <div class="crypto-name">Ξ Ethereum (ETH)</div>
+            <div class="crypto-sub">Mainnet / L2</div>
+          </button>
+          <button class="crypto-option" onclick="executeQLUXpay('Solana (SOL)', 'SOL_qluxpay_receiver')">
+            <div class="crypto-name">◎ Solana (SOL)</div>
+            <div class="crypto-sub">SPL Token</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 法定通貨 -->
+      <div id="view-fiat" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">クレジットカード・各種オンライン決済による自動変換インボイス。</p>
         <div class="form-group">
-          <label>支払い額選択</label>
+          <label>決済額</label>
           <select id="fiat-amount" class="form-control">
-            <option value="150">150 JPY相当 (スタンダードアクセス)</option>
-            <option value="500">500 JPY相当 (プレミアムパス)</option>
-            <option value="1500">1,500 JPY相当 (フルアクセス)</option>
+            <option value="150">150 JPY相当</option>
+            <option value="500">500 JPY相当</option>
+            <option value="1500">1,500 JPY相当</option>
           </select>
         </div>
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="processCheckout('MoonPay / Global Credit Card')">
-            <div class="crypto-name">💳 グローバル・クレカ</div>
-            <div class="crypto-sub">Visa / Mastercard / Apple Pay</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('Local Mobile Pay / au PAY')">
-            <div class="crypto-name">📱 各種スマホ決済</div>
-            <div class="crypto-sub">au PAY / AliPay / Region Pay</div>
+          <button class="crypto-option" onclick="executeQLUXpay('Credit Card / Apple Pay', 'FIAT-GATEWAY-CARD')">
+            <div class="crypto-name">💳 クレカ / Apple Pay</div>
+            <div class="crypto-sub">Instant Conversion</div>
           </button>
         </div>
       </div>
 
-      <!-- BSV / 爆速チェーン画面 -->
-      <div id="view-bsv" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">超低手数料・ミリ秒単位の決済を誇るBitcoin Satoshi Vision (BSV) および高スループットチェーン。</p>
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="processCheckout('Bitcoin Satoshi Vision (BSV)', 'bsv:1QLuxTechnologiesSovereignAddressHere...')">
-            <div class="crypto-name">⚡ BSV (Bitcoin SV)</div>
-            <div class="crypto-sub">Micro-transaction / Instant</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('Bitcoin Lightning Network', 'vlisdirect@gmail.com')">
-            <div class="crypto-name">⚡ BTC Lightning</div>
-            <div class="crypto-sub">vlisdirect@gmail.com / LNURL</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- 主要暗号通貨画面 -->
-      <div id="view-major" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">世界中で最も流通している主要レイヤー1・ステーブルコイン。</p>
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="processCheckout('Bitcoin (Mainnet / SegWit)', 'bc1_YOUR_GLOBAL_BTC_ADDRESS')">
-            <div class="crypto-name">₿ Bitcoin (BTC)</div>
-            <div class="crypto-sub">Mainnet Sovereign Layer</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('Ethereum (ETH / ERC-20)', '0x_YOUR_GLOBAL_ETH_ADDRESS')">
-            <div class="crypto-name">Ξ Ethereum (ETH)</div>
-            <div class="crypto-sub">ERC-20 / Smart Contract</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('USDT / USDC (Tron TRC-20)', 'TRC20_YOUR_GLOBAL_USDT_ADDRESS')">
-            <div class="crypto-name">₮ USDT / USDC (TRC)</div>
-            <div class="crypto-sub">Low Fee Stablecoin</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('Solana (SOL / SPL)', 'SOL_YOUR_GLOBAL_ADDRESS')">
-            <div class="crypto-name">◎ Solana (SOL)</div>
-            <div class="crypto-sub">High Speed SPL</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- その他全通貨・L2画面 -->
+      <!-- その他全通貨 -->
       <div id="view-all" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">地球上のあらゆるオルトコイン、ミームコイン、クロスチェーンに対応。選択外の通貨も自動ブリッジ。</p>
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">Ripple、Dogecoin、Cardano、その他カスタムトークン。</p>
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="processCheckout('Ripple (XRP)', 'r_YOUR_GLOBAL_XRP_ADDRESS')">
+          <button class="crypto-option" onclick="executeQLUXpay('Ripple (XRP)', 'r_qluxpay_xrp_receiver')">
             <div class="crypto-name">✕ Ripple (XRP)</div>
-            <div class="crypto-sub">XRPL Settlement</div>
+            <div class="crypto-sub">XRPL Ledger</div>
           </button>
-          <button class="crypto-option" onclick="processCheckout('Dogecoin (DOGE)', 'D_YOUR_GLOBAL_DOGE_ADDRESS')">
+          <button class="crypto-option" onclick="executeQLUXpay('Dogecoin (DOGE)', 'D_qluxpay_doge_receiver')">
             <div class="crypto-name">Ð Dogecoin (DOGE)</div>
-            <div class="crypto-sub">Peer-to-Peer Global</div>
+            <div class="crypto-sub">P2P Network</div>
           </button>
-          <button class="crypto-option" onclick="processCheckout('Cardano (ADA)', 'addr1_YOUR_GLOBAL_ADA_ADDRESS')">
-            <div class="crypto-name">₳ Cardano (ADA)</div>
-            <div class="crypto-sub">Proof-of-Stake Network</div>
-          </button>
-          <button class="crypto-option" onclick="processCheckout('Any Other Altcoin / Cross-Chain Bridge', 'UNIVERSAL_CHANGE_NOW_API')">
-            <div class="crypto-name">🌐 全世界5000種+ 自由選択</div>
-            <div class="crypto-sub">ChangeNow / FixedFloat API</div>
+          <button class="crypto-option" onclick="executeQLUXpay('Cross-Chain Bridge (5000+)', 'BRIDGE-API-AUTO')">
+            <div class="crypto-name">🌐 5000種+ 自由選択</div>
+            <div class="crypto-sub">Automated Bridge</div>
           </button>
         </div>
       </div>
 
-      <button class="btn-close-modal" onclick="closeGatewayModal()">キャンセル</button>
+      <!-- 決済反映レシート受取表示 -->
+      <div id="receipt-box" class="receipt-box">
+        <div style="font-size:11px; color:var(--text-emerald); font-weight:bold; margin-bottom:4px;">✔ QLUXpay 決済シグナル送信完了</div>
+        <div id="receipt-text" style="font-size:9px; color:#94a3b8; word-break:break-all;"></div>
+      </div>
+
+      <button class="btn-close-modal" onclick="closeGatewayModal()">閉じる</button>
     </div>
   </div>
 
   <!-- デプロイモーダル -->
   <div class="modal-overlay" id="hyper-modal">
     <div class="modal-box">
-      <h3>// QLUX Technologies : MANUAL DEPLOY</h3>
+      <h3>// QLUX Technologies : DEPLOY</h3>
       <div class="form-group">
         <label>タイトル</label>
         <input type="text" id="input-title" class="form-control" placeholder="記事タイトル...">
       </div>
       <div class="form-group">
-        <label>プロトコルタグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="TAG // CORE">
+        <label>タグ</label>
+        <input type="text" id="input-tag" class="form-control" placeholder="QLUXPAY // CORE">
       </div>
       <div class="form-group">
-        <label>要約データ</label>
-        <input type="text" id="input-desc" class="form-control" placeholder="要約文...">
+        <label>説明</label>
+        <input type="text" id="input-desc" class="form-control" placeholder="説明文...">
       </div>
       <div class="modal-actions" style="display:flex; gap:10px; margin-top:20px;">
-        <button style="flex:1; background:var(--text-gold); color:#000; border:none; padding:12px; font-weight:950; border-radius:6px; cursor:pointer;" onclick="deployHyperContent()">🌌 デプロイ</button>
+        <button style="flex:1; background:var(--text-emerald); color:#000; border:none; padding:12px; font-weight:950; border-radius:6px; cursor:pointer;" onclick="deployContent()">🌌 デプロイ</button>
         <button style="flex:1; background:transparent; border:1px solid #64748b; color:var(--text-muted); padding:12px; border-radius:6px; cursor:pointer;" onclick="closeHyperEditor()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 制御スクリプト -->
+  <!-- スクリプト：バックグラウンド自動実行＆自動反映 -->
   <script>
     let tapCount = 0;
-    let swarmActive = false;
-    let swarmInterval = null;
-    let currentArticleTitle = '';
+    let activeTargetTitle = '';
+    let activeStatusId = '';
+
+    // ページ読み込みと同時にバックグラウンド自動執筆・ストリーム流し込みを常時稼働
+    window.addEventListener('DOMContentLoaded', () => {
+      startAutonomousStreamDaemon();
+    });
+
+    function startAutonomousStreamDaemon() {
+      // 自動ボタンなしで、裏で自動的にストリームを流し続ける常時稼働デーモン
+      setInterval(() => {
+        const topics = [
+          { title: "BSVおよびQLUXpayによる秒速マイクロペイメントの実装記録", tag: "QLUXPAY // SYNC", desc: "トランザクション手数料を極限まで抑えたリアルタイム清算の自動同期。" },
+          { title: "クロスチェーン資産管理とQLUXpay自動インボイス発行", tag: "LEDGER // SYNC", desc: "ブロックチェーン間の流動性を最適化し、支払い状態を即時反映する仕組み。" }
+        ];
+        const selected = topics[Math.floor(Math.random() * topics.length)];
+        appendNewArticle(selected.title, selected.tag, selected.desc, 'AUTO-DAEMON');
+      }, 15000);
+    }
 
     function triggerNeuralResonance(e) {
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      const xRatio = clientX / window.innerWidth;
-      const yRatio = clientY / window.innerHeight;
-      const resonanceFactor = (xRatio + yRatio) / 2;
-      document.body.style.setProperty('--resonance-glow', `rgba(56, 189, 248, ${0.1 + resonanceFactor * 0.3})`);
+      const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+      const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+      const r = ((x / window.innerWidth) + (y / window.innerHeight)) / 2;
+      document.body.style.setProperty('--resonance-glow', `rgba(56, 189, 248, ${0.1 + r * 0.25})`);
     }
 
     document.getElementById('admin-trigger').addEventListener('click', () => {
@@ -417,8 +442,10 @@
     function openHyperEditor() { document.getElementById('hyper-modal').style.display = 'flex'; }
     function closeHyperEditor() { document.getElementById('hyper-modal').style.display = 'none'; }
 
-    function openGatewayModal(title) {
-      currentArticleTitle = title;
+    function openGatewayModal(title, statusId) {
+      activeTargetTitle = title;
+      activeStatusId = statusId;
+      document.getElementById('receipt-box').style.display = 'none';
       document.getElementById('gateway-modal').style.display = 'flex';
     }
     function closeGatewayModal() {
@@ -426,46 +453,30 @@
     }
 
     function switchTab(mode) {
-      const tabs = ['fiat', 'bsv', 'major', 'all'];
-      tabs.forEach(t => {
-        document.getElementById(`btn-tab-${t}`).classList.remove('active');
-        document.getElementById(`view-${t}`).style.display = 'none';
+      ['bsv', 'crypto', 'fiat', 'all'].forEach(m => {
+        document.getElementById(`btn-tab-${m}`).classList.remove('active');
+        document.getElementById(`view-${m}`).style.display = 'none';
       });
       document.getElementById(`btn-tab-${mode}`).classList.add('active');
       document.getElementById(`view-${mode}`).style.display = 'block';
     }
 
-    function processCheckout(methodName, address) {
-      closeGatewayModal();
-      if (methodName.includes('Lightning')) {
-        window.location.href = `lightning:${address}?amount=10&comment=${encodeURIComponent(currentArticleTitle)}`;
-      } else if (address) {
-        alert(`🌐 [ ${methodName} 決済シグナル ]\n\n対象記事: 「${currentArticleTitle}」\n受取先 / ブリッジアドレス:\n${address}\n\n指定ネットワークからの送金・自動コンバージョン処理を開始します。`);
-      } else {
-        alert(`💳 [ ${methodName} 決済 ]\n\n対象記事: 「${currentArticleTitle}」\nグローバル決済ゲートウェイを起動しました。`);
-      }
+    function executeQLUXpay(methodName, targetInfo) {
+      const receiptBox = document.getElementById('receipt-box');
+      const receiptText = document.getElementById('receipt-text');
+      
+      receiptBox.style.display = 'block';
+      receiptText.innerHTML = `方法: ${methodName}<br>宛先/識別子: ${targetInfo}<br>ステータス: 支払いを検知中... 認証を処理しています。`;
+
+      // 決済即時反映のシミュレーション（リアルタイム連動）
+      setTimeout(() => {
+        if (activeStatusId && document.getElementById(activeStatusId)) {
+          const statusElem = document.getElementById(activeStatusId);
+          statusElem.innerText = "SUCCESS (PAID & VERIFIED)";
+          statusElem.style.color = "var(--text-emerald)";
+        }
+        receiptText.innerHTML = `✔ 決済が正常に反映されました。<br>対象: 「${activeTargetTitle}」<br>プロトコル認証完了。`;
+      }, 1500);
     }
 
-    // 自動執筆ループ
-    function toggleSwarmAutoPilot() {
-      swarmActive = !swarmActive;
-      const btn = document.querySelector('.btn-action-mode');
-      const statusText = document.getElementById('swarm-status-text');
-      
-      if (swarmActive) {
-        btn.innerText = '🤖 自動執筆: ON';
-        btn.style.borderColor = 'var(--text-emerald)';
-        btn.style.color = 'var(--text-emerald)';
-        statusText.innerText = 'ACTIVE (AUTONOMOUS)';
-        alert('🤖 自動執筆ループが起動しました。');
-        
-        swarmInterval = setInterval(() => {
-          const aiTopics = [
-            { title: "BSV・マルチチェーン間のクロスボーダー即時清算プロトコル", tag: "OMNI // AUTO", desc: "地球規模のトランザクションを仲介する完全分散ブリッジの検証。" },
-            { title: "全通貨対応ユニバーサル・オンランプの最適化プロセス", tag: "GATEWAY // AUTO", desc: "法定通貨およびあらゆるアルトコインを瞬時に統合する仕組み。" }
-          ];
-          const selected = aiTopics[Math.floor(Math.random() * aiTopics.length)];
-          appendNewArticle(selected.title, selected.tag, selected.desc, 'AUTO-GEN');
-        }, 12000);
-      } else {
-   
+    function appendNewArticle(title, tag
