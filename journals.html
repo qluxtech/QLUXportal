@@ -245,68 +245,72 @@
   </div>
 
   <script>
-    const BSV_RECEIVE_ADDRESS = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+    const WALLET_ADDR_BSV = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
 
-function renderPaymentModal() {
-    // QRコードの生成（ご提示いただいたQRソースを埋め込み）
-    const qrCodeUrl = "https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin-sv:" + BSV_RECEIVE_ADDRESS;
-    
-    // UI表示の更新
-    document.getElementById("payment-address-display").innerText = BSV_RECEIVE_ADDRESS;
-    document.getElementById("qr-image").src = qrCodeUrl;
-    let activeTargetId = '';
-    let activeArticleTitle = '';
-    let streamInterval = null;
-    let isStreamActive = false;
+let activeTargetId = "";
+let activeArticleTitle = "";
+let streamInterval = null;
+let isStreamActive = false;
 
-    function toggleStream() {
-      const btn = document.getElementById('stream-btn');
-      isStreamActive = !isStreamActive;
-      if (isStreamActive) {
+function toggleStream() {
+    const btn = document.getElementById('stream-btn');
+    isStreamActive = !isStreamActive;
+    if (isStreamActive) {
         btn.innerText = "自動配信: ON";
         btn.classList.add('active');
         streamInterval = setInterval(appendArticle, 12000);
-      } else {
+    } else {
         btn.innerText = "自動配信: OFF";
         btn.classList.remove('active');
         clearInterval(streamInterval);
-      }
     }
+}
 
-    function appendArticle() {
-      const container = document.getElementById('feed-container');
-      if (!container) return;
-      const refId = 'art-' + Math.floor(Math.random() * 90000 + 10000);
-      
-      const card = document.createElement('article');
-      card.className = 'article-card';
-      card.innerHTML = `
-        <div class="article-meta"><span>2026.08.16 // SYSTEMS ARCHITECTURE</span><span>REF: QX-${Math.floor(Math.random()*9000+1000)}</span></div>
-        <h2 class="article-title">自律分散ネットワークにおける高可用性データ同期と耐障害性プロトコル</h2>
+function appendArticle() {
+    const container = document.getElementById('feed-container');
+    if (!container) return;
+    const refid = 'QX-' + Math.floor(Math.random() * 90000 + 10000);
+    
+    const card = document.createElement('article');
+    card.name = 'article-card';
+    card.innerHTML = `
+        <div class="article-meta">2026.08.16 // SYSTEMS ARCHITECTURE<span>REF: ${refid}</span></div>
+        <h2 class="article-title">分散型インフラストラクチャにおける高スループット非同期処理の設計思想</h2>
         <div class="article-body">
-          <p>ネットワーク切断や障害発生時においても、各ノードが自律的に状態を保持し、再接続時に自動整合性を図るための堅牢なアーキテクチャ設計についての考察。</p>
-          <div class="code-snippet">
-            // High-Availability Sync Routine<br>
-            NetworkCluster.verifySyncState("${refId}").execute();
-          </div>
+            <p>現代の大規模分散システムにおいて、単一障害点を排除したピアツーピアのデータ同期と高効率な負荷分散は不可欠な要素です。本稿では、中央集権的なボトルネックを回避しつつ、ミリ秒単位での整合性を維持する分散コンセンサスの実装アプローチを解説します。</p>
+            <div class="code-snippet">
+                // Distributed Async Engine Core<br>
+                async function syncNodeCluster(payload) {<br>
+                &nbsp;&nbsp;return await NetworkMesh.broadcastProtocol(payload);<br>
+                }<br>
+            </div>
+            <p>エッジ側での自律処理力を高め、ネットワーク全体の冗長性と耐障害性を飛躍的に向上させるための具体的なシステム構成モデルについて検証します。</p>
         </div>
         <div class="status-box">
-          <span>SECURITY HASH: <span id="${refId}" class="status-val">VERIFIED / SYNCED</span></span>
+            <span>SECURITY HASH: <span id="${refid}" class="status-val">VERIFIED / SYNCED</span></span>
         </div>
         <div class="article-footer">
-          <span class="price-label">150 JPY</span>
-          <button class="btn-access" onclick="openModal('自律分散ネットワークにおける高可用性データ同期と耐障害性プロトコル', '${refId}')">決済して記事を読む</button>
+            <span class="price-label">150 JPY</span>
+            <button class="btn-access" onclick="openModal('分散型インフラストラクチャにおける高スループット非同期処理の設計思想', '${refid}')">決済して記事を読む</button>
         </div>
-      `;
-      container.prepend(card);
-    }
+    `;
+    container.prepend(card);
+}
 
-    function openModal(title, targetId) {
-      activeArticleTitle = title;
-      activeTargetId = targetId;
-      document.getElementById('payment-modal').style.display = 'flex';
-      switchTab('crypto');
+function openModal(title, targetId) {
+    activeArticleTitle = title;
+    activeTargetId = targetId;
+    
+    // モーダルを表示
+    const modal = document.getElementById('payment-modal');
+    if (modal) modal.style.display = 'block';
+    
+    // あなたのBSVアドレスを画面に反映
+    const addrDisplay = document.getElementById('payment-address-display');
+    if (addrDisplay) {
+        addrDisplay.innerText = WALLET_ADDR_BSV;
     }
+}
 
     function closeModal() {
       document.getElementById('payment-modal').style.display = 'none';
