@@ -287,6 +287,79 @@
                 </div>
             </div>
         `;
+    // 自動配信ボタンの状態管理とトグル処理
+let isAutoDispatchActive = false;
+function toggleAutoDispatch() {
+    isAutoDispatchActive = !isAutoDispatchActive;
+    // 画面上の自動配信ボタン（IDまたはクラスで取得）
+    const btns = document.querySelectorAll('button, div');
+    btns.forEach(el => {
+        if (el.innerText && el.innerText.includes('自動配信')) {
+            el.innerText = isAutoDispatchActive ? "自動配信: ON" : "自動配信: OFF";
+            el.style.background = isAutoDispatchActive ? "#059669" : "";
+            el.style.color = isAutoDispatchActive ? "#ffffff" : "";
+        }
+    });
+}
+
+let activeTargetRef = null;
+
+function openModal(title, targetId) {
+    activeTargetRef = targetId;
+    const modal = document.getElementById('payment-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.style.zIndex = '99999';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('payment-modal');
+    if (modal) modal.style.display = 'none';
+    const view = document.getElementById('action-view');
+    if (view) view.style.display = 'none';
+    const form = document.getElementById('view-form');
+    if (form) form.innerHTML = '';
+}
+
+function selectMethod(methodName) {
+    const view = document.getElementById('action-view');
+    const form = document.getElementById('view-form');
+    if (!view || !form) return;
+    
+    view.style.display = 'block';
+    
+    let contentHtml = '';
+
+    if (methodName.includes("Bitcoin SV")) {
+        const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
+        contentHtml = `
+            <div style="padding:10px; text-align:center;">
+                <p style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:13px;">Bitcoin SV ダイレクトチェーン送金</p>
+                <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
+                
+                <div style="background:white; display:inline-block; padding:8px; border-radius:8px; margin-bottom:10px;">
+                    <img src="${qrUrl}" style="width:140px; height:140px; display:block;">
+                </div>
+                
+                <div style="background:#0f172a; padding:8px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; margin-bottom:10px; user-select:all;">
+                    ${WALLET_ADDR_BSV}
+                </div>
+
+                <div style="background:#0f172a; padding:10px; border-radius:6px; margin-bottom:10px; text-align:left; border:1px solid #334155;">
+                    <p style="color:#38bdf8; font-size:11px; font-weight:bold; margin-bottom:4px;">■ Handcash Paymail (簡単送金)</p>
+                    <div style="font-family:monospace; font-size:11px; color:#f8fafc; user-select:all;">
+                        $daisuke
+                    </div>
+                </div>
+
+                <div style="background:#064e3b; border:1px solid #059669; padding:10px; border-radius:6px; text-align:left; margin-bottom:10px;">
+                    <p style="color:#34d399; font-size:10px; line-height:1.4; margin:0;">
+                        ⚠️ BSV からのみ送信してください。他のトークンを送信したり、他のブロックチェーンから送信したりすると、資金が永久に失われます。
+                    </p>
+                </div>
+            </div>
+        `;
     } else if (methodName.includes("Lightning")) {
         contentHtml = `
             <div style="padding:10px; text-align:left;">
@@ -332,11 +405,51 @@
     `;
 }
 
-function closeModal() {
-    const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'none';
-    const view = document.getElementById('action-view');
-    if (view) view.style.display = 'none';
-    const form = document.getElementById('view-form');
-    if (form) form.innerHTML = '';
+function executeOnChainUnlock(methodName) {
+    const btn = event.target;
+    btn.innerText = 'オンチェーン検証中（ダイナミック更新）...';
+    btn.style.background = '#eab308';
+    
+    setTimeout(() => {
+        globalInventory.remaining = Math.max(0, globalInventory.remaining - 1);
+        if (globalInventory.remaining === 2) {
+            globalInventory.currentPrice = 7500;
+            globalInventory.priceLabel = "7,500 JPY (価格改定・残り2枠)";
+        } else if (globalInventory.remaining === 1) {
+            globalInventory.currentPrice = 10000;
+            globalInventory.priceLabel = "10,000 JPY (最終総括・残り1枠)";
+        } else if (globalInventory.remaining === 0) {
+            globalInventory.priceLabel = "SOLD OUT (完売)";
+        }
+        
+        alert(methodName + ' による検証完了、アセットのインポートおよびシークレットDAOへのアクセスを許可しました。');
+        
+        if (activeTargetRef) {
+            const bodyEl = document.getElementById('body-' + activeTargetRef);
+            const snippetEl = document.getElementById('snippet-' + activeTargetRef);
+            const btnEl = document.getElementById('btn-' + activeTargetRef);
+            
+            if (bodyEl) bodyEl.style.filter = 'none';
+            if (snippetEl) {
+                snippetEl.style.filter = 'none';
+                snippetEl.insertAdjacentHTML('afterend', `
+                    <div style="margin:10px 0; padding:12px; background:#0f172a; border:1px solid #22c55e; border-radius:8px;">
+                        <p style="color:#22c55e; font-weight:bold; font-size:11px;">[SUCCESS] オンチェーン決済完了</p>
+                        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.previousElementSibling.innerText)" style="padding:6px 12px; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:4px; font-size:10px; cursor:pointer; margin-top:6px;">
+                            ▼ 閲覧用コードをクリップボードにインポート
+                        </button>
+                        <a href="https://discord.gg/qlux-secret" target="_blank" style="display:block; text-align:center; margin-top:8px; color:#38bdf8; font-size:10px; text-decoration:none;">
+                            🚀 [特権] QLUXシークレット・開発官DAOへ参加する
+                        </a>
+                    </div>
+                `);
+            }
+            if (btnEl) {
+                btnEl.innerText = 'ライセンス取得済み (UNLOCKED)';
+                btnEl.style.background = '#22c55e';
+                btnEl.disabled = true;
+            }
+        }
+        closeModal();
+    }, 1500);
 }
