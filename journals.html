@@ -300,28 +300,42 @@ function openModal(title, targetId) {
     }
 }
 
-function closeModal() {
-    const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'none';
-    const view = document.getElementById('action-view');
-    if (view) view.style.display = 'none';
-}
-
 function selectMethod(methodName) {
     const view = document.getElementById('action-view');
     const form = document.getElementById('view-form');
     if (!view || !form) return;
     
     view.style.display = 'block';
-    const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
     
     form.innerHTML = `
-        <div style="text-align:center; padding:15px; background:#0f172a; border-radius:12px;">
-            <p style="color:#38bdf8; font-weight:bold; margin-bottom:10px; font-size:13px;">${methodName} ダイナミック決済ゲートウェイ</p>
-            <p style="color:#fbbf24; font-size:12px; margin-bottom:10px;">請求金額: ${globalInventory.priceLabel}</p>
-            <img src="${qrUrl}" style="width:160px; background:white; padding:6px; border-radius:8px; margin-bottom:12px;">
-            <p style="font-size:11px; word-break:break-all; color:#94a3b8; margin-bottom:15px;">${WALLET_ADDR_BSV}</p>
-            <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:14px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">送金完了を通知する</button>
+        <div style="background:#020617; padding:20px; border-radius:12px; border:1px solid #1e293b; text-align:left;">
+            <h3 style="color:#f8fafc; font-size:14px; margin-bottom:15px; border-bottom:1px solid #334155; padding-bottom:10px;">決済方法を選択 (${methodName})</h3>
+            <p style="color:#fbbf24; font-size:12px; margin-bottom:12px;">現在の請求金額: <b>${globalInventory.priceLabel}</b></p>
+            
+            <!-- LNURL決済 -->
+            <div style="margin-bottom:20px;">
+                <p style="color:#38bdf8; font-size:11px; margin-bottom:5px;">■ Lightning Network (即時決済)</p>
+                <div style="background:#0f172a; padding:10px; border-radius:6px; font-family:monospace; font-size:10px; word-break:break-all; color:#94a3b8; user-select:all;">
+                    lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhhyetkd9kx2ersd9nk2mmw8y6qjdes49
+                </div>
+            </div>
+
+            <!-- 銀行振込 -->
+            <div style="margin-bottom:20px;">
+                <p style="color:#fbbf24; font-size:11px; margin-bottom:5px;">■ みずほ銀行 (法人・機関投資家向け)</p>
+                <div style="background:#0f172a; padding:10px; border-radius:6px; font-size:11px; color:#cbd5e1;">
+                    <p style="margin:0;">銀行名：みずほ銀行</p>
+                    <p style="margin:0;">支店番号：676</p>
+                    <p style="margin:0;">科目：普通預金</p>
+                    <p style="margin:0;">口座番号：3035385</p>
+                    <p style="margin:0;">口座名義：ヒグチ ダイスケ</p>
+                </div>
+                <p style="font-size:9px; color:#64748b; margin-top:8px;">※ 振込完了後、照合のため「REF: [記事ID]」を振込依頼人名義の末尾に付加してください。</p>
+            </div>
+
+            <button onclick="executeOnChainUnlock('${methodName}')" style="width:100%; padding:14px; background:#0284c7; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+                送金・振込完了を通知する
+            </button>
         </div>
     `;
 }
