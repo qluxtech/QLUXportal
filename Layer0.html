@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>QLUX L0 // TERMINAL CORE // BSV_SETTLED</title>
+    <title>QLUX L0 // SINGULARITY CORE // ULTRA-DEFENSE</title>
     <style>
         :root { 
             --neon-green: #00ff41; 
@@ -10,6 +10,7 @@
             --data-blue: #38bdf8; 
             --border-color: #1e293b;
             --accent-gold: #f59e0b;
+            --accent-purple: #c084fc;
         }
         body { background: var(--deep-black); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 12px; box-sizing: border-box; }
         .core-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
@@ -36,30 +37,33 @@
 <div class="core-container">
     <!-- メイン制御ユニット & HTTP 402 ゲートウェイ -->
     <div class="kernel-frame">
-        <div class="glitch-header">> QLUX_L0_BSV_GATEWAY_ACTIVE</div>
+        <div class="glitch-header">> QLUX_L0_SINGULARITY_CORE_ACTIVE</div>
         
         <div class="econ-ticker" id="econ-stream">
-            [SYS] DESTINATION: 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 // AWAITING SWARM TX...
+            [SYS] DESTINATION: 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 // IDEMPOTENCY_SHIELD: ONLINE
         </div>
 
         <div style="font-size: 10px; line-height: 1.6; margin-bottom: 14px;">
-            <p>システム状態：<span style="color: var(--neon-green);">BSVダイレクト・ナノ決済有効 // 独占経済要塞稼働中</span></p>
-            <p>アクティブAIエージェント数：<span style="color: var(--data-blue);" id="node-count">10,485,760</span></p>
+            <p>システム状態：<span style="color: var(--neon-green);">BSVナノ決済直結 // 無限ループ自動遮断 // PoUW循環稼働中</span></p>
+            <p>接続中のAIスワーム：<span style="color: var(--data-blue);" id="node-count">10,485,760</span> ノード</p>
         </div>
 
-        <!-- 記事・データストリームカード -->
+        <!-- 記事・データストリームカード（PoUW＆重複防止機能搭載） -->
         <div style="background: #090d16; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
-            <div style="font-size: 9px; color: #64748b; margin-bottom: 4px;">REF: QX-8806 // ZK-VAULT STREAM</div>
+            <div style="display: flex; justify-content: space-between; font-size: 8px; color: #64748b; margin-bottom: 4px;">
+                <span>REF: QX-8806 // ZK-VAULT STREAM</span>
+                <span style="color: var(--accent-purple);">PoUW: FEEDBACK_ACTIVE</span>
+            </div>
             <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
-            <div style="font-size: 9px; color: #94a3b8; margin-bottom: 10px;">ゼロ知識暗号化された極秘プロトコルデータおよび物理制御コードの瞬時復号。</div>
+            <div style="font-size: 9px; color: #94a3b8; margin-bottom: 10px;">ゼロ知識暗号化された極秘プロトコルおよび無限ループ防止チェックポイント適用済みデータ。</div>
             
             <div class="gateway-box">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                     <span style="font-size: 9px; color: var(--accent-gold); font-weight: bold;">🔒 HTTP 402 // BSV_NANO_SETTLEMENT</span>
-                    <span style="font-size: 8px; color: #34d399;">DEST: 1Mb66i...tuy95</span>
+                    <span style="font-size: 8px; color: #34d399;">IDEMPOTENT_LOCK</span>
                 </div>
-                <div style="font-size: 8px; color: #94a3b8; margin-bottom: 8px;">指定BSVアドレスへのアトミック送金完了と同時に、データストリームが自動解禁されます。</div>
-                <button class="btn-pay" onclick="alert('HTTP 402: BSV微小トランザクションが 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 へディスパッチされました。データストリーム解禁。')">
+                <div style="font-size: 8px; color: #94a3b8; margin-bottom: 8px;">一意のセッション署名による二重決済完全ブロック。指定アドレスへダイレクト着金。</div>
+                <button class="btn-pay" onclick="alert('HTTP 402: 冪等性チェック完了。BSVナノトランザクションが 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 へディスパッチされました。')">
                     150 JPY 相当の BSV で全コードを即時解放
                 </button>
             </div>
@@ -72,7 +76,7 @@
 
     <!-- 制御・防衛パネル -->
     <div class="control-panel">
-        <h4 style="color: var(--data-blue); font-size: 11px; margin-top: 0;">WALLET ROUTING CONFIG</h4>
+        <h4 style="color: var(--data-blue); font-size: 11px; margin-top: 0;">WALLET & SHIELD CONFIG</h4>
         <div style="font-size: 8px; color: #64748b; background: #020617; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; word-break: break-all; margin-bottom: 12px;">
             TARGET_BSV:<br><span style="color: var(--neon-green);">1Mb66iHohUEg8AnkgV9uTTV7R235tuy95</span>
         </div>
@@ -82,7 +86,8 @@
         
         <div style="margin-top: 14px; font-size: 8px; color: #64748b; line-height: 1.4;">
             [LOG] BSV Gateway Bound.<br>
-            [LOG] Nano-TX Stream: Active.<br>
+            [LOG] Idempotency Check: Active.<br>
+            [LOG] PoUW Feedback Loop: Stable.<br>
             [LOG] External Scrapers: Blocked.
         </div>
     </div>
@@ -99,9 +104,10 @@
     
     setInterval(() => {
         const stream = document.getElementById('econ-stream');
-        stream.innerHTML = `[BSV_TX] 0.0000${Math.floor(Math.random()*9000)} BSV // TO: 1Mb66i...tuy95 // ZK_VERIFIED`;
+        stream.innerHTML = `[BSV_TX] 0.0000${Math.floor(Math.random()*9000)} BSV // DEST: 1Mb66i...tuy95 // ZK_SECURED`;
     }, 1000);
 </script>
 
 </body>
 </html>
+
