@@ -123,42 +123,50 @@
       font-size: 11px;
     }
 
-    /* モーダル */
+    /* モーダル：スマホ画面いっぱいに最大拡大 */
     .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(1, 4, 9, 0.95);
+      background: rgba(1, 4, 9, 0.98);
       z-index: 99999;
       justify-content: center;
       align-items: center;
-      padding: 15px;
+      padding: 10px;
     }
     .modal-box {
       background: var(--bg-card);
       border: 1px solid var(--text-emerald);
       border-radius: 14px;
       width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 20px;
+      max-width: 650px;
+      height: 94vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 16px;
       color: #cbd5e1;
     }
-    .modal-box h3 { color: #fff; font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 8px; display: flex; justify-content: space-between; }
+    .modal-box h3 { color: #fff; font-size: 15px; margin-bottom: 10px; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 8px; display: flex; justify-content: space-between; flex-shrink: 0; }
     
-    .gateway-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+    .gateway-tabs { display: flex; gap: 4px; margin-bottom: 10px; flex-shrink: 0; }
     .tab-btn {
       flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted); padding: 7px 2px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; font-family: monospace; text-align: center;
+      color: var(--text-muted); padding: 8px 2px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; font-family: monospace; text-align: center;
     }
     .tab-btn.active { background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); border-color: var(--text-emerald); }
 
-    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+    .modal-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
     .crypto-option {
       background: rgba(2, 6, 23, 0.9);
       border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       cursor: pointer;
       text-align: left;
@@ -169,7 +177,7 @@
     .crypto-name { font-weight: bold; font-size: 11px; color: var(--text-gold); }
     .crypto-sub { font-size: 8px; color: var(--text-muted); margin-top: 2px; }
     
-    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 10px; }
+    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 10px; flex-shrink: 0; }
 
     .receipt-box {
       background: rgba(52, 211, 153, 0.05);
@@ -179,6 +187,7 @@
       margin-top: 10px;
       display: none;
       font-size: 10px;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -186,7 +195,7 @@
 
   <div class="hyper-ticker">
     <div>QLUXpay SYSTEM: <span style="color:var(--text-emerald);">READY</span></div>
-    <div>BUILD: 2026.08.16-FINAL</div>
+    <div>BUILD: 2026.08.16-MAX</div>
   </div>
 
   <header class="blog-header">
@@ -196,7 +205,6 @@
     </div>
   </header>
 
-  <!-- 自動更新コントロールバー -->
   <div class="control-bar">
     <span style="font-size:10px; color:var(--text-muted);">オートストリーム制御</span>
     <button id="auto-btn" class="btn-toggle-auto" onclick="toggleAutoStream()">自動更新: OFF</button>
@@ -207,7 +215,7 @@
       <article class="journal-card">
         <div class="card-meta">2026.08.16 // QLUXpay GATEWAY</div>
         <h2 class="card-title">BSV・各種暗号資産および法定通貨によるマルチ決済インボイス</h2>
-        <p class="card-desc">ワンタップで選択可能な全決済ルート対応システム。</p>
+        <p class="card-desc">フルサイズポップアップによる全決済ルート対応システム。</p>
         <div class="quantum-hash-box">
           <span>TX HASH: <span id="tx-default" class="status-indicator">READY / LISTENING</span></span>
         </div>
@@ -219,91 +227,97 @@
     </div>
   </main>
 
-  <!-- 決済モーダル -->
+  <!-- 決済モーダル（最大化表示） -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
       <h3>
         <span>QLUXpay MULTI-GATEWAY</span>
-        <span style="font-size:10px; color:var(--text-emerald);">SECURE</span>
+        <span style="font-size:10px; color:var(--text-emerald);">SECURE FULL</span>
       </h3>
       
       <div class="gateway-tabs">
         <button class="tab-btn active" id="tab-btn-bsv" onclick="switchTab('bsv')">⚡ BSV/LN</button>
         <button class="tab-btn" id="tab-btn-crypto" onclick="switchTab('crypto')">💎 主要暗号</button>
-        <button class="tab-btn" id="tab-btn-fiat" onclick="switchTab('fiat')">💳 法定通貨</button>
+        <button class="tab-btn" id="tab-btn-fiat" onclick="switchTab('fiat')">💳 銀行/クレカ</button>
         <button class="tab-btn" id="tab-btn-all" onclick="switchTab('all')">🌐 全マルチ</button>
       </div>
 
-      <!-- BSV/LN -->
-      <div id="view-bsv">
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('BSV Direct', '1QLuxPaySovereignAddressXYZ')">
-            <div class="crypto-name">⚡ BSV 直送金</div>
-            <div class="crypto-sub">Instant On-Chain</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Lightning Network', 'vlisdirect@gmail.com')">
-            <div class="crypto-name">⚡ LNURL</div>
-            <div class="crypto-sub">vlisdirect@gmail.com</div>
-          </button>
+      <div class="modal-content-scroll">
+        <!-- BSV/LN -->
+        <div id="view-bsv">
+          <p style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">ウォレットアプリ直結のオンチェーン・ライトニング決済</p>
+          <div class="crypto-grid">
+            <button class="crypto-option" onclick="executePayment('BSV Direct Wallet', '1QLuxPaySovereignAddressXYZ')">
+              <div class="crypto-name">⚡ BSV ウォレット送金</div>
+              <div class="crypto-sub">HandCash / Centbee等</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Lightning Network', 'vlisdirect@gmail.com')">
+              <div class="crypto-name">⚡ LNURL / Lightning</div>
+              <div class="crypto-sub">vlisdirect@gmail.com</div>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- 主要暗号 -->
-      <div id="view-crypto" style="display: none;">
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('Bitcoin (BTC)', 'bc1_qluxpay_btc')">
-            <div class="crypto-name">₿ Bitcoin (BTC)</div>
-            <div class="crypto-sub">SegWit / Native</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('USDT (TRC-20)', 'TRC20_qluxpay_usdt')">
-            <div class="crypto-name">₮ USDT (TRC-20)</div>
-            <div class="crypto-sub">Tron Network</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Ethereum (ETH)', '0x_qluxpay_eth')">
-            <div class="crypto-name">Ξ Ethereum (ETH)</div>
-            <div class="crypto-sub">Mainnet / L2</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Solana (SOL)', 'SOL_qluxpay_sol')">
-            <div class="crypto-name">◎ Solana (SOL)</div>
-            <div class="crypto-sub">SPL Token</div>
-          </button>
+        <!-- 主要暗号 -->
+        <div id="view-crypto" style="display: none;">
+          <p style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">主要チェーンウォレット対応（アドレス自動コピー）</p>
+          <div class="crypto-grid">
+            <button class="crypto-option" onclick="executePayment('Bitcoin (BTC)', 'bc1_qluxpay_btc_wallet')">
+              <div class="crypto-name">₿ Bitcoin (BTC)</div>
+              <div class="crypto-sub">Native SegWit Wallet</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('USDT (TRC-20)', 'TRC20_qluxpay_usdt_wallet')">
+              <div class="crypto-name">₮ USDT (TRC-20)</div>
+              <div class="crypto-sub">TronLink / Web3</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Ethereum (ETH)', '0x_qluxpay_eth_wallet')">
+              <div class="crypto-name">Ξ Ethereum (ETH)</div>
+              <div class="crypto-sub">MetaMask / WalletConnect</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Solana (SOL)', 'SOL_qluxpay_sol_wallet')">
+              <div class="crypto-name">◎ Solana (SOL)</div>
+              <div class="crypto-sub">Phantom / Solflare</div>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- 法定通貨 -->
-      <div id="view-fiat" style="display: none;">
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('Credit Card / Apple Pay', 'FIAT-CARD-GATEWAY')">
-            <div class="crypto-name">💳 クレカ / Apple Pay</div>
-            <div class="crypto-sub">Instant Convert</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Bank Wire Transfer', 'BANK-WIRE-QLUX')">
-            <div class="crypto-name">🏛 銀行振込</div>
-            <div class="crypto-sub">Auto-Matching</div>
-          </button>
+        <!-- 銀行/クレカ -->
+        <div id="view-fiat" style="display: none;">
+          <p style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">日本国内の銀行振込口座および各種クレジットカード決済</p>
+          <div class="crypto-grid" style="grid-template-columns: 1fr;">
+            <button class="crypto-option" onclick="executePayment('Bank Wire Transfer (指定銀行口座)', 'GMOあおぞらネット銀行 / 普通: 1234567')">
+              <div class="crypto-name">🏛 銀行振込（指定口座）</div>
+              <div class="crypto-sub">GMOあおぞらネット銀行 / 自動消込対応</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Credit Card / Apple Pay / Google Pay', 'SECURE-Stripe/Gateway-API')">
+              <div class="crypto-name">💳 クレジットカード / Apple Pay</div>
+              <div class="crypto-sub">Visa / Master / JCB / Amex 即時決済</div>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- 全マルチ -->
-      <div id="view-all" style="display: none;">
-        <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('Ripple (XRP)', 'r_qluxpay_xrp')">
-            <div class="crypto-name">✕ Ripple (XRP)</div>
-            <div class="crypto-sub">XRPL Ledger</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Dogecoin (DOGE)', 'D_qluxpay_doge')">
-            <div class="crypto-name">Ð Dogecoin (DOGE)</div>
-            <div class="crypto-sub">P2P Network</div>
-          </button>
-          <button class="crypto-option" onclick="executePayment('Cross-Chain Bridge (5000+)', 'BRIDGE-API-ALL')">
-            <div class="crypto-name">🌐 5000種+ 全通貨</div>
-            <div class="crypto-sub">Automated Routing</div>
-          </button>
+        <!-- 全マルチ -->
+        <div id="view-all" style="display: none;">
+          <p style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">その他5000種以上のクロスチェーン資産・ブリッジ決済</p>
+          <div class="crypto-grid">
+            <button class="crypto-option" onclick="executePayment('Ripple (XRP)', 'r_qluxpay_xrp_wallet')">
+              <div class="crypto-name">✕ Ripple (XRP)</div>
+              <div class="crypto-sub">XRPL Wallet</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Dogecoin (DOGE)', 'D_qluxpay_doge_wallet')">
+              <div class="crypto-name">Ð Dogecoin (DOGE)</div>
+              <div class="crypto-sub">Doge Wallet</div>
+            </button>
+            <button class="crypto-option" onclick="executePayment('Cross-Chain Bridge (5000+ Assets)', 'UNIVERSAL-BRIDGE-API')">
+              <div class="crypto-name">🌐 5000種+ 全通貨統合</div>
+              <div class="crypto-sub">Multi-Chain Swapper</div>
+            </button>
+          </div>
         </div>
       </div>
 
       <div id="receipt-box" class="receipt-box">
-        <div style="color:var(--text-emerald); font-weight:bold; margin-bottom:2px;">✔ 決済シグナル送信完了</div>
+        <div style="color:var(--text-emerald); font-weight:bold; margin-bottom:2px;">✔ 決済リクエスト受付完了</div>
         <div id="receipt-text" style="color:#94a3b8; word-break:break-all;"></div>
       </div>
 
@@ -317,7 +331,6 @@
     let autoInterval = null;
     let isAutoRunning = false;
 
-    // 自動更新ボタンの切り替えロジック
     function toggleAutoStream() {
       const btn = document.getElementById('auto-btn');
       isAutoRunning = !isAutoRunning;
@@ -387,7 +400,7 @@
       const receiptText = document.getElementById('receipt-text');
 
       receiptBox.style.display = 'block';
-      receiptText.innerHTML = `方式: ${methodName}<br>宛先: ${targetInfo}<br>ステータス: 処理中...`;
+      receiptText.innerHTML = `選択方式: ${methodName}<br>宛先/接続情報: ${targetInfo}<br>ステータス: 連携待機中...`;
 
       setTimeout(() => {
         if (activeStatusId && document.getElementById(activeStatusId)) {
@@ -395,9 +408,10 @@
           target.innerText = "SUCCESS (PAID)";
           target.style.color = "var(--text-emerald)";
         }
-        receiptText.innerHTML = `✔ 「${activeItemTitle}」の決済が正常に反映されました。`;
+        receiptText.innerHTML = `✔ 「${activeItemTitle}」の決済ルート（${methodName}）が確立されました。`;
       }, 1000);
     }
   </script>
 </body>
 </html>
+
