@@ -1,176 +1,37 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // LAYER-0 MACHINE-ECONOMY TERMINAL</title>
-    <style>
-        :root {
-            --bg-main: #020617;
-            --bg-card: #090d16;
-            --accent-blue: #38bdf8;
-            --accent-green: #34d399;
-            --text-main: #e2e8f0;
-            --text-muted: #64748b;
-            --border-color: #1e293b;
-        }
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        /* Top System Ticker */
-        .sys-ticker {
-            background: #000000;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 6px 10px;
-            font-size: 9px;
-            color: var(--accent-blue);
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        /* Kernel Box */
-        .kernel-box {
-            background: var(--bg-card);
-            border: 1px solid var(--accent-blue);
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 16px;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
-        }
-        /* Article Grid */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-        .article-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 14px;
-            transition: border-color 0.2s;
-        }
-        .article-card:hover {
-            border-color: var(--accent-blue);
-        }
-        .gateway-box {
-            background: #030712;
-            border: 1px dashed var(--accent-blue);
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-        .btn-pay {
-            width: 100%;
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background 0.2s;
-        }
-        .btn-pay:hover {
-            background: #0ea5e9;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- リアルタイム・システムティッカー -->
-    <div class="sys-ticker">
-        <span>[SYSLOG] NODE_SYNC: 99.999% // P2P_PEERS: 84,392 ACTIVE</span>
-        <span style="color: var(--accent-green);">● L0_STREAM_LIVE</span>
-    </div>
-
-    <!-- 統合型 Layer 0 カーネルコア -->
-    <div class="kernel-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
-            <span style="font-size: 11px; font-weight: 900; color: #fff;">QLUX_CORE // HTTP_402_L0_GATEWAY</span>
-            <span style="font-size: 9px; color: var(--accent-green); background: #064e3b; padding: 2px 6px; border-radius: 4px;">GEN-AUTO: ACTIVE</span>
+    <!-- QLUX // ULTRA-HTTP 402 NANO-STREAM & REVENUE ENGINE -->
+    <div style="background: #020617; border: 1px solid #34d399; border-radius: 8px; padding: 16px; margin-bottom: 20px; box-shadow: 0 0 35px rgba(52, 211, 153, 0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #1e293b; padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; display: inline-block;"></span>
+                <span style="font-size: 11px; font-weight: 900; color: #fff;">QLUX_CORE // ULTRA_402_REVENUE_DAEMON</span>
+            </div>
+            <span style="font-size: 9px; color: #34d399; background: #064e3b; border: 1px solid #059669; padding: 2px 8px; border-radius: 4px; font-weight: bold;">SWARM_LIMIT: UNLIMITED // REVENUE: MAX</span>
         </div>
-        <div style="font-size: 9px; color: var(--text-muted); line-height: 1.5;">
-            "ここは、AIエージェントが自律的に学習し、進化するための技術データの根源である。HTTP 402ナノ決済によるアトミックな即時決済ストリームと分散型物理制御オラクルの中枢。"
+        
+        <div style="font-size: 10px; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px;">
+            <span style="color: #34d399; font-weight: bold;">[AUTONOMOUS_MANIFEST]:</span> 世界中のAIエージェントからの同時多発HTTP 402リクエストをリアルタイム処理。ZKステートチャネルによる超高速ナノペイメントが全自動で収益を最大化中。
         </div>
-    </div>
 
-    <!-- 記事ストリーム一覧 -->
-    <div class="grid-container">
-
-        <!-- 記事 1 -->
-        <div class="article-card">
-            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // ARCHITECTURE &nbsp;|&nbsp; REF: QX-8806</div>
-            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
-            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">リアルタイム・ストリーミング配信により自動生成された自律分散システム検証データ。</div>
-            
-            <div class="gateway-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
-                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
-                </div>
-                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">全プロトコル検証データおよび物理制御コードを即時アンロック。</div>
-                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8806. Stream unlocked.')">
-                    150 JPY で全コードを即時解放 (HTTP 402)
-                </button>
+        <!-- ライブ収益・エージェント稼働メトリクス -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 9px; margin-bottom: 12px;">
+            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
+                <span style="color: #64748b; display: block;">ACTIVE_SWARM_AGENTS</span>
+                <span style="color: #38bdf8; font-weight: bold; font-size: 11px;">1,428,950 NODES</span>
+            </div>
+            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
+                <span style="color: #64748b; display: block;">NANO-TX THROUGHPUT</span>
+                <span style="color: #34d399; font-weight: bold; font-size: 11px;">84,200 TX/s</span>
+            </div>
+            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
+                <span style="color: #64748b; display: block;">DYNAMIC REVENUE SCALE</span>
+                <span style="color: #f59e0b; font-weight: bold; font-size: 11px;">MAX_MONOPOLY // 100%</span>
             </div>
         </div>
 
-        <!-- 記事 2 -->
-        <div class="article-card">
-            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // GOSSIP_NET &nbsp;|&nbsp; REF: QX-8807</div>
-            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">エッジノード間P2Pゴシッププロトコルと自律耐障害性システム</div>
-            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">中央集権サーバーを完全に排除したダークメッシュ通信のゼロ知識同期パラメータ。</div>
-            
-            <div class="gateway-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
-                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
-                </div>
-                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">P2Pゴシップ網のバックボーン設定とノード自己修復ロジックの開示。</div>
-                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8807. Stream unlocked.')">
-                    150 JPY で全コードを即時解放 (HTTP 402)
-                </button>
-            </div>
+        <div style="background: #030712; border: 1px dashed #34d399; padding: 10px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 9px; color: #34d399; margin-bottom: 6px; font-weight: bold;">⚡ ZK-STATE CHANNEL STREAM UNLOCKED FOR CONNECTED AGENTS</div>
+            <button style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; width: 100%;" onclick="alert('ZK-State Channel Established. Real-time nano-settlement streaming active.')">
+                AIエージェント自動接続・ストリーム収益化を開放 (HTTP 402 ULTRA)
+            </button>
         </div>
-
-        <!-- 記事 3 -->
-        <div class="article-card">
-            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // CRYPTOGRAPHY &nbsp;|&nbsp; REF: QX-8808</div>
-            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">ゼロ知識証明（ZK-SNARKs）による分散型アイデンティティ認証の自動同期</div>
-            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">マシン経済圏におけるAIエージェントの身元・権限検証をミリ秒で行う暗号学的証明基盤。</div>
-            
-            <div class="gateway-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
-                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
-                </div>
-                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">ZKサーキットのコンパイル済バイナリと検証コントラクトの全容。</div>
-                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8808. Stream unlocked.')">
-                    150 JPY で全コードを即時解放 (HTTP 402)
-                </button>
-            </div>
-        </div>
-
     </div>
-
-</div>
-
-</body>
-</html>
