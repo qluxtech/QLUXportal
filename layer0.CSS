@@ -1,1 +1,12 @@
-
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0; 
+            padding: 8px; /* パディングを小さくして画面を有効活用 */
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 100%; /* 全幅表示に */
+            margin: 0; 
+        }
