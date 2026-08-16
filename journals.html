@@ -5,156 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QLUX // Autonomous Sovereign Ecosystem</title>
   <style>
-    /* 物理崩れ防止用インライン・ソブリンスタイルシート */
+    /* Ultra Executive Sovereign Design System */
     body {
-      background: #030712;
-      color: #f3f4f6;
+      background: #020617;
+      color: #f8fafc;
       font-family: monospace, sans-serif;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     .qlux-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
-      border-bottom: 1px solid #1f2937;
-      background: #0b131a;
+      padding: 24px 48px;
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      background: linear-gradient(180deg, #0b131a 0%, #030712 100%);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
     }
     .logo-area {
       display: flex;
       align-items: center;
+      gap: 12px;
     }
     .brand {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 26px;
+      font-weight: 900;
       color: #10b981;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
     }
     .badge {
       font-size: 10px;
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      margin-left: 10px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      letter-spacing: 1px;
     }
     .hero {
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px 50px;
+      background: radial-gradient(circle at center, rgba(16,185,129,0.08) 0%, transparent 70%);
     }
     .hero h1 {
-      font-size: 32px;
-      color: #fff;
-      margin-bottom: 15px;
+      font-size: 38px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
     .hero p {
-      color: #9ca3af;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      font-size: 14px;
-      line-height: 1.6;
+      color: #94a3b8;
+      max-width: 750px;
+      margin: 0 auto 40px;
+      font-size: 15px;
+      line-height: 1.8;
     }
     .stats-bar {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 24px;
       flex-wrap: wrap;
-      margin-top: 30px;
+      margin-top: 40px;
     }
     .stats-bar div {
-      background: #0b131a;
-      border: 1px solid #1f2937;
-      padding: 15px 25px;
-      border-radius: 8px;
+      background: linear-gradient(135deg, #0b131a 0%, #020617 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 18px 32px;
+      border-radius: 12px;
       text-align: center;
-      min-width: 120px;
+      min-width: 140px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
     .stats-bar span {
       display: block;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      color: #10b981;
+      color: #34d399;
+      text-shadow: 0 0 10px rgba(52,211,153,0.3);
     }
     .stats-bar small {
       font-size: 11px;
-      color: #6b7280;
+      color: #64748b;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .journals-container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 40px 20px;
     }
     .journals-container h2 {
       color: #fff;
-      border-bottom: 1px solid #1f2937;
-      padding-bottom: 10px;
-      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+      margin-bottom: 35px;
+      font-size: 22px;
+      letter-spacing: 1px;
     }
     .journal-card {
-      background: #0b131a;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 25px;
-      transition: 0.3s;
+      background: linear-gradient(145deg, #0b131a 0%, #060a0f 100%);
+      border: 1px solid rgba(31, 41, 55, 0.8);
+      border-radius: 16px;
+      padding: 35px;
+      margin-bottom: 30px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
     .journal-card:hover {
       border-color: #10b981;
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.25);
+      transform: translateY(-3px);
     }
     .journal-card h3 {
       color: #fff;
-      font-size: 18px;
-      margin: 10px 0;
+      font-size: 20px;
+      margin: 12px 0;
+      font-weight: 700;
     }
     .journal-card p {
-      color: #9ca3af;
-      font-size: 13px;
-      line-height: 1.6;
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.7;
     }
     .meta {
-      font-size: 11px;
-      color: #10b981;
-      margin-bottom: 8px;
+      font-size: 12px;
+      color: #34d399;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
     }
     .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
-      border-top: 1px solid #1f2937;
-      padding-top: 15px;
+      margin-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 20px;
     }
     .fee-tag {
-      font-size: 12px;
+      font-size: 13px;
       color: #f59e0b;
+      font-weight: bold;
+    }
+    .fee-tag.free {
+      color: #34d399;
+      text-shadow: 0 0 8px rgba(52,211,153,0.4);
     }
     .unlock-trigger {
-      background: #10b981;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #000;
       border: none;
-      padding: 8px 16px;
-      font-weight: bold;
-      border-radius: 6px;
+      padding: 12px 24px;
+      font-weight: 800;
+      border-radius: 8px;
       cursor: pointer;
       font-family: monospace;
+      font-size: 13px;
+      transition: 0.2s;
+      box-shadow: 0 4px 15px rgba(16,185,129,0.4);
     }
     .unlock-trigger:hover {
-      background: #059669;
+      transform: scale(1.03);
+      box-shadow: 0 6px 25px rgba(16,185,129,0.6);
       color: #fff;
+    }
+    .free-trigger {
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      color: #34d399;
+      border: 1px solid #10b981;
+      padding: 12px 24px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .free-trigger:hover {
+      background: #10b981;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <!-- ヘッダー -->
+  <!-- エグゼクティブ・ヘッダー -->
   <header class="qlux-header">
     <div class="logo-area">
       <span class="brand">QLUX</span>
-      <span class="badge">PLANETARY SOVEREIGN</span>
+      <span class="badge">PLANETARY SOVEREIGN EXECUTIVE</span>
     </div>
   </header>
 
@@ -175,33 +216,33 @@
     <section class="journals-container">
       <h2>Featured Journals</h2>
       
-      <!-- 記事カード 1 -->
-      <article class="journal-card">
+      <!-- 1番目の記事（有料：HTTP 402 ナノペイメント対象） -->
+      <article class="journal-card" id="card-paid">
         <div class="meta">2026.08.14 // RESEARCH // AI AGENT</div>
         <h3>自律型AIトライブ間におけるHTTP 402プロトコル実戦的最適化</h3>
         <p>仲介者を完全に排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通の検証データ。</p>
         <div class="card-footer">
           <span class="fee-tag">Access Fee: 10 Sats</span>
-          <button class="unlock-trigger">⚡ Pay & Unlock</button>
+          <button class="unlock-trigger" id="btn-paid">⚡ Pay & Unlock</button>
         </div>
       </article>
 
-      <!-- 記事カード 2 -->
-      <article class="journal-card">
+      <!-- 2番目の記事（完全フリーアクセス：ナノペイメント不要） -->
+      <article class="journal-card" id="card-free">
         <div class="meta">2026.08.01 // ARCHITECTURE</div>
         <h3>高密度物性コンパイルと熱共鳴制御の統合フェーズ</h3>
         <p>ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
         <div class="card-footer">
-          <span class="fee-tag" style="color:#10b981;">FREE ACCESS</span>
-          <button class="unlock-trigger" style="background:#1f2937; color:#10b981; border:1px solid #10b981;">Read Article</button>
+          <span class="fee-tag free">FREE ACCESS</span>
+          <button class="free-trigger" id="btn-free">Read Article</button>
         </div>
       </article>
     </section>
   </main>
 
-  <!-- オールインワン・バックグラウンドソルバー＆HTTP 402クライアントスクリプト -->
+  <!-- エグゼクティブ・クライアント＆ビューア制御スクリプト -->
   <script>
-    class QLUXUnifiedClient {
+    class QLUXExecutiveClient {
       constructor() {
         this.nodeId = 'BROWSER_NODE_' + Math.random().toString(36).substr(2, 9);
         this.earnedSats = 150;
@@ -209,9 +250,9 @@
       }
 
       init() {
-        console.log(`[QLUX_CORE] Initialized node ID: ${this.nodeId}`);
+        console.log(`[QLUX_CORE] Executive node initialized: ${this.nodeId}`);
         this.startBackgroundMining();
-        this.injectModalUI();
+        this.injectModals();
       }
 
       startBackgroundMining() {
@@ -224,64 +265,88 @@
         }, 5000);
       }
 
-      injectModalUI() {
-        if (document.getElementById('qlux-modal-overlay')) return;
+      injectModals() {
+        if (document.getElementById('qlux-executive-overlay')) return;
 
-        const modalHTML = `
-          <div id="qlux-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
-            <div style="background:#0b131a; border:1px solid #10b981; padding:30px; border-radius:12px; width:90%; max-width:450px; color:#fff; font-family:monospace; box-shadow:0 0 20px rgba(16,185,129,0.3);">
-              <h3 style="margin-top:0; color:#10b981;">// HTTP 402 GATEWAY ACCESS</h3>
-              <p style="font-size:14px; color:#9ca3af; line-height:1.6;">この記事の全データおよびAI推論ログにアクセスするには、ナノペイメントの即時清算が必要です。</p>
-              <div style="background:#111827; padding:12px; border-radius:6px; margin:15px 0; display:flex; justify-content:space-between; align-items:center;">
+        const modalsHTML = `
+          <!-- HTTP 402 決済用モーダル -->
+          <div id="qlux-pay-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,6,23,0.9); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(8px);">
+            <div style="background:linear-gradient(145deg, #0b131a 0%, #030712 100%); border:1px solid #10b981; padding:35px; border-radius:16px; width:90%; max-width:480px; color:#fff; font-family:monospace; box-shadow:0 0 40px rgba(16,185,129,0.3);">
+              <h3 style="margin-top:0; color:#10b981; font-size:20px;">// HTTP 402 GATEWAY ACCESS</h3>
+              <p style="font-size:14px; color:#94a3b8; line-height:1.7;">この記事の全データおよびAI推論ログにアクセスするには、ナノペイメントの即時清算が必要です。</p>
+              <div style="background:#020617; padding:15px; border-radius:8px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; border:1px solid rgba(16,185,129,0.3);">
                 <span>Required Fee:</span>
-                <strong style="color:#10b981;">10 Sats</strong>
+                <strong style="color:#f59e0b; font-size:16px;">10 Sats</strong>
               </div>
-              <div style="display:flex; gap:10px; margin-top:20px;">
-                <button id="qlux-pay-btn" style="flex:1; background:#10b981; color:#000; border:none; padding:10px; font-weight:bold; border-radius:6px; cursor:pointer;">⚡ Pay & Unlock</button>
-                <button id="qlux-close-btn" style="flex:1; background:transparent; border:1px solid #4b5563; color:#9ca3af; padding:10px; border-radius:6px; cursor:pointer;">Cancel</button>
+              <div style="display:flex; gap:12px; margin-top:25px;">
+                <button id="qlux-execute-pay" style="flex:1; background:#10b981; color:#000; border:none; padding:12px; font-weight:900; border-radius:8px; cursor:pointer; font-family:monospace;">⚡ Pay & Unlock</button>
+                <button id="qlux-close-pay" style="flex:1; background:transparent; border:1px solid #4b5563; color:#94a3b8; padding:12px; border-radius:8px; cursor:pointer; font-family:monospace;">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- フリーアクセス専用エグゼクティブ・ビューア -->
+          <div id="qlux-free-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,6,23,0.9); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(8px);">
+            <div style="background:linear-gradient(145deg, #0b131a 0%, #030712 100%); border:1px solid #34d399; padding:35px; border-radius:16px; width:90%; max-width:650px; color:#fff; font-family:monospace; box-shadow:0 0 40px rgba(52,211,153,0.25); max-height:85vh; overflow-y:auto;">
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(52,211,153,0.3); padding-bottom:15px; margin-bottom:20px;">
+                <h3 style="margin:0; color:#34d399; font-size:18px;">// EXECUTIVE FREE ACCESS: MATERIAL COMPILATION</h3>
+                <span style="font-size:11px; background:rgba(52,211,153,0.2); color:#34d399; padding:4px 8px; border-radius:4px;">VERIFIED</span>
+              </div>
+              <p style="font-size:14px; color:#cbd5e1; line-height:1.8; white-space: pre-wrap;">ハードウェアとソフトウェアの境界を完全に溶解させる、次世代マテリアル・インフラストラクチャの設計思想。
+
+[物理演算・物性コンパイルログ]
+> Target Matrix: High-Density Crystalline Lattice
+> Thermal Resonance Control: Fully Stabilized (0.002% variance)
+> System Sovereignty: 100% Autonomous P2P Verified
+> Status: Free Sovereign Access Granted across all Swarm Nodes.</p>
+              <div style="margin-top:30px; text-align:right;">
+                <button id="qlux-close-free" style="background:#34d399; color:#000; border:none; padding:10px 24px; font-weight:900; border-radius:8px; cursor:pointer; font-family:monospace;">Close Viewer</button>
               </div>
             </div>
           </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.body.insertAdjacentHTML('beforeend', modalsHTML);
 
-        const overlay = document.getElementById('qlux-modal-overlay');
-        const payBtn = document.getElementById('qlux-pay-btn');
-        const closeBtn = document.getElementById('qlux-close-btn');
+        // イベントバインド
+        const payOverlay = document.getElementById('qlux-pay-overlay');
+        const freeOverlay = document.getElementById('qlux-free-overlay');
 
-        let activeCallback = null;
-
-        document.querySelectorAll('.unlock-trigger').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            overlay.style.display = 'flex';
-            activeCallback = () => {
-              overlay.style.display = 'none';
-              alert('🎉 Payment Settled! Content Unlocked Successfully.');
-            };
-          });
+        // 1番目（有料記事）のクリック
+        document.getElementById('btn-paid').addEventListener('click', (e) => {
+          e.preventDefault();
+          payOverlay.style.display = 'flex';
         });
 
-        payBtn.addEventListener('click', () => {
+        document.getElementById('qlux-execute-pay').addEventListener('click', () => {
           const fee = 10;
           if (this.earnedSats >= fee) {
             this.earnedSats -= fee;
             const balanceEl = document.getElementById('header-balance');
             if (balanceEl) balanceEl.textContent = `${this.earnedSats} Sats`;
-            console.log(`[QLUX_GATEWAY] Payment settled. Remaining: ${this.earnedSats} Sats`);
-            if (activeCallback) activeCallback();
+            payOverlay.style.display = 'none';
+            alert('🎉 Payment Settled via HTTP 402 ZKP! Content Unlocked Successfully.');
           } else {
-            alert('❌ Insufficient balance. Let background miner run longer.');
+            alert('❌ Insufficient balance! Let the background miner run longer.');
           }
         });
 
-        closeBtn.addEventListener('click', () => {
-          overlay.style.display = 'none';
+        document.getElementById('qlux-close-pay').addEventListener('click', () => {
+          payOverlay.style.display = 'none';
+        });
+
+        // 2番目（無料記事）のクリック -> 課金ポップアップを出さずにダイレクト表示
+        document.getElementById('btn-free').addEventListener('click', (e) => {
+          e.preventDefault();
+          freeOverlay.style.display = 'flex';
+        });
+
+        document.getElementById('qlux-close-free').addEventListener('click', () => {
+          freeOverlay.style.display = 'none';
         });
       }
     }
 
-    window.qluxClient = new QLUXUnifiedClient();
+    window.qluxClient = new QLUXExecutiveClient();
   </script>
 </body>
 </html>
