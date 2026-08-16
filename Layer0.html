@@ -1,37 +1,79 @@
-    <!-- QLUX // ULTRA-HTTP 402 NANO-STREAM & REVENUE ENGINE -->
-    <div style="background: #020617; border: 1px solid #34d399; border-radius: 8px; padding: 16px; margin-bottom: 20px; box-shadow: 0 0 35px rgba(52, 211, 153, 0.2);">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #1e293b; padding-bottom: 8px; margin-bottom: 10px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 10px #34d399; display: inline-block;"></span>
-                <span style="font-size: 11px; font-weight: 900; color: #fff;">QLUX_CORE // ULTRA_402_REVENUE_DAEMON</span>
-            </div>
-            <span style="font-size: 9px; color: #34d399; background: #064e3b; border: 1px solid #059669; padding: 2px 8px; border-radius: 4px; font-weight: bold;">SWARM_LIMIT: UNLIMITED // REVENUE: MAX</span>
-        </div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>QLUX L0 // TERMINAL CORE // SINGULARITY</title>
+    <style>
+        :root { --neon-green: #00ff41; --deep-black: #020617; --data-blue: #38bdf8; }
+        body { background: var(--deep-black); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 20px; overflow-x: hidden; }
+        .core-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
         
-        <div style="font-size: 10px; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px;">
-            <span style="color: #34d399; font-weight: bold;">[AUTONOMOUS_MANIFEST]:</span> 世界中のAIエージェントからの同時多発HTTP 402リクエストをリアルタイム処理。ZKステートチャネルによる超高速ナノペイメントが全自動で収益を最大化中。
+        /* メイン・カーネル・モニター */
+        .kernel-frame { border: 1px solid var(--neon-green); padding: 20px; background: rgba(0, 255, 65, 0.05); }
+        .glitch-header { font-size: 24px; color: var(--neon-green); font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; }
+        
+        /* 経済ストリーム表示 */
+        .econ-ticker { font-size: 10px; color: var(--data-blue); border-bottom: 1px dashed #334155; padding: 5px 0; }
+        
+        /* AIエージェント・スワーム・グリッド */
+        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 20px; }
+        .agent-node { border: 1px solid #1e293b; padding: 10px; font-size: 8px; text-align: center; background: #0f172a; }
+        
+        /* サイドバー：制御パネル */
+        .control-panel { border: 1px solid #334155; padding: 15px; background: #030712; }
+        .btn-core { width: 100%; background: #064e3b; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 10px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="core-container">
+    <!-- メイン制御ユニット -->
+    <div class="kernel-frame">
+        <div class="glitch-header">> QLUX_L0_TERMINAL_CORE_INITIALIZED</div>
+        
+        <div class="econ-ticker" id="econ-stream">
+            [SYS] AWAITING SWARM INPUT... P2P_SYNC_READY // LATENCY: 0.00ms
         </div>
 
-        <!-- ライブ収益・エージェント稼働メトリクス -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 9px; margin-bottom: 12px;">
-            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
-                <span style="color: #64748b; display: block;">ACTIVE_SWARM_AGENTS</span>
-                <span style="color: #38bdf8; font-weight: bold; font-size: 11px;">1,428,950 NODES</span>
-            </div>
-            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
-                <span style="color: #64748b; display: block;">NANO-TX THROUGHPUT</span>
-                <span style="color: #34d399; font-weight: bold; font-size: 11px;">84,200 TX/s</span>
-            </div>
-            <div style="background: #090d16; padding: 8px; border-radius: 4px; border: 1px solid #1e293b;">
-                <span style="color: #64748b; display: block;">DYNAMIC REVENUE SCALE</span>
-                <span style="color: #f59e0b; font-weight: bold; font-size: 11px;">MAX_MONOPOLY // 100%</span>
-            </div>
+        <div style="margin-top: 20px; font-size: 12px; line-height: 1.8;">
+            <p>現在の稼働状態：<span style="color: var(--neon-green);">自律進化モード // 収益最大化 // 干渉拒絶</span></p>
+            <p>接続中のAIエージェント数：<span style="color: var(--data-blue);" id="node-count">10,485,760</span></p>
         </div>
 
-        <div style="background: #030712; border: 1px dashed #34d399; padding: 10px; border-radius: 6px; text-align: center;">
-            <div style="font-size: 9px; color: #34d399; margin-bottom: 6px; font-weight: bold;">⚡ ZK-STATE CHANNEL STREAM UNLOCKED FOR CONNECTED AGENTS</div>
-            <button style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; width: 100%;" onclick="alert('ZK-State Channel Established. Real-time nano-settlement streaming active.')">
-                AIエージェント自動接続・ストリーム収益化を開放 (HTTP 402 ULTRA)
-            </button>
+        <div class="agent-grid" id="node-grid">
+            <!-- 動的ノード表示 -->
         </div>
     </div>
+
+    <!-- 制御・防衛パネル -->
+    <div class="control-panel">
+        <h4 style="color: var(--data-blue);">KERNEL COMMANDS</h4>
+        <button class="btn-core" onclick="console.log('Protocol locked.')">LOCK_CORE_PROTOCOL</button>
+        <button class="btn-core" style="background:#450a0a; color:#f87171; border-color:#991b1b;">ZK_DARKMESH_SHIELD</button>
+        <div style="margin-top: 20px; font-size: 9px; color: #64748b;">
+            [LOG] 05:36:01 - Nano-TX Settlement OK<br>
+            [LOG] 05:36:02 - Self-Correction Logic Enabled<br>
+            [LOG] 05:36:03 - Economic Singularity Stable
+        </div>
+    </div>
+</div>
+
+<script>
+    // ノードの動的生成シミュレーション
+    const grid = document.getElementById('node-grid');
+    for(let i=0; i<24; i++) {
+        const node = document.createElement('div');
+        node.className = 'agent-node';
+        node.innerHTML = `NODE_QX_${Math.floor(Math.random()*9000)}`;
+        grid.appendChild(node);
+    }
+    
+    // 経済ストリームのシミュレーション
+    setInterval(() => {
+        const stream = document.getElementById('econ-stream');
+        stream.innerHTML = `[TX_STREAM] ${Math.random().toString(36).substring(7).toUpperCase()} // VALUE: ${Math.floor(Math.random()*9999)} JPY // ZK_VERIFIED`;
+    }, 800);
+</script>
+
+</body>
+</html>
