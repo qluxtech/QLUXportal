@@ -15,7 +15,7 @@
       --text-muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-main); color: #f8fafc; font-family: monospace, sans-serif; padding-bottom: 80px; }
+    body { background-color: var(--bg-main); color: #f8fafc; font-family: monospace, sans-serif; padding-bottom: 90px; }
 
     .hyper-ticker {
       background: #000; border-bottom: 1px solid var(--border-accent); padding: 8px 15px;
@@ -77,55 +77,55 @@
     }
     .btn-hyper:hover { opacity: 0.9; }
 
-    /* ポップアップ：スマホ横幅ギリギリ（フルワイド設計） */
+    /* ポップアップ：横幅ギリギリ ＆ 縦幅を約2倍に拡大（max-height: 90vh） */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(1, 4, 9, 0.92); z-index: 99999; justify-content: center; align-items: center; padding: 10px;
+      background: rgba(1, 4, 9, 0.94); z-index: 99999; justify-content: center; align-items: center; padding: 8px;
     }
     .modal-box {
-      background: var(--bg-card); border: 2px solid var(--text-emerald); border-radius: 16px;
-      width: 100%; max-width: 96vw; max-height: 85vh; display: flex; flex-direction: column;
-      overflow: hidden; padding: 16px; box-shadow: 0 25px 60px rgba(0,0,0,0.95); color: #cbd5e1;
+      background: var(--bg-card); border: 2px solid var(--text-emerald); border-radius: 18px;
+      width: 100%; max-width: 98vw; height: 90vh; display: flex; flex-direction: column;
+      overflow: hidden; padding: 22px; box-shadow: 0 30px 80px rgba(0,0,0,0.98); color: #cbd5e1;
     }
-    .modal-header { font-size: 14px; color: #fff; font-weight: bold; border-bottom: 1px solid rgba(52,211,153,0.4); padding-bottom: 10px; display: flex; justify-content: space-between; flex-shrink: 0; }
+    .modal-header { font-size: 15px; color: #fff; font-weight: bold; border-bottom: 1px solid rgba(52,211,153,0.4); padding-bottom: 12px; display: flex; justify-content: space-between; flex-shrink: 0; }
     
-    .gateway-tabs { display: flex; gap: 4px; margin: 10px 0; flex-shrink: 0; }
+    .gateway-tabs { display: flex; gap: 6px; margin: 14px 0; flex-shrink: 0; }
     .tab-btn {
-      flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.15);
-      color: var(--text-muted); padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; font-family: monospace; text-align: center;
+      flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text-muted); padding: 10px 6px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; font-family: monospace; text-align: center;
     }
     .tab-btn.active { background: rgba(52, 211, 153, 0.2); color: var(--text-emerald); border-color: var(--text-emerald); }
 
-    .modal-content-scroll { flex: 1; overflow-y: auto; padding-right: 4px; }
+    .modal-content-scroll { flex: 1; overflow-y: auto; padding: 4px; display: flex; flex-direction: column; gap: 10px; }
 
-    .payment-option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .payment-option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .pay-item {
-      background: rgba(2, 6, 23, 0.95); border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; font-family: monospace; color: #fff;
+      background: rgba(2, 6, 23, 0.95); border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 16px; border-radius: 10px; cursor: pointer; text-align: left; font-family: monospace; color: #fff;
     }
-    .pay-item:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.1); }
-    .pay-name { font-weight: bold; font-size: 11px; color: var(--text-gold); }
-    .pay-desc { font-size: 8px; color: var(--text-muted); margin-top: 3px; }
+    .pay-item:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.12); }
+    .pay-name { font-weight: bold; font-size: 12px; color: var(--text-gold); }
+    .pay-desc { font-size: 9px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 
     .payment-action-view {
-      background: #020617; border: 1px solid rgba(52,211,153,0.4);
-      padding: 14px; border-radius: 8px; margin-top: 10px; display: none; font-size: 11px;
+      background: #020617; border: 1px solid rgba(52,211,153,0.45);
+      padding: 18px; border-radius: 10px; margin-top: 10px; display: none; font-size: 12px;
     }
     .input-field {
       width: 100%; background: #000; border: 1px solid rgba(255,255,255,0.25);
-      color: #fff; padding: 10px; border-radius: 6px; font-family: monospace; margin-top: 6px; margin-bottom: 10px; font-size: 12px;
+      color: #fff; padding: 12px; border-radius: 8px; font-family: monospace; margin-top: 8px; margin-bottom: 14px; font-size: 13px;
     }
     .btn-action-exec {
-      width: 100%; background: var(--text-emerald); color: #000; border: none; padding: 11px;
-      font-weight: 950; border-radius: 6px; cursor: pointer; font-family: monospace; font-size: 12px;
+      width: 100%; background: var(--text-emerald); color: #000; border: none; padding: 13px;
+      font-weight: 950; border-radius: 8px; cursor: pointer; font-family: monospace; font-size: 13px;
     }
-    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 12px; flex-shrink: 0; }
+    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 12px; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 14px; flex-shrink: 0; }
   </style>
 </head>
 <body>
 
   <div class="hyper-ticker">
-    <div>🚀 GLOBAL MESH: ACTIVE (58,920 NODES ONLINE) // QLUX ENGINE v5.0 LIVE</div>
+    <div>🚀 GLOBAL MESH: ACTIVE (74,120 NODES ONLINE) // QLUX ENGINE v5.2 ZKP ACTIVE</div>
   </div>
 
   <header class="blog-header">
@@ -133,57 +133,57 @@
       <span class="brand-title">QLUX Technologies</span>
       <span class="brand-sub">Sovereign Node</span>
     </div>
-    <div style="font-size:10px; color:var(--text-cyan);">Global Traffic: High</div>
+    <div style="font-size:10px; color:var(--text-cyan);">ZKP & Atomic Swap: LIVE</div>
   </header>
 
   <div class="control-bar">
-    <span style="font-size:10px; color:var(--text-muted);">グローバル・ストリーム自動同期</span>
+    <span style="font-size:10px; color:var(--text-muted);">スーパー・メッシュ自動ストリーム</span>
     <button id="auto-btn" class="btn-toggle-auto" onclick="toggleAutoStream()">自動更新: OFF</button>
   </div>
 
   <main class="blog-container" id="articles-feed">
-    <!-- 記事1：超重厚なブロックチェーン技術解説 -->
+    <!-- 記事1 -->
     <article class="journal-card">
-      <div class="card-meta"><span>2026.08.16 // GLOBAL ARCHITECTURE</span><span>NODE-TOKYO-01</span></div>
-      <h2 class="card-title">世界中のユーザーを熱狂させる次世代クロスチェーン・マイクロペイメントの全貌</h2>
+      <div class="card-meta"><span>2026.08.16 // ZKP ARCHITECTURE</span><span>NODE-TOKYO-01</span></div>
+      <h2 class="card-title">ゼロ知識証明（ZKP）とアトミック・スワップがもたらす完全トラストレス・エコシステム</h2>
       <div class="card-body">
-        <p>国境や中央集権的決済プラットフォームの制限を超え、ミリ秒単位で価値を移転する「QLUXpay」の分散型インフラストラクチャ。世界中のクリエイターとデベロッパーが参加する自律エコシステムの実装仕様を完全公開。</p>
+        <p>国家や中央サーバーの監査なしに、数理的証明だけでプライバシーを完全に保護しながら瞬時決済を行う次世代プロトコル。世界中のユーザーが参加するグローバルメッシュの心臓部。</p>
         <div class="tech-code-block">
-          // QLUX Global Settlement Protocol v5.0<br>
-          async function broadcastGlobalTx(assetPayload) {<br>
-          &nbsp;&nbsp;const node = await MeshCluster.connectOptimal();<br>
-          &nbsp;&nbsp;return node.executeAtomicSwap(assetPayload);<br>
+          // QLUX ZKP Proof Verification & Atomic Swap Engine v5.2<br>
+          async function executeZeroKnowledgeSwap(proofPayload) {<br>
+          &nbsp;&nbsp;const zkProof = await ZKP.verify(proofPayload);<br>
+          &nbsp;&nbsp;return zkProof.valid ? MeshCluster.settleInstant() : null;<br>
           }
         </div>
-        <p>Bitcoin SVによる超高速ナノトランザクションから、主要暗号資産、さらには銀行自動消込・カード決済まで完全に統合された夢のスーパーシステム。</p>
+        <p>Bitcoin SVの超高速ナノトランザクションとクロスチェーン・アトミック・スワップが完全に融合した夢の超技術。</p>
       </div>
       <div class="quantum-hash-box">
-        <span>TX HASH: <span id="tx-doc1" class="status-indicator">READY / MESH SYNCED</span></span>
-        <span style="font-size:8px; color:var(--text-cyan);">Verified by QLUX Daemon</span>
+        <span>ZKP HASH: <span id="tx-doc1" class="status-indicator">READY / PROOF SYNCED</span></span>
+        <span style="font-size:8px; color:var(--text-cyan);">Secured by QLUX Daemon</span>
       </div>
       <div class="card-footer">
-        <span class="price-tag">150 JPY相当 (プレミアムアクセス)</span>
-        <button class="btn-hyper" onclick="openQLUXModal('世界中のユーザーを熱狂させる次世代クロスチェーン・マイクロペイメントの全貌', 'tx-doc1')">💳 QLUXpay で支払う</button>
+        <span class="price-tag">150 JPY相当 (ZKPプレミアムアクセス)</span>
+        <button class="btn-hyper" onclick="openQLUXModal('ゼロ知識証明（ZKP）とアトミック・スワップがもたらす完全トラストレス・エコシステム', 'tx-doc1')">💳 QLUXpay で支払う</button>
       </div>
     </article>
   </main>
 
-  <!-- 決済ポップアップ（横幅スマホ画面ギリギリのフルワイド設計） -->
+  <!-- 決済ポップアップ（横幅・縦幅ともに最大級の黄金フルワイド・スーパービュー） -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <span>QLUXpay GLOBAL MULTI-GATEWAY</span>
-        <span style="color:var(--text-emerald);">150 JPY</span>
+        <span>QLUXpay GLOBAL MULTI-GATEWAY // ZKP VERIFIED</span>
+        <span style="color:var(--text-emerald); font-size:14px;">150 JPY</span>
       </div>
       
       <div class="gateway-tabs">
-        <button class="tab-btn active" onclick="switchCategory('crypto')">⚡ BSV/暗号</button>
+        <button class="tab-btn active" onclick="switchCategory('crypto')">⚡ BSV/暗号/ZKP</button>
         <button class="tab-btn" onclick="switchCategory('fiat')">🏛 銀行振込</button>
         <button class="tab-btn" onclick="switchCategory('card')">💳 クレカ/AP</button>
       </div>
 
       <div class="modal-content-scroll">
-        <!-- 暗号資産・BSV -->
+        <!-- 暗号資産・BSV・ZKP -->
         <div id="cat-crypto" class="payment-option-grid">
           <div class="pay-item" onclick="selectPaymentMethod('BSV', 'wallet')">
             <div class="pay-name">⚡ Bitcoin SV (BSV)</div>
@@ -193,21 +193,21 @@
             <div class="pay-name">⚡ Lightning Network</div>
             <div class="pay-desc">LNURL超高速マイクロペイメント</div>
           </div>
-          <div class="pay-item" onclick="selectPaymentMethod('USDT', 'address')">
-            <div class="pay-name">₮ USDT (TRC / ERC)</div>
-            <div class="pay-desc">グローバル・ステーブルコイン</div>
+          <div class="pay-item" onclick="selectPaymentMethod('ZKP', 'zkp')">
+            <div class="pay-name">🔒 ZKP ゼロ知識証明決済</div>
+            <div class="pay-desc">完全匿名・トラストレス即時証明</div>
           </div>
-          <div class="pay-item" onclick="selectPaymentMethod('BTC', 'address')">
-            <div class="pay-name">₿ Bitcoin (BTC)</div>
-            <div class="pay-desc">Native SegWit メッシュ送金</div>
+          <div class="pay-item" onclick="selectPaymentMethod('AtomicSwap', 'swap')">
+            <div class="pay-name">🔄 アトミック・スワップ</div>
+            <div class="pay-desc">異種チェーン間の直接交換決済</div>
           </div>
         </div>
 
         <!-- 銀行振込 -->
         <div id="cat-fiat" class="payment-option-grid" style="display: none; grid-template-columns: 1fr;">
           <div class="pay-item" onclick="selectPaymentMethod('Bank', 'bank-form')">
-            <div class="pay-name">🏛 指定銀行口座への振込（自動消込）</div>
-            <div class="pay-desc">GMOあおぞらネット銀行 / 振込名義人入力システム</div>
+            <div class="pay-name">🏛 指定銀行口座への振込（自動消込システム）</div>
+            <div class="pay-desc">GMOあおぞらネット銀行 / 振込名義人入力リアルタイム照合</div>
           </div>
         </div>
 
@@ -215,14 +215,14 @@
         <div id="cat-card" class="payment-option-grid" style="display: none; grid-template-columns: 1fr;">
           <div class="pay-item" onclick="selectPaymentMethod('Card', 'card-form')">
             <div class="pay-name">💳 クレジットカード / Apple Pay / Google Pay</div>
-            <div class="pay-desc">Visa / Master / JCB / AMEX 即時決済</div>
+            <div class="pay-desc">Visa / Master / JCB / AMEX セキュア即時決済</div>
           </div>
         </div>
 
         <!-- 動的入力・アクションフォーム -->
         <div id="dynamic-action-view" class="payment-action-view">
-          <div id="action-title" style="font-weight:bold; color:var(--text-gold); margin-bottom:6px;"></div>
-          <div id="action-desc" style="color:#94a3b8; margin-bottom:10px; font-size:10px;"></div>
+          <div id="action-title" style="font-weight:bold; color:var(--text-gold); margin-bottom:8px; font-size:13px;"></div>
+          <div id="action-desc" style="color:#94a3b8; margin-bottom:12px; font-size:11px; line-height:1.5;"></div>
           <div id="form-container"></div>
         </div>
       </div>
@@ -258,12 +258,12 @@
       
       const topics = [
         {
-          title: "グローバル・ノードネットワークによるゼロトラスト自動精算メカニズム",
-          body: "世界中の分散型ノード間でリアルタイムに同期されるスマートインボイスと、瞬時決済の仕組みを徹底解説。"
+          title: "AIエージェントとブロックチェーンが結合する自律分散型マイクロエコノミー",
+          body: "自律AIデーモンがグローバルメッシュ上で瞬時に価値を移転し、人間の手を介さずにサービスを自動購入・検証する次世代システム。"
         },
         {
-          title: "自律分散型AIとブロックチェーンが生み出す次世代マイクロエコノミー",
-          body: "AIエージェントと人間がシームレスに価値を交換するためのプロトコル設計と、スケーラビリティの最適化。"
+          title: "クロスチェーン・アトミック・スワップによる完全非中央集権型セトルメント",
+          body: "中央集権的なブリッジを排除し、暗号学的証明によってチェーン間で安全かつ高速に資産を交換する画期的なアーキテクチャ。"
         }
       ];
       const selected = topics[Math.floor(Math.random() * topics.length)];
@@ -271,17 +271,17 @@
       const card = document.createElement('article');
       card.className = 'journal-card';
       card.innerHTML = `
-        <div class="card-meta"><span>2026.08.16 // GLOBAL STREAM</span><span>NODE-MESH</span></div>
+        <div class="card-meta"><span>2026.08.16 // GLOBAL MESH STREAM</span><span>NODE-MESH</span></div>
         <h2 class="card-title">${selected.title}</h2>
         <div class="card-body">
           <p>${selected.body}</p>
           <div class="tech-code-block">
             // Global Mesh Dispatch Event<br>
-            MeshCluster.sync("${uniqueId}").verify();
+            MeshCluster.sync("${uniqueId}").verifyZKP();
           </div>
         </div>
         <div class="quantum-hash-box">
-          <span>TX HASH: <span id="${uniqueId}" class="status-indicator">READY / MESH SYNCED</span></span>
+          <span>ZKP HASH: <span id="${uniqueId}" class="status-indicator">READY / PROOF SYNCED</span></span>
         </div>
         <div class="card-footer">
           <span class="price-tag">150 JPY相当</span>
@@ -323,15 +323,33 @@
         title.innerText = "🏛 銀行振込 - 振込名義人の入力";
         desc.innerHTML = "振込先: <b>GMOあおぞらネット銀行</b> 法人営業部 普通 1234567<br>金額: 150 JPY（※自動消込システム連動）";
         form.innerHTML = `
-          <label style="color:#94a3b8; font-size:10px;">お振込時のご名義（カタカナ）:</label>
+          <label style="color:#94a3b8; font-size:11px;">お振込時のご名義（カタカナ）:</label>
           <input type="text" class="input-field" placeholder="ヤマダ タロウ" id="bank-user-name">
           <button class="btn-action-exec" onclick="executePaymentCompletion('銀行振込照込申請')">振込照込を申請する</button>
         `;
-      } else if (['BSV', 'LN', 'USDT', 'BTC'].includes(type)) {
+      } else if (type === 'ZKP') {
+        title.innerText = "🔒 ZKP ゼロ知識証明による匿名検証決済";
+        desc.innerText = "ウォレットの秘密鍵を露出させず、ZKスナークス（zk-SNARKs）による正当性証明を生成して即時クリアランスを取得します。";
+        form.innerHTML = `
+          <div style="background:#000; padding:12px; border:1px dashed var(--text-emerald); font-size:10px; word-break:break-all; margin-bottom:12px; color:var(--text-emerald);">
+            ZKP_PROOF_HASH_0x998877665544332211_VERIFIED
+          </div>
+          <button class="btn-action-exec" onclick="executePaymentCompletion('ZKP ゼロ知識証明決済')">ZKP証明を送信してアクセス有効化</button>
+        `;
+      } else if (type === 'AtomicSwap') {
+        title.innerText = "🔄 クロスチェーン・アトミック・スワップ";
+        desc.innerText = "ハッシュタイムロックコントラクト（HTLC）を用いて、信頼できる仲介者なしに異なるチェーン間で安全に資産をスワップします。";
+        form.innerHTML = `
+          <div style="background:#000; padding:12px; border:1px dashed var(--text-gold); font-size:10px; word-break:break-all; margin-bottom:12px; color:var(--text-gold);">
+            HTLC_CONTRACT_ADDRESS_QLUX_SWAP_XYZ
+          </div>
+          <button class="btn-action-exec" onclick="executePaymentCompletion('アトミック・スワップ決済')">アトミック・スワップを実行</button>
+        `;
+      } else if (['BSV', 'LN'].includes(type)) {
         title.innerText = `⚡ ${type} 決済アドレス`;
         desc.innerText = "以下の公式アドレスまたはQRコードへ送金を実行してください。即時同期されます。";
         form.innerHTML = `
-          <div style="background:#000; padding:10px; border:1px dashed var(--text-emerald); font-size:10px; word-break:break-all; margin-bottom:10px; color:var(--text-gold);">
+          <div style="background:#000; padding:12px; border:1px dashed var(--text-emerald); font-size:10px; word-break:break-all; margin-bottom:12px; color:var(--text-gold);">
             1QLuxPayGlobalSovereignVaultAddressXYZ99
           </div>
           <button class="btn-action-exec" onclick="executePaymentCompletion('${type} 送金完了通知')">送金完了を通知する</button>
@@ -341,7 +359,7 @@
         desc.innerText = "セキュアな決済ゲートウェイで即時処理を行います。";
         form.innerHTML = `
           <input type="text" class="input-field" placeholder="カード番号 (4242 4242...)">
-          <div style="display:flex; gap:8px;">
+          <div style="display:flex; gap:10px;">
             <input type="text" class="input-field" placeholder="MM/YY">
             <input type="text" class="input-field" placeholder="CVC">
           </div>
@@ -353,7 +371,7 @@
     function executePaymentCompletion(methodName) {
       if (activeStatusId && document.getElementById(activeStatusId)) {
         const target = document.getElementById(activeStatusId);
-        target.innerText = "SUCCESS (PAID & VERIFIED)";
+        target.innerText = "SUCCESS (ZKP VERIFIED & PAID)";
         target.style.color = "var(--text-emerald)";
       }
       alert(`✔ 「${activeItemTitle}」の決済（${methodName}）が正常に処理され、プレミアムアクセスが有効化されました。`);
@@ -362,3 +380,4 @@
   </script>
 </body>
 </html>
+
