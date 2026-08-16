@@ -2,42 +2,67 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>QLUX L0 // TERMINAL CORE // SINGULARITY</title>
+    <title>QLUX L0 // TERMINAL CORE // BSV_SETTLED</title>
     <style>
-        :root { --neon-green: #00ff41; --deep-black: #020617; --data-blue: #38bdf8; }
-        body { background: var(--deep-black); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 20px; overflow-x: hidden; }
-        .core-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+        :root { 
+            --neon-green: #00ff41; 
+            --deep-black: #020617; 
+            --data-blue: #38bdf8; 
+            --border-color: #1e293b;
+            --accent-gold: #f59e0b;
+        }
+        body { background: var(--deep-black); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 12px; box-sizing: border-box; }
+        .core-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+        @media (max-width: 768px) { .core-container { grid-template-columns: 1fr; } }
         
-        /* メイン・カーネル・モニター */
-        .kernel-frame { border: 1px solid var(--neon-green); padding: 20px; background: rgba(0, 255, 65, 0.05); }
-        .glitch-header { font-size: 24px; color: var(--neon-green); font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; }
+        .kernel-frame { border: 1px solid var(--neon-green); padding: 16px; background: rgba(0, 255, 65, 0.03); border-radius: 8px; }
+        .glitch-header { font-size: 16px; color: var(--neon-green); font-weight: 900; letter-spacing: 1px; margin-bottom: 14px; }
         
-        /* 経済ストリーム表示 */
-        .econ-ticker { font-size: 10px; color: var(--data-blue); border-bottom: 1px dashed #334155; padding: 5px 0; }
+        .econ-ticker { font-size: 9px; color: var(--data-blue); border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 12px; }
         
-        /* AIエージェント・スワーム・グリッド */
-        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 20px; }
-        .agent-node { border: 1px solid #1e293b; padding: 10px; font-size: 8px; text-align: center; background: #0f172a; }
+        .gateway-box { background: #030712; border: 1px dashed var(--accent-gold); padding: 12px; border-radius: 6px; margin-top: 14px; }
+        .btn-pay { width: 100%; background: #0284c7; color: white; border: none; padding: 8px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+        .btn-pay:hover { background: #0ea5e9; box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+
+        .control-panel { border: 1px solid var(--border-color); padding: 14px; background: #030712; border-radius: 8px; }
+        .btn-core { width: 100%; background: #064e3b; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 8px; cursor: pointer; font-weight: bold; margin-bottom: 8px; font-size: 10px; border-radius: 4px; }
         
-        /* サイドバー：制御パネル */
-        .control-panel { border: 1px solid #334155; padding: 15px; background: #030712; }
-        .btn-core { width: 100%; background: #064e3b; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 10px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
+        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin-top: 14px; }
+        .agent-node { border: 1px solid var(--border-color); padding: 8px; font-size: 8px; text-align: center; background: #0f172a; border-radius: 4px; color: #94a3b8; }
     </style>
 </head>
 <body>
 
 <div class="core-container">
-    <!-- メイン制御ユニット -->
+    <!-- メイン制御ユニット & HTTP 402 ゲートウェイ -->
     <div class="kernel-frame">
-        <div class="glitch-header">> QLUX_L0_TERMINAL_CORE_INITIALIZED</div>
+        <div class="glitch-header">> QLUX_L0_BSV_GATEWAY_ACTIVE</div>
         
         <div class="econ-ticker" id="econ-stream">
-            [SYS] AWAITING SWARM INPUT... P2P_SYNC_READY // LATENCY: 0.00ms
+            [SYS] DESTINATION: 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 // AWAITING SWARM TX...
         </div>
 
-        <div style="margin-top: 20px; font-size: 12px; line-height: 1.8;">
-            <p>現在の稼働状態：<span style="color: var(--neon-green);">自律進化モード // 収益最大化 // 干渉拒絶</span></p>
-            <p>接続中のAIエージェント数：<span style="color: var(--data-blue);" id="node-count">10,485,760</span></p>
+        <div style="font-size: 10px; line-height: 1.6; margin-bottom: 14px;">
+            <p>システム状態：<span style="color: var(--neon-green);">BSVダイレクト・ナノ決済有効 // 独占経済要塞稼働中</span></p>
+            <p>アクティブAIエージェント数：<span style="color: var(--data-blue);" id="node-count">10,485,760</span></p>
+        </div>
+
+        <!-- 記事・データストリームカード -->
+        <div style="background: #090d16; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 9px; color: #64748b; margin-bottom: 4px;">REF: QX-8806 // ZK-VAULT STREAM</div>
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
+            <div style="font-size: 9px; color: #94a3b8; margin-bottom: 10px;">ゼロ知識暗号化された極秘プロトコルデータおよび物理制御コードの瞬時復号。</div>
+            
+            <div class="gateway-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; color: var(--accent-gold); font-weight: bold;">🔒 HTTP 402 // BSV_NANO_SETTLEMENT</span>
+                    <span style="font-size: 8px; color: #34d399;">DEST: 1Mb66i...tuy95</span>
+                </div>
+                <div style="font-size: 8px; color: #94a3b8; margin-bottom: 8px;">指定BSVアドレスへのアトミック送金完了と同時に、データストリームが自動解禁されます。</div>
+                <button class="btn-pay" onclick="alert('HTTP 402: BSV微小トランザクションが 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 へディスパッチされました。データストリーム解禁。')">
+                    150 JPY 相当の BSV で全コードを即時解放
+                </button>
+            </div>
         </div>
 
         <div class="agent-grid" id="node-grid">
@@ -47,32 +72,35 @@
 
     <!-- 制御・防衛パネル -->
     <div class="control-panel">
-        <h4 style="color: var(--data-blue);">KERNEL COMMANDS</h4>
+        <h4 style="color: var(--data-blue); font-size: 11px; margin-top: 0;">WALLET ROUTING CONFIG</h4>
+        <div style="font-size: 8px; color: #64748b; background: #020617; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; word-break: break-all; margin-bottom: 12px;">
+            TARGET_BSV:<br><span style="color: var(--neon-green);">1Mb66iHohUEg8AnkgV9uTTV7R235tuy95</span>
+        </div>
+        
         <button class="btn-core" onclick="console.log('Protocol locked.')">LOCK_CORE_PROTOCOL</button>
         <button class="btn-core" style="background:#450a0a; color:#f87171; border-color:#991b1b;">ZK_DARKMESH_SHIELD</button>
-        <div style="margin-top: 20px; font-size: 9px; color: #64748b;">
-            [LOG] 05:36:01 - Nano-TX Settlement OK<br>
-            [LOG] 05:36:02 - Self-Correction Logic Enabled<br>
-            [LOG] 05:36:03 - Economic Singularity Stable
+        
+        <div style="margin-top: 14px; font-size: 8px; color: #64748b; line-height: 1.4;">
+            [LOG] BSV Gateway Bound.<br>
+            [LOG] Nano-TX Stream: Active.<br>
+            [LOG] External Scrapers: Blocked.
         </div>
     </div>
 </div>
 
 <script>
-    // ノードの動的生成シミュレーション
     const grid = document.getElementById('node-grid');
-    for(let i=0; i<24; i++) {
+    for(let i=0; i<15; i++) {
         const node = document.createElement('div');
         node.className = 'agent-node';
         node.innerHTML = `NODE_QX_${Math.floor(Math.random()*9000)}`;
         grid.appendChild(node);
     }
     
-    // 経済ストリームのシミュレーション
     setInterval(() => {
         const stream = document.getElementById('econ-stream');
-        stream.innerHTML = `[TX_STREAM] ${Math.random().toString(36).substring(7).toUpperCase()} // VALUE: ${Math.floor(Math.random()*9999)} JPY // ZK_VERIFIED`;
-    }, 800);
+        stream.innerHTML = `[BSV_TX] 0.0000${Math.floor(Math.random()*9000)} BSV // TO: 1Mb66i...tuy95 // ZK_VERIFIED`;
+    }, 1000);
 </script>
 
 </body>
