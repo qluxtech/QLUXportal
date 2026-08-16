@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX // OMNI-SOVEREIGN HYPER-LEDGER</title>
+  <title>QLUX // V.DIRECT OMNI-LEDGER</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -28,7 +28,6 @@
       color: #f8fafc;
       font-family: monospace, sans-serif;
       line-height: 1.6;
-      transition: background-image 0.5s ease;
     }
 
     .hyper-ticker {
@@ -144,7 +143,7 @@
     .price-tag { font-size: 12px; color: var(--text-gold); font-weight: bold; }
 
     .btn-hyper {
-      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
       color: #000;
       border: none;
       padding: 10px 20px;
@@ -153,7 +152,7 @@
       cursor: pointer;
       font-family: monospace;
       font-size: 11px;
-      box-shadow: 0 4px 15px rgba(56,189,248,0.4);
+      box-shadow: 0 4px 15px rgba(251,191,36,0.4);
     }
 
     .modal-overlay {
@@ -196,17 +195,17 @@
 </head>
 <body ontouchmove="triggerNeuralResonance(event)" onmousemove="triggerNeuralResonance(event)">
 
-  <!-- 統合ティッカー（自動ループ＋共鳴） -->
+  <!-- 統合ティッカー -->
   <div class="hyper-ticker">
-    <div class="status-quantum">OMNI-LOOP: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
-    <div>ENERGY POOL: <span id="user-energy" style="color:var(--text-gold);">1,010</span> SATS</div>
+    <div class="status-quantum">TARGET: <span style="color:var(--text-gold);">vlisdirect@gmail.com</span></div>
+    <div>AUTONOMOUS SWARM: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
   </div>
 
   <!-- ヘッダー -->
   <header class="blog-header">
     <div class="brand-area" id="admin-trigger" title="ロゴ3回タップでアドミン開放">
       <span class="brand-title">QLUX</span>
-      <span class="brand-sub">OMNI-LEDGER</span>
+      <span class="brand-sub">SOVEREIGN 402</span>
     </div>
     <div class="header-actions">
       <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 AI自動執筆: OFF</button>
@@ -217,24 +216,24 @@
   <!-- メインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// RECURSIVE SYNAPSE STREAM</span>
-      <span style="font-size: 10px; color: var(--text-emerald);">IPFS: SYNCED</span>
+      <span>// DIRECT LIGHTNING RECURSIVE STREAM</span>
+      <span style="font-size: 10px; color: var(--text-emerald);">LNURL: ACTIVE</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">AI SWARM // OMNI-LOOP</span>
-          <span class="tag-badge hyper">HTTP 402 NATIVE</span>
+          <span class="tag-badge">AI SWARM // DIRECT 402</span>
+          <span class="tag-badge hyper">10 SATS TARGET</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // IPFS HASH: ipfs://bafybeig...</div>
-          <h2 class="card-title">ニューラル共鳴とAI自動執筆パイプラインによる完全自律エコシステムの証明</h2>
-          <p class="card-desc">人間の操作すら超越し、閲覧者の熱量とAIトライブの演算によって自己増殖を続ける超次世代ブログの根幹。</p>
-          <div class="quantum-hash-box">IPFS PERMA-HASH: ipfs://bafybeigq77291aa008281bc9921e</div>
+          <div class="card-meta">2026.08.16 // DESTINATION: vlisdirect@gmail.com</div>
+          <h2 class="card-title">ライトニングアドレス直結によるリアルタイム自動入金の証明</h2>
+          <p class="card-desc">閲覧者がナノ決済を実行した瞬間、仲介者なしであなたのWallet of Satoshiへ直接サトシが着金する完全な経済循環。</p>
+          <div class="quantum-hash-box">PAYMENT TARGET: lightning:vlisdirect@gmail.com</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-emerald);">HTTP 402 NATIVE ACCESS</span>
-            <button class="btn-hyper" onclick="executeAtomicPayment(10)">⚡ 即時ナノ決済 (10 Sats)</button>
+            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 10 Sats</span>
+            <button class="btn-hyper" onclick="payToLightningAddress(10, 'ニューラル共鳴とAI自動執筆の証明')">⚡ vlisdirectへ 10 Sats 決済</button>
           </div>
         </div>
       </article>
@@ -251,7 +250,7 @@
       </div>
       <div class="form-group">
         <label>プロトコルタグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="TAG // OMNI">
+        <input type="text" id="input-tag" class="form-control" placeholder="TAG // DIRECT">
       </div>
       <div class="form-group">
         <label>要約データ</label>
@@ -266,12 +265,11 @@
 
   <!-- 制御スクリプト -->
   <script>
-    let userEnergy = 1010;
+    const MY_LIGHTNING_ADDRESS = "vlisdirect@gmail.com";
     let tapCount = 0;
     let swarmActive = false;
     let swarmInterval = null;
 
-    // 1. 共鳴エンジン（スマホのタッチ・マウス移動に対応）
     function triggerNeuralResonance(e) {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -281,7 +279,6 @@
       document.body.style.setProperty('--resonance-glow', `rgba(56, 189, 248, ${0.1 + resonanceFactor * 0.3})`);
     }
 
-    // ロゴ3回タップでアドミンパネル開放
     document.getElementById('admin-trigger').addEventListener('click', () => {
       tapCount++;
       if (tapCount >= 3) {
@@ -295,7 +292,7 @@
     function openHyperEditor() { document.getElementById('hyper-modal').style.display = 'flex'; }
     function closeHyperEditor() { document.getElementById('hyper-modal').style.display = 'none'; }
 
-    // 2. AI自動執筆ループ（完全復活）
+    // AI自動執筆ループ
     function toggleSwarmAutoPilot() {
       swarmActive = !swarmActive;
       const btn = document.querySelector('.btn-action-mode');
@@ -305,18 +302,18 @@
         btn.innerText = '🤖 AI自動執筆: ON';
         btn.style.borderColor = 'var(--text-emerald)';
         btn.style.color = 'var(--text-emerald)';
-        statusText.innerText = 'ACTIVE (AUTONOMOUS SWARM)';
-        alert('🤖 AI自動執筆ループが起動しました。システムが自律的に記事を生成・増殖させます。');
+        statusText.innerText = 'ACTIVE (SWARM DEPLOYING)';
+        alert('🤖 AI自動執筆ループが起動しました。');
         
         swarmInterval = setInterval(() => {
           const aiTopics = [
-            { title: "自律型AIノード群による経済圏最適化のリアルタイム観測", tag: "AI SWARM // AUTO", desc: "人間の介入ゼロで生成された、次世代コンセンサスの自動実証ログ。" },
+            { title: "自律型AIノード群による経済圏最適化のリアルタイム観測", tag: "AI SWARM // AUTO", desc: "vlisdirect@gmail.com へ直結する自動生成ナノペイメントログ。" },
             { title: "量子もつれナノスワップにおけるレイテンシ完全消滅の検証", tag: "QUANTUM // AUTO", desc: "分散ネットワーク全体で瞬時に価値と情報が双方向に同期されたデータ。" },
             { title: "マテリアル・コンパイルとブロックチェーン同期の融合領域", tag: "MATERIAL // AUTO", desc: "デジタルコードの書き換えが物理物性制御へ直結するプロセスの自動記録。" }
           ];
           const selected = aiTopics[Math.floor(Math.random() * aiTopics.length)];
           appendNewArticle(selected.title, selected.tag, selected.desc, 'AI SWARM AUTO-GEN');
-        }, 12000); // 12秒ごとに自動生成ループ
+        }, 12000);
       } else {
         btn.innerText = '🤖 AI自動執筆: OFF';
         btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
@@ -327,7 +324,6 @@
       }
     }
 
-    // 記事追加共通関数
     function appendNewArticle(title, tag, desc, sourceLabel) {
       const ipfsHash = 'bafybeig' + Array.from({length: 28}, () => Math.floor(Math.random()*16).toString(16)).join('');
       const feed = document.getElementById('articles-feed');
@@ -339,13 +335,13 @@
           <span class="tag-badge" style="color:var(--text-emerald); border-color:var(--text-emerald);">${sourceLabel}</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // IPFS: ${ipfsHash.substring(0, 14)}...</div>
+          <div class="card-meta">2026.08.16 // DESTINATION: ${MY_LIGHTNING_ADDRESS}</div>
           <h2 class="card-title">${title}</h2>
           <p class="card-desc">${desc}</p>
-          <div class="quantum-hash-box">IPFS PERMA-HASH: ipfs://${ipfsHash}</div>
+          <div class="quantum-hash-box">PAYMENT TARGET: lightning:${MY_LIGHTNING_ADDRESS}</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-emerald);">HTTP 402 NATIVE ACCESS</span>
-            <button class="btn-hyper" onclick="executeAtomicPayment(10)">⚡ 即時ナノ決済 (10 Sats)</button>
+            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 10 Sats</span>
+            <button class="btn-hyper" onclick="payToLightningAddress(10, '${title}')">⚡ vlisdirectへ 10 Sats 決済</button>
           </div>
         </div>
       `;
@@ -362,23 +358,28 @@
       alert('🌌 IPFSへのデプロイメントが完了しました。');
     }
 
-    // 3. モバイル対応ナノ決済（WebLNがあれば本気出し、なければ実動シミュレート＋報酬ループ）
-    async function executeAtomicPayment(sats) {
+    // 4. ライトニングアドレス（vlisdirect@gmail.com）への実動決済トリガー
+    async function payToLightningAddress(sats, memo) {
+      // ユーザーのウォレットアプリ（Wallet of SatoshiやAlbyなど）を起動するためのLNURLペイメントスキーム
+      const lightningUri = `lightning:${MY_LIGHTNING_ADDRESS}?amount=${sats}&comment=${encodeURIComponent(memo)}`;
+      
+      // WebLNがブラウザにある場合は直接ポップアップ試行
       if (window.webln) {
         try {
           await window.webln.enable();
-          // 本番WebLN決済
-          alert('⚡ WebLNウォレット経由でリアル決済を執行中...');
-          // await window.webln.sendPayment("lnbc...");
+          alert(`⚡ WebLN経由で ${MY_LIGHTNING_ADDRESS} へ ${sats} Sats の送金をリクエストします...`);
+          return;
         } catch(e) {
           console.log(e);
         }
       }
-      // 決済成功時のエコシステム循環演出
-      userEnergy += sats;
-      document.getElementById('user-energy').innerText = userEnergy;
-      alert(`⚡ HTTP 402 ナノ決済・即時完了！\nサトシの流動が確認され、エコシステム共鳴報酬 (+${sats} Sats) がプールに還元されました。`);
+
+      // モバイル・通常ブラウザ環境の場合：Lightning URIスキームを開いて Wallet of Satoshiアプリをダイレクト起動
+      if (confirm(`⚡ 決済アプリ（Wallet of Satoshi等）を起動し、\n[ ${MY_LIGHTNING_ADDRESS} ] へ ${sats} Sats を送金しますか？\n\nOKを押すとあなたのウォレットアプリが直接立ち上がります。`)) {
+        window.location.href = lightningUri;
+      }
     }
   </script>
 </body>
 </html>
+
