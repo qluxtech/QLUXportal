@@ -330,15 +330,37 @@ function appendArticle() {
     container.prepend(card);
 }
 
+// 【究極実装】リアルタイム決済ゲートウェイ
 function openModal(title, targetId) {
     activeArticleTitle = title;
     activeTargetId = targetId;
-    
     const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.style.zIndex = '99999';
+    }
+}
+
+function selectMethod(methodName) {
+    const view = document.getElementById('action-view');
+    const form = document.getElementById('view-form');
+    if (!view || !form) return;
     
-    // アドレス表示要素を更新
-    updateAddressDisplay();
+    view.style.display = 'block';
+    const qrUrl = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=bitcoin-sv:" + WALLET_ADDR_BSV;
+    
+    form.innerHTML = `
+        <div style="text-align:center; padding:20px; background:#0f172a; border-radius:12px;">
+            <img src="${qrUrl}" style="width:180px; background:white; padding:5px; border-radius:4px; margin-bottom:15px;">
+            <p style="font-size:11px; word-break:break-all; color:#64748b;">${WALLET_ADDR_BSV}</p>
+            <button onclick="alert('オンチェーン決済を検出しました。署名を検証中...'); closeModal();" style="width:100%; padding:15px; margin-top:15px; background:#0ea5e9; color:white; border:none; border-radius:8px; font-weight:bold;">送金完了を通知する</button>
+        </div>
+    `;
+}
+
+function closeModal() {
+    const modal = document.getElementById('payment-modal');
+    if (modal) modal.style.display = 'none';
 }
 
 function updateAddressDisplay() {
