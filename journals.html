@@ -3,154 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX Technologies // Multi-Gateway Platform</title>
+  <title>QLUX Technologies // Global Sovereign Blockchain & Payment Ecosystem</title>
   <style>
     :root {
       --bg-main: #010409;
       --bg-card: rgba(13, 20, 32, 0.98);
-      --border-accent: rgba(52, 211, 153, 0.4);
+      --border-accent: rgba(52, 211, 153, 0.5);
       --text-emerald: #34d399;
       --text-gold: #fbbf24;
       --text-cyan: #38bdf8;
       --text-muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-main); color: #f8fafc; font-family: monospace, sans-serif; padding-bottom: 50px; }
+    body { background-color: var(--bg-main); color: #f8fafc; font-family: monospace, sans-serif; padding-bottom: 80px; }
+
+    .hyper-ticker {
+      background: #000; border-bottom: 1px solid var(--border-accent); padding: 8px 15px;
+      font-size: 10px; color: var(--text-emerald); display: flex; justify-content: space-between; align-items: center;
+      overflow: hidden; white-space: nowrap;
+    }
 
     .blog-header {
       display: flex; justify-content: space-between; align-items: center;
       padding: 16px 20px; background: rgba(2, 6, 23, 0.98); border-bottom: 1px solid var(--border-accent);
+      position: sticky; top: 0; z-index: 100;
     }
-    .brand-title { font-size: 16px; font-weight: 950; color: #fff; }
+    .brand-title { font-size: 17px; font-weight: 950; color: #fff; letter-spacing: 0.5px; }
+    .brand-sub { font-size: 9px; background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--text-emerald); }
 
-    .blog-container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-    .journal-card {
-      background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 12px; padding: 20px;
+    .control-bar {
+      background: #020617; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 20px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .card-title { font-size: 16px; color: #fff; font-weight: 900; margin-bottom: 10px; }
-    .card-body { font-size: 12px; color: #cbd5e1; margin-bottom: 15px; }
+    .btn-toggle-auto {
+      background: rgba(56, 189, 248, 0.15); color: var(--text-cyan); border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 6px 12px; border-radius: 6px; font-size: 10px; font-family: monospace; cursor: pointer; font-weight: bold;
+    }
+    .btn-toggle-auto.active { background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); border-color: var(--text-emerald); }
+
+    .blog-container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
     
-    .btn-hyper {
-      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-      color: #000; border: none; padding: 10px 18px; font-weight: 950;
-      border-radius: 6px; cursor: pointer; font-family: monospace; font-size: 11px;
+    .journal-card {
+      background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 14px;
+      margin-bottom: 24px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .card-meta { font-size: 10px; color: var(--text-emerald); margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .card-title { font-size: 17px; color: #fff; font-weight: 900; margin-bottom: 12px; line-height: 1.4; }
+    .card-body { font-size: 12px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.8; }
+    .card-body p { margin-bottom: 10px; }
+
+    .tech-code-block {
+      background: #000; border: 1px solid rgba(255,255,255,0.15); padding: 12px;
+      border-radius: 6px; font-size: 10px; color: var(--text-cyan); margin-bottom: 15px; overflow-x: auto;
     }
 
-    /* ポップアップ：小さすぎず大きすぎない絶妙なサイズ（max-height: 65vh） */
+    .quantum-hash-box {
+      font-size: 9px; color: var(--text-gold); background: rgba(251,191,36,0.08);
+      padding: 10px 12px; border-radius: 6px; margin-bottom: 15px; border: 1px dashed rgba(251,191,36,0.4);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .status-indicator { font-weight: bold; color: var(--text-emerald); }
+
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px;
+    }
+    .price-tag { font-size: 12px; color: var(--text-gold); font-weight: bold; }
+
+    .btn-hyper {
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%); color: #000; border: none;
+      padding: 11px 20px; font-weight: 950; border-radius: 6px; cursor: pointer; font-family: monospace; font-size: 11px;
+      box-shadow: 0 0 15px rgba(52,211,153,0.4);
+    }
+    .btn-hyper:hover { opacity: 0.9; }
+
+    /* ポップアップ：スマホ横幅ギリギリ（フルワイド設計） */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(1, 4, 9, 0.88); z-index: 99999; justify-content: center; align-items: center; padding: 15px;
+      background: rgba(1, 4, 9, 0.92); z-index: 99999; justify-content: center; align-items: center; padding: 10px;
     }
     .modal-box {
-      background: var(--bg-card); border: 1px solid var(--text-emerald); border-radius: 14px;
-      width: 100%; max-width: 540px; max-height: 68vh; display: flex; flex-direction: column;
-      overflow: hidden; padding: 18px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); color: #cbd5e1;
+      background: var(--bg-card); border: 2px solid var(--text-emerald); border-radius: 16px;
+      width: 100%; max-width: 96vw; max-height: 85vh; display: flex; flex-direction: column;
+      overflow: hidden; padding: 16px; box-shadow: 0 25px 60px rgba(0,0,0,0.95); color: #cbd5e1;
     }
-    .modal-header { font-size: 13px; color: #fff; font-weight: bold; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 8px; display: flex; justify-content: space-between; flex-shrink: 0; }
+    .modal-header { font-size: 14px; color: #fff; font-weight: bold; border-bottom: 1px solid rgba(52,211,153,0.4); padding-bottom: 10px; display: flex; justify-content: space-between; flex-shrink: 0; }
     
     .gateway-tabs { display: flex; gap: 4px; margin: 10px 0; flex-shrink: 0; }
     .tab-btn {
-      flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted); padding: 7px 2px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; font-family: monospace; text-align: center;
+      flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text-muted); padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; font-family: monospace; text-align: center;
     }
-    .tab-btn.active { background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); border-color: var(--text-emerald); }
+    .tab-btn.active { background: rgba(52, 211, 153, 0.2); color: var(--text-emerald); border-color: var(--text-emerald); }
 
     .modal-content-scroll { flex: 1; overflow-y: auto; padding-right: 4px; }
 
-    .payment-option-list { display: flex; flex-direction: column; gap: 6px; }
+    .payment-option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
     .pay-item {
-      background: rgba(2, 6, 23, 0.9); border: 1px solid rgba(56, 189, 248, 0.25);
-      padding: 10px 12px; border-radius: 6px; cursor: pointer; text-align: left; font-family: monospace; color: #fff;
+      background: rgba(2, 6, 23, 0.95); border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 12px; border-radius: 8px; cursor: pointer; text-align: left; font-family: monospace; color: #fff;
     }
-    .pay-item:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.08); }
+    .pay-item:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.1); }
     .pay-name { font-weight: bold; font-size: 11px; color: var(--text-gold); }
-    .pay-desc { font-size: 8px; color: var(--text-muted); margin-top: 2px; }
+    .pay-desc { font-size: 8px; color: var(--text-muted); margin-top: 3px; }
 
-    /* 各種決済ごとの詳細入力エリア（動的切替） */
     .payment-action-view {
-      background: #020617; border: 1px solid rgba(52,211,153,0.3);
-      padding: 14px; border-radius: 8px; margin-top: 8px; display: none; font-size: 10px;
+      background: #020617; border: 1px solid rgba(52,211,153,0.4);
+      padding: 14px; border-radius: 8px; margin-top: 10px; display: none; font-size: 11px;
     }
     .input-field {
-      width: 100%; background: #000; border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; padding: 8px; border-radius: 4px; font-family: monospace; margin-top: 6px; margin-bottom: 10px; font-size: 11px;
+      width: 100%; background: #000; border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; padding: 10px; border-radius: 6px; font-family: monospace; margin-top: 6px; margin-bottom: 10px; font-size: 12px;
     }
     .btn-action-exec {
-      width: 100%; background: var(--text-emerald); color: #000; border: none; padding: 9px;
-      font-weight: 900; border-radius: 4px; cursor: pointer; font-family: monospace; font-size: 11px;
+      width: 100%; background: var(--text-emerald); color: #000; border: none; padding: 11px;
+      font-weight: 950; border-radius: 6px; cursor: pointer; font-family: monospace; font-size: 12px;
     }
-
-    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 8px; border-radius: 6px; cursor: pointer; font-size: 10px; margin-top: 10px; flex-shrink: 0; }
+    .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 12px; flex-shrink: 0; }
   </style>
 </head>
 <body>
 
+  <div class="hyper-ticker">
+    <div>🚀 GLOBAL MESH: ACTIVE (58,920 NODES ONLINE) // QLUX ENGINE v5.0 LIVE</div>
+  </div>
+
   <header class="blog-header">
-    <span class="brand-title">QLUX Technologies // Sovereign Node</span>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="brand-title">QLUX Technologies</span>
+      <span class="brand-sub">Sovereign Node</span>
+    </div>
+    <div style="font-size:10px; color:var(--text-cyan);">Global Traffic: High</div>
   </header>
 
-  <main class="blog-container">
+  <div class="control-bar">
+    <span style="font-size:10px; color:var(--text-muted);">グローバル・ストリーム自動同期</span>
+    <button id="auto-btn" class="btn-toggle-auto" onclick="toggleAutoStream()">自動更新: OFF</button>
+  </div>
+
+  <main class="blog-container" id="articles-feed">
+    <!-- 記事1：超重厚なブロックチェーン技術解説 -->
     <article class="journal-card">
-      <h2 class="card-title">次世代ブロックチェーンにおけるマイクロペイメントと自律分散型決済の統合設計</h2>
+      <div class="card-meta"><span>2026.08.16 // GLOBAL ARCHITECTURE</span><span>NODE-TOKYO-01</span></div>
+      <h2 class="card-title">世界中のユーザーを熱狂させる次世代クロスチェーン・マイクロペイメントの全貌</h2>
       <div class="card-body">
-        <p>クロスチェーン・セトルメントエンジン「QLUXpay」を用いたプレミアム記事のアクセス権を購入します。</p>
+        <p>国境や中央集権的決済プラットフォームの制限を超え、ミリ秒単位で価値を移転する「QLUXpay」の分散型インフラストラクチャ。世界中のクリエイターとデベロッパーが参加する自律エコシステムの実装仕様を完全公開。</p>
+        <div class="tech-code-block">
+          // QLUX Global Settlement Protocol v5.0<br>
+          async function broadcastGlobalTx(assetPayload) {<br>
+          &nbsp;&nbsp;const node = await MeshCluster.connectOptimal();<br>
+          &nbsp;&nbsp;return node.executeAtomicSwap(assetPayload);<br>
+          }
+        </div>
+        <p>Bitcoin SVによる超高速ナノトランザクションから、主要暗号資産、さらには銀行自動消込・カード決済まで完全に統合された夢のスーパーシステム。</p>
       </div>
-      <button class="btn-hyper" onclick="openModal()">💳 QLUXpay で支払う</button>
+      <div class="quantum-hash-box">
+        <span>TX HASH: <span id="tx-doc1" class="status-indicator">READY / MESH SYNCED</span></span>
+        <span style="font-size:8px; color:var(--text-cyan);">Verified by QLUX Daemon</span>
+      </div>
+      <div class="card-footer">
+        <span class="price-tag">150 JPY相当 (プレミアムアクセス)</span>
+        <button class="btn-hyper" onclick="openQLUXModal('世界中のユーザーを熱狂させる次世代クロスチェーン・マイクロペイメントの全貌', 'tx-doc1')">💳 QLUXpay で支払う</button>
+      </div>
     </article>
   </main>
 
-  <!-- 決済ポップアップ（黄金サイズ） -->
+  <!-- 決済ポップアップ（横幅スマホ画面ギリギリのフルワイド設計） -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <span>QLUXpay MULTI-GATEWAY</span>
+        <span>QLUXpay GLOBAL MULTI-GATEWAY</span>
         <span style="color:var(--text-emerald);">150 JPY</span>
       </div>
       
       <div class="gateway-tabs">
-        <button class="tab-btn active" onclick="switchCategory('crypto')">⚡ 暗号/BSV</button>
+        <button class="tab-btn active" onclick="switchCategory('crypto')">⚡ BSV/暗号</button>
         <button class="tab-btn" onclick="switchCategory('fiat')">🏛 銀行振込</button>
         <button class="tab-btn" onclick="switchCategory('card')">💳 クレカ/AP</button>
       </div>
 
       <div class="modal-content-scroll">
-        <!-- カテゴリ1: 暗号資産・BSV -->
-        <div id="cat-crypto" class="payment-option-list">
+        <!-- 暗号資産・BSV -->
+        <div id="cat-crypto" class="payment-option-grid">
           <div class="pay-item" onclick="selectPaymentMethod('BSV', 'wallet')">
-            <div class="pay-name">⚡ Bitcoin SV (BSV) ウォレット送金</div>
-            <div class="pay-desc">HandCash / Centbee等からダイレクト送金</div>
+            <div class="pay-name">⚡ Bitcoin SV (BSV)</div>
+            <div class="pay-desc">HandCash / Centbee ダイレクト送金</div>
           </div>
           <div class="pay-item" onclick="selectPaymentMethod('LN', 'qr')">
-            <div class="pay-name">⚡ Lightning Network (LNURL)</div>
-            <div class="pay-desc">ミリ秒単位の超高速マイクロペイメント</div>
+            <div class="pay-name">⚡ Lightning Network</div>
+            <div class="pay-desc">LNURL超高速マイクロペイメント</div>
           </div>
           <div class="pay-item" onclick="selectPaymentMethod('USDT', 'address')">
-            <div class="pay-name">₮ USDT (TRC-20 / ERC-20)</div>
-            <div class="pay-desc">安定ステーブルコイン決済</div>
+            <div class="pay-name">₮ USDT (TRC / ERC)</div>
+            <div class="pay-desc">グローバル・ステーブルコイン</div>
+          </div>
+          <div class="pay-item" onclick="selectPaymentMethod('BTC', 'address')">
+            <div class="pay-name">₿ Bitcoin (BTC)</div>
+            <div class="pay-desc">Native SegWit メッシュ送金</div>
           </div>
         </div>
 
-        <!-- カテゴリ2: 銀行振込（口座入力・確認） -->
-        <div id="cat-fiat" class="payment-option-list" style="display: none;">
+        <!-- 銀行振込 -->
+        <div id="cat-fiat" class="payment-option-grid" style="display: none; grid-template-columns: 1fr;">
           <div class="pay-item" onclick="selectPaymentMethod('Bank', 'bank-form')">
-            <div class="pay-name">🏛 銀行振込（指定口座への振込）</div>
-            <div class="pay-desc">GMOあおぞらネット銀行 / 自動消込システム</div>
+            <div class="pay-name">🏛 指定銀行口座への振込（自動消込）</div>
+            <div class="pay-desc">GMOあおぞらネット銀行 / 振込名義人入力システム</div>
           </div>
         </div>
 
-        <!-- カテゴリ3: クレカ -->
-        <div id="cat-card" class="payment-option-list" style="display: none;">
+        <!-- クレカ -->
+        <div id="cat-card" class="payment-option-grid" style="display: none; grid-template-columns: 1fr;">
           <div class="pay-item" onclick="selectPaymentMethod('Card', 'card-form')">
-            <div class="pay-name">💳 クレジットカード / Apple Pay</div>
+            <div class="pay-name">💳 クレジットカード / Apple Pay / Google Pay</div>
             <div class="pay-desc">Visa / Master / JCB / AMEX 即時決済</div>
           </div>
         </div>
 
-        <!-- 各種決済ごとのアクションフォーム（動的表示） -->
+        <!-- 動的入力・アクションフォーム -->
         <div id="dynamic-action-view" class="payment-action-view">
           <div id="action-title" style="font-weight:bold; color:var(--text-gold); margin-bottom:6px;"></div>
-          <div id="action-desc" style="color:#94a3b8; margin-bottom:8px; font-size:9px;"></div>
-          
+          <div id="action-desc" style="color:#94a3b8; margin-bottom:10px; font-size:10px;"></div>
           <div id="form-container"></div>
         </div>
       </div>
@@ -160,10 +232,72 @@
   </div>
 
   <script>
-    function openModal() {
+    let activeStatusId = '';
+    let activeItemTitle = '';
+    let autoInterval = null;
+    let isAutoRunning = false;
+
+    function toggleAutoStream() {
+      const btn = document.getElementById('auto-btn');
+      isAutoRunning = !isAutoRunning;
+      if (isAutoRunning) {
+        btn.innerText = "自動更新: ON";
+        btn.classList.add('active');
+        autoInterval = setInterval(appendStreamCard, 10000);
+      } else {
+        btn.innerText = "自動更新: OFF";
+        btn.classList.remove('active');
+        clearInterval(autoInterval);
+      }
+    }
+
+    function appendStreamCard() {
+      const feed = document.getElementById('articles-feed');
+      if (!feed) return;
+      const uniqueId = 'tx-' + Math.floor(Math.random() * 90000 + 10000);
+      
+      const topics = [
+        {
+          title: "グローバル・ノードネットワークによるゼロトラスト自動精算メカニズム",
+          body: "世界中の分散型ノード間でリアルタイムに同期されるスマートインボイスと、瞬時決済の仕組みを徹底解説。"
+        },
+        {
+          title: "自律分散型AIとブロックチェーンが生み出す次世代マイクロエコノミー",
+          body: "AIエージェントと人間がシームレスに価値を交換するためのプロトコル設計と、スケーラビリティの最適化。"
+        }
+      ];
+      const selected = topics[Math.floor(Math.random() * topics.length)];
+
+      const card = document.createElement('article');
+      card.className = 'journal-card';
+      card.innerHTML = `
+        <div class="card-meta"><span>2026.08.16 // GLOBAL STREAM</span><span>NODE-MESH</span></div>
+        <h2 class="card-title">${selected.title}</h2>
+        <div class="card-body">
+          <p>${selected.body}</p>
+          <div class="tech-code-block">
+            // Global Mesh Dispatch Event<br>
+            MeshCluster.sync("${uniqueId}").verify();
+          </div>
+        </div>
+        <div class="quantum-hash-box">
+          <span>TX HASH: <span id="${uniqueId}" class="status-indicator">READY / MESH SYNCED</span></span>
+        </div>
+        <div class="card-footer">
+          <span class="price-tag">150 JPY相当</span>
+          <button class="btn-hyper" onclick="openQLUXModal('${selected.title}', '${uniqueId}')">💳 QLUXpay で支払う</button>
+        </div>
+      `;
+      feed.prepend(card);
+    }
+
+    function openQLUXModal(title, statusId) {
+      activeItemTitle = title;
+      activeStatusId = statusId;
       document.getElementById('gateway-modal').style.display = 'flex';
       switchCategory('crypto');
     }
+
     function closeModal() {
       document.getElementById('gateway-modal').style.display = 'none';
       document.getElementById('dynamic-action-view').style.display = 'none';
@@ -171,7 +305,7 @@
 
     function switchCategory(cat) {
       ['crypto', 'fiat', 'card'].forEach(c => {
-        document.getElementById(`cat-${c}`).style.display = (c === cat) ? 'flex' : 'none';
+        document.getElementById(`cat-${c}`).style.display = (c === cat) ? (c === 'crypto' ? 'grid' : 'block') : 'none';
       });
       document.getElementById('dynamic-action-view').style.display = 'none';
     }
@@ -186,41 +320,45 @@
       form.innerHTML = '';
 
       if (type === 'Bank') {
-        title.innerText = "🏛 銀行振込 - 振込名義人入力";
-        desc.innerHTML = "振込先: <b>GMOあおぞらネット銀行</b> 法人営業部 普通 1234567<br>金額: 150 JPY（※振込手数料お客様負担）";
+        title.innerText = "🏛 銀行振込 - 振込名義人の入力";
+        desc.innerHTML = "振込先: <b>GMOあおぞらネット銀行</b> 法人営業部 普通 1234567<br>金額: 150 JPY（※自動消込システム連動）";
         form.innerHTML = `
-          <label style="color:#94a3b8; font-size:9px;">お振込時のご名義（カタカナ）:</label>
+          <label style="color:#94a3b8; font-size:10px;">お振込時のご名義（カタカナ）:</label>
           <input type="text" class="input-field" placeholder="ヤマダ タロウ" id="bank-user-name">
-          <button class="btn-action-exec" onclick="completePayment('銀行振込申請完了')">振込照込を申請する</button>
+          <button class="btn-action-exec" onclick="executePaymentCompletion('銀行振込照込申請')">振込照込を申請する</button>
         `;
-      } else if (type === 'BSV' || type === 'LN' || type === 'USDT') {
+      } else if (['BSV', 'LN', 'USDT', 'BTC'].includes(type)) {
         title.innerText = `⚡ ${type} 決済アドレス`;
-        desc.innerText = "以下の宛先またはQRコードに送金を実行してください。自動検知されます。";
+        desc.innerText = "以下の公式アドレスまたはQRコードへ送金を実行してください。即時同期されます。";
         form.innerHTML = `
-          <div style="background:#000; padding:8px; border:1px dashed var(--text-emerald); font-size:9px; word-break:break-all; margin-bottom:8px;">
-            1QLuxPaySovereignAddressXYZ998877
+          <div style="background:#000; padding:10px; border:1px dashed var(--text-emerald); font-size:10px; word-break:break-all; margin-bottom:10px; color:var(--text-gold);">
+            1QLuxPayGlobalSovereignVaultAddressXYZ99
           </div>
-          <button class="btn-action-exec" onclick="completePayment('${type} 送金完了・同期中')">送金完了を通知する</button>
+          <button class="btn-action-exec" onclick="executePaymentCompletion('${type} 送金完了通知')">送金完了を通知する</button>
         `;
       } else if (type === 'Card') {
-        title.innerText = "💳 クレジットカード決済";
-        desc.innerText = "セキュアなカード情報を入力してください。";
+        title.innerText = "💳 クレジットカード / Apple Pay";
+        desc.innerText = "セキュアな決済ゲートウェイで即時処理を行います。";
         form.innerHTML = `
           <input type="text" class="input-field" placeholder="カード番号 (4242 4242...)">
-          <div style="display:flex; gap:6px;">
+          <div style="display:flex; gap:8px;">
             <input type="text" class="input-field" placeholder="MM/YY">
             <input type="text" class="input-field" placeholder="CVC">
           </div>
-          <button class="btn-action-exec" onclick="completePayment('カード決済完了')">150 JPY を決済する</button>
+          <button class="btn-action-exec" onclick="executePaymentCompletion('カード即時決済完了')">150 JPY を決済実行する</button>
         `;
       }
     }
 
-    function completePayment(msg) {
-      alert("✔ " + msg);
+    function executePaymentCompletion(methodName) {
+      if (activeStatusId && document.getElementById(activeStatusId)) {
+        const target = document.getElementById(activeStatusId);
+        target.innerText = "SUCCESS (PAID & VERIFIED)";
+        target.style.color = "var(--text-emerald)";
+      }
+      alert(`✔ 「${activeItemTitle}」の決済（${methodName}）が正常に処理され、プレミアムアクセスが有効化されました。`);
       closeModal();
     }
   </script>
 </body>
 </html>
-
