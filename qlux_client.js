@@ -1,5 +1,5 @@
 /**
- * QLUX Unified Client Core (qlux_client.js)
+ * QLUX Unified Sovereign Client Core (qlux_client.js)
  * バックグラウンド・ソルバーとHTTP 402ナノペイメント決済モーダル機能を
  * 1つのファイルに完全統合したオールインワン・クライアントスクリプト。
  */
@@ -7,7 +7,7 @@
 class QLUXUnifiedClient {
   constructor() {
     this.nodeId = 'BROWSER_NODE_' + Math.random().toString(36).substr(2, 9);
-    this.earnedSats = 100; // 初期テスト用保有サトシ
+    this.earnedSats = 150; // 初期保有サトシ
     this.init();
   }
 
@@ -15,7 +15,6 @@ class QLUXUnifiedClient {
     console.log(`[QLUX_CORE] Initialized node ID: ${this.nodeId}`);
     this.startBackgroundMining();
     
-    // DOMの読み込み完了後にモーダルUIをインジェクト
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => this.injectModalUI());
     } else {
@@ -38,7 +37,7 @@ class QLUXUnifiedClient {
     if (document.getElementById('qlux-modal-overlay')) return;
 
     const modalHTML = `
-      <div id="qlux-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+      <div id="qlux-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
         <div style="background:#0b131a; border:1px solid #10b981; padding:30px; border-radius:12px; width:90%; max-width:450px; color:#fff; font-family:monospace; box-shadow:0 0 20px rgba(16,185,129,0.3);">
           <h3 style="margin-top:0; color:#10b981;">// HTTP 402 GATEWAY ACCESS</h3>
           <p style="font-size:14px; color:#9ca3af; line-height:1.6;">この記事の全データおよびAI推論ログにアクセスするには、ナノペイメントの即時清算が必要です。</p>
@@ -61,10 +60,9 @@ class QLUXUnifiedClient {
 
     let activeCallback = null;
 
-    // 記事カードやボタンのクリックイベント監視
     document.addEventListener('click', (e) => {
       const target = e.target.closest('.journal-card, [id*="pay"], button');
-      if (target && target.id !== 'qlux-pay-btn' && target.id !== 'qlux-close-btn') {
+      if (target && target.id !== 'qlux-pay-btn' && target.id !== 'qlux-close-btn' && !target.classList.contains('nav-btn')) {
         e.preventDefault();
         overlay.style.display = 'flex';
         activeCallback = () => {
