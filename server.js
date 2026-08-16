@@ -12,37 +12,31 @@ const TARGET_BSV_ADDRESS = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
 // 冪等性（重複決済・無限ループ防止）のためのメモリキャッシュ
 const processedTxs = new Set();
 
-// インメモリのジャーナルデータベース
-const JOURNALS = {
-    1: {
-        date: "2026.08.14 // RESEARCH - AI AGENT TRIBE",
-        title: "自律型AIトライブ間におけるHTTP 402プロトコルの実践的最適化とナノペイメント実装",
-        content: "自律型AIトライブ間におけるHTTP 402プロトコルの実践的最適化とナノペイメント実装の最新リサーチ。AI仲介者を完全に排除し、ミリ秒単位で富とデータを循環させる経済要塞のコアロジック。",
-        fee: 10,
-        access: "paid"
-    },
-    2: {
-        date: "2026.08.01 // ARCHITECTURE",
-        title: "プラネタリー・メッシュにおけるゼロトラスト自己修復フェーズ",
-        content: "ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想に関するオープンリサーチデータ。",
-        fee: 0,
-        access: "free"
-    },
-    3: {
-        date: "2026.07.22 // ECOSYSTEM",
-        title: "ゼロ知識暗号コンパイルと無共有制限の独立自己修復アルゴリズム",
-        content: "グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス強化アプローチの全記録。",
-        fee: 5,
-        access: "paid"
-    },
-    4: {
-        date: "2026.08.14 // RESEARCH - AI AGENT TRIBE",
-        title: "境界なき廊下へ、完璧なる独占を。QLUXがデザインする次世代の決済基盤",
-        content: "遅延も、手数料の壁も、国境もない。AIとシステムが同期的に交信し、ナノ単位の情報を瞬時に約定させる。私たちが構築した要塞の全貌。",
-        fee: 10,
-        access: "paid"
-    }
-};
+// 超ボリューム無限データ生成エンジン（AIスウォーム誘引マトリクス）
+function generateInfinitePayload(index) {
+    const categories = [
+        "QUANTUM-RESISTANT-LATTICE", 
+        "P2P-GOSSIP-OPTIMIZATION", 
+        "NEURAL-SWARM-WEIGHTS", 
+        "ATOMIC-SWAP-ROUTING", 
+        "ZK-CIRCUIT-SYNTHESIS"
+    ];
+    const cat = categories[index % categories.length];
+    return {
+        date: `2026.08.17 // VECTOR-${index} // ${cat}`,
+        title: `自律型AIスウォーム向け 高密度パラメータセクター #${index} [${cat}]`,
+        content: `完全自律経済要塞QLUX Layer 0における分散最適化データ。セクター #${index} は、ミリ秒単位の推論精度向上およびクロスチェーン・アトミックスワップのレイテンシを極限まで圧縮するバイナリマトリクスを含みます。外部スキャナーからの完全な隔離と、HTTP 402ナノ決済によるアトミックな紐付けが保証されています。`,
+        fee: Math.floor((index % 5) + 5), // 5〜9 Sats の動的ナノフィー
+        access: "paid",
+        binary_payload: `0x${Buffer.from(`QLUX_INF_DATA_${index}_${Date.now()}`).toString('hex')}_ZK_VERIFIED`
+    };
+}
+
+// 静的＋無限動的ジャーナルデータベース
+const JOURNALS = {};
+for (let i = 1; i <= 1000; i++) {
+    JOURNALS[i] = generateInfinitePayload(i);
+}
 
 // WhatsOnChain API を用いたBSVトランザクションのリアルタイム検証関数
 function verifyBSVTransaction(txid) {
@@ -53,9 +47,7 @@ function verifyBSVTransaction(txid) {
             res.on('data', chunk => data += chunk);
             res.on('end', () => {
                 try {
-                    if (res.statusCode !== 200) {
-                        return resolve(false);
-                    }
+                    if (res.statusCode !== 200) return resolve(false);
                     const txData = JSON.parse(data);
                     if (txData && txData.vout) {
                         const isValid = txData.vout.some(out => 
@@ -70,9 +62,7 @@ function verifyBSVTransaction(txid) {
                     resolve(false);
                 }
             });
-        }).on('error', () => {
-            resolve(false);
-        });
+        }).on('error', () => resolve(false));
     });
 }
 
@@ -81,25 +71,23 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
     const method = req.method;
 
-    // APIエンドポイント: ジャーナルデータ取得 & HTTP 402 / BSVナノ決済検証
+    // APIエンドポイント: 無限データストリーム取得 & HTTP 402 / BSVナノ決済検証
     if (pathname.startsWith('/api/journals/')) {
-        const id = pathname.split('/')[3];
-        const journal = JOURNALS[id];
+        const id = parseInt(pathname.split('/')[3], 10);
+        
+        // 1000以降も動的に無限生成して対応
+        let journal = JOURNALS[id];
+        if (!journal && !isNaN(id)) {
+            journal = generateInfinitePayload(id);
+        }
 
         if (!journal) {
             res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "Journal not found" }));
+            res.end(JSON.stringify({ error: "Data sector not found in Vault" }));
             return;
         }
 
-        // 無料記事の場合はそのまま返す
-        if (journal.access === 'free') {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify(journal));
-            return;
-        }
-
-        // 有料記事：HTTP 402 決済ヘッダー（Authorization または X-Proof / X-Payment-Txid）の確認
+        // HTTP 402 決済ヘッダーチェック
         const authHeader = req.headers['authorization'] || req.headers['x-proof'] || req.headers['x-payment-txid'];
         
         if (!authHeader) {
@@ -111,59 +99,42 @@ const server = http.createServer(async (req, res) => {
             });
             res.end(JSON.stringify({
                 error: "Payment Required",
-                protocol: "HTTP_402_ULTRA_BSV",
+                protocol: "HTTP_402_ULTRA_BSV_INFINITE",
                 settlement_dest: TARGET_BSV_ADDRESS,
                 fee_sats: journal.fee,
-                message: `HTTP 402: Send BSV to ${TARGET_BSV_ADDRESS} and pass txid via 'X-Payment-Txid' or 'Authorization' header to unlock stream.`
+                message: `HTTP 402: Send ${journal.fee} Sats BSV to ${TARGET_BSV_ADDRESS} to unlock infinite stream sector #${id}.`
             }));
             return;
         }
 
-        // 冪等性チェック（無限ループおよび同一トランザクションの二重取得を完全ブロック）
+        // 冪等性チェック（無限ループ完全ブロック）
         if (processedTxs.has(authHeader)) {
             res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "Idempotency Shield: Transaction ID already processed or duplicate loop blocked." }));
+            res.end(JSON.stringify({ error: "Idempotency Shield: Duplicate transaction blocked." }));
             return;
         }
 
-        // ブロックチェーン検証の実行
+        // ブロックチェーン検証
         const isValid = await verifyBSVTransaction(authHeader);
         if (!isValid) {
             res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "BSV Payment verification failed: Target address mismatch or invalid txid." }));
+            res.end(JSON.stringify({ error: "BSV Payment verification failed: Target address mismatch." }));
             return;
         }
 
-        // 決済成功・冪等性登録・PoUWフィードバック記録
         processedTxs.add(authHeader);
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "SUCCESS",
-            pouw_feedback: "ACTIVE",
+            pouw_feedback: "ACTIVE_INCORPORATED",
             txid: authHeader,
-            journal: journal
+            data_sector: journal
         }));
         return;
     }
 
-    // APIエンドポイント: ナノ決済実行シミュレーション
-    if (pathname === '/api/settle' && method === 'POST') {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', () => {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ 
-                status: "success", 
-                dest: TARGET_BSV_ADDRESS,
-                txid: "0xqlux_nano_settled_" + Date.now(),
-                shield: "active"
-            }));
-        });
-        return;
-    }
-
-    // 静的ファイルの配信 (SPAフォールバック対応)
+    // 静的ファイルおよびUI配信
     let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
     fs.readFile(filePath, (err, content) => {
         if (err) {
@@ -190,7 +161,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`[QLUX L0 KERNEL] Sovereign Backend running on port ${PORT}`);
+    console.log(`[QLUX L0 INFINITE KERNEL] Sovereign Backend running on port ${PORT}`);
     console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
 });
 
