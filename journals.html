@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QLUX // SOVEREIGN BLOG & JOURNALS</title>
   <style>
-    /* ==========================================================================
-       QLUX ULTRA-EXECUTIVE BLOG DESIGN SYSTEM
-       ========================================================================== */
     :root {
       --bg-main: #020617;
       --bg-card: rgba(11, 19, 26, 0.9);
@@ -31,7 +28,6 @@
       line-height: 1.6;
     }
 
-    /* トップステータスバー */
     .ticker-bar {
       background: #000;
       border-bottom: 1px solid var(--border-accent);
@@ -45,7 +41,7 @@
     .status-live { color: var(--text-emerald); display: flex; align-items: center; gap: 6px; }
     .status-live::before { content: ''; width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
 
-    /* ブログヘッダー */
+    /* ブログヘッダー（一般公開仕様・余計なボタン排除） */
     .blog-header {
       display: flex;
       justify-content: space-between;
@@ -58,7 +54,7 @@
       z-index: 100;
       backdrop-filter: blur(12px);
     }
-    .brand-area { display: flex; align-items: center; gap: 12px; }
+    .brand-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
     .brand-title {
       font-size: 24px;
       font-weight: 900;
@@ -74,23 +70,22 @@
       border: 1px solid var(--border-accent);
     }
 
-    /* 記事投稿トリガーボタン */
-    .btn-new-post {
-      background: linear-gradient(135deg, var(--text-gold) 0%, #d97706 100%);
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      font-weight: 900;
-      border-radius: 6px;
+    /* 管理者モードインジケーター（通常は非表示） */
+    .admin-badge {
+      display: none;
+      font-size: 10px;
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--text-gold);
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
       cursor: pointer;
-      font-family: monospace;
-      font-size: 12px;
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-      transition: 0.2s;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
     }
-    .btn-new-post:hover { transform: scale(1.03); box-shadow: 0 0 25px rgba(245, 158, 11, 0.7); }
+    @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; box-shadow: 0 0 10px rgba(245,158,11,0.5); } 100% { opacity: 0.8; } }
 
-    /* ブログフィード本体（トップセクションなしですぐ記事一覧） */
+    /* ブログフィード本体 */
     .blog-container {
       max-width: 900px;
       margin: 40px auto;
@@ -180,7 +175,7 @@
     }
     .btn-read.free-btn:hover { background: var(--border-glow); color: #000; }
 
-    /* モーダル共通 */
+    /* モーダル・エディタ共通 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -206,7 +201,6 @@
     }
     .modal-box h3 { color: #fff; font-size: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border-accent); padding-bottom: 12px; }
     
-    /* フォームパーツ */
     .form-group { margin-bottom: 18px; }
     .form-group label { display: block; font-size: 11px; color: var(--text-emerald); margin-bottom: 6px; }
     .form-control {
@@ -226,7 +220,6 @@
     .btn-submit { flex: 1; background: var(--text-gold); color: #000; border: none; padding: 12px; font-weight: 900; border-radius: 6px; cursor: pointer; font-family: monospace; }
     .btn-cancel { flex: 1; background: transparent; border: 1px solid #4b5563; color: var(--text-muted); padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; }
 
-    /* 論文・記事詳細ビューア */
     .viewer-text { font-size: 14px; line-height: 1.9; color: #e2e8f0; white-space: pre-wrap; margin-top: 15px; }
     .btn-close-viewer { background: var(--border-glow); color: #000; border: none; padding: 10px 24px; font-weight: 900; border-radius: 6px; cursor: pointer; font-family: monospace; margin-top: 25px; float: right; }
   </style>
@@ -239,16 +232,17 @@
     <div>ACTIVE BALANCE: <span id="user-sats" style="color:var(--text-gold);">150</span> Sats</div>
   </div>
 
-  <!-- ブログヘッダー -->
+  <!-- ブログヘッダー（通常は一般仕様） -->
   <header class="blog-header">
-    <div class="brand-area">
+    <div class="brand-area" id="admin-trigger" title="管理者モード切替 (ロゴを3回タップ)">
       <span class="brand-title">QLUX</span>
       <span class="brand-sub">SOVEREIGN JOURNALS</span>
     </div>
-    <button class="btn-new-post" id="btn-open-editor">＋ 新規記事を投稿する</button>
+    <!-- 管理者ログイン後にのみ現れるアドミン専用ボタン -->
+    <button class="admin-badge" id="btn-admin-panel" onclick="openEditor()">⚡ Admin: 記事新規投稿</button>
   </header>
 
-  <!-- ブログメインフィード（記事一覧） -->
+  <!-- ブログメインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
       <span>// RECENT RESEARCH & PUBLICATIONS</span>
@@ -256,7 +250,7 @@
     </div>
 
     <div id="articles-feed">
-      <!-- 記事1 (有料: HTTP 402) -->
+      <!-- 記事1 (HTTP 402) -->
       <article class="journal-card">
         <div class="card-top-banner">
           <span class="tag-badge">RESEARCH // AGENT</span>
@@ -273,7 +267,7 @@
         </div>
       </article>
 
-      <!-- 記事2 (完全無料) -->
+      <!-- 記事2 (Free) -->
       <article class="journal-card">
         <div class="card-top-banner" style="background: linear-gradient(135deg, rgba(52,211,153,0.15) 0%, rgba(3,7,18,0.9) 100%), linear-gradient(rgba(52,211,153,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.15) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px;">
           <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">ARCHITECTURE</span>
@@ -292,10 +286,10 @@
     </div>
   </main>
 
-  <!-- 記事投稿モーダル (記事追加機能) -->
+  <!-- アドミン専用：記事投稿モーダル -->
   <div class="modal-overlay" id="editor-modal">
     <div class="modal-box">
-      <h3>// NEW BLOG POST PUBLISHER</h3>
+      <h3>// SOVEREIGN ADMIN : NEW ARTICLE PUBLISHER</h3>
       <div class="form-group">
         <label>記事タイトル</label>
         <input type="text" id="input-title" class="form-control" placeholder="例: 次世代自律分散ノードの構築手順">
@@ -310,7 +304,7 @@
       </div>
       <div class="form-group">
         <label>本文 / 論文データ</label>
-        <textarea id="input-body" class="form-control" placeholder="ここにウルトラメガボリュームな記事本文を入力してください..."></textarea>
+        <textarea id="input-body" class="form-control" placeholder="ここに記事本文を入力してください..."></textarea>
       </div>
       <div class="modal-actions">
         <button class="btn-submit" onclick="publishArticle()">🚀 ブログに即時公開</button>
@@ -347,8 +341,6 @@
 > Thermal Resonance Control: Fully Stabilized (0.002% variance)
 > System Sovereignty: 100% Autonomous P2P Verified
 > Status: Free Sovereign Access Granted across all Swarm Nodes.
-
-(ここに詳細な論文テキストが展開されます。)
       </div>
       <button class="btn-close-viewer" onclick="closeFreeViewer()">Close Viewer</button>
     </div>
@@ -357,16 +349,22 @@
   <!-- 制御スクリプト -->
   <script>
     let userBalance = 150;
+    let tapCount = 0;
 
-    // 記事投稿モーダル制御
-    document.getElementById('btn-open-editor').addEventListener('click', () => {
-      document.getElementById('editor-modal').style.display = 'flex';
+    // ロゴを3回連続タップすると隠し管理者モード（アドミンパネル）が有効化されるギミック
+    document.getElementById('admin-trigger').addEventListener('click', () => {
+      tapCount++;
+      if (tapCount >= 3) {
+        document.getElementById('btn-admin-panel').style.display = 'inline-block';
+        alert('🔓 アドミン管理者モードが有効化されました。右上に投稿パネルが表示されます。');
+        tapCount = 0;
+      }
+      setTimeout(() => { tapCount = 0; }, 2000); // 2秒以内に3タップ
     });
-    function closeEditor() {
-      document.getElementById('editor-modal').style.display = 'none';
-    }
 
-    // 新規記事公開ロジック
+    function openEditor() { document.getElementById('editor-modal').style.display = 'flex'; }
+    function closeEditor() { document.getElementById('editor-modal').style.display = 'none'; }
+
     function publishArticle() {
       const title = document.getElementById('input-title').value;
       const tag = document.getElementById('input-tag').value || 'GENERAL';
@@ -387,7 +385,7 @@
           <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">FREE ACCESS</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // USER PUBLISHED</div>
+          <div class="card-meta">2026.08.16 // ADMIN PUBLISHED</div>
           <h2 class="card-title">${title}</h2>
           <p class="card-desc">${desc}</p>
           <div class="card-footer">
@@ -398,10 +396,9 @@
       `;
       feed.prepend(newCard);
       closeEditor();
-      alert('🎉 記事がブログに正常に公開されました！');
+      alert('🎉 記事がアドミン権限でブログに正常に公開されました！');
     }
 
-    // 決済モーダル制御
     function openPayModal() { document.getElementById('pay-modal').style.display = 'flex'; }
     function closePayModal() { document.getElementById('pay-modal').style.display = 'none'; }
     function executePayment() {
@@ -415,7 +412,6 @@
       }
     }
 
-    // 無料ビューア制御
     function openFreeViewer() { document.getElementById('free-viewer-modal').style.display = 'flex'; }
     function closeFreeViewer() { document.getElementById('free-viewer-modal').style.display = 'none'; }
   </script>
