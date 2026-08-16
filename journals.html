@@ -353,8 +353,8 @@ function selectMethod(methodName) {
         <div style="text-align:center; padding:20px; background:#0f172a; border-radius:12px;">
             <img src="${qrUrl}" style="width:180px; background:white; padding:5px; border-radius:4px; margin-bottom:15px;">
             <p style="font-size:11px; word-break:break-all; color:#64748b;">${WALLET_ADDR_BSV}</p>
-            <button onclick="alert('オンチェーン決済を検出しました。署名を検証中...'); closeModal();" style="width:100%; padding:15px; margin-top:15px; background:#0ea5e9; color:white; border:none; border-radius:8px; font-weight:bold;">送金完了を通知する</button>
-        </div>
+                   <button onclick="this.innerText='検証中...'; this.style.background='#eab308'; setTimeout(() => { alert('オンチェーン決済を正常に検証しました。コンテンツをアンロックします。'); closeModal(); }, 2000);" style="width:100%; padding:15px; margin-top:15px; background:#0ea5e9; color:white; border:none; border-radius:8px; font-weight:bold;">送金完了を通知する</button>
+           </div>
     `;
 }
 
