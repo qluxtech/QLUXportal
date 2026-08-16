@@ -245,6 +245,15 @@
   </div>
 
   <script>
+    const BSV_RECEIVE_ADDRESS = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+
+function renderPaymentModal() {
+    // QRコードの生成（ご提示いただいたQRソースを埋め込み）
+    const qrCodeUrl = "https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin-sv:" + BSV_RECEIVE_ADDRESS;
+    
+    // UI表示の更新
+    document.getElementById("payment-address-display").innerText = BSV_RECEIVE_ADDRESS;
+    document.getElementById("qr-image").src = qrCodeUrl;
     let activeTargetId = '';
     let activeArticleTitle = '';
     let streamInterval = null;
