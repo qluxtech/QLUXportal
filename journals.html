@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX Technologies // QLUXpay Engine v3.8</title>
+  <title>QLUX Technologies // QLUXpay Engine</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -50,18 +50,33 @@
     .brand-title { font-size: 18px; font-weight: 950; color: #fff; letter-spacing: 1px; }
     .brand-sub { font-size: 9px; background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(52, 211, 153, 0.4); margin-left: 8px; }
 
-    .blog-container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
-    .feed-heading {
-      font-size: 13px;
-      color: var(--text-cyan);
+    .control-bar {
+      background: #020617;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+    .btn-toggle-auto {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--text-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-family: monospace;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-toggle-auto.active {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--text-emerald);
+      border-color: var(--text-emerald);
+    }
 
+    .blog-container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+    
     .journal-card {
       background: var(--bg-card);
       border: 1px solid var(--border-accent);
@@ -69,10 +84,7 @@
       margin-bottom: 20px;
       padding: 20px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-      animation: fadeIn 0.4s ease-out;
     }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     .card-meta { font-size: 10px; color: var(--text-emerald); margin-bottom: 6px; }
     .card-title { font-size: 16px; color: #fff; font-weight: 900; margin-bottom: 10px; }
     .card-desc { font-size: 12px; color: #94a3b8; margin-bottom: 15px; }
@@ -110,7 +122,6 @@
       font-family: monospace;
       font-size: 11px;
     }
-    .btn-hyper:active { transform: scale(0.96); }
 
     /* モーダル */
     .modal-overlay {
@@ -134,20 +145,20 @@
       padding: 20px;
       color: #cbd5e1;
     }
-    .modal-box h3 { color: #fff; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 8px; display: flex; justify-content: space-between; }
+    .modal-box h3 { color: #fff; font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(52,211,153,0.3); padding-bottom: 8px; display: flex; justify-content: space-between; }
     
-    .gateway-tabs { display: flex; gap: 5px; margin-bottom: 12px; }
+    .gateway-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
     .tab-btn {
       flex: 1; background: #020617; border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted); padding: 7px 4px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; font-family: monospace; text-align: center;
+      color: var(--text-muted); padding: 7px 2px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; font-family: monospace; text-align: center;
     }
     .tab-btn.active { background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); border-color: var(--text-emerald); }
 
-    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
     .crypto-option {
       background: rgba(2, 6, 23, 0.9);
       border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 12px;
+      padding: 10px;
       border-radius: 8px;
       cursor: pointer;
       text-align: left;
@@ -156,16 +167,16 @@
     }
     .crypto-option:hover { border-color: var(--text-emerald); background: rgba(52, 211, 153, 0.1); }
     .crypto-name { font-weight: bold; font-size: 11px; color: var(--text-gold); }
-    .crypto-sub { font-size: 9px; color: var(--text-muted); margin-top: 3px; }
+    .crypto-sub { font-size: 8px; color: var(--text-muted); margin-top: 2px; }
     
     .btn-close-modal { width: 100%; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 10px; }
 
     .receipt-box {
       background: rgba(52, 211, 153, 0.05);
       border: 1px solid var(--text-emerald);
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
-      margin-top: 12px;
+      margin-top: 10px;
       display: none;
       font-size: 10px;
     }
@@ -174,8 +185,8 @@
 <body>
 
   <div class="hyper-ticker">
-    <div>QLUXpay ENGINE: <span style="color:var(--text-emerald);">ONLINE (AUTO-STREAM ACTIVE)</span></div>
-    <div id="build-stamp">BUILD: 2026.08.16-V3</div>
+    <div>QLUXpay SYSTEM: <span style="color:var(--text-emerald);">READY</span></div>
+    <div>BUILD: 2026.08.16-FINAL</div>
   </div>
 
   <header class="blog-header">
@@ -185,17 +196,18 @@
     </div>
   </header>
 
+  <!-- 自動更新コントロールバー -->
+  <div class="control-bar">
+    <span style="font-size:10px; color:var(--text-muted);">オートストリーム制御</span>
+    <button id="auto-btn" class="btn-toggle-auto" onclick="toggleAutoStream()">自動更新: OFF</button>
+  </div>
+
   <main class="blog-container">
-    <div class="feed-heading">
-      <span>// QLUXpay SETTLEMENT STREAM</span>
-      <span style="font-size: 10px; color: var(--text-emerald);">AUTO-DAEMON ACTIVE</span>
-    </div>
     <div id="articles-feed">
-      <!-- 初期カード -->
       <article class="journal-card">
         <div class="card-meta">2026.08.16 // QLUXpay GATEWAY</div>
         <h2 class="card-title">BSV・各種暗号資産および法定通貨によるマルチ決済インボイス</h2>
-        <p class="card-desc">ボタン自動内蔵・バックグラウンド自動同期による完全自動化ストリーム。</p>
+        <p class="card-desc">ワンタップで選択可能な全決済ルート対応システム。</p>
         <div class="quantum-hash-box">
           <span>TX HASH: <span id="tx-default" class="status-indicator">READY / LISTENING</span></span>
         </div>
@@ -207,7 +219,7 @@
     </div>
   </main>
 
-  <!-- 決済モーダル（完全マルチ決済対応） -->
+  <!-- 決済モーダル -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
       <h3>
@@ -216,32 +228,30 @@
       </h3>
       
       <div class="gateway-tabs">
-        <button class="tab-btn active" id="tab-btn-bsv" onclick="switchGatewayTab('bsv')">⚡ BSV・LN</button>
-        <button class="tab-btn" id="tab-btn-crypto" onclick="switchGatewayTab('crypto')">💎 主要暗号通貨</button>
-        <button class="tab-btn" id="tab-btn-fiat" onclick="switchGatewayTab('fiat')">💳 法定通貨</button>
-        <button class="tab-btn" id="tab-btn-all" onclick="switchGatewayTab('all')">🌐 全マルチ</button>
+        <button class="tab-btn active" id="tab-btn-bsv" onclick="switchTab('bsv')">⚡ BSV/LN</button>
+        <button class="tab-btn" id="tab-btn-crypto" onclick="switchTab('crypto')">💎 主要暗号</button>
+        <button class="tab-btn" id="tab-btn-fiat" onclick="switchTab('fiat')">💳 法定通貨</button>
+        <button class="tab-btn" id="tab-btn-all" onclick="switchTab('all')">🌐 全マルチ</button>
       </div>
 
-      <!-- BSV / LN -->
-      <div id="gateway-view-bsv">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">Bitcoin SV および Lightning Network による秒速決済。</p>
+      <!-- BSV/LN -->
+      <div id="view-bsv">
         <div class="crypto-grid">
           <button class="crypto-option" onclick="executePayment('BSV Direct', '1QLuxPaySovereignAddressXYZ')">
             <div class="crypto-name">⚡ BSV 直送金</div>
             <div class="crypto-sub">Instant On-Chain</div>
           </button>
           <button class="crypto-option" onclick="executePayment('Lightning Network', 'vlisdirect@gmail.com')">
-            <div class="crypto-name">⚡ LNURL / Lightning</div>
+            <div class="crypto-name">⚡ LNURL</div>
             <div class="crypto-sub">vlisdirect@gmail.com</div>
           </button>
         </div>
       </div>
 
-      <!-- 主要暗号通貨 -->
-      <div id="gateway-view-crypto" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">BTC、USDT、ETH、SOLなどの主要チェーン決済。</p>
+      <!-- 主要暗号 -->
+      <div id="view-crypto" style="display: none;">
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('Bitcoin (BTC)', 'bc1_qluxpay_btc_receiver')">
+          <button class="crypto-option" onclick="executePayment('Bitcoin (BTC)', 'bc1_qluxpay_btc')">
             <div class="crypto-name">₿ Bitcoin (BTC)</div>
             <div class="crypto-sub">SegWit / Native</div>
           </button>
@@ -261,23 +271,21 @@
       </div>
 
       <!-- 法定通貨 -->
-      <div id="gateway-view-fiat" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">クレジットカードおよび各種グローバル法定通貨決済。</p>
+      <div id="view-fiat" style="display: none;">
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="executePayment('Credit Card / Apple Pay', 'FIAT-GATEWAY-CARD')">
+          <button class="crypto-option" onclick="executePayment('Credit Card / Apple Pay', 'FIAT-CARD-GATEWAY')">
             <div class="crypto-name">💳 クレカ / Apple Pay</div>
             <div class="crypto-sub">Instant Convert</div>
           </button>
           <button class="crypto-option" onclick="executePayment('Bank Wire Transfer', 'BANK-WIRE-QLUX')">
-            <div class="crypto-name">🏛 銀行振込 / 決済連携</div>
+            <div class="crypto-name">🏛 銀行振込</div>
             <div class="crypto-sub">Auto-Matching</div>
           </button>
         </div>
       </div>
 
       <!-- 全マルチ -->
-      <div id="gateway-view-all" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">Ripple、Dogecoin、その他5000種以上のクロスチェーン対応。</p>
+      <div id="view-all" style="display: none;">
         <div class="crypto-grid">
           <button class="crypto-option" onclick="executePayment('Ripple (XRP)', 'r_qluxpay_xrp')">
             <div class="crypto-name">✕ Ripple (XRP)</div>
@@ -287,7 +295,7 @@
             <div class="crypto-name">Ð Dogecoin (DOGE)</div>
             <div class="crypto-sub">P2P Network</div>
           </button>
-          <button class="crypto-option" onclick="executePayment('Global Cross-Chain Bridge', 'BRIDGE-API-ALL')">
+          <button class="crypto-option" onclick="executePayment('Cross-Chain Bridge (5000+)', 'BRIDGE-API-ALL')">
             <div class="crypto-name">🌐 5000種+ 全通貨</div>
             <div class="crypto-sub">Automated Routing</div>
           </button>
@@ -295,7 +303,7 @@
       </div>
 
       <div id="receipt-box" class="receipt-box">
-        <div style="color:var(--text-emerald); font-weight:bold; margin-bottom:3px;">✔ 決済シグナル送信完了</div>
+        <div style="color:var(--text-emerald); font-weight:bold; margin-bottom:2px;">✔ 決済シグナル送信完了</div>
         <div id="receipt-text" style="color:#94a3b8; word-break:break-all;"></div>
       </div>
 
@@ -303,50 +311,55 @@
     </div>
   </div>
 
-  <!-- 制御スクリプト -->
   <script>
     let activeStatusId = '';
     let activeItemTitle = '';
+    let autoInterval = null;
+    let isAutoRunning = false;
 
-    // ページ読み込みと同時に自動バックグラウンドストリームを稼働
-    window.addEventListener('DOMContentLoaded', () => {
-      console.log("QLUXpay Engine Initialized.");
-      // 10秒ごとに自動で新しいストリームカードを生成・追加
-      setInterval(() => {
-        appendAutoStreamCard();
-      }, 10000);
-    });
+    // 自動更新ボタンの切り替えロジック
+    function toggleAutoStream() {
+      const btn = document.getElementById('auto-btn');
+      isAutoRunning = !isAutoRunning;
+      if (isAutoRunning) {
+        btn.innerText = "自動更新: ON";
+        btn.classList.add('active');
+        autoInterval = setInterval(appendStreamCard, 10000);
+      } else {
+        btn.innerText = "自動更新: OFF";
+        btn.classList.remove('active');
+        clearInterval(autoInterval);
+      }
+    }
 
-    function appendAutoStreamCard() {
+    function appendStreamCard() {
       const feed = document.getElementById('articles-feed');
       if (!feed) return;
-      
       const uniqueId = 'tx-' + Math.floor(Math.random() * 90000 + 10000);
-      const streamTopics = [
-        { title: "BSV・各種暗号資産および法定通貨によるマルチ決済インボイス", desc: "自動デーモンによるリアルタイム・クロスチェーン同期処理。" },
-        { title: "QLUXpay 自律分散型セトルメント・ストリームログ", desc: "ミリ秒単位で処理されるマルチアセット清算の自動台帳反映。" },
-        { title: "グローバル・ペイメント・ネットワーク自動生成レコード", desc: "ユーザーアクション不要でバックグラウンドを流れるトランザクション。" }
+      const topics = [
+        "QLUXpay クロスチェーン自動インボイス同期ログ",
+        "リアルタイム・マイクロペイメント処理ストリーム",
+        "Sovereign Ledger マルチアセット清算レコード"
       ];
-      const selected = streamTopics[Math.floor(Math.random() * streamTopics.length)];
+      const title = topics[Math.floor(Math.random() * topics.length)];
 
       const card = document.createElement('article');
       card.className = 'journal-card';
       card.innerHTML = `
         <div class="card-meta">2026.08.16 // AUTO-STREAM SYNC</div>
-        <h2 class="card-title">${selected.title}</h2>
-        <p class="card-desc">${selected.desc}</p>
+        <h2 class="card-title">${title}</h2>
+        <p class="card-desc">マルチ決済基盤によるリアルタイム・トランザクション処理。</p>
         <div class="quantum-hash-box">
           <span>TX HASH: <span id="${uniqueId}" class="status-indicator">READY / LISTENING</span></span>
         </div>
         <div class="card-footer">
           <span class="price-tag">150 JPY相当</span>
-          <button class="btn-hyper" onclick="openQLUXModal('${selected.title}', '${uniqueId}')">💳 QLUXpay で支払う</button>
+          <button class="btn-hyper" onclick="openQLUXModal('${title}', '${uniqueId}')">💳 QLUXpay で支払う</button>
         </div>
       `;
       feed.prepend(card);
     }
 
-    // モーダルを確実に強制表示する関数
     function openQLUXModal(title, statusId) {
       activeItemTitle = title;
       activeStatusId = statusId;
@@ -358,32 +371,28 @@
       document.getElementById('gateway-modal').style.display = 'none';
     }
 
-    // タブ切り替え関数
-    function switchGatewayTab(mode) {
+    function switchTab(mode) {
       ['bsv', 'crypto', 'fiat', 'all'].forEach(m => {
-        const btn = document.getElementById(`tab-btn-${m}`);
-        const view = document.getElementById(`gateway-view-${m}`);
-        if (btn) btn.classList.remove('active');
-        if (view) view.style.display = 'none';
+        const b = document.getElementById(`tab-btn-${m}`);
+        const v = document.getElementById(`view-${m}`);
+        if (b) b.classList.remove('active');
+        if (v) v.style.display = 'none';
       });
-      const targetBtn = document.getElementById(`tab-btn-${mode}`);
-      const targetView = document.getElementById(`gateway-view-${mode}`);
-      if (targetBtn) targetBtn.classList.add('active');
-      if (targetView) targetView.style.display = 'block';
+      document.getElementById(`tab-btn-${mode}`).classList.add('active');
+      document.getElementById(`view-${mode}`).style.display = 'block';
     }
 
-    // 決済実行＆ステータス自動反映
     function executePayment(methodName, targetInfo) {
       const receiptBox = document.getElementById('receipt-box');
       const receiptText = document.getElementById('receipt-text');
 
       receiptBox.style.display = 'block';
-      receiptText.innerHTML = `方式: ${methodName}<br>宛先: ${targetInfo}<br>ステータス: 決済シグナル送信中...`;
+      receiptText.innerHTML = `方式: ${methodName}<br>宛先: ${targetInfo}<br>ステータス: 処理中...`;
 
       setTimeout(() => {
         if (activeStatusId && document.getElementById(activeStatusId)) {
           const target = document.getElementById(activeStatusId);
-          target.innerText = "SUCCESS (PAID & VERIFIED)";
+          target.innerText = "SUCCESS (PAID)";
           target.style.color = "var(--text-emerald)";
         }
         receiptText.innerHTML = `✔ 「${activeItemTitle}」の決済が正常に反映されました。`;
@@ -392,4 +401,3 @@
   </script>
 </body>
 </html>
-
