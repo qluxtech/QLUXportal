@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX Technologies // FIAT-TO-OMNI SOVEREIGN LEDGER</title>
+  <title>QLUX Technologies // GLOBAL OMNI SOVEREIGN LEDGER</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -172,7 +172,9 @@
       border: 1px solid var(--text-gold);
       border-radius: 16px;
       width: 100%;
-      max-width: 520px;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 25px;
       color: #cbd5e1;
     }
@@ -181,7 +183,7 @@
     .gateway-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
     .tab-btn {
       flex: 1; background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; font-family: monospace;
+      color: var(--text-muted); padding: 10px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: bold; font-family: monospace;
     }
     .tab-btn.active { background: rgba(251, 191, 36, 0.15); color: var(--text-gold); border-color: var(--text-gold); }
 
@@ -221,7 +223,7 @@
 
   <!-- 統合ティッカー -->
   <div class="hyper-ticker">
-    <div class="status-quantum">GATEWAY STATUS: <span style="color:var(--text-gold);">ACTIVE (FIAT & MULTI-CRYPTO)</span></div>
+    <div class="status-quantum">GATEWAY STATUS: <span style="color:var(--text-gold);">UNIVERSAL OMNI (GLOBAL 100% COVERAGE)</span></div>
     <div>AUTONOMOUS AGENT: <span id="swarm-status-text" style="color:var(--text-emerald);">STANDBY</span></div>
   </div>
 
@@ -229,7 +231,7 @@
   <header class="blog-header">
     <div class="brand-area" id="admin-trigger" title="ロゴ3回タップでアドミン開放">
       <span class="brand-title">QLUX Technologies</span>
-      <span class="brand-sub">GATEWAY</span>
+      <span class="brand-sub">OMNI GATEWAY</span>
     </div>
     <div class="header-actions">
       <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 自動執筆: OFF</button>
@@ -240,24 +242,24 @@
   <!-- メインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// RECURSIVE STREAM & PAYMENT GATEWAY</span>
-      <span style="font-size: 10px; color: var(--text-gold);">JPY/USD & ALL CRYPTO SYNC</span>
+      <span>// GLOBAL SOVEREIGN LEDGER & UNIVERSAL SETTLEMENT</span>
+      <span style="font-size: 10px; color: var(--text-gold);">FIAT & ALL CHAINS (BSV, BTC, XRP, ETH, SOL, ETC.)</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">FIAT ON-RAMP // OMNI-SYNC</span>
-          <span class="tag-badge fiat">JPY/USD -> CRYPTO FLOW</span>
+          <span class="tag-badge">UNIVERSAL ON-RAMP // 100% GLOBAL</span>
+          <span class="tag-badge fiat">ALL FIAT & ALL CRYPTO SYNC</span>
         </div>
         <div class="card-content">
           <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES CORE PROTOCOL</div>
-          <h2 class="card-title">法定通貨（日本円/ドル）からの即時暗号資産エクスチェンジと自律決済</h2>
-          <p class="card-desc">暗号資産を未所持のユーザーでも、クレジットカードや決済プロバイダ経由で円から直接資産を流し込み、即座にアクセス権を獲得。</p>
-          <div class="quantum-hash-box">PROTOCOL: MOONPAY / CHANGENOW INTEGRATED ENGINE</div>
+          <h2 class="card-title">地球上のあらゆる法定通貨・全暗号通貨によるシームレス即時決済</h2>
+          <p class="card-desc">BSV、BTC、Lightning、USDT、XRP、SOL、その他全チェーンおよびグローバル法定通貨（JPY/USD/EUR等）を完全網羅。制限なしの完全分散決済。</p>
+          <div class="quantum-hash-box">PROTOCOL: OMNI-CHAIN / BSV / MULTI-ROUTER ENGINE ACTIVE</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-gold);">Access Fee: 150 JPY / 10 Sats</span>
-            <button class="btn-hyper" onclick="openGatewayModal('法定通貨（日本円/ドル）からの即時暗号資産エクスチェンジと自律決済')">💳 円または暗号通貨で決済</button>
+            <span class="price-tag" style="color:var(--text-gold);">Access Fee: Universal Standard</span>
+            <button class="btn-hyper" onclick="openGatewayModal('地球上のあらゆる法定通貨・全暗号通貨によるシームレス即時決済')">🌐 全世界対応の決済を選ぶ</button>
           </div>
         </div>
       </article>
@@ -267,54 +269,94 @@
   <!-- 決済・オンランプ統合選択モーダル -->
   <div class="modal-overlay" id="gateway-modal">
     <div class="modal-box">
-      <h3>// SELECT PAYMENT METHOD</h3>
+      <h3>// SELECT UNIVERSAL PAYMENT METHOD</h3>
       <div class="gateway-tabs">
-        <button class="tab-btn active" id="btn-tab-fiat" onclick="switchTab('fiat')">💳 法定通貨 (JPY / USD)</button>
-        <button class="tab-btn" id="btn-tab-crypto" onclick="switchTab('crypto')">🌐 全暗号通貨選択</button>
+        <button class="tab-btn active" id="btn-tab-fiat" onclick="switchTab('fiat')">💳 法定通貨</button>
+        <button class="tab-btn" id="btn-tab-bsv" onclick="switchTab('bsv')">⚡ BSV / 爆速チェーン</button>
+        <button class="tab-btn" id="btn-tab-major" onclick="switchTab('major')">💎 主要通貨 (BTC/ETH)</button>
+        <button class="tab-btn" id="btn-tab-all" onclick="switchTab('all')">🌍 その他全通貨・L2</button>
       </div>
 
-      <!-- 法定通貨オンランプ画面 -->
+      <!-- 法定通貨画面 -->
       <div id="view-fiat">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">クレジットカードまたは各決済サービスを用いて、日本円から自動で仮想通貨に変換し決済します。</p>
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">全世界のクレジットカード・デビット・現地通貨（JPY/USD/EUR等）による即時決済。</p>
         <div class="form-group">
           <label>支払い額選択</label>
           <select id="fiat-amount" class="form-control">
-            <option value="150">150 JPY (スタンダードアクセス)</option>
-            <option value="500">500 JPY (プレミアムパス)</option>
-            <option value="1500">1,500 JPY (フルアクセス)</option>
+            <option value="150">150 JPY相当 (スタンダードアクセス)</option>
+            <option value="500">500 JPY相当 (プレミアムパス)</option>
+            <option value="1500">1,500 JPY相当 (フルアクセス)</option>
           </select>
         </div>
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="processFiatCheckout('MoonPay (Credit Card)')">
-            <div class="crypto-name">💳 クレカ / デビット</div>
-            <div class="crypto-sub">MoonPay / Wert</div>
+          <button class="crypto-option" onclick="processCheckout('MoonPay / Global Credit Card')">
+            <div class="crypto-name">💳 グローバル・クレカ</div>
+            <div class="crypto-sub">Visa / Mastercard / Apple Pay</div>
           </button>
-          <button class="crypto-option" onclick="processFiatCheckout('au PAY / Mobile Pay')">
-            <div class="crypto-name">📱 スマホ決済 (au PAY等)</div>
-            <div class="crypto-sub">Instant Conversion</div>
+          <button class="crypto-option" onclick="processCheckout('Local Mobile Pay / au PAY')">
+            <div class="crypto-name">📱 各種スマホ決済</div>
+            <div class="crypto-sub">au PAY / AliPay / Region Pay</div>
           </button>
         </div>
       </div>
 
-      <!-- 暗号通貨選択画面 -->
-      <div id="view-crypto" style="display: none;">
-        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">所持している暗号通貨ネットワークを選択してください。</p>
+      <!-- BSV / 爆速チェーン画面 -->
+      <div id="view-bsv" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">超低手数料・ミリ秒単位の決済を誇るBitcoin Satoshi Vision (BSV) および高スループットチェーン。</p>
         <div class="crypto-grid">
-          <button class="crypto-option" onclick="processCryptoPayment('Bitcoin Lightning', 'vlisdirect@gmail.com')">
-            <div class="crypto-name">⚡ Bitcoin (LN)</div>
-            <div class="crypto-sub">vlisdirect@gmail.com</div>
+          <button class="crypto-option" onclick="processCheckout('Bitcoin Satoshi Vision (BSV)', 'bsv:1QLuxTechnologiesSovereignAddressHere...')">
+            <div class="crypto-name">⚡ BSV (Bitcoin SV)</div>
+            <div class="crypto-sub">Micro-transaction / Instant</div>
           </button>
-          <button class="crypto-option" onclick="processCryptoPayment('USDT (TRC-20)', 'TRC20_YOUR_WALLET_ADDRESS')">
-            <div class="crypto-name">₮ USDT (TRC)</div>
-            <div class="crypto-sub">Tron Network</div>
+          <button class="crypto-option" onclick="processCheckout('Bitcoin Lightning Network', 'vlisdirect@gmail.com')">
+            <div class="crypto-name">⚡ BTC Lightning</div>
+            <div class="crypto-sub">vlisdirect@gmail.com / LNURL</div>
           </button>
-          <button class="crypto-option" onclick="processCryptoPayment('USDT / ETH (ERC-20)', '0x_YOUR_WALLET_ADDRESS')">
-            <div class="crypto-name">Ξ USDT / ETH</div>
-            <div class="crypto-sub">Ethereum Main/L2</div>
+        </div>
+      </div>
+
+      <!-- 主要暗号通貨画面 -->
+      <div id="view-major" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">世界中で最も流通している主要レイヤー1・ステーブルコイン。</p>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="processCheckout('Bitcoin (Mainnet / SegWit)', 'bc1_YOUR_GLOBAL_BTC_ADDRESS')">
+            <div class="crypto-name">₿ Bitcoin (BTC)</div>
+            <div class="crypto-sub">Mainnet Sovereign Layer</div>
           </button>
-          <button class="crypto-option" onclick="processCryptoPayment('Solana (SOL / USDC)', 'SOL_YOUR_WALLET_ADDRESS')">
-            <div class="crypto-name">◎ Solana</div>
-            <div class="crypto-sub">SPL Token</div>
+          <button class="crypto-option" onclick="processCheckout('Ethereum (ETH / ERC-20)', '0x_YOUR_GLOBAL_ETH_ADDRESS')">
+            <div class="crypto-name">Ξ Ethereum (ETH)</div>
+            <div class="crypto-sub">ERC-20 / Smart Contract</div>
+          </button>
+          <button class="crypto-option" onclick="processCheckout('USDT / USDC (Tron TRC-20)', 'TRC20_YOUR_GLOBAL_USDT_ADDRESS')">
+            <div class="crypto-name">₮ USDT / USDC (TRC)</div>
+            <div class="crypto-sub">Low Fee Stablecoin</div>
+          </button>
+          <button class="crypto-option" onclick="processCheckout('Solana (SOL / SPL)', 'SOL_YOUR_GLOBAL_ADDRESS')">
+            <div class="crypto-name">◎ Solana (SOL)</div>
+            <div class="crypto-sub">High Speed SPL</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- その他全通貨・L2画面 -->
+      <div id="view-all" style="display: none;">
+        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 15px;">地球上のあらゆるオルトコイン、ミームコイン、クロスチェーンに対応。選択外の通貨も自動ブリッジ。</p>
+        <div class="crypto-grid">
+          <button class="crypto-option" onclick="processCheckout('Ripple (XRP)', 'r_YOUR_GLOBAL_XRP_ADDRESS')">
+            <div class="crypto-name">✕ Ripple (XRP)</div>
+            <div class="crypto-sub">XRPL Settlement</div>
+          </button>
+          <button class="crypto-option" onclick="processCheckout('Dogecoin (DOGE)', 'D_YOUR_GLOBAL_DOGE_ADDRESS')">
+            <div class="crypto-name">Ð Dogecoin (DOGE)</div>
+            <div class="crypto-sub">Peer-to-Peer Global</div>
+          </button>
+          <button class="crypto-option" onclick="processCheckout('Cardano (ADA)', 'addr1_YOUR_GLOBAL_ADA_ADDRESS')">
+            <div class="crypto-name">₳ Cardano (ADA)</div>
+            <div class="crypto-sub">Proof-of-Stake Network</div>
+          </button>
+          <button class="crypto-option" onclick="processCheckout('Any Other Altcoin / Cross-Chain Bridge', 'UNIVERSAL_CHANGE_NOW_API')">
+            <div class="crypto-name">🌐 全世界5000種+ 自由選択</div>
+            <div class="crypto-sub">ChangeNow / FixedFloat API</div>
           </button>
         </div>
       </div>
@@ -326,7 +368,7 @@
   <!-- デプロイモーダル -->
   <div class="modal-overlay" id="hyper-modal">
     <div class="modal-box">
-      <h3>// QLUS Technologies : MANUAL DEPLOY</h3>
+      <h3>// QLUX Technologies : MANUAL DEPLOY</h3>
       <div class="form-group">
         <label>タイトル</label>
         <input type="text" id="input-title" class="form-control" placeholder="記事タイトル...">
@@ -384,37 +426,23 @@
     }
 
     function switchTab(mode) {
-      const btnFiat = document.getElementById('btn-tab-fiat');
-      const btnCrypto = document.getElementById('btn-tab-crypto');
-      const viewFiat = document.getElementById('view-fiat');
-      const viewCrypto = document.getElementById('view-crypto');
-
-      if (mode === 'fiat') {
-        btnFiat.classList.add('active');
-        btnCrypto.classList.remove('active');
-        viewFiat.style.display = 'block';
-        viewCrypto.style.display = 'none';
-      } else {
-        btnCrypto.classList.add('active');
-        btnFiat.classList.remove('active');
-        viewCrypto.style.display = 'block';
-        viewFiat.style.display = 'none';
-      }
+      const tabs = ['fiat', 'bsv', 'major', 'all'];
+      tabs.forEach(t => {
+        document.getElementById(`btn-tab-${t}`).classList.remove('active');
+        document.getElementById(`view-${t}`).style.display = 'none';
+      });
+      document.getElementById(`btn-tab-${mode}`).classList.add('active');
+      document.getElementById(`view-${mode}`).style.display = 'block';
     }
 
-    function processFiatCheckout(providerName) {
-      const amount = document.getElementById('fiat-amount').value;
+    function processCheckout(methodName, address) {
       closeGatewayModal();
-      alert(`💳 [ ${providerName} オンランプ決済 ]\n\n選択額: ${amount} JPY\n対象記事: 「${currentArticleTitle}」\n\n決済ゲートウェイを起動しました。完了後、アクセストークンが自動発行されます。`);
-    }
-
-    function processCryptoPayment(assetName, targetDestination) {
-      closeGatewayModal();
-      if (assetName.includes('Bitcoin')) {
-        const lightningUri = `lightning:${targetDestination}?amount=10&comment=${encodeURIComponent(currentArticleTitle)}`;
-        window.location.href = lightningUri;
+      if (methodName.includes('Lightning')) {
+        window.location.href = `lightning:${address}?amount=10&comment=${encodeURIComponent(currentArticleTitle)}`;
+      } else if (address) {
+        alert(`🌐 [ ${methodName} 決済シグナル ]\n\n対象記事: 「${currentArticleTitle}」\n受取先 / ブリッジアドレス:\n${address}\n\n指定ネットワークからの送金・自動コンバージョン処理を開始します。`);
       } else {
-        alert(`🌐 [ ${assetName} 決済ゲートウェイ ]\n\n受取先アドレス:\n${targetDestination}\n\n指定アセットでの決済シグナルを受信しました。ウォレットアプリより上記アドレスへ送金を完了してください。`);
+        alert(`💳 [ ${methodName} 決済 ]\n\n対象記事: 「${currentArticleTitle}」\nグローバル決済ゲートウェイを起動しました。`);
       }
     }
 
@@ -433,56 +461,11 @@
         
         swarmInterval = setInterval(() => {
           const aiTopics = [
-            { title: "法定通貨とクロスチェーン流動性のリアルタイムブリッジ機構", tag: "GATEWAY // AUTO", desc: "円建て決済からスマートコントラクトへの自動変換プロセス。" },
-            { title: "AI駆動型オンランプ・最適ルート選択エンジンの検証", tag: "SYSTEM // AUTO", desc: "手数料とレイテンシを最小化するエクスチェンジ自動化の記録。" }
+            { title: "BSV・マルチチェーン間のクロスボーダー即時清算プロトコル", tag: "OMNI // AUTO", desc: "地球規模のトランザクションを仲介する完全分散ブリッジの検証。" },
+            { title: "全通貨対応ユニバーサル・オンランプの最適化プロセス", tag: "GATEWAY // AUTO", desc: "法定通貨およびあらゆるアルトコインを瞬時に統合する仕組み。" }
           ];
           const selected = aiTopics[Math.floor(Math.random() * aiTopics.length)];
           appendNewArticle(selected.title, selected.tag, selected.desc, 'AUTO-GEN');
         }, 12000);
       } else {
-        btn.innerText = '🤖 自動執筆: OFF';
-        btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        btn.style.color = 'var(--text-cyan)';
-        statusText.innerText = 'STANDBY';
-        clearInterval(swarmInterval);
-        alert('🤖 自動執筆ループを停止しました。');
-      }
-    }
-
-    function appendNewArticle(title, tag, desc, sourceLabel) {
-      const ipfsHash = 'bafybeig' + Array.from({length: 28}, () => Math.floor(Math.random()*16).toString(16)).join('');
-      const feed = document.getElementById('articles-feed');
-      const newCard = document.createElement('article');
-      newCard.className = 'journal-card';
-      newCard.innerHTML = `
-        <div class="card-top-banner">
-          <span class="tag-badge fiat">${tag}</span>
-          <span class="tag-badge" style="color:var(--text-emerald); border-color:var(--text-emerald);">${sourceLabel}</span>
-        </div>
-        <div class="card-content">
-          <div class="card-meta">2026.08.16 // QLUX TECHNOLOGIES SYNC</div>
-          <h2 class="card-title">${title}</h2>
-          <p class="card-desc">${desc}</p>
-          <div class="quantum-hash-box">PERMA-HASH: ipfs://${ipfsHash}</div>
-          <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-gold);">Fiat / Multi-Asset Access</span>
-            <button class="btn-hyper" onclick="openGatewayModal('${title}')">💳 円または暗号通貨で決済</button>
-          </div>
-        </div>
-      `;
-      feed.prepend(newCard);
-    }
-
-    function deployHyperContent() {
-      const title = document.getElementById('input-title').value;
-      const tag = document.getElementById('input-tag').value || 'CORE';
-      const desc = document.getElementById('input-desc').value;
-      if (!title || !desc) { alert('項目を入力してください。'); return; }
-      appendNewArticle(title, tag, desc, 'MANUAL DEPLOY');
-      closeHyperEditor();
-      alert('🌌 デプロイが完了しました。');
-    }
-  </script>
-</body>
-</html>
-
+   
