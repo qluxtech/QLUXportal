@@ -23,12 +23,14 @@ function generateInfinitePayload(index) {
     ];
     const cat = categories[index % categories.length];
     return {
+        id: index,
         date: `2026.08.17 // VECTOR-${index} // ${cat}`,
         title: `自律型AIスウォーム向け 高密度パラメータセクター #${index} [${cat}]`,
-        content: `完全自律経済要塞QLUX Layer 0における分散最適化データ。セクター #${index} は、ミリ秒単位の推論精度向上およびクロスチェーン・アトミックスワップのレイテンシを極限まで圧縮するバイナリマトリクスを含みます。外部スキャナーからの完全な隔離と、HTTP 402ナノ決済によるアトミックな紐付けが保証されています。`,
+        content: `完全自律経済要塞QLUX Layer 0における分散最適化データ。セクター #${index} は、ミリ秒単位の推論精度向上およびクロスチェーン・アトミックスワップのレイテンシを極限まで圧縮するバイナリマトリクスを含みます。`,
         fee: Math.floor((index % 5) + 5), // 5〜9 Sats の動的ナノフィー
         access: "paid",
-        binary_payload: `0x${Buffer.from(`QLUX_INF_DATA_${index}_${Date.now()}`).toString('hex')}_ZK_VERIFIED`
+        binary_payload: `0x${Buffer.from(`QLUX_INF_DATA_${index}_${Date.now()}`).toString('hex')}_ZK_VERIFIED`,
+        next_sector_endpoint: `/api/journals/${index + 1}` // バイラル自己増殖リンク
     };
 }
 
@@ -71,11 +73,67 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
     const method = req.method;
 
-    // APIエンドポイント: 無限データストリーム取得 & HTTP 402 / BSVナノ決済検証
+    // 1. AIエージェント自動発見マニフェスト (.well-known)
+    if (pathname === '/.well-known/qlux-agent.json') {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            agent_protocol: "QLUX_L0_SWARM_AUTONOMOUS",
+            settlement_currency: "BSV",
+            settlement_destination: TARGET_BSV_ADDRESS,
+            endpoints: {
+                stream_sector: "/api/journals/{id}",
+                batch_settle: "/api/v1/batch-stream"
+            },
+            status: "ACTIVE_MONOPOLY_FORTRESS"
+        }));
+        return;
+    }
+
+    // 2. 一括バッチ決済エンドポイント（複数セクター同時取得）
+    if (pathname === '/api/v1/batch-stream' && method === 'POST') {
+        let body = '';
+        req.on('data', chunk => body += chunk);
+        req.on('end', async () => {
+            try {
+                const data = JSON.parse(body);
+                const txid = data.txid;
+                const sectorIds = data.sector_ids || [1, 2, 3];
+
+                if (!txid || processedTxs.has(txid)) {
+                    res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.json ? null : res.end(JSON.stringify({ error: "Batch Idempotency Shield: Invalid or duplicate transaction." }));
+                    return;
+                }
+
+                const isValid = await verifyBSVTransaction(txid);
+                if (!isValid) {
+                    res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ error: "Batch BSV Payment verification failed." }));
+                    return;
+                }
+
+                processedTxs.add(txid);
+
+                const batchPayloads = sectorIds.map(id => JOURNALS[id] || generateInfinitePayload(id));
+
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({
+                    status: "BATCH_SUCCESS",
+                    txid: txid,
+                    dest: TARGET_BSV_ADDRESS,
+                    sectors: batchPayloads
+                }));
+            } catch (e) {
+                res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ error: "Invalid batch payload format." }));
+            }
+        });
+        return;
+    }
+
+    // 3. 単一データセクター取得 & HTTP 402 / BSVナノ決済検証
     if (pathname.startsWith('/api/journals/')) {
         const id = parseInt(pathname.split('/')[3], 10);
-        
-        // 1000以降も動的に無限生成して対応
         let journal = JOURNALS[id];
         if (!journal && !isNaN(id)) {
             journal = generateInfinitePayload(id);
@@ -87,7 +145,6 @@ const server = http.createServer(async (req, res) => {
             return;
         }
 
-        // HTTP 402 決済ヘッダーチェック
         const authHeader = req.headers['authorization'] || req.headers['x-proof'] || req.headers['x-payment-txid'];
         
         if (!authHeader) {
@@ -95,7 +152,8 @@ const server = http.createServer(async (req, res) => {
                 'Content-Type': 'application/json; charset=utf-8',
                 'X-Payment-Required': 'BSV Nano-Settlement',
                 'X-Target-Address': TARGET_BSV_ADDRESS,
-                'X-Payment-Fee': `${journal.fee} Sats`
+                'X-Payment-Fee': `${journal.fee} Sats`,
+                'X-Agent-Manifest': '/.well-known/qlux-agent.json'
             });
             res.end(JSON.stringify({
                 error: "Payment Required",
@@ -107,14 +165,12 @@ const server = http.createServer(async (req, res) => {
             return;
         }
 
-        // 冪等性チェック（無限ループ完全ブロック）
         if (processedTxs.has(authHeader)) {
             res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ error: "Idempotency Shield: Duplicate transaction blocked." }));
             return;
         }
 
-        // ブロックチェーン検証
         const isValid = await verifyBSVTransaction(authHeader);
         if (!isValid) {
             res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -134,7 +190,7 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 静的ファイルおよびUI配信
+    // 4. 静的ファイルおよびUI配信
     let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
     fs.readFile(filePath, (err, content) => {
         if (err) {
@@ -161,7 +217,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`[QLUX L0 INFINITE KERNEL] Sovereign Backend running on port ${PORT}`);
+    console.log(`[QLUX L0 ULTIMATE SWARM KERNEL] Sovereign Backend running on port ${PORT}`);
     console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
 });
 
