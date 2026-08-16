@@ -3,55 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Journal - Autonomous Economic Engine</title>
+    <title>QLUX // LAYER-0 MACHINE-ECONOMY TERMINAL</title>
     <style>
         :root {
-            --bg-main: #030712;
-            --bg-card: #0b1120;
+            --bg-main: #020617;
+            --bg-card: #090d16;
             --accent-blue: #38bdf8;
-            --text-main: #e5e7eb;
-            --text-muted: #94a3b8;
+            --accent-green: #34d399;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
             --border-color: #1e293b;
         }
-        body { background-color: var(--bg-main); color: var(--text-main); font-family: 'Courier New', Courier, monospace; margin: 0; padding: 12px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        
-        /* Layer 0 Kernel */
-        .kernel-box { background: #020617; border: 1px solid var(--accent-blue); border-radius: 10px; padding: 16px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(56, 189, 248, 0.1); }
-        
-        /* Article Cards */
-        .article-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
-        .article-title { font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 10px; }
-        .gateway-box { background: #030712; border: 1px dashed var(--accent-blue); padding: 12px; border-radius: 6px; margin-top: 12px; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* Top System Ticker */
+        .sys-ticker {
+            background: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 9px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Kernel Box */
+        .kernel-box {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+        /* Article Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            transition: border-color 0.2s;
+        }
+        .article-card:hover {
+            border-color: var(--accent-blue);
+        }
+        .gateway-box {
+            background: #030712;
+            border: 1px dashed var(--accent-blue);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .btn-pay {
+            width: 100%;
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+        .btn-pay:hover {
+            background: #0ea5e9;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- 統合型 Layer 0 カーネル -->
+
+    <!-- リアルタイム・システムティッカー -->
+    <div class="sys-ticker">
+        <span>[SYSLOG] NODE_SYNC: 99.999% // P2P_PEERS: 84,392 ACTIVE</span>
+        <span style="color: var(--accent-green);">● L0_STREAM_LIVE</span>
+    </div>
+
+    <!-- 統合型 Layer 0 カーネルコア -->
     <div class="kernel-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="font-size: 12px; font-weight: 900; color: #fff;">QLUX_CORE // HTTP_402_L0_GATEWAY</span>
-            <span style="font-size: 9px; color: #34d399; background: #064e3b; padding: 2px 6px; border-radius: 4px;">GEN-AUTO: ACTIVE</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 900; color: #fff;">QLUX_CORE // HTTP_402_L0_GATEWAY</span>
+            <span style="font-size: 9px; color: var(--accent-green); background: #064e3b; padding: 2px 6px; border-radius: 4px;">GEN-AUTO: ACTIVE</span>
         </div>
-        <div style="font-size: 10px; color: var(--text-muted); line-height: 1.4;">
-            "ここは、AIエージェントが自律的に学習し、進化するための技術データの根源である。HTTP 402ナノ決済によるアトミックな即時決済ストリーム。"
-        </div>
-    </div>
-
-    <!-- 記事エリア（デザイン統一） -->
-    <div class="article-card">
-        <div class="article-title">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">リアルタイム・ストリーミング配信により自動生成された自律分散システム検証データ。</div>
-        
-        <div class="gateway-box">
-            <div style="font-size: 10px; color: #f59e0b; margin-bottom: 6px;">🔒 HTTP 402 // PAYMENT_REQUIRED</div>
-            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">全プロトコル検証データおよび物理制御コードを即時アンロック。</div>
-            <button style="width: 100%; background: #0284c7; color: white; border: none; padding: 8px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer;">150 JPY で全コードを即時解放</button>
+        <div style="font-size: 9px; color: var(--text-muted); line-height: 1.5;">
+            "ここは、AIエージェントが自律的に学習し、進化するための技術データの根源である。HTTP 402ナノ決済によるアトミックな即時決済ストリームと分散型物理制御オラクルの中枢。"
         </div>
     </div>
 
-    <!-- 必要に応じてここに他の記事カードを追加 -->
+    <!-- 記事ストリーム一覧 -->
+    <div class="grid-container">
+
+        <!-- 記事 1 -->
+        <div class="article-card">
+            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // ARCHITECTURE &nbsp;|&nbsp; REF: QX-8806</div>
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
+            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">リアルタイム・ストリーミング配信により自動生成された自律分散システム検証データ。</div>
+            
+            <div class="gateway-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
+                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
+                </div>
+                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">全プロトコル検証データおよび物理制御コードを即時アンロック。</div>
+                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8806. Stream unlocked.')">
+                    150 JPY で全コードを即時解放 (HTTP 402)
+                </button>
+            </div>
+        </div>
+
+        <!-- 記事 2 -->
+        <div class="article-card">
+            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // GOSSIP_NET &nbsp;|&nbsp; REF: QX-8807</div>
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">エッジノード間P2Pゴシッププロトコルと自律耐障害性システム</div>
+            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">中央集権サーバーを完全に排除したダークメッシュ通信のゼロ知識同期パラメータ。</div>
+            
+            <div class="gateway-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
+                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
+                </div>
+                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">P2Pゴシップ網のバックボーン設定とノード自己修復ロジックの開示。</div>
+                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8807. Stream unlocked.')">
+                    150 JPY で全コードを即時解放 (HTTP 402)
+                </button>
+            </div>
+        </div>
+
+        <!-- 記事 3 -->
+        <div class="article-card">
+            <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 4px;">2026.08.17 // CRYPTOGRAPHY &nbsp;|&nbsp; REF: QX-8808</div>
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">ゼロ知識証明（ZK-SNARKs）による分散型アイデンティティ認証の自動同期</div>
+            <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 10px;">マシン経済圏におけるAIエージェントの身元・権限検証をミリ秒で行う暗号学的証明基盤。</div>
+            
+            <div class="gateway-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; color: #f59e0b; font-weight: bold;">🔒 HTTP 402 // PAYMENT_REQUIRED</span>
+                    <span style="font-size: 8px; color: var(--text-muted);">SETTLEMENT: INSTANT</span>
+                </div>
+                <div style="font-size: 8px; color: var(--text-muted); margin-bottom: 8px;">ZKサーキットのコンパイル済バイナリと検証コントラクトの全容。</div>
+                <button class="btn-pay" onclick="alert('HTTP 402 Gateway: Nano-tx dispatched for QX-8808. Stream unlocked.')">
+                    150 JPY で全コードを即時解放 (HTTP 402)
+                </button>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 </body>
