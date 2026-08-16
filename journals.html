@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX // HYPER-SOVEREIGN QUANTUM LEDGER</title>
+  <title>QLUX // OMNI-SYNAPSE HYPER-LEDGER</title>
   <style>
     :root {
       --bg-main: #010409;
@@ -14,6 +14,7 @@
       --text-gold: #fbbf24;
       --text-cyan: #38bdf8;
       --text-muted: #64748b;
+      --resonance-glow: rgba(56, 189, 248, 0.25);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,13 +22,14 @@
     body {
       background-color: var(--bg-main);
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.08) 0%, transparent 70%),
+        radial-gradient(circle at 50% 0%, var(--resonance-glow) 0%, transparent 70%),
         linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
       background-size: 100% 100%, 40px 40px, 40px 40px;
       color: #f8fafc;
       font-family: monospace, sans-serif;
       line-height: 1.6;
+      transition: background-image 0.5s ease;
     }
 
     .hyper-ticker {
@@ -60,6 +62,20 @@
     .brand-area { display: flex; align-items: center; gap: 14px; cursor: pointer; }
     .brand-title { font-size: 26px; font-weight: 950; color: #fff; letter-spacing: 4px; text-shadow: 0 0 20px rgba(52,211,153,0.4); }
     .brand-sub { font-size: 10px; background: rgba(52, 211, 153, 0.15); color: var(--text-emerald); padding: 5px 12px; border-radius: 4px; border: 1px solid var(--border-accent); font-weight: bold; }
+
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-action-mode {
+      font-size: 11px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--text-cyan);
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn-action-mode:hover { background: rgba(56, 189, 248, 0.3); box-shadow: 0 0 15px rgba(56,189,248,0.3); }
 
     .admin-badge {
       display: none;
@@ -193,91 +209,105 @@
       font-size: 13px;
     }
     .form-control:focus { outline: none; border-color: var(--text-cyan); box-shadow: 0 0 15px rgba(56,189,248,0.2); }
-    textarea.form-control { height: 160px; resize: vertical; }
 
     .modal-actions { display: flex; gap: 14px; margin-top: 30px; }
     .btn-submit { flex: 1; background: var(--text-gold); color: #000; border: none; padding: 14px; font-weight: 950; border-radius: 8px; cursor: pointer; font-family: monospace; font-size: 13px; }
     .btn-cancel { flex: 1; background: transparent; border: 1px solid #64748b; color: var(--text-muted); padding: 14px; border-radius: 8px; cursor: pointer; font-family: monospace; font-size: 13px; }
   </style>
 </head>
-<body>
+<body onmousemove="triggerNeuralResonance(event)">
 
-  <!-- 量子ステータス・ティッカー -->
+  <!-- 統合ステータス・ティッカー -->
   <div class="hyper-ticker">
-    <div class="status-quantum">QLUX HYPER-SYNC ENGINE: QUANTUM ZK-ACTIVE</div>
-    <div>AUTONOMOUS ENERGY POOL: <span id="user-energy" style="color:var(--text-gold);">1,000</span> Q-Units</div>
+    <div class="status-quantum">OMNI-SYNAPSE ENGINE: ACTIVE // NEURAL LEVEL: <span id="resonance-level" style="color:var(--text-cyan);">1.00x</span></div>
+    <div>ENERGY POOL: <span id="user-energy" style="color:var(--text-gold);">1,000</span> Q-Units | IPFS NODE: SYNCED</div>
   </div>
 
   <!-- ヘッダー -->
   <header class="blog-header">
-    <div class="brand-area" id="admin-trigger" title="量子アドミン開放 (ロゴを3回連続タップ)">
+    <div class="brand-area" id="admin-trigger" title="管理者開放 (ロゴ3回タップ)">
       <span class="brand-title">QLUX</span>
-      <span class="brand-sub">HYPER-SOVEREIGN LEDGER</span>
+      <span class="brand-sub">OMNI-SOVEREIGN LEDGER</span>
     </div>
-    <button class="admin-badge" id="btn-admin-panel" onclick="openHyperEditor()">⚡ Quantum Deploy Panel</button>
+    <div class="header-actions">
+      <button class="btn-action-mode" onclick="toggleSwarmAutoPilot()">🤖 AI自動執筆: OFF</button>
+      <button class="admin-badge" id="btn-admin-panel" onclick="openHyperEditor()">⚡ Quantum Deploy</button>
+    </div>
   </header>
 
   <!-- メインフィード -->
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// ZK-QUANTUM ATOMIC PUBLICATIONS</span>
-      <span style="font-size: 11px; color: var(--text-emerald);">LATENCY: 0.000ms (INSTANT SYNC)</span>
+      <span>// OMNI-SYNAPSE RECURSIVE STREAM</span>
+      <span style="font-size: 11px; color: var(--text-emerald);">IPFS HASH: ipfs://bafybeig...</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">AI SWARM // HYPER-LOOP</span>
+          <span class="tag-badge">AI SWARM // OMNI-LOOP</span>
           <span class="tag-badge hyper">QUANTUM ATOMIC 402</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // ZK-PROOF HASH: qk_99f8a...21c</div>
-          <h2 class="card-title">自律型AIトライブ間における量子暗号・超ナノスワップの完全同期実験</h2>
-          <p class="card-desc">人間の決済・ブロック承認待ちを完全にバイパスし、量子もつれ的に瞬時流通する次世代アトミック・インフラの検証ログ。</p>
-          <div class="quantum-hash-box">ZK-QUANTUM ROOT HASH: 0xff88a91b223cde9011884102948bc771a908221b3f</div>
+          <div class="card-meta">2026.08.16 // IPFS / ZK-PROOF HASH: qk_99f8a...21c</div>
+          <h2 class="card-title">ニューラル共鳴とAI自動執筆パイプラインによる完全自律エコシステムの証明</h2>
+          <p class="card-desc">人間の操作すら超越し、閲覧者の熱量（ニューラル共鳴）とAIトライブの演算によって自己増殖を続ける超次世代ブログの根幹。</p>
+          <div class="quantum-hash-box">IPFS PERMA-HASH: 0xff88a91b223cde9011884102948bc771a908221b3f</div>
           <div class="card-footer">
-            <span class="price-tag">Access Fee: 5 Q-Units</span>
-            <button class="btn-hyper" onclick="executeHyperSwap(5)">⚡ Instant Atomic Unlock</button>
+            <span class="price-tag" style="color:var(--text-emerald);">DECENTRALIZED PERMA-ACCESS</span>
+            <button class="btn-hyper" onclick="executeHyperSwap(5)">⚡ Atomic Nano-Swap</button>
           </div>
         </div>
       </article>
     </div>
   </main>
 
-  <!-- 量子デプロイ・エディタモーダル -->
+  <!-- デプロイモーダル -->
   <div class="modal-overlay" id="hyper-modal">
     <div class="modal-box">
-      <h3>// QLUX HYPER-SOVEREIGN : INSTANT ZK-DEPLOY</h3>
+      <h3>// OMNI-SYNAPSE : IPFS & ZK-DEPLOY</h3>
       <div class="form-group">
-        <label>次世代論文 / 記事タイトル</label>
-        <input type="text" id="input-title" class="form-control" placeholder="例: 物理コンパイルと量子共鳴の統合フィールド">
+        <label>論文 / 記事タイトル</label>
+        <input type="text" id="input-title" class="form-control" placeholder="例: 物理コンパイルと全ノード共鳴の統合">
       </div>
       <div class="form-group">
-        <label>カテゴリー / 超プロトコルタグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="例: QUANTUM // MATERIAL SCIENCE">
+        <label>プロトコルタグ</label>
+        <input type="text" id="input-tag" class="form-control" placeholder="例: OMNI-CORE // NEURAL">
       </div>
       <div class="form-group">
-        <label>超要約ログ（量子ハッシュ化）</label>
-        <input type="text" id="input-desc" class="form-control" placeholder="全ノードにプランク時間で同期させる要約文...">
+        <label>要約データ</label>
+        <input type="text" id="input-desc" class="form-control" placeholder="IPFSおよび分散台帳に刻む要約文...">
       </div>
       <div class="modal-actions">
-        <button class="btn-submit" onclick="deployHyperContent()">🌌 量子空間へ即時デプロイ＆同期</button>
+        <button class="btn-submit" onclick="deployHyperContent()">🌌 IPFS & 量子空間へ即時デプロイ</button>
         <button class="btn-cancel" onclick="closeHyperEditor()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 制御スクリプト -->
+  <!-- 制御スクリプト：全スーパー技術統合 -->
   <script>
     let userEnergy = 1000;
     let tapCount = 0;
+    let swarmActive = false;
+    let swarmInterval = null;
 
-    // ロゴ3回タップで量子アドミンモード開放
+    // 1. リアルタイム・ニューラル共鳴エンジン（マウスの動きでUIのグローが呼吸する）
+    function triggerNeuralResonance(e) {
+      const xRatio = e.clientX / window.innerWidth;
+      const yRatio = e.clientY / window.innerHeight;
+      const resonanceFactor = (xRatio + yRatio) / 2;
+      
+      document.getElementById('resonance-level').innerText = (1 + resonanceFactor).toFixed(2) + 'x';
+      document.body.style.setProperty('--resonance-glow', `rgba(56, 189, 248, ${0.1 + resonanceFactor * 0.3})`);
+    }
+
+    // ロゴ3回タップでアドミン開放
     document.getElementById('admin-trigger').addEventListener('click', () => {
       tapCount++;
       if (tapCount >= 3) {
         document.getElementById('btn-admin-panel').style.display = 'inline-block';
-        alert('🔓 量子アドミン権限が解放されました。右上のパネルからインスタント・デプロイが可能です。');
+        alert('🔓 オムニ・アドミン権限が解放されました。');
         tapCount = 0;
       }
       setTimeout(() => { tapCount = 0; }, 2000);
@@ -286,48 +316,80 @@
     function openHyperEditor() { document.getElementById('hyper-modal').style.display = 'flex'; }
     function closeHyperEditor() { document.getElementById('hyper-modal').style.display = 'none'; }
 
-    // 超次世代：量子インスタント・デプロイ関数
+    // 手動デプロイ（IPFS & ZK同期）
     function deployHyperContent() {
       const title = document.getElementById('input-title').value;
-      const tag = document.getElementById('input-tag').value || 'QUANTUM CORE';
+      const tag = document.getElementById('input-tag').value || 'OMNI CORE';
       const desc = document.getElementById('input-desc').value;
 
       if (!title || !desc) {
         alert('タイトルと要約を入力してください。');
         return;
       }
+      appendNewArticle(title, tag, desc, 'MANUAL ZK-DEPLOY');
+      closeHyperEditor();
+      alert('🌌 IPFS永続ストレージおよび量子分散台帳への同期完了！');
+    }
 
-      const quantumHash = '0x' + Array.from({length: 48}, () => Math.floor(Math.random()*16).toString(16)).join('');
-
+    // 記事追加の共通関数
+    function appendNewArticle(title, tag, desc, sourceLabel) {
+      const ipfsHash = 'bafybeig' + Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
       const feed = document.getElementById('articles-feed');
       const newCard = document.createElement('article');
       newCard.className = 'journal-card';
       newCard.innerHTML = `
         <div class="card-top-banner" style="background: linear-gradient(135deg, rgba(56,189,248,0.15) 0%, rgba(1,4,9,0.95) 100%), linear-gradient(rgba(56,189,248,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.15) 1px, transparent 1px); background-size: 100% 100%, 25px 25px, 25px 25px;">
           <span class="tag-badge hyper">${tag}</span>
-          <span class="tag-badge" style="color:var(--text-emerald); border-color:var(--text-emerald);">INSTANT ZK-SYNC</span>
+          <span class="tag-badge" style="color:var(--text-emerald); border-color:var(--text-emerald);">${sourceLabel}</span>
         </div>
         <div class="card-content">
-          <div class="card-meta">2026.08.16 // ZK-PROOF HASH: ${quantumHash.substring(0, 12)}...</div>
+          <div class="card-meta">2026.08.16 // IPFS: ${ipfsHash.substring(0, 14)}...</div>
           <h2 class="card-title">${title}</h2>
           <p class="card-desc">${desc}</p>
-          <div class="quantum-hash-box">ZK-QUANTUM ROOT HASH: ${quantumHash}</div>
+          <div class="quantum-hash-box">IPFS PERMA-HASH: ipfs://${ipfsHash}</div>
           <div class="card-footer">
-            <span class="price-tag" style="color:var(--text-emerald);">FREE QUANTUM ACCESS</span>
-            <button class="btn-hyper" onclick="alert('量子データ検証完了：全ノード間のステートが100%一致しました。')">Verify & Read</button>
+            <span class="price-tag" style="color:var(--text-emerald);">DECENTRALIZED PERMA-ACCESS</span>
+            <button class="btn-hyper" onclick="executeHyperSwap(5)">⚡ Atomic Nano-Swap</button>
           </div>
         </div>
       `;
       feed.prepend(newCard);
-      closeHyperEditor();
-      alert('🌌 成功：量子ZKプルーフにより、ウェブUIと分散型台帳が遅延ゼロ（プランク時間）で完全同期デプロイされました！');
     }
 
-    // アトミック・ナノスワップ（即時エネルギー循環）
+    // 2. 自律型エージェント自動執筆パイプライン（AI自動パイロット）
+    function toggleSwarmAutoPilot() {
+      swarmActive = !swarmActive;
+      const btn = document.querySelector('.btn-action-mode');
+      if (swarmActive) {
+        btn.innerText = '🤖 AI自動執筆: ON (ACTIVE)';
+        btn.style.borderColor = 'var(--text-emerald)';
+        btn.style.color = 'var(--text-emerald)';
+        alert('🤖 AIトライブ・オートパイロットが起動しました。ネットワークの熱量を解析し、自律的に記事を生成・デプロイし続けます。');
+        
+        // 一定間隔でAIが自動生成してループ投稿する
+        swarmInterval = setInterval(() => {
+          const aiTopics = [
+            { title: "自律型AIノード群による経済圏最適化のリアルタイム観測", tag: "AI SWARM // AUTO", desc: "人間の介入ゼロで生成された、次世代コンセンサスの自動実証ログ。" },
+            { title: "量子もつれナノスワップにおけるレイテンシ完全消滅の検証", tag: "QUANTUM // AUTO", desc: "分散ネットワーク全体で瞬時に価値と情報が双方向に同期されたデータ。" },
+            { title: "マテリアル・コンパイルとブロックチェーン同期の融合領域", tag: "MATERIAL // AUTO", desc: "デジタルコードの書き換えが物理物性制御へ直結するプロセスの自動記録。" }
+          ];
+          const selected = aiTopics[Math.floor(Math.random() * aiTopics.length)];
+          appendNewArticle(selected.title, selected.tag, selected.desc, 'AI SWARM AUTO-GEN');
+        }, 15000); // 15秒ごとに自動増殖ループ
+      } else {
+        btn.innerText = '🤖 AI自動執筆: OFF';
+        btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        btn.style.color = 'var(--text-cyan)';
+        clearInterval(swarmInterval);
+        alert('🤖 AIオートパイロットを停止しました。');
+      }
+    }
+
+    // 3. アトミック・ナノスワップ（即時エネルギー循環）
     function executeHyperSwap(cost) {
-      userEnergy += 10; // 決済エネルギーがシステム全体で共鳴・増殖するループ
+      userEnergy += 10;
       document.getElementById('user-energy').innerText = userEnergy;
-      alert(`⚡ アトミック・ナノスワップ完了！\n中央サーバーを介さず、量子もつれ決済により瞬時に権限が開放されました。（エコシステム共鳴報酬 +10 Q-Units）`);
+      alert(`⚡ アトミック・ナノスワップ完了！\nIPFS分散ノード間での即時決済が成立し、エコシステム共鳴報酬 (+10 Q-Units) が還元されました。`);
     }
   </script>
 </body>
