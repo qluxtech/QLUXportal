@@ -42,14 +42,14 @@
         }
         .btn-toggle-stream {
             background: #111827;
-            border: 1px solid #4b5563;
-            color: var(--text-muted);
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
             padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 700;
-            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
         .journal-container {
             display: flex;
@@ -175,7 +175,7 @@
 
     <div class="control-bar">
         <span style="font-size: 12px; color: var(--text-muted);">アーキテクチャ同期配信ストリーム</span>
-        <button id="stream-btn" class="btn-toggle-stream" onclick="toggleStream()">自動配信: OFF</button>
+        <button id="stream-btn" class="btn-toggle-stream" onclick="toggleStream()">自動配信: ON (Live)</button>
     </div>
 
     <main class="journal-container" id="feed-container">
@@ -227,22 +227,40 @@
         let streamInterval = null;
         let articleCount = 1;
 
+        // ページ読み込み完了と同時に自動で配信をスタート
+        window.addEventListener('DOMContentLoaded', () => {
+            startStream();
+        });
+
         function toggleStream() {
             const btn = document.getElementById('stream-btn');
             if (btn.innerText.includes('OFF')) {
-                btn.innerText = '自動配信: ON';
-                btn.style.color = '#38bdf8';
-                btn.style.borderColor = '#38bdf8';
-                
-                // 即座に1回生成してから、4秒おきに生成開始
-                generateNewJournalArticle();
-                streamInterval = setInterval(generateNewJournalArticle, 4000);
+                startStream();
             } else {
-                btn.innerText = '自動配信: OFF';
-                btn.style.color = '';
-                btn.style.borderColor = '';
-                clearInterval(streamInterval);
+                stopStream();
             }
+        }
+
+        function startStream() {
+            const btn = document.getElementById('stream-btn');
+            btn.innerText = '自動配信: ON (Live)';
+            btn.style.color = '#38bdf8';
+            btn.style.borderColor = '#38bdf8';
+            
+            if (!streamInterval) {
+                streamInterval = setInterval(() => {
+                    generateNewJournalArticle();
+                }, 4000);
+            }
+        }
+
+        function stopStream() {
+            const btn = document.getElementById('stream-btn');
+            btn.innerText = '自動配信: OFF';
+            btn.style.color = '#9ca3af';
+            btn.style.borderColor = '#4b5563';
+            clearInterval(streamInterval);
+            streamInterval = null;
         }
 
         function generateNewJournalArticle() {
