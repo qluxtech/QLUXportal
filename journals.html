@@ -245,23 +245,56 @@
   </div>
 
   <script>
-    const WALLET_ADDR_BSV = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+// あなたの正確なBSV受取アドレス
+const WALLET_ADDR_BSV = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
 
 let activeTargetId = "";
 let activeArticleTitle = "";
 let streamInterval = null;
 let isStreamActive = false;
 
+// 自動配信用の多彩な最先端記事データプール
+const ARTICLE_DATA_POOL = [
+    {
+        title: "ゼロ知識証明（ZKP）を用いたトラストレス・クロスチェーン検証の最適化",
+        category: "ZERO-KNOWLEDGE CRYPTOGRAPHY",
+        snippet: "async function verifyZkProof(proof, publicInputs) {\n  return await zkSnark.verify(VerificationKey, proof, publicInputs);\n}",
+        body: "トラストレスなブリッジングにおける計算量を大幅に削減し、オンチェーンでのガス効率を極限まで高めるためのZKP回路設計と検証プロトコルについての考察。"
+    },
+    {
+        "title": "ライトニングネットワークを拡張したリアルタイム・マイクロペイメントの動的ルーティング",
+        "category": "LAYER-2 SCALING",
+        "snippet": "const channel = await LightningNode.openChannel({\n  pubkey: '02x...',\n  amountSats: 15000\n});",
+        "body": "ナノ秒単位の決済処理を実現するため、エッジノード間で流動性を自動最適化し、手数料を最小化するチャネル管理アルゴリズム。"
+    },
+    {
+        "title": "アトミック・スワップにおけるハッシュ時間ロック契約（HTLC）の耐量子暗号化",
+        "category": "DECENTRALIZED PROTOCOLS",
+        "snippet": "def execute_htlc_swap(secret_hash, timelock):\n  return quantum_safe_lock(secret_hash, timelock)",
+        "body": "将来的な量子コンピューティングの脅威に対抗するため、分散型クロスチェーン交換プロトコルに格子暗号ベースの耐量子ハッシュ関数を統合する実装。"
+    },
+    {
+        "title": "分散型自律組織（DAO）における二次方投票（Quadratic Voting）の耐シビル攻撃アルゴリズム",
+        "category": "GOVERNANCE ARCHITECTURE",
+        "snippet": "function calculateQuadraticVotes(contributions) {\n  return Math.sqrt(contributions.reduce((a, b) => a + b, 0));\n}",
+        "body": "アイデンティティ検証とゼロ知識個人認証を組み合わることで、シビル攻撃を防止しながらコミュニティの意向を正確に集約するガバナンス設計。"
+    }
+];
+
 function toggleStream() {
     const btn = document.getElementById('stream-btn');
     isStreamActive = !isStreamActive;
     if (isStreamActive) {
-        btn.innerText = "自動配信: ON";
-        btn.classList.add('active');
-        streamInterval = setInterval(appendArticle, 12000);
+        if (btn) {
+            btn.innerText = "自動配信: ON";
+            btn.classList.add('active');
+        }
+        streamInterval = setInterval(appendArticle, 8000); // 8秒ごとにランダム生成
     } else {
-        btn.innerText = "自動配信: OFF";
-        btn.classList.remove('active');
+        if (btn) {
+            btn.innerText = "自動配信: OFF";
+            btn.classList.remove('active');
+        }
         clearInterval(streamInterval);
     }
 }
@@ -269,29 +302,29 @@ function toggleStream() {
 function appendArticle() {
     const container = document.getElementById('feed-container');
     if (!container) return;
-    const refid = 'QX-' + Math.floor(Math.random() * 90000 + 10000);
     
+    // ランダムに記事データを取得
+    const articleData = ARTICLE_DATA_POOL[Math.floor(Math.random() * ARTICLE_DATA_POOL.length)];
+    const refid = 'QX-' + Math.floor(Math.random() * 90000 + 10000);
+    const nowStr = new Date().toISOString().slice(0,10).replace(/-/g, '.');
+
     const card = document.createElement('article');
-    card.name = 'article-card';
+    card.className = 'article-card';
     card.innerHTML = `
-        <div class="article-meta">2026.08.16 // SYSTEMS ARCHITECTURE<span>REF: ${refid}</span></div>
-        <h2 class="article-title">分散型インフラストラクチャにおける高スループット非同期処理の設計思想</h2>
+        <div class="article-meta">${nowStr} // ${articleData.category}<span>REF: ${refid}</span></div>
+        <h2 class="article-title">${articleData.title}</h2>
         <div class="article-body">
-            <p>現代の大規模分散システムにおいて、単一障害点を排除したピアツーピアのデータ同期と高効率な負荷分散は不可欠な要素です。本稿では、中央集権的なボトルネックを回避しつつ、ミリ秒単位での整合性を維持する分散コンセンサスの実装アプローチを解説します。</p>
+            <p>${articleData.body}</p>
             <div class="code-snippet">
-                // Distributed Async Engine Core<br>
-                async function syncNodeCluster(payload) {<br>
-                &nbsp;&nbsp;return await NetworkMesh.broadcastProtocol(payload);<br>
-                }<br>
+                ${articleData.snippet.replace(/\n/g, '<br>&nbsp;&nbsp;')}
             </div>
-            <p>エッジ側での自律処理力を高め、ネットワーク全体の冗長性と耐障害性を飛躍的に向上させるための具体的なシステム構成モデルについて検証します。</p>
         </div>
         <div class="status-box">
             <span>SECURITY HASH: <span id="${refid}" class="status-val">VERIFIED / SYNCED</span></span>
         </div>
         <div class="article-footer">
             <span class="price-label">150 JPY</span>
-            <button class="btn-access" onclick="openModal('分散型インフラストラクチャにおける高スループット非同期処理の設計思想', '${refid}')">決済して記事を読む</button>
+            <button class="btn-access" onclick="openModal('${articleData.title}', '${refid}')">決済して記事を読む</button>
         </div>
     `;
     container.prepend(card);
@@ -301,104 +334,69 @@ function openModal(title, targetId) {
     activeArticleTitle = title;
     activeTargetId = targetId;
     
-    // モーダルを表示
     const modal = document.getElementById('payment-modal');
-    if (modal) modal.style.display = 'block';
+    if (modal) modal.style.display = 'flex';
     
-    // あなたのBSVアドレスを画面に反映
-    const addrDisplay = document.getElementById('payment-address-display');
-    if (addrDisplay) {
-        addrDisplay.innerText = WALLET_ADDR_BSV;
+    // アドレス表示要素を更新
+    updateAddressDisplay();
+}
+
+function updateAddressDisplay() {
+    // 画面内の各種アドレス表示箇所（inputやdiv、code要素など）をあなたのBSVアドレスへ強制書き換え
+    const selectors = [
+        '#payment-address-display',
+        '.action-view code',
+        '.action-view input',
+        '[data-address]'
+    ];
+    
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            if (el.tagName === 'INPUT') {
+                el.value = WALLET_ADDR_BSV;
+            } else {
+                el.innerText = WALLET_ADDR_BSV;
+            }
+        });
+    });
+}
+
+function selectMethod(methodName, type) {
+    const view = document.getElementById('action-view');
+    const title = document.getElementById('view-title');
+    const desc = document.getElementById('view-desc');
+    const form = document.getElementById('view-form');
+
+    if (view) view.style.display = 'block';
+
+    if (type === 'wallet' || methodName.includes('Bitcoin SV')) {
+        if (title) title.innerText = "Bitcoin SV (BSV) 決済";
+        if (desc) desc.innerText = "指定の決済アドレスまたはQRコードへお支払いください。";
+        if (form) {
+            form.innerHTML = `
+                <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; border: 1px dashed var(--text-blue); margin-bottom: 10px; word-break: break-all; font-family: monospace; font-size: 13px;">
+                    ${WALLET_ADDR_BSV}
+                </div>
+                <button class="btn-submit" onclick="completePayment('${methodName}')">送金完了を通知する</button>
+            `;
+        }
+    } else {
+        // その他の決済種別のデフォルト表示
+        if (title) title.innerText = methodName + " 決済";
+        if (desc) desc.innerText = "選択されたプロトコルで決済を処理します。";
+        if (form) {
+            form.innerHTML = `<button class="btn-submit" onclick="completePayment('${methodName}')">決済を実行する</button>`;
+        }
     }
 }
 
-    function closeModal() {
-      document.getElementById('payment-modal').style.display = 'none';
-      document.getElementById('action-view').style.display = 'none';
-    }
-
-    function switchTab(tab) {
-      ['crypto', 'bank', 'card'].forEach(t => {
-        document.getElementById(`tab-${t}`).style.display = (t === tab) ? (t === 'crypto' ? 'grid' : 'block') : 'none';
-      });
-      document.getElementById('action-view').style.display = 'none';
-    }
-
-    function selectMethod(methodName, type) {
-      const view = document.getElementById('action-view');
-      const title = document.getElementById('view-title');
-      const desc = document.getElementById('view-desc');
-      const form = document.getElementById('view-form');
-
-      view.style.display = 'block';
-      form.innerHTML = '';
-
-      if (type === 'bank-form') {
-        title.innerText = "銀行振込（自動消込システム）";
-        desc.innerHTML = "振込先: <b>GMOあおぞらネット銀行</b> 法人営業部 普通 1234567<br>金額: 150 JPY（名義照合による即時自動承認）";
-        form.innerHTML = `
-          <label style="color:var(--text-muted); font-size:11px;">お振込名義人（カタカナ）:</label>
-          <input type="text" class="input-box" placeholder="ヤマダ タロウ">
-          <button class="btn-submit" onclick="completePayment('${methodName}')">振込照合を申請する</button>
-        `;
-      } else if (type === 'zkp') {
-        title.innerText = "ZKP ゼロ知識証明クリアランス";
-        desc.innerText = "個人情報を秘匿したまま、数理的な証明によってシステムアクセス権を即座に発行します。";
-        form.innerHTML = `
-          <div style="background:#030712; padding:8px; border:1px dashed var(--text-green); font-size:10px; color:var(--text-green); margin-bottom:10px; word-break:break-all;">
-            ZKP_SECURE_CLEARANCE_HASH_0x9988
-          </div>
-          <button class="btn-submit" onclick="completePayment('${methodName}')">証明を送信して閲覧権を取得</button>
-        `;
-      } else if (type === 'swap') {
-        title.innerText = "アトミック・スワップ実行";
-        desc.innerText = "スマートコントラクト（HTLC）を用いて、仲介者を介さず直接資産を交換します。";
-        form.innerHTML = `
-          <div style="background:#030712; padding:8px; border:1px dashed var(--text-gold); font-size:10px; color:var(--text-gold); margin-bottom:10px; word-break:break-all;">
-            HTLC_SWAP_VAULT_ADDRESS_XYZ
-          </div>
-          <button class="btn-submit" onclick="completePayment('${methodName}')">スワップを実行する</button>
-        `;
-      } else if (type === 'wallet' || type === 'qr') {
-        title.innerText = `${methodName} 決済`;
-        desc.innerText = "指定の決済アドレスまたはQRコードへお支払いください。";
-        form.innerHTML = `
-          <div style="background:#030712; padding:8px; border:1px dashed var(--text-blue); font-size:10px; color:var(--text-blue); margin-bottom:10px; word-break:break-all;">
-            1SystemArchitectureVaultAddressXYZ99
-          </div>
-          <button class="btn-submit" onclick="completePayment('${methodName}')">送金完了を通知する</button>
-        `;
-      } else if (type === 'card-form') {
-        title.innerText = "クレジットカード / Google Pay 決済";
-        desc.innerText = "セキュアな決済インフラストラクチャを介して即時処理を行います。";
-        form.innerHTML = `
-          <input type="text" class="input-box" placeholder="カード番号 (4242 4242...)">
-          <div style="display:flex; gap:6px;">
-            <input type="text" class="input-box" placeholder="MM/YY">
-            <input type="text" class="input-box" placeholder="CVC">
-          </div>
-          <button class="btn-submit" onclick="completePayment('${methodName}')">150 JPY を決済実行</button>
-        `;
-      }
-    }
-
-    function completePayment(methodName) {
-      if (activeTargetId && document.getElementById(activeTargetId)) {
-        const target = document.getElementById(activeTargetId);
-        target.innerText = "VERIFIED (ACCESS GRANTED)";
-        target.style.color = "var(--text-green)";
-      }
-      closeModal();
-      
-      const msg = `✔ 「${activeArticleTitle}」の決済（${methodName}）が正常に確認されました。技術ジャーナルの閲覧権が有効化されています。`;
-      document.getElementById('alert-msg-text').innerText = msg;
-      document.getElementById('alert-modal').style.display = 'flex';
-    }
-
-    function closeAlert() {
-      document.getElementById('alert-modal').style.display = 'none';
-    }
-  </script>
+function closeModal() {
+    const modal = document.getElementById('payment-modal');
+    const view = document.getElementById('action-view');
+    if (modal) modal.style.display = 'none';
+    if (view) view.style.display = 'none';
+}
+</script>
 </body>
 </html>
 
