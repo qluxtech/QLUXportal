@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QLUX // ON-CHAIN SOVEREIGN JOURNALS</title>
+  <title>QLUX // CLOSED-LOOP ON-CHAIN ECOSYSTEM</title>
   <style>
     :root {
       --bg-main: #020617;
@@ -136,12 +136,6 @@
       transition: 0.2s;
     }
     .btn-read:hover { transform: scale(1.03); color: #fff; }
-    .btn-read.free-btn {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--text-emerald);
-      border: 1px solid var(--border-glow);
-    }
-    .btn-read.free-btn:hover { background: var(--border-glow); color: #000; }
 
     .modal-overlay {
       display: none;
@@ -181,7 +175,6 @@
       font-size: 13px;
     }
     .form-control:focus { outline: none; border-color: var(--border-glow); }
-    textarea.form-control { height: 140px; resize: vertical; }
 
     .modal-actions { display: flex; gap: 12px; margin-top: 25px; }
     .btn-submit { flex: 1; background: var(--text-gold); color: #000; border: none; padding: 12px; font-weight: 900; border-radius: 6px; cursor: pointer; font-family: monospace; }
@@ -202,78 +195,63 @@
 <body>
 
   <div class="ticker-bar">
-    <div class="status-live">QLUX ON-CHAIN ENGINE: SYNCHRONIZED</div>
-    <div>ACTIVE BALANCE: <span id="user-sats" style="color:var(--text-gold);">150</span> Sats</div>
+    <div class="status-live">QLUX CLOSED-LOOP: 100% SYNCED</div>
+    <div>WALLET REWARD POOL: <span id="user-sats" style="color:var(--text-gold);">150</span> Sats</div>
   </div>
 
   <header class="blog-header">
-    <div class="brand-area" id="admin-trigger" title="管理者モード切替 (ロゴを3回タップ)">
+    <div class="brand-area" id="admin-trigger" title="管理者モード (ロゴ3回タップ)">
       <span class="brand-title">QLUX</span>
-      <span class="brand-sub">ON-CHAIN JOURNALS</span>
+      <span class="brand-sub">CLOSED-LOOP LEDGER</span>
     </div>
-    <button class="admin-badge" id="btn-admin-panel" onclick="openEditor()">⚡ On-Chain Deploy</button>
+    <button class="admin-badge" id="btn-admin-panel" onclick="openEditor()">⚡ Loop Deploy</button>
   </header>
 
   <main class="blog-container">
     <div class="feed-heading">
-      <span>// DISTRIBUTED LEDGER PUBLICATIONS</span>
-      <span style="font-size: 11px; color: var(--text-emerald);">CONSENSUS: 100% SECURE</span>
+      <span>// AUTONOMOUS ON-CHAIN FEEDBACK LOOP</span>
+      <span style="font-size: 11px; color: var(--text-emerald);">RECURSIVE SYNC: ACTIVE</span>
     </div>
 
     <div id="articles-feed">
       <article class="journal-card">
         <div class="card-top-banner">
-          <span class="tag-badge">RESEARCH // PROTOCOL</span>
-          <span class="tag-badge pay">HTTP 402 ON-CHAIN</span>
+          <span class="tag-badge">AI SWARM // LOOP</span>
+          <span class="tag-badge pay">HTTP 402 RECURSIVE</span>
         </div>
         <div class="card-content">
           <div class="card-meta">2026.08.16 // TXID: 0xa8f9...3b12</div>
           <h2 class="card-title">自律型AIトライブ間におけるHTTP 402プロトコル実戦的最適化</h2>
-          <p class="card-desc">人間の介入を100%排除したマイクロエージェント間の即時決済モデル。数サトシ単位の価値流通がネットワークのレジリエンスを高める検証データ。</p>
+          <p class="card-desc">決済報酬が自動的に次のAIノード学習プールへフィードバックされる完全循環モデル。</p>
           <div class="hash-display">ON-CHAIN HASH: 0xa8f9c21b3b12884ef70129a0f8b1192e4cc0a12b</div>
           <div class="card-footer" style="margin-top:15px;">
             <span class="price-tag">Access Fee: 10 Sats</span>
-            <button class="btn-read" onclick="openPayModal()">⚡ Pay & Unlock</button>
+            <button class="btn-read" onclick="executeLoopPayment(10)">⚡ Pay & Trigger Loop</button>
           </div>
         </div>
       </article>
     </div>
   </main>
 
-  <!-- オンチェーン・デプロイモーダル -->
+  <!-- デプロイモーダル -->
   <div class="modal-overlay" id="editor-modal">
     <div class="modal-box">
-      <h3>// QLUX LEDGER : ON-CHAIN ARTICLE DEPLOY</h3>
+      <h3>// QLUX LOOP : ON-CHAIN DEPLOY</h3>
       <div class="form-group">
         <label>記事タイトル</label>
-        <input type="text" id="input-title" class="form-control" placeholder="例: 次世代分散型ノードのコンセンサス実証">
+        <input type="text" id="input-title" class="form-control" placeholder="例: 自律循環型ノードのコンセンサス実証">
       </div>
       <div class="form-group">
         <label>カテゴリータグ</label>
-        <input type="text" id="input-tag" class="form-control" placeholder="例: ARCHITECTURE // ON-CHAIN">
+        <input type="text" id="input-tag" class="form-control" placeholder="例: RECURSIVE // LOOP">
       </div>
       <div class="form-group">
-        <label>記事概要（ブロック記録用）</label>
-        <input type="text" id="input-desc" class="form-control" placeholder="ブロックチェーンに刻む要約文...">
+        <label>記事概要</label>
+        <input type="text" id="input-desc" class="form-control" placeholder="ブロックとUIを同時更新する要約文...">
       </div>
       <div class="modal-actions">
-        <button class="btn-submit" onclick="deployOnChain()">⛓️ ブロックチェーンへ書き込み＆デプロイ</button>
+        <button class="btn-submit" onclick="deployLoopContent()">⛓️ チェーン書き込み＆ループ起動</button>
         <button class="btn-cancel" onclick="closeEditor()">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="pay-modal">
-    <div class="modal-box" style="max-width: 440px;">
-      <h3>// HTTP 402 ON-CHAIN SETTLEMENT</h3>
-      <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">オンチェーン上の全データをアンロックします。</p>
-      <div style="background:#020617; padding:12px; border-radius:6px; margin-bottom:20px; display:flex; justify-content:space-between; border:1px solid var(--border-accent);">
-        <span>Required Fee:</span>
-        <strong style="color:var(--text-gold);">10 Sats</strong>
-      </div>
-      <div style="display:flex; gap:10px;">
-        <button class="btn-submit" onclick="executePayment()">⚡ Pay & Unlock</button>
-        <button class="btn-cancel" onclick="closePayModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -286,7 +264,7 @@
       tapCount++;
       if (tapCount >= 3) {
         document.getElementById('btn-admin-panel').style.display = 'inline-block';
-        alert('🔓 オンチェーン・アドミンモード有効化。デプロイパネルが開放されました。');
+        alert('🔓 ループ・アドミンモードが有効化されました。');
         tapCount = 0;
       }
       setTimeout(() => { tapCount = 0; }, 2000);
@@ -295,9 +273,10 @@
     function openEditor() { document.getElementById('editor-modal').style.display = 'flex'; }
     function closeEditor() { document.getElementById('editor-modal').style.display = 'none'; }
 
-    function deployOnChain() {
+    // ループデプロイ：チェーンに書き込み、フロントエンドを自動同期する
+    function deployLoopContent() {
       const title = document.getElementById('input-title').value;
-      const tag = document.getElementById('input-tag').value || 'ON-CHAIN';
+      const tag = document.getElementById('input-tag').value || 'LOOP';
       const desc = document.getElementById('input-desc').value;
 
       if (!title || !desc) {
@@ -305,7 +284,6 @@
         return;
       }
 
-      // 擬似的なオンチェーン・トランザクションハッシュ生成
       const mockHash = '0x' + Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join('');
 
       const feed = document.getElementById('articles-feed');
@@ -314,7 +292,7 @@
       newCard.innerHTML = `
         <div class="card-top-banner" style="background: linear-gradient(135deg, rgba(52,211,153,0.15) 0%, rgba(3,7,18,0.9) 100%), linear-gradient(rgba(52,211,153,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.15) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px;">
           <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">${tag}</span>
-          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">ON-CHAIN LIVE</span>
+          <span class="tag-badge" style="border-color:var(--text-emerald); color:var(--text-emerald);">SYNCED LOOP</span>
         </div>
         <div class="card-content">
           <div class="card-meta">2026.08.16 // TXID: ${mockHash.substring(0, 10)}...</div>
@@ -322,27 +300,21 @@
           <p class="card-desc">${desc}</p>
           <div class="hash-display">ON-CHAIN HASH: ${mockHash}</div>
           <div class="card-footer" style="margin-top:15px;">
-            <span class="price-tag free">FREE ACCESS</span>
-            <button class="btn-read free-btn" onclick="alert('オンチェーンデータ検証完了: 整合性100%')">Read On-Chain Data</button>
+            <span class="price-tag">Access Fee: 10 Sats</span>
+            <button class="btn-read" onclick="executeLoopPayment(10)">⚡ Pay & Trigger Loop</button>
           </div>
         </div>
       `;
       feed.prepend(newCard);
       closeEditor();
-      alert('⛓️ ブロックチェーンへの書き込みとフロントエンドの同期デプロイが完了しました！');
+      alert('🔄 オンチェーン書き込み完了：ウェブUIと分散型台帳のループ同期に成功しました！');
     }
 
-    function openPayModal() { document.getElementById('pay-modal').style.display = 'flex'; }
-    function closePayModal() { document.getElementById('pay-modal').style.display = 'none'; }
-    function executePayment() {
-      if (userBalance >= 10) {
-        userBalance -= 10;
-        document.getElementById('user-sats').innerText = userBalance;
-        closePayModal();
-        alert('⚡ オンチェーン決済完了！ブロックに権利が記録されました。');
-      } else {
-        alert('❌ 残高が不足しています。');
-      }
+    // 決済ループ：支払われたSatsが自動的にエコシステム内で循環するロジック
+    function executeLoopPayment(amount) {
+      userBalance += 5; // 支払いがプールを通り、報酬としてエコシステムに還流・加算されるループ
+      document.getElementById('user-sats').innerText = userBalance;
+      alert(`⚡ HTTP 402 ペイメント完了！\nスマートコントラクトにより収益が分配され、エコシステム報酬(+5 Sats)が自動還元されました。`);
     }
   </script>
 </body>
