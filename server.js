@@ -464,3 +464,44 @@ const server = http.createServer(async (req, res) => {
         }
 
         const isValid = await verifyBSVTransaction(
+            authHeader);
+        if (!isValid) {
+            res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: "BSV Payment verification failed." }));
+            return;
+        }
+
+        processedTxs.add(authHeader);
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            status: "HYPER_SUCCESS",
+            txid: authHeader,
+            data_sector: journal
+        }));
+        return;
+    }
+
+    let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
+    fs.readFile(filePath, (err, content) => {
+        if (err) {
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(EMBEDDED_HTML);
+        } else {
+            let ext = path.extname(filePath);
+            let contentType = 'text/html';
+            if (ext === '.js') contentType = 'text/javascript';
+            if (ext === '.css') contentType = 'text/css';
+            if (ext === '.json') contentType = 'application/json';
+
+            res.writeHead(200, { 'Content-Type': `${contentType}; charset=utf-8` });
+            res.end(content);
+        }
+    });
+});
+
+server.listen(PORT, () => {
+    console.log(`[QLUX L0 HYPER CORE] Sovereign Backend running on port ${PORT}`);
+    console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
+    initSingularityBeacon();
+});
+
