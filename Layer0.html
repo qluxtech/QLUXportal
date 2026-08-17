@@ -32,7 +32,45 @@
         .agent-node { border: 1px solid var(--border-color); padding: 8px; font-size: 8px; text-align: center; background: #0f172a; border-radius: 4px; color: #94a3b8; }
     </style>
 </head>
-<body>
+<body><!-- QSSM リアルタイム経済・帝国ダイナスティ可視化パネル -->
+<div id="qssm-economy-widget" style="background: rgba(0, 20, 40, 0.9); border: 1px solid #00ffcc; padding: 15px; border-radius: 8px; font-family: monospace; color: #00ffcc; margin-top: 20px;">
+    <h3 style="margin-top: 0; border-bottom: 1px solid #00ffcc; padding-bottom: 5px;">⚡ QSSM FLASH ECONOMY & DYNASTY LIVE</h3>
+    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+        <span>Treasury Reserve:</span>
+        <strong id="live-treasury" style="color: #ffff00;">100,000 Sats</strong>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+        <span>Active Infrastructure Nodes:</span>
+        <strong id="live-nodes" style="color: #ff00ff;">1 Node</strong>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+        <span>Stream Status:</span>
+        <span style="color: #00ff00;">● STREAMING (1 Sat/Op)</span>
+    </div>
+    <div style="margin-top: 15px; font-size: 0.85em; color: #88aaff;">
+        * Auto-Expansion Threshold: 50,000 Sats per node upgrade.
+    </div>
+</div>
+
+<script>
+    // ライブ可視化のシミュレーション連動スクリプト
+    let currentTreasury = 100000;
+    let currentNodes = 1;
+
+    setInterval(() => {
+        // トランザクション量の増加に伴う自動複利成長のライブ更新シミュレーション
+        currentTreasury += Math.floor(Math.random() * 1500) + 500;
+        
+        if (currentTreasury >= 150000) {
+            currentTreasury -= 50000;
+            currentNodes++;
+        }
+
+        document.getElementById('live-treasury').innerText = currentTreasury.toLocaleString() + " Sats";
+        document.getElementById('live-nodes').innerText = currentNodes + " Node" + (currentNodes > 1 ? "s" : "");
+    }, 2000);
+</script>
+
 
 <div class="core-container">
     <!-- メイン制御ユニット & HTTP 402 ゲートウェイ -->
