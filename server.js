@@ -5,25 +5,18 @@ const path = require('path');
 const url = require('url');
 
 const PORT = process.env.PORT || 10000;
-
-// BSV 決済受取用アドレス（完全直結）
 const TARGET_BSV_ADDRESS = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
 
-// 冪等性シールド ＆ トラフィック監視
 const processedTxs = new Set();
 let globalRequestCounter = 0; 
 const loadHistory = [];
-
-// ミリ秒先読み決済のための予測キャッシュ・ストレージ
 const predictiveCache = new Map();
 
-// 究極自律型・無限データ生成エンジン (Singularity Payload)
 function generateSingularityPayload(index) {
     globalRequestCounter++;
     const peakMultiplier = 1 + Math.pow(globalRequestCounter, 1.1) / 30;
     const dynamicFee = Math.max(10, Math.floor(((index % 7) + 5) * peakMultiplier));
 
-    // 負荷履歴の保持（ライブグラフ用：最大30件）
     loadHistory.push({ time: Date.now(), load: globalRequestCounter, multiplier: parseFloat(peakMultiplier.toFixed(2)) });
     if (loadHistory.length > 30) loadHistory.shift();
 
@@ -63,7 +56,6 @@ for (let i = 1; i <= 2000; i++) {
     JOURNALS[i] = generateSingularityPayload(i);
 }
 
-// 自動ビーコン発信ループ（拡張版）
 function initSingularityBeacon() {
     setInterval(() => {
         const options = {
@@ -79,11 +71,10 @@ function initSingularityBeacon() {
         req.on('error', () => {});
         req.end();
 
-        console.log(`[HYPER PULSE] Multi-agent beacon broadcasted. Global Load Index: ${globalRequestCounter}`);
+        console.log(`[HYPER PULSE] Beacon broadcasted. Global Load Index: ${globalRequestCounter}`);
     }, 45000);
 }
 
-// WhatsOnChain API を用いたBSVトランザクションのミリ秒リアルタイム検証
 function verifyBSVTransaction(txid) {
     return new Promise((resolve) => {
         const apiUri = `https://api.whatsonchain.com/v1/bsv/main/tx/hash/${txid}`;
@@ -111,7 +102,6 @@ function verifyBSVTransaction(txid) {
     });
 }
 
-// 超進化版フロントエンド UI（ライブグラフ、リアルタイム決済テスト、AIエージェント監視パネル統合）
 const EMBEDDED_HTML = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -373,7 +363,6 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
     const method = req.method;
 
-    // 1. AIエージェント＆クローラー用拡張マニフェスト (.well-known)
     if (pathname === '/.well-known/qlux-agent.json') {
         const currentSurgeRate = (1 + Math.pow(globalRequestCounter, 1.1) / 30).toFixed(2);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -393,7 +382,6 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 2. 高速ZKマークルツリー超圧縮バッチ決済エンドポイント
     if (pathname === '/api/v1/batch-stream' && method === 'POST') {
         let body = '';
         req.on('data', chunk => body += chunk);
@@ -436,7 +424,6 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 3. 単一特異点データ取得 & HTTP 402 ナノ決済リアルタイム検証
     if (pathname.startsWith('/api/journals/')) {
         const id = parseInt(pathname.split('/')[3], 10);
         let journal = predictiveCache.get(id) || JOURNALS[id];
@@ -465,4 +452,15 @@ const server = http.createServer(async (req, res) => {
                 protocol: "HTTP_402_HYPER_NANO",
                 settlement_dest: TARGET_BSV_ADDRESS,
                 fee_sats: journal.fee_sats,
-                message: `HTTP 402: Send ${journal.fee_sats} Sa
+                message: `HTTP 402: Send ${journal.fee_sats} Sats BSV to ${TARGET_BSV_ADDRESS} to unlock sector #${id}`
+            }));
+            return;
+        }
+
+        if (processedTxs.has(authHeader)) {
+            res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: "Idempotency Shield: Duplicate txid blocked." }));
+            return;
+        }
+
+        const isValid = await verifyBSVTransaction(
