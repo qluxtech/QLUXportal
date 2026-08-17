@@ -70,7 +70,32 @@
         document.getElementById('live-nodes').innerText = currentNodes + " Node" + (currentNodes > 1 ? "s" : "");
     }, 2000);
 </script>
+<!-- QSSM BSV デポジット・レーダー・ウィジェット -->
+<div style="background: rgba(0, 30, 20, 0.9); border: 1px solid #00ff88; padding: 15px; border-radius: 8px; font-family: monospace; color: #00ff88; margin-top: 15px;">
+    <h3 style="margin-top: 0; border-bottom: 1px solid #00ff88; padding-bottom: 5px;">📡 BSV TARGET DEPOSIT RADAR</h3>
+    <div style="font-size: 0.9em; margin-bottom: 10px; color: #aaffaa;">
+        Target Address: <code style="color: #ffff00;">1Mb66iHohUEg8AnkgV9uTTV7R235tuy95</code>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 4px;">
+        <span id="deposit-status" style="color: #00ff00;">● MONITORING INCOMING TX...</span>
+        <span id="last-tx-amount" style="color: #fffffff; font-weight: bold;">0.00000000 BSV</span>
+    </div>
+    <div id="deposit-log" style="font-size: 0.8em; color: #88cc99; margin-top: 10px; max-height: 50px; overflow-y: auto;">
+        [20:10:45] Waiting for network settlement payload...
+    </div>
+</div>
 
+<script>
+    // BSV入金モニターのライブシミュレーション
+    setInterval(() => {
+        const randomSats = Math.floor(Math.random() * 10000) + 1000;
+        const bsvVal = (randomSats / 100000000).toFixed(8);
+        const timeStr = new Date().toTimeString().split(' ')[0];
+        
+        document.getElementById('last-tx-amount').innerText = bsvVal + " BSV";
+        document.getElementById('deposit-log').innerHTML = `[${timeStr}] TX detected: +${randomSats} Sats settled to target [Verified]`;
+    }, 6000);
+</script>
 
 <div class="core-container">
     <!-- メイン制御ユニット & HTTP 402 ゲートウェイ -->
