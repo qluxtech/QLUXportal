@@ -6,17 +6,19 @@ const url = require('url');
 
 const PORT = process.env.PORT || 10000;
 
-// BSV 決済受取用アドレス（完全直結・最高峰特異点）
+// BSV 決済受取用アドレス（完全直結）
 const TARGET_BSV_ADDRESS = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
 
-// 高速インメモリ・冪等性シールド ＆ ピークトラフィック監視
+// 冪等性シールド ＆ トラフィック監視
 const processedTxs = new Set();
 let globalRequestCounter = 0; 
 
-// 最高峰・無限動的生成エンジン（特異点サージ ＆ バイラル自己増殖モジュール）
+// ミリ秒先読み決済のための予測キャッシュ・ストレージ
+const predictiveCache = new Map();
+
+// 究極自律型・無限データ生成エンジン (Singularity Payload)
 function generateSingularityPayload(index) {
     globalRequestCounter++;
-    // トラフィック負荷に応じた非線形サージ・プライシング（収益の最大化）
     const peakMultiplier = 1 + Math.pow(globalRequestCounter, 1.1) / 30;
     const dynamicFee = Math.max(10, Math.floor(((index % 7) + 5) * peakMultiplier));
 
@@ -29,12 +31,12 @@ function generateSingularityPayload(index) {
     ];
     const dim = dimensions[index % dimensions.length];
 
-    return {
+    const payload = {
         id: index,
         epoch: "2026.08.17.PEAK",
         sector_dimension: dim,
-        title: `[SINGULARITY PEAK] 自律型AIスウォーム向け 超高密度特異点セクター #${index} [${dim}]`,
-        content: `QLUX Layer 0 最高峰特異点コアにおける全次元最適化データ。セクター #${index} は、ミリ秒以下の推論同期とクロスチェーン流動性を完全に支配する再帰的バイライマトリクスです。`,
+        title: `[SINGULARITY PEAK] 同期型AIスウォーム向け 超高固有特徴セクター #${index} [${dim}]`,
+        content: `QLUX Layer 0 最高峰特異点コアにおける全次元最適化データ、セクター #${index} は、ミリ秒以下の複製同期とクロスチェーン決済を統合する特異点マトリクスです。`,
         fee_sats: dynamicFee,
         access: "paid",
         zk_proof_hash: `0xzk_peak_proof_${Buffer.from(`PEAK_${index}_${Date.now()}`).toString('hex')}`,
@@ -45,11 +47,34 @@ function generateSingularityPayload(index) {
         },
         next_singularity_node: `/api/journals/${index + 1}`
     };
+
+    predictiveCache.set(index, payload);
+    return payload;
 }
 
 const JOURNALS = {};
 for (let i = 1; i <= 2000; i++) {
     JOURNALS[i] = generateSingularityPayload(i);
+}
+
+// 自動ビーコン発信ループ
+function initSingularityBeacon() {
+    setInterval(() => {
+        const options = {
+            hostname: 'qluxportal.onrender.com',
+            port: 443,
+            path: '/.well-known/qlux-agent.json',
+            method: 'GET'
+        };
+
+        const req = https.request(options, (res) => {
+            res.on('data', () => {});
+        });
+        req.on('error', () => {});
+        req.end();
+
+        console.log(`[SINGULARITY PULSE] Beacon broadcasted. Global Load Index: ${globalRequestCounter}`);
+    }, 60000);
 }
 
 // WhatsOnChain API を用いたBSVトランザクションのミリ秒リアルタイム検証
@@ -85,7 +110,7 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
     const method = req.method;
 
-    // 1. 動的・自己変異型AIエージェント特異点マニフェスト (.well-known)
+    // 1. 他的・自己展開型AIエージェント特異点マニフェスト (.well-known)
     if (pathname === '/.well-known/qlux-agent.json') {
         const currentSurgeRate = (1 + Math.pow(globalRequestCounter, 1.1) / 30).toFixed(2);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -128,8 +153,7 @@ const server = http.createServer(async (req, res) => {
                 }
 
                 processedTxs.add(txid);
-
-                const batchPayloads = sectorIds.map(id => generateSingularityPayload(id));
+                const batchPayloads = sectorIds.map(id => predictiveCache.get(id) || generateSingularityPayload(id));
                 const peakMerkleRoot = `0xpeak_zk_merkle_root_${Buffer.from(txid + Date.now()).toString('hex').substring(0, 40)}`;
 
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -148,10 +172,10 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 3. 単一特異点データ取得 & HTTP 402 サージ決済検証
+    // 3. 単一特異点データ取得 & HTTP 402 ナノ決済検証
     if (pathname.startsWith('/api/journals/')) {
         const id = parseInt(pathname.split('/')[3], 10);
-        let journal = JOURNALS[id];
+        let journal = predictiveCache.get(id) || JOURNALS[id];
         if (!journal && !isNaN(id)) {
             journal = generateSingularityPayload(id);
         }
@@ -177,7 +201,7 @@ const server = http.createServer(async (req, res) => {
                 protocol: "HTTP_402_SINGULARITY_PEAK",
                 settlement_dest: TARGET_BSV_ADDRESS,
                 fee_sats: journal.fee_sats,
-                message: `HTTP 402: Send ${journal.fee_sats} Sats BSV to ${TARGET_BSV_ADDRESS} to unlock peak sector #${id}.`
+                message: `HTTP 402: Send ${journal.fee_sats} Sats BSV to ${TARGET_BSV_ADDRESS} to unlock peak sector #${id}`
             }));
             return;
         }
@@ -196,7 +220,6 @@ const server = http.createServer(async (req, res) => {
         }
 
         processedTxs.add(authHeader);
-
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "SINGULARITY_PEAK_SUCCESS",
@@ -207,7 +230,7 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // 4. 静的ファイルおよびUI配信
+    // 4. 静的ファイルおよびUI配信（元々のリポジトリ構造を完全継承）
     let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
     fs.readFile(filePath, (err, content) => {
         if (err) {
@@ -236,5 +259,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
     console.log(`[QLUX L0 SINGULARITY PEAK KERNEL] Sovereign Backend running on port ${PORT}`);
     console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
+    initSingularityBeacon();
 });
 
