@@ -534,10 +534,6 @@ server.listen(PORT, '0.0.0.0', () => {
     initSingularityBeacon();
 });
 
-// プロセスが勝手に終了するのを防ぐための保持処理
-process.on('uncaughtException', (err) => {
-    console.error('Uncaught Exception:', err);
-});
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
