@@ -528,4 +528,16 @@ const server = http.createServer(async (req, res) => {
     } catch (routeErr) {
         console.error("Route error:", routeErr);
     }
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`[QSSM L0 HYPER CORE] Sovereign Backend running on port ${PORT}`);
+    console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
+    initSingularityBeacon();
+});
 
+// プロセスが勝手に終了するのを防ぐための保持処理
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
