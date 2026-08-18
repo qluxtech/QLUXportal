@@ -499,8 +499,8 @@ const server = http.createServer(async (req, res) => {
         }
     });
 });
-    // WhatsOnChain API プロキシ用ルーティング
-    if (pathname.startsWith('/api/balance/')) {
+      // WhatsOnChain API プロキシ用ルーティング
+    if (pathname && pathname.startsWith('/api/balance/')) {
         const address = pathname.split('/')[3];
         const apiurl = `https://api.whatsonchain.com/v1/bsv/main/address/${address}/balance`;
         
@@ -517,10 +517,3 @@ const server = http.createServer(async (req, res) => {
         });
         return;
     }
-
-server.listen(PORT, () => {
-    console.log(`[QLUX L0 HYPER CORE] Sovereign Backend running on port ${PORT}`);
-    console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
-    initSingularityBeacon();
-});
-
