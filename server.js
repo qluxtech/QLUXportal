@@ -499,6 +499,22 @@ const server = http.createServer(async (req, res) => {
         }
     });
 });
+// WhatsOnChain API プロキシエンドポイント
+app.get('/api/balance/:address', (req, res) => {
+    const address = req.params.address;
+    const apiurl = `https://api.whatsonchain.com/v1/bsv/main/address/${address}/balance`;
+    
+    https.get(apiurl, (apiRes) => {
+        let data = '';
+        apiRes.on('data', chunk => data += chunk);
+        apiRes.on('end', () => {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(data);
+        });
+    }).on('error', (err) => {
+        res.status(500).send({ error: "Failed to fetch from blockchain API" });
+    });
+});
 
 server.listen(PORT, () => {
     console.log(`[QLUX L0 HYPER CORE] Sovereign Backend running on port ${PORT}`);
