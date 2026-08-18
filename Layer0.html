@@ -157,18 +157,34 @@
 </div>
 
 <script>
-    const grid = document.getElementById('node-grid');
-    for(let i=0; i<15; i++) {
-        const node = document.createElement('div');
-        node.className = 'agent-node';
-        node.innerHTML = `NODE_QX_${Math.floor(Math.random()*9000)}`;
-        grid.appendChild(node);
+    async function syncRealData() {
+        try {
+            const targetAddress = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
+            const response = await fetch(`/api/balance/${targetAddress}`);
+            const data = await response.json();
+            
+            const totalSats = (data.confirmed || 0) + (data.unconfirmed || 0);
+            
+            // Treasury Reserve の数値を更新
+            const reserveElem = document.getElementById('live-treasury'); // id="live-treasury" がある前提
+            if (reserveElem) {
+                reserveElem.innerText = totalSats.toLocaleString() + " Sats";
+            }
+            
+            // ログの更新
+            const timeStr = new Date().toTimeString().split(' ')[0];
+            const logElem = document.getElementById('deposit-log');
+            if (logElem) {
+                logElem.innerHTML = `[${timeStr}] Mainnet Synced: ${totalSats} Sats`;
+            }
+        } catch (e) {
+            console.error("Sync error:", e);
+        }
     }
-    
-    setInterval(() => {
-        const stream = document.getElementById('econ-stream');
-        stream.innerHTML = `[BSV_TX] 0.0000${Math.floor(Math.random()*9000)} BSV // DEST: 1Mb66i...tuy95 // ZK_SECURED`;
-    }, 1000);
+
+    // 10秒ごとに同期
+    syncRealData();
+    setInterval(syncRealData, 10000);
 </script>
 
 </body>
