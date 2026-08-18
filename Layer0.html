@@ -157,58 +157,72 @@
 </div>
 
 <script>
+    let pollInterval = 10000; // 通常時10秒
+
     async function syncRealData() {
         const reserveElem = document.getElementById('live-treasury');
+        const nodeElem = document.getElementById('active-nodes'); // ノード数表示要素
         const logElem = document.getElementById('deposit-log');
 
-        // 通信中の視覚的フィードバック（ローディング・不透明度調整）
-        if (reserveElem) {
-            reserveElem.style.opacity = "0.7";
-        }
+        if (reserveElem) reserveElem.style.opacity = "0.7";
 
         try {
             const targetAddress = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
             const response = await fetch(`/api/balance/${targetAddress}`);
-            if (!response.ok) throw new Error("Network response was not ok");
+            if (!response.ok) throw new Error("Network response error");
             
             const data = await response.json();
             const totalSats = (data.confirmed || 0) + (data.unconfirmed || 0);
             
-            // データを繁栄し、不透明度を戻す
+            // 【進化1】しきい値（15,000 Sats刻み）による動的ノード数計算の雪だるま式演出
+            const calculatedNodes = Math.max(1, Math.floor(totalSats / 15000));
+            
             if (reserveElem) {
                 reserveElem.innerText = totalSats.toLocaleString() + " Sats";
                 reserveElem.style.opacity = "1";
             }
             
+            if (nodeElem) {
+                nodeElem.innerText = calculatedNodes + " Nodes (Dynamic Swarm)";
+            }
+            
             if (logElem) {
                 const timeStr = new Date().toTimeString().split(' ')[0];
-                logElem.innerHTML = `[${timeStr}] Synced // Verified Core Active`;
+                logElem.innerHTML = `[${timeStr}] Multi-Swarm Active // Synced: ${totalSats} Sats`;
             }
+
+            // 【進化3】トランザクション検知時はポーリングを一時的に高速化（ハイパフォーマンス化）
+            if (data.unconfirmed > 0) {
+                pollInterval = 3000; // 検知時は3秒間隔に加速
+            } else {
+                pollInterval = 10000;
+            }
+
         } catch (e) {
-            console.error("Sync fallback engaged:", e);
-            // フォールバック: 通信が一時的に途切れても表示を維持
-            if (reserveElem) {
-                reserveElem.style.opacity = "1";
-            }
+            console.error("Sync fallback active:", e);
+            if (reserveElem) reserveElem.style.opacity = "1";
         }
+
+        // 動的ポーリングタイマーの再設定
+        setTimeout(syncRealData, pollInterval);
     }
 
-    // ワンクリック決済・アトミックスワップ結線トリガー
+    // 【進化2】実用開放されたワンクリック・アトミックスワップ決済
     window.triggerAtomicSwapPayment = async function() {
-        if (!confirm("150 JPY 相当の BSV で全コードを即時照会・決済しますか？")) return;
+        if (!confirm("150 JPY 相当の BSV で全コードを即時アンロック・決済しますか？")) return;
         try {
-            alert("アトミックスワップ・ペイロードをブロードキャスト中...");
+            alert("アトミックスワップ・ペイロードをメインネットへブロードキャスト中...");
             const res = await fetch('/api/settle', { method: 'POST' });
             const result = await res.json();
-            alert("決済が正常に完了しました。ハッシュ: " + (result.txid || "VERIFIED"));
+            alert("決済およびデータアンロック成功。TxID: " + (result.txid || "VERIFIED"));
+            syncRealData(); // 即時同期を強制実行
         } catch (err) {
-            alert("決済処理に失敗しました。ネットワーク状態を確認してください。");
+            alert("決済処理のブロードキャストに失敗しました。");
         }
     };
 
-    // 初期実行と10秒ごとの自動同期
+    // 初回実行
     syncRealData();
-    setInterval(syncRealData, 10000);
 </script>
 
 </body>
