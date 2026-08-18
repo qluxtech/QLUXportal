@@ -499,21 +499,33 @@ const server = http.createServer(async (req, res) => {
         }
     });
 });
-      // WhatsOnChain API プロキシ用ルーティング
-    if (pathname && pathname.startsWith('/api/balance/')) {
-        const address = pathname.split('/')[3];
-        const apiurl = `https://api.whatsonchain.com/v1/bsv/main/address/${address}/balance`;
-        
-        https.get(apiurl, (apiRes) => {
-            let data = '';
-            apiRes.on('data', chunk => data += chunk);
-            apiRes.on('end', () => {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(data);
+      // WhatsOnChain API プロキシ用ルーティング（安全対策版）
+    try {
+        if (typeof pathname === 'string' && pathname.startsWith('/api/balance/')) {
+            const parts = pathname.split('/');
+            const address = parts[3] || '1Mb66iHohUEg8AnkgV9uTTV7R235tuy95';
+            const apiurl = `https://api.whatsonchain.com/v1/bsv/main/address/${address}/balance`;
+            
+            https.get(apiurl, (apiRes) => {
+                let data = '';
+                apiRes.on('data', chunk => { data += chunk; });
+                apiRes.on('end', () => {
+                    try {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(data);
+                    } catch (e) {
+                        // レスポンス送信時の例外をガード
+                    }
+                });
+            }).on('error', (err) => {
+                try {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: "Failed to fetch from blockchain API" }));
+                } catch (e) {}
             });
-        }).on('error', (err) => {
-            res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: "Failed to fetch from blockchain API" }));
-        });
-        return;
+            return;
+        }
+    } catch (routeErr) {
+        console.error("Route error:", routeErr);
     }
+
