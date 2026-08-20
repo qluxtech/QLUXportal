@@ -584,6 +584,20 @@ const server = http.createServer(async (req, res) => {
         return;
     }
      
+    // ==========================================
+    // ★ ノード自動拡張（Auto-Expansion）ロジック
+    // ==========================================
+    let activeNodes = 1;
+    const EXPANSION_THRESHOLD = 50000;
+
+    function checkAutoExpansion(currentBalance) {
+        const requiredNodes = Math.floor(currentBalance / EXPANSION_THRESHOLD);
+        if (requiredNodes > activeNodes) {
+            activeNodes = requiredNodes;
+            console.log(`[AUTO-EXPANSION] 資産基準突破: ノード数が ${activeNodes} へ自動拡張されました`);
+        }
+    }
+
 // WhatsOnChain API プロキシ用ルーティング（安全対策版）
     try {
         if (typeof pathname === 'string' && pathname.startsWith('/api/balance/')) {
