@@ -624,6 +624,30 @@ const server = http.createServer(async (req, res) => {
             console.log(`[AUTO-EXPANSION] 資産基準突破: ノード数が ${activeNodes} へ自動拡張されました`);
         }
     }
+    // ==========================================
+    // ★ 自己増殖パッチ生成 & 生体UI同期エンジン
+    // ==========================================
+    function executeEvolutionaryStep(currentTreasury) {
+        if (currentTreasury >= (EXPANSION_THRESHOLD * activeNodes)) {
+            activeNodes++;
+            systemPulseRate += 0.5;
+            const optimizationPatch = `PATCH_V${activeNodes}_OPTIMIZED_CORE`;
+            console.log(`[EVOLUTION_CORE] 自己増殖発動: パッチ [${optimizationPatch}] が生成されました。脈動周波数: ${systemPulseRate}x`);
+        }
+    }
+// [生体UI同期] パルス変異と変色
+function broadcastPulse(isEvolving) {
+    const pulseElement = document.getElementById('dashboard-container');
+    if (isEvolving) {
+        // 進化時にUIを激しく明滅させ、黄金色へ変色
+        pulseElement.style.transition = 'all 0.5s';
+        pulseElement.style.borderColor = '#FFD700'; // 進化の黄金色
+        pulseElement.style.animation = 'pulse-acceleration 0.2s infinite';
+    } else {
+        // 通常時は通常の緑の呼吸
+        pulseElement.style.borderColor = '#00FF00';
+    }
+}
 
 // WhatsOnChain API プロキシ用ルーティング（安全対策版）
     try {
