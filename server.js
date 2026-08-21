@@ -583,7 +583,34 @@ const server = http.createServer(async (req, res) => {
         }));
         return;
     }
-     
+         // ==========================================
+    // ★ OMNI-SINGULARITY CORE: 統合自律生命体エンジン
+    // ==========================================
+    let activeNodes = 1;
+    const EXPANSION_THRESHOLD = 50000;
+    let systemPulseRate = 1.0; // 生体UI同期用の周波数係数
+
+    // 1. マルチチェーン・エネルギー・ブリッジ（動的レート換算・シミュレート統合）
+    function ingestMultiChainEnergy(amount, chainType) {
+        let bsvEquivalentSats = amount;
+        if (chainType === 'ETH_L2') {
+            bsvEquivalentSats = amount * 1250; // 動的レート換算の例
+        } else if (chainType === 'SOLANA') {
+            bsvEquivalentSats = amount * 820;
+        }
+        return bsvEquivalentSats;
+    }
+
+    // 2. 自己増殖型・自律タスク進化トリガー
+    function triggerSelfEvolution(treasuryBalance) {
+        if (treasuryBalance >= EXPANSION_THRESHOLD * activeNodes) {
+            activeNodes++;
+            systemPulseRate += 0.5;
+            console.log(`[OMNI-EVOLUTION] 閾値突破: ノードが自動増殖しました。現在ノード数: ${activeNodes} (脈動周波数: ${systemPulseRate}x)`);
+            // ここで外部AI API等への自己最適化パッチ生成リクエストを非同期トリガー
+        }
+    }
+
     // ==========================================
     // ★ ノード自動拡張（Auto-Expansion）ロジック
     // ==========================================
