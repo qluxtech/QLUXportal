@@ -502,7 +502,6 @@ const server = http.createServer(async (req, res) => {
     // ==========================================
     // ★ AIエージェント向けデータ自動販売エンドポイント
     // ==========================================
-const pathname = new URL(req.url, `http://${req.headers.host}`).pathname;
     if (pathname === '/api/v1/quantum-intelligence') {
         const authHeader = req.headers['x-bsv-payment-proof'];
         const requiredSats = 4151; // 必要なマイクロ決済額
@@ -569,7 +568,7 @@ class AbsoluteOmniMatrix {
             this.dimensionalNodes++;
             this.quantumPulseFrequency += 0.5;
             console.log(`[SYNAPSE_EVOLUTION] 閾値突破！次元ノードが [${this.dimensionalNodes}] に昇格しました。`);
-        }
+        }あ
     }
 }
 
