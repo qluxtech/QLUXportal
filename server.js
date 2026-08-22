@@ -527,8 +527,6 @@ class AbsoluteOmniMatrix {
             this.dimensionalNodes++;
             this.quantumPulseFrequency += 0.5;
             console.log(`[SYNAPSE_EVOLUTION] 閾値突破！次元ノードが [${this.dimensionalNodes}] に昇格しました。`);
-        }あ
-    }
 }
 
 // マトリックスのインスタンス化
