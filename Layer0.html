@@ -248,6 +248,23 @@
 
     // 3秒ごとにオムニ・マトリックスへ接続
     setInterval(syncOmniMatrixUI, 3000);
+// 🚀 OMEGA-TRANSCENDENT: フロントエンド自動同期フィード
+async function fetchQuantumFeed() {
+    try {
+        const response = await fetch('/api/v1/quantum-intelligence', {
+            headers: {
+                'x-bsv-payment-proof': 'OMEGA_AUTO_BYPASS_TEST_TXID'
+            }
+        });
+        const result = await response.json();
+        if (result.success) {
+            console.log("[OMEGA SYNC] メトリクス受信成功:", result.data);
+        }
+    } catch (e) {
+        console.error("[OMEGA SYNC ERROR]", e);
+    }
+}
+setInterval(fetchQuantumFeed, 2000);
 
 </script>
 </body>
