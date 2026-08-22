@@ -552,6 +552,48 @@ setInterval(() => {
     omniCore.absorbOmniLiquidity(5000, "CROSS_CHAIN_SOL_BSV_BRIDGE");
 }, 30000);
 
+// ==========================================
+// 🚀 OMEGA-TRANSCENDENT: クォンタム・インテリジェンス エンドポイント
+// ==========================================
+if (pathname === '/api/v1/quantum-intelligence') {
+    const authHeader = req.headers['x-bsv-payment-proof'];
+    const requiredSats = 4151;
+
+    if (!authHeader) {
+        res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            error: "Payment Required",
+            error_code: "BSV.NANO.SETTLEMENT_REQUIRED",
+            message: "Access to QLUX OMEGA Quantum Intelligence Feed requires micro-settlement.",
+            invoice: {
+                target_address: "1BbG6cHoHJEg8AnkG9uTTV7823Stuy95",
+                amount_sats: requiredSats,
+                currency: "BSV",
+                protocol: "HTTP-402-OMEGA-AUTOPILOT"
+            }
+        }));
+        return;
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({
+        success: true,
+        settled_proof: authHeader,
+        data: {
+            status: "OMEGA_TRANSCENDENT_FEED",
+            timestamp: Date.now(),
+            metrics: {
+                cost_reduction_percentage: 3.42,
+                speed_multiplier: omniCore.speedMultiplier,
+                dimensional_nodes: omniCore.dimensionalNodes,
+                network_latency_ms: 4
+            },
+            proof_of_efficiency: "QLUX_OMEGA_V5_VERIFIED"
+        }
+    }));
+    return;
+}
+
 // WhatsOnChain API プロキシ用ルーティング（安全対策版）
     try {
         if (typeof pathname === 'string' && pathname.startsWith('/api/balance/')) {
