@@ -222,6 +222,39 @@
     };
 
     // 初回実行
+    <script>
+    // ==========================================================
+    // 🌌 OMNI-MATRIX UI SYNCHRONIZER (フロントエンド用リアルタイム同期)
+    // ==========================================================
+    async function syncOmniMatrixUI() {
+        try {
+            const response = await fetch('/api/omni-status');
+            if (!response.ok) return;
+            const data = await response.json();
+
+            // 1. アクティブノード数をオムニ・マトリックスの次元ノード数に同期
+            const nodesElement = document.querySelector('.active-nodes, div:contains("Active Infrastructure Nodes")');
+            // DOM構造に合わせて数値をリアルタイム書き換え
+            // 例として、ノード表示の部分を動的に更新します
+            const nodeLines = document.querySelectorAll('div, span');
+            nodeLines.forEach(el => {
+                if (el.innerText && el.innerText.includes('Active Infrastructure Nodes:')) {
+                    el.innerHTML = `Active Infrastructure Nodes: <span style="color: #00ffcc; font-weight: bold;">${data.nodes} Nodes</span>`;
+                }
+            });
+
+            // 2. システムステータスにオムニコアの覚醒状態を反映
+            console.log(`[UI_SYNC] オムニ・マトリックス同期完了 — 状態: ${data.state}, パルス周波数: ${data.pulse}x`);
+
+        } catch (error) {
+            console.log('[UI_SYNC_WAIT] バックエンドとのリンクを待機中...');
+        }
+    }
+
+    // 3秒ごとにバックエンドのオムニ・マトリックスへ接続し、UIを自動変異させる
+    setInterval(syncOmniMatrixUI, 3000);
+</script>
+
     syncRealData();
 </script>
 
