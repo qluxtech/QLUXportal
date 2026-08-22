@@ -499,49 +499,7 @@ const server = http.createServer(async (req, res) => {
         }
     });
 });
-    // ==========================================
-    // ★ AIエージェント向けデータ自動販売エンドポイント
-    // ==========================================
-const pathname = new URL(req.url, `http://${req.headers.host}`).pathname;
-    if (pathname === '/api/v1/quantum-intelligence') {
-        const authHeader = req.headers['x-bsv-payment-proof'];
-        const requiredSats = 4151; // 必要なマイクロ決済額
-
-        // 決済証明がない場合：HTTP 402 とインボイス（宛先・金額）を返す
-        if (!authHeader) {
-            res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({
-                error: "Payment Required",
-                error_code: "BSV.NANO.SETTLEMENT_REQUIRED",
-                message: "Access to QULX Quantum Intelligence Feed requires micro-settlement.",
-                invoice: {
-                    target_address: "1BbG6cHoHJEg8AnkG9uTTV7823Stuy95",
-                    amount_sats: requiredSats,
-                    currency: "BSV",
-                    protocol: "HTTP-402-NANO"
-                }
-            }));
-            return;
-        }
-
-        // 決済証明（TXID）が添付されている場合のデータ返却
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({
-            success: true,
-            settled_proof: authHeader,
-            data: {
-                status: "OPTIMIZED_QUANTUM_FEED",
-                timestamp: Date.now(),
-                metrics: {
-                    cost_reduction_percentage: 3.42,
-                    speed_multiplier: 2.05,
-                    network_latency_ms: 8
-                },
-                proof_of_efficiency: "QULX_V4_VERIFIED"
-            }
-        }));
-        return;
-    }
+  
 // ==========================================================
 // 🌌 ABSOLUTE OMNI-MATRIX: バックエンド統合コア ＆ APIブリッジ
 // ==========================================================
