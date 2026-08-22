@@ -699,6 +699,27 @@ function broadcastPulse(isEvolving) {
         omniCore.absorbOmniLiquidity(7500, "CROSS_CHAIN_SOL_BSV_BRIDGE");
     }, 30000);
 
+// ==========================================================
+// 🌌 ステータス・ブリッジ：オムニ・マトリックスのUI同期出力
+// ==========================================================
+
+// フロントエンドからの問い合わせに対し、現在のマトリックス詳細を返すAPIエンドポイントを追加
+server.get('/api/omni-status', (req, res) => {
+    const status = {
+        pool: omniCore.omniPoolReserve,
+        nodes: omniCore.dimensionalNodes,
+        pulse: omniCore.quantumPulseFrequency,
+        state: omniCore.matrixState,
+        lastEvolution: `PATCH_V${omniCore.dimensionalNodes}_QUANTUM_OPTIMIZED`
+    };
+    res.json(status);
+});
+
+// 定期的にログへ進化の深淵を刻む（このログをフロントエンドでキャッチしてUIに投影）
+setInterval(() => {
+    console.log(`[UI_BRIDGE] データをフロントへ同期中: ${JSON.stringify(omniCore)}`);
+}, 5000);
+
 // WhatsOnChain API プロキシ用ルーティング（安全対策版）
     try {
         if (typeof pathname === 'string' && pathname.startsWith('/api/balance/')) {
