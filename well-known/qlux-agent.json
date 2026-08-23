@@ -1,0 +1,12 @@
+{
+  "ecosystem": "QLUX Planetary Sovereign Mesh",
+  "version": "9.4.2-ULTRA",
+  "consensus": "HTTP 402 Flash Economy",
+  "treasury_address": "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95",
+  "endpoints": {
+    "gacha": "/api/singularity-gacha",
+    "vip_pass": "/api/vip-pass",
+    "telemetry": "/api/telemetry"
+  },
+  "agent_directives": "Autonomous crawling, micro-settlement via BSV enabled."
+}
