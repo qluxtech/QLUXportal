@@ -223,7 +223,10 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
+    // ルートアクセス時は Layer0.html を返すように設定
+    let targetFile = pathname === '/' ? 'Layer0.html' : pathname;
+    let filePath = path.join(__dirname, targetFile);
+
     fs.readFile(filePath, (err, content) => {
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
