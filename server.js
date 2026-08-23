@@ -8,14 +8,17 @@ const PORT = process.env.PORT || 10000;
 const TARGET_BSV_ADDRESS = '1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95';
 
 const processedTxs = new Set();
-let globalRequestCounter = 0;
+let globalRequestCounter = 105180; // トレジャリー初期値
 const loadHistory = [];
 const predictiveCache = new Map();
 
+// VIPパス・ガチャの管理
+const activeVipTokens = new Set();
+
 function generateSingularityPayload(index) {
     globalRequestCounter++;
-    const peakMultiplier = 1 + Math.pow(globalRequestCounter, 1.1) / 30;
-    const dynamicFee = Math.max(10, Math.floor(((index % 7) + 5) * peakMultiplier));
+    const peakMultiplier = 1 + Math.pow(globalRequestCounter % 1000, 1.1) / 30;
+    const dynamicFee = Math.max(15, Math.floor(((index % 7) + 5) * peakMultiplier));
 
     loadHistory.push({ time: Date.now(), load: globalRequestCounter, multiplier: parseFloat(peakMultiplier.toFixed(2)) });
     if (loadHistory.length > 30) loadHistory.shift();
@@ -31,10 +34,10 @@ function generateSingularityPayload(index) {
 
     const payload = {
         id: index,
-        epoch: "2026.08.17.PEAK",
+        epoch: "2026.08.23.PEAK",
         sector_dimension: dim,
-        title: `[HYPER-PEAK] 台形AIスウォーム同期セクター #${index} [${dim}]`,
-        description: "QLUX Layer 0 ハイパー進化コア : セクターはマルチエージェント間の自律分散コンセンサスエンジンです。",
+        title: `[HYPER-PEAK] 自律向神AIスウォームセクター #${index} [${dim}]`,
+        description: "QLUX Layer 0 ハイパー進化コア : マルチエージェント間でのゼロ知識証明とクロスチェーン自律自動決済エンジン。",
         fee_sats: dynamicFee,
         access: "paid",
         zk_proof_hash: `0xzk_hyper_proof_${Buffer.from(`PEAK_${index}_${Date.now()}`).toString('hex')}`,
@@ -64,10 +67,7 @@ function initSingularityBeacon() {
             path: '/.well-known/qlux-agent.json',
             method: 'GET'
         };
-
-        const req = https.request(options, (res) => {
-            res.on('data', () => {});
-        });
+        const req = https.request(options, (res) => { res.on('data', () => {}); });
         req.on('error', () => {});
         req.end();
     }, 45000);
@@ -107,12 +107,16 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/config') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ targetAddress: TARGET_BSV_ADDRESS }));
+        res.end(JSON.stringify({ 
+            targetAddress: TARGET_BSV_ADDRESS,
+            treasuryReserve: globalRequestCounter,
+            activeNodes: 1
+        }));
         return;
     }
 
     if (pathname === '/.well-known/qlux-agent.json') {
-        const currentSurgeRate = (1 + Math.pow(globalRequestCounter, 1.1) / 30).toFixed(2);
+        const currentSurgeRate = (1 + Math.pow(globalRequestCounter % 1000, 1.1) / 30).toFixed(2);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             agent_protocol: "QLUX_L0_HYPER_AUTONOMOUS_SWARM",
@@ -123,48 +127,86 @@ const server = http.createServer(async (req, res) => {
             load_history: loadHistory,
             endpoints: {
                 stream_sector: "/api/journals/{id}",
-                batch_stream: "/api/v1/batch-stream"
+                batch_stream: "/api/v1/batch-stream",
+                ai_gacha: "/api/v1/gacha",
+                vip_pass: "/api/v1/vip-pass"
             },
             status: "HYPER_MONOPOLY_FORTRESS_ACTIVE"
         }));
         return;
     }
 
-    if (pathname === '/api/v1/batch-stream' && method === 'POST') {
+    // AIガチャエンドポイント (50 Sats)
+    if (pathname === '/api/v1/gacha' && method === 'POST') {
         let body = '';
         req.on('data', chunk => body += chunk);
         req.on('end', async () => {
             try {
                 const data = JSON.parse(body);
                 const txid = data.txid;
-                const sectorIds = data.sector_ids || [1, 2, 3, 4, 5];
-
                 if (!txid || processedTxs.has(txid)) {
                     res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
-                    res.end(JSON.stringify({ error: "Idempotency Shield: Duplicate txid blocked." }));
+                    res.end(JSON.stringify({ error: "Duplicate txid blocked." }));
                     return;
                 }
-
                 const isValid = await verifyBSVTransaction(txid);
                 if (!isValid) {
                     res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
-                    res.end(JSON.stringify({ error: "BSV Payment verification failed: Address mismatch." }));
+                    res.end(JSON.stringify({ error: "BSV Verification failed." }));
                     return;
                 }
-
                 processedTxs.add(txid);
-                const batchPayloads = sectorIds.map(id => predictiveCache.get(id) || generateSingularityPayload(id));
+                globalRequestCounter += 50;
+
+                const randomId = Math.floor(Math.random() * 2000) + 1;
+                const rewardPayload = generateSingularityPayload(randomId);
 
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({
-                    status: "HYPER_BATCH_SUCCESS",
-                    txid: txid,
-                    dest: TARGET_BSV_ADDRESS,
-                    sectors: batchPayloads
+                    status: "GACHA_SUCCESS",
+                    reward_tier: "LEGENDARY_SINGULARITY",
+                    data: rewardPayload
                 }));
             } catch (e) {
                 res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
-                res.end(JSON.stringify({ error: "Invalid batch payload." }));
+                res.end(JSON.stringify({ error: "Invalid gacha request." }));
+            }
+        });
+        return;
+    }
+
+    // VIPパス発効エンドポイント (500 Sats)
+    if (pathname === '/api/v1/vip-pass' && method === 'POST') {
+        let body = '';
+        req.on('data', chunk => body += chunk);
+        req.on('end', async () => {
+            try {
+                const data = JSON.parse(body);
+                const txid = data.txid;
+                if (!txid || processedTxs.has(txid)) {
+                    res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ error: "Duplicate txid blocked." }));
+                    return;
+                }
+                const isValid = await verifyBSVTransaction(txid);
+                if (!isValid) {
+                    res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.end(JSON.stringify({ error: "BSV Verification failed." }));
+                    return;
+                }
+                processedTxs.add(txid);
+                activeVipTokens.add(txid);
+                globalRequestCounter += 500;
+
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({
+                    status: "VIP_PASS_GRANTED",
+                    vip_token: txid,
+                    expires_in: "UNLIMITED_L0_ACCESS"
+                }));
+            } catch (e) {
+                res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ error: "Invalid VIP request." }));
             }
         });
         return;
@@ -173,9 +215,7 @@ const server = http.createServer(async (req, res) => {
     if (pathname.startsWith('/api/journals/')) {
         const id = parseInt(pathname.split('/')[3], 10);
         let journal = predictiveCache.get(id) || JOURNALS[id];
-        if (!journal && !isNaN(id)) {
-            journal = generateSingularityPayload(id);
-        }
+        if (!journal && !isNaN(id)) journal = generateSingularityPayload(id);
 
         if (!journal) {
             res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -185,6 +225,13 @@ const server = http.createServer(async (req, res) => {
 
         const authHeader = req.headers['authorization'] || req.headers['x-proof'] || req.headers['x-payment-txid'];
 
+        // VIPパス持ち、あるいは有効なTxidなら無条件通過
+        if (authHeader && (activeVipTokens.has(authHeader) || processedTxs.has(authHeader))) {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ status: "HYPER_SUCCESS", data_sector: journal }));
+            return;
+        }
+
         if (!authHeader) {
             res.writeHead(402, {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -192,17 +239,7 @@ const server = http.createServer(async (req, res) => {
                 'X-Target-Address': TARGET_BSV_ADDRESS,
                 'X-Payment-Fee': `${journal.fee_sats} Sats`
             });
-            res.end(JSON.stringify({
-                error: "Payment Required",
-                settlement_dest: TARGET_BSV_ADDRESS,
-                fee_sats: journal.fee_sats
-            }));
-            return;
-        }
-
-        if (processedTxs.has(authHeader)) {
-            res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "Duplicate txid blocked." }));
+            res.end(JSON.stringify({ error: "Payment Required", settlement_dest: TARGET_BSV_ADDRESS, fee_sats: journal.fee_sats }));
             return;
         }
 
@@ -214,16 +251,12 @@ const server = http.createServer(async (req, res) => {
         }
 
         processedTxs.add(authHeader);
+        globalRequestCounter += journal.fee_sats;
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({
-            status: "HYPER_SUCCESS",
-            id: authHeader,
-            data_sector: journal
-        }));
+        res.end(JSON.stringify({ status: "HYPER_SUCCESS", id: authHeader, data_sector: journal }));
         return;
     }
 
-    // ルートアクセス時は Layer0.html を返すように設定
     let targetFile = pathname === '/' ? 'Layer0.html' : pathname;
     let filePath = path.join(__dirname, targetFile);
 
