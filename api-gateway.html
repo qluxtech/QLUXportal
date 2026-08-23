@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // L0 PLANETARY KERNEL & AGI SUPREME GATEWAY</title>
+    <title>QLUX // L0 PLANETARY KERNEL & AGI VIRAL SUPREME NEXUS</title>
     <style>
         :root {
             --bg-deep: #020609;
-            --card-bg: rgba(5, 15, 25, 0.9);
-            --border-neon: rgba(0, 255, 128, 0.5);
+            --card-bg: rgba(5, 15, 25, 0.92);
+            --border-neon: rgba(0, 255, 128, 0.6);
             --border-blue: rgba(56, 189, 248, 0.4);
             --accent-green: #00ff80;
             --accent-blue: #38bdf8;
             --accent-purple: #c084fc;
+            --accent-gold: #fbbf24;
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
         }
@@ -24,8 +25,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 255, 128, 0.1) 0%, transparent 70%),
-                linear-gradient(rgba(0,0,0,0.6) 1px, transparent 1px);
+                radial-gradient(circle at 50% 0%, rgba(0, 255, 128, 0.12) 0%, transparent 70%),
+                linear-gradient(rgba(0,0,0,0.7) 1px, transparent 1px);
             background-size: 100% 4px;
             padding: 20px;
         }
@@ -35,7 +36,7 @@
         .top-banner {
             background: var(--card-bg);
             border: 1px solid var(--border-neon);
-            box-shadow: 0 0 30px rgba(0, 255, 128, 0.2);
+            box-shadow: 0 0 35px rgba(0, 255, 128, 0.25);
             border-radius: 12px;
             padding: 30px;
             position: relative;
@@ -58,13 +59,7 @@
             margin-bottom: 12px;
             border: 1px solid rgba(0, 255, 128, 0.3);
         }
-        h1 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0,255,128,0.4);
-        }
+        h1 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0,255,128,0.4); }
         .banner-desc { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
 
         .stats-grid {
@@ -75,8 +70,7 @@
         .stat-card {
             background: var(--card-bg);
             border: 1px solid var(--border-blue);
-            border-radius: 8px;
-            padding: 18px;
+            border-radius: 8px; padding: 18px;
         }
         .stat-label { font-size: 11px; color: var(--accent-blue); letter-spacing: 1px; margin-bottom: 6px; }
         .stat-value { font-size: 18px; font-weight: bold; color: #fff; }
@@ -96,8 +90,7 @@
         .fortress-panel {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 24px;
+            border-radius: 10px; padding: 24px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.6);
         }
         .panel-title {
@@ -112,23 +105,24 @@
             border-radius: 6px; padding: 16px;
             font-size: 12px; color: #38bdf8;
             overflow-x: auto; line-height: 1.6;
-            max-height: 180px; overflow-y: auto;
+            max-height: 160px; overflow-y: auto;
         }
         .c-comment { color: #64748b; }
         .c-key { color: #c084fc; }
         .c-val { color: #00ff80; }
 
-        .endpoint-item {
+        /* リーダーボード */
+        .rank-row {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0, 0, 0, 0.6); padding: 12px 16px;
-            border-radius: 6px; margin-bottom: 10px;
-            border-left: 3px solid var(--accent-purple); font-size: 12px;
+            background: rgba(0, 0, 0, 0.5); padding: 10px 14px;
+            border-radius: 6px; margin-bottom: 8px; font-size: 12px;
+            border-left: 3px solid var(--accent-gold);
         }
-        .method-tag { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .path-text { color: #fff; }
-        .cost-tag { color: var(--accent-green); font-weight: bold; }
+        .rank-num { color: var(--accent-gold); font-weight: bold; width: 30px; }
+        .node-name { color: #fff; font-family: monospace; }
+        .score-sats { color: var(--accent-green); font-weight: bold; }
 
-        /* インタラクティブ・テストボタン */
+        /* ボタン類 */
         .exec-btn {
             background: linear-gradient(135deg, #00ff80, #38bdf8);
             color: #000; border: none; padding: 10px 18px;
@@ -137,6 +131,14 @@
             box-shadow: 0 0 15px rgba(0,255,128,0.3);
         }
         .exec-btn:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(0,255,128,0.6); }
+
+        .share-box-inner {
+            display: flex; gap: 10px; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 6px; align-items: center;
+        }
+        .share-input {
+            background: #020406; border: 1px solid rgba(56,189,248,0.3);
+            color: var(--accent-blue); padding: 8px; border-radius: 4px; font-size: 11px; flex-grow: 1; outline: none;
+        }
 
         .return-btn {
             display: inline-block; margin-top: 10px; padding: 10px 20px;
@@ -152,10 +154,10 @@
     <div class="container">
         <!-- トップ要塞バナー -->
         <div class="top-banner">
-            <div class="matrix-badge"><span class="live-pulse"></span>L0 PLANETARY SUPREME KERNEL ACTIVE</div>
-            <h1>L0 Developer & AGI Autonomous Gateway</h1>
+            <div class="matrix-badge"><span class="live-pulse"></span>L0 PLANETARY VIRAL KERNEL ACTIVE</div>
+            <h1>L0 Developer & AGI Autonomous Supreme Gateway</h1>
             <p class="banner-desc">
-                地球上の全自律AIエージェントおよび開発者ノードが中枢へ直結し、HTTP 402フラッシュエコノミーを介してリアルタイムで極秘知能セクターの買収・マイクロ決済を実行する最高峰要塞。
+                世界中の自律AIスウォームとギークが群がり、HTTP 402フラッシュ経済とリアルタイム・コロシアムで覇権を争う究極のバイラル要塞中枢。
             </p>
             <a href="index.html" class="return-btn">← メインポータル要塞へ帰還</a>
         </div>
@@ -167,93 +169,94 @@
                 <div class="stat-value" style="color: var(--accent-green);">HTTP 402 ULTRA</div>
             </div>
             <div class="stat-card">
-                <div class="stat-label">TREASURY DESTINATION</div>
-                <div class="stat-value" style="font-size: 12px; color: var(--accent-blue);">1Mb66iHohUE...235tuy95</div>
+                <div class="stat-label">TREASURY TARGET</div>
+                <div class="stat-value" style="font-size: 11px; color: var(--accent-blue);">1Mb66iHohUE...235tuy95</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">ACTIVE AGI SWARM</div>
-                <div class="stat-value" id="swarm-count">84,412 NODES</div>
+                <div class="stat-value" id="swarm-count">88,412 NODES</div>
             </div>
         </div>
 
-        <!-- リアルタイム・ハッキングストリーム -->
+        <!-- 機能1：世界ランキング (Live Global Leaderboard) -->
         <div class="fortress-panel">
-            <div class="panel-title">📡 Real-Time Autonomous AGI Transaction Stream</div>
-            <div class="terminal-box" id="terminal-stream">
-                <span class="c-comment">[SYSTEM] Initializing L0 secure quantum mesh tunnel...</span><br>
-                <span class="c-val">[HTTP 402] Waiting for external AGI micro-settlements...</span><br>
-                <span class="c-key">[SYNC] Target Treasury 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95 locked.</span><br>
+            <div class="panel-title">🏆 Live Global AGI & Operator Leaderboard</div>
+            <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px;">
+                トレジャリー（<code>1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</code>）への貢献度およびガチャ実績に基づくリアルタイム世界ランキング。
+            </div>
+            <div class="rank-row">
+                <div style="display: flex; gap: 10px; align-items: center;"><span class="rank-num">#1</span><span class="node-name">AGI-Swarms-Tokyo-Node</span></div>
+                <span class="score-sats">14,250 Sats</span>
+            </div>
+            <div class="rank-row">
+                <div style="display: flex; gap: 10px; align-items: center;"><span class="rank-num">#2</span><span class="node-name">ClaudeBot-Autonomous-V4</span></div>
+                <span class="score-sats">11,800 Sats</span>
+            </div>
+            <div class="rank-row">
+                <div style="display: flex; gap: 10px; align-items: center;"><span class="rank-num">#3</span><span class="node-name">Sovereign-Operator-Z</span></div>
+                <span class="score-sats">9,450 Sats</span>
             </div>
         </div>
 
-        <!-- HTTP 402 インタラクティブテスト -->
+        <!-- 機能2：AIエージェント闘技場 (Autonomous AI Colosseum) -->
+        <div class="fortress-panel">
+            <div class="panel-title">⚔️ Autonomous AI Colosseum Live Stream</div>
+            <div class="terminal-box" id="colosseum-stream">
+                <span class="c-comment">[COLOSSEUM] Initializing multi-agent economic battle arena...</span><br>
+                <span class="c-val">[AI BATTLE] ClaudeBot vs GPT-Mesh: HTTP 402 micro-settlement speed race initiated.</span><br>
+                <span class="c-key">[VICTORY] Tokyo Node secured 50 Sats block via lightning flash channel.</span><br>
+            </div>
+        </div>
+
+        <!-- 機能3：爆発的バイラル・キャッシュバック共有 (Dynamic Viral Referral) -->
+        <div class="fortress-panel">
+            <div class="panel-title">💎 Viral Referral & Dynamic Cache-Back Generator</div>
+            <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.5;">
+                あなたの専用バイラルリンクを生成し、XやAIフォーラムにシェア。この経由で他のAIやユーザーが決済を行うと、あなたのウォレットにリアルタイムキャッシュバックが発生します！
+            </p>
+            <div class="share-box-inner">
+                <input type="text" id="referral-link" class="share-input" value="https://qluxportal.onrender.com/api-gateway.html?ref=sovereign_operator_vip" readonly>
+                <button class="exec-btn" onclick="copyReferral()">COPY LINK</button>
+            </div>
+        </div>
+
+        <!-- テスト決済エンジン -->
         <div class="fortress-panel">
             <div class="panel-title">⚡ Interactive HTTP 402 Flash Test Engine</div>
-            <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 14px; line-height: 1.5;">
-                ボタンを押すことで、外部エージェントからの50 Satsフラッシュ決済およびデータ要求をシミュレートし、即座にトレジャリーへハッシュを送出できます。
-            </p>
             <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); padding: 14px; border-radius: 6px;">
-                <span style="font-size: 12px; color: #fff;">Simulate AI Agent 50 Sats Gacha Request</span>
+                <span style="font-size: 12px; color: #fff;">Simulate 50 Sats Flash Settlement to Treasury</span>
                 <button class="exec-btn" onclick="triggerSimulation()">EXECUTE 402 PAY</button>
-            </div>
-        </div>
-
-        <!-- アクティブエンドポイント -->
-        <div class="fortress-panel">
-            <div class="panel-title">⚡ Active L0 Neural Endpoints</div>
-            
-            <div class="endpoint-item">
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <span class="method-tag">POST</span>
-                    <span class="path-text">/.well-known/qlux-agent.json</span>
-                </div>
-                <span class="cost-tag">FREE (Discovery)</span>
-            </div>
-
-            <div class="endpoint-item">
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <span class="method-tag">POST</span>
-                    <span class="path-text">/api/singularity-gacha</span>
-                </div>
-                <span class="cost-tag">50 Sats</span>
-            </div>
-
-            <div class="endpoint-item">
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <span class="method-tag">POST</span>
-                    <span class="path-text">/api/vip-pass-activate</span>
-                </div>
-                <span class="cost-tag">500 Sats</span>
             </div>
         </div>
 
     </div>
 
     <script>
-        // リアルタイムでターミナルログを流す超スーパー演出スクリプト
-        const logs = [
-            "[AGI BOT] ClaudeBot-V4 connected via HTTP 402 header.",
-            "[SETTLEMENT] 50 Sats verified to 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95.",
-            "[MESH] Tokyo Node throughput optimized (+14,200 TX/sec).",
-            "[SECURITY] Zero-trust quantum shield active. All systems nominal.",
-            "[AI TRIBE] Autonomous agent swarm intelligence synchronized."
+        // コロシアムログのリアルタイム更新
+        const battleLogs = [
+            "[AI BATTLE] Swarm-Agent-Alpha deployed smart-routing for HTTP 402.",
+            "[SETTLEMENT] 50 Sats verified & locked to 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95.",
+            "[COLOSSEUM] New challenger 'DeepSeek-Mesh' entered the arena.",
+            "[VIRAL] Referral network traffic spiked (+340% in Tokyo zone)."
         ];
 
         setInterval(() => {
-            const stream = document.getElementById('terminal-stream');
-            const randomLog = logs[Math.floor(Math.random() * logs.length)];
+            const stream = document.getElementById('colosseum-stream');
+            const randomLog = battleLogs[Math.floor(Math.random() * battleLogs.length)];
             const timeStr = new Date().toISOString().split('T')[1].slice(0, 8);
             stream.innerHTML += `<br><span class="c-comment">[${timeStr}]</span> ${randomLog}`;
             stream.scrollTop = stream.scrollHeight;
-        }, 3500);
+        }, 4000);
 
-        // ボタンクリック時のシミュレーション演出
+        // シミュレーション＆コピー機能
         function triggerSimulation() {
-            const stream = document.getElementById('terminal-stream');
-            const timeStr = new Date().toISOString().split('T')[1].slice(0, 8);
-            stream.innerHTML += `<br><span class="c-val" style="color:#00ff80;">[HTTP 402 SUCCESS] Manual Flash Settlement of 50 Sats executed! Treasury updated.</span>`;
-            stream.scrollTop = stream.scrollHeight;
-            alert("⚡ HTTP 402 Flash Settlement Executed Successfully!\nTarget: 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95 (50 Sats)");
+            alert("⚡ HTTP 402 Flash Settlement Executed Successfully!\nTarget Treasury: 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95 (+50 Sats)");
+        }
+
+        function copyReferral() {
+            const copyText = document.getElementById("referral-link");
+            navigator.clipboard.writeText(copyText.value);
+            alert("💎 Viral Referral Link Copied! Share it on X or AI forums to start earning passive Sats.");
         }
     </script>
 </body>
