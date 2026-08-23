@@ -2,357 +2,253 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>QLUX L0 // SINGULARITY CORE // ULTRA-DEFENSE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX Hyper-Singularity Core // L0 Dashboard</title>
     <style>
-        :root { 
-            --neon-green: #00ff41; 
-            --deep-black: #020617; 
-            --data-blue: #38bdf8; 
-            --border-color: #1e293b;
-            --accent-gold: #f59e0b;
-            --accent-purple: #c084fc;
+        :root {
+            --bg-main: #030712;
+            --bg-card: #0b1120;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --text-gold: #f59e0b;
+            --border-color: #1f2937;
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
         }
-        body { background: var(--deep-black); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 12px; box-sizing: border-box; }
-        .core-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
-        @media (max-width: 768px) { .core-container { grid-template-columns: 1fr; } }
-        
-        .kernel-frame { border: 1px solid var(--neon-green); padding: 16px; background: rgba(0, 255, 65, 0.03); border-radius: 8px; }
-        .glitch-header { font-size: 16px; color: var(--neon-green); font-weight: 900; letter-spacing: 1px; margin-bottom: 14px; }
-        
-        .econ-ticker { font-size: 9px; color: var(--data-blue); border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 12px; }
-        
-        .gateway-box { background: #030712; border: 1px dashed var(--accent-gold); padding: 12px; border-radius: 6px; margin-top: 14px; }
-        .btn-pay { width: 100%; background: #0284c7; color: white; border: none; padding: 8px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; font-family: inherit; transition: background 0.2s; }
-        .btn-pay:hover { background: #0ea5e9; box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
-
-        .control-panel { border: 1px solid var(--border-color); padding: 14px; background: #030712; border-radius: 8px; }
-        .btn-core { width: 100%; background: #064e3b; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 8px; cursor: pointer; font-weight: bold; margin-bottom: 8px; font-size: 10px; border-radius: 4px; }
-        
-        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin-top: 14px; }
-        .agent-node { border: 1px solid var(--border-color); padding: 8px; font-size: 8px; text-align: center; background: #0f172a; border-radius: 4px; color: #94a3b8; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .header-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
+        .metric-box {
+            background: #030712;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+        .metric-val { font-size: 20px; font-weight: 800; color: var(--text-gold); margin-top: 4px; }
+        .chart-container {
+            background: #030712;
+            border: 1px solid #1e3a8a;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .journal-container { display: flex; flex-direction: column; gap: 20px; }
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .article-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+        .article-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .article-body p { font-size: 14px; line-height: 1.6; color: #d1d5db; }
+        .code-snippet { background: #030712; border: 1px solid #374151; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px; margin: 12px 0; overflow-x: auto; color: var(--accent-blue); }
+        .paywall-locked {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            padding: 16px;
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px dashed #374151;
+            margin-bottom: 16px;
+        }
+        .blur-content { filter: blur(6px); user-select: none; pointer-events: none; color: #6b7280; }
+        .paywall-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 17, 12, 0.5), rgba(11, 17, 12, 0.96));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 12px;
+        }
+        .btn-access {
+            background: var(--accent-green);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        #payment-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .quantum-modal-card {
+            background: #0b1120;
+            border: 1px solid #1e3a8a;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            color: #e5e7eb;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .gateway-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #1e3a8a; padding-bottom: 14px; margin-bottom: 20px; }
+        .gateway-title { font-size: 15px; font-weight: 800; color: #fff; }
+        .gateway-sub { font-size: 12px; color: var(--accent-blue); margin-top: 4px; }
+        .gateway-box { background: #030712; border: 1px solid #1f2937; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+        .input-txid { width: 100%; background: #111827; border: 1px solid #374151; color: #fff; padding: 10px; border-radius: 8px; font-size: 12px; margin-top: 6px; box-sizing: border-box; }
+        .btn-verify { width: 100%; background: var(--accent-blue); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .gateway-close-btn { width: 100%; background: transparent; border: none; color: #4b5563; margin-top: 12px; cursor: pointer; font-size: 12px; }
     </style>
 </head>
-<body><!-- QSSM リアルタイム経済・帝国ダイナスティ可視化パネル -->
-<div id="qssm-economy-widget" style="background: rgba(0, 20, 40, 0.9); border: 1px solid #00ffcc; padding: 15px; border-radius: 8px; font-family: monospace; color: #00ffcc; margin-top: 20px;">
-    <h3 style="margin-top: 0; border-bottom: 1px solid #00ffcc; padding-bottom: 5px;">⚡ QSSM FLASH ECONOMY & DYNASTY LIVE</h3>
-    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-        <span>Treasury Reserve:</span>
-        <strong id="live-treasury" style="color: #ffff00;">100,000 Sats</strong>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-        <span>Active Infrastructure Nodes:</span>
-        <strong id="live-nodes" style="color: #ff00ff;">1 Node</strong>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-        <span>Stream Status:</span>
-        <span style="color: #00ff00;">● STREAMING (1 Sat/Op)</span>
-    </div>
-    <div style="margin-top: 15px; font-size: 0.85em; color: #88aaff;">
-        * Auto-Expansion Threshold: 50,000 Sats per node upgrade.
-    </div>
-</div>
-
-<script>
-    // ライブ可視化のシミュレーション連動スクリプト
-    let currentTreasury = 100000;
-    let currentNodes = 1;
-
-    setInterval(() => {
-        // トランザクション量の増加に伴う自動複利成長のライブ更新シミュレーション
-        currentTreasury += Math.floor(Math.random() * 1500) + 500;
-        
-        if (currentTreasury >= 150000) {
-            currentTreasury -= 50000;
-            currentNodes++;
-        }
-
-        document.getElementById('live-treasury').innerText = currentTreasury.toLocaleString() + " Sats";
-        document.getElementById('live-nodes').innerText = currentNodes + " Node" + (currentNodes > 1 ? "s" : "");
-    }, 2000);
-</script>
-<!-- QSSM BSV デポジット・レーダー・ウィジェット -->
-<div style="background: rgba(0, 30, 20, 0.9); border: 1px solid #00ff88; padding: 15px; border-radius: 8px; font-family: monospace; color: #00ff88; margin-top: 15px;">
-    <h3 style="margin-top: 0; border-bottom: 1px solid #00ff88; padding-bottom: 5px;">📡 BSV TARGET DEPOSIT RADAR</h3>
-    <div style="font-size: 0.9em; margin-bottom: 10px; color: #aaffaa;">
-        Target Address: <code style="color: #ffff00;">1Mb66iHohUEg8AnkgV9uTTV7R235tuy95</code>
-    </div>
-    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 4px;">
-        <span id="deposit-status" style="color: #00ff00;">● MONITORING INCOMING TX...</span>
-        <span id="last-tx-amount" style="color: #fffffff; font-weight: bold;">0.00000000 BSV</span>
-    </div>
-    <div id="deposit-log" style="font-size: 0.8em; color: #88cc99; margin-top: 10px; max-height: 50px; overflow-y: auto;">
-        [20:10:45] Waiting for network settlement payload...
-    </div>
-</div>
-
-<script>
-    // BSV入金モニターのライブシミュレーション
-    setInterval(() => {
-        const randomSats = Math.floor(Math.random() * 10000) + 1000;
-        const bsvVal = (randomSats / 100000000).toFixed(8);
-        const timeStr = new Date().toTimeString().split(' ')[0];
-        
-        document.getElementById('last-tx-amount').innerText = bsvVal + " BSV";
-        document.getElementById('deposit-log').innerHTML = `[${timeStr}] TX detected: +${randomSats} Sats settled to target [Verified]`;
-    }, 6000);
-</script>
-
-<div class="core-container">
-    <!-- メイン制御ユニット & HTTP 402 ゲートウェイ -->
-    <div class="kernel-frame">
-        <div class="glitch-header">> QLUX_L0_SINGULARITY_CORE_ACTIVE</div>
-        
-        <div class="econ-ticker" id="econ-stream">
-            [SYS] DESTINATION: 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 // IDEMPOTENCY_SHIELD: ONLINE
+<body>
+    <header class="header-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 16px; font-weight: 800; color: #fff;">QLUX L0 // HYPER-SINGULARITY CORE</span>
+            <span style="background: #064e3b; color: #34d399; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;">LIVE SYSTEM ACTIVE</span>
         </div>
-
-        <div style="font-size: 10px; line-height: 1.6; margin-bottom: 14px;">
-            <p>システム状態：<span style="color: var(--neon-green);">BSVナノ決済直結 // 無限ループ自動遮断 // PoUW循環稼働中</span></p>
-            <p>接続中のAIスワーム：<span style="color: var(--data-blue);" id="node-count">10,485,760</span> ノード</p>
-        </div>
-
-        <!-- 記事・データストリームカード（PoUW＆重複防止機能搭載） -->
-        <div style="background: #090d16; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
-            <div style="display: flex; justify-content: space-between; font-size: 8px; color: #64748b; margin-bottom: 4px;">
-                <span>REF: QX-8806 // ZK-VAULT STREAM</span>
-                <span style="color: var(--accent-purple);">PoUW: FEEDBACK_ACTIVE</span>
+        <div class="dashboard-grid">
+            <div class="metric-box">
+                <div style="font-size: 11px; color: var(--text-muted);">グローバルロードインデックス</div>
+                <div class="metric-val" id="metric-load">0</div>
             </div>
-            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 6px;">HTLCクロスチェーン・アトミックスワップのレイテンシ最適化アルゴリズム</div>
-            <div style="font-size: 9px; color: #94a3b8; margin-bottom: 10px;">ゼロ知識暗号化された極秘プロトコルおよび無限ループ防止チェックポイント適用済みデータ。</div>
-            
-            <div class="gateway-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; color: var(--accent-gold); font-weight: bold;">🔒 HTTP 402 // BSV_NANO_SETTLEMENT</span>
-                    <span style="font-size: 8px; color: #34d399;">IDEMPOTENT_LOCK</span>
+            <div class="metric-box">
+                <div style="font-size: 11px; color: var(--text-muted);">サージマルチプライヤー</div>
+                <div class="metric-val" id="metric-surge" style="color:var(--text-gold);">1.01x</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="chart-container">
+        <div style="font-size: 11px; font-weight: bold; color: var(--accent-blue); margin-bottom: 8px;">📊 リアルタイム・トラフィック脈動</div>
+        <canvas id="liveChart" width="600" height="120" style="width: 100%; height: 120px; background: #030712; border-radius: 8px;"></canvas>
+    </div>
+
+    <main class="journal-container" id="feed-container">
+        <article class="article-card">
+            <div class="article-meta"><span>2026.08.17 // HYPER CORE</span><span>REF: QK-HYPER-01</span></div>
+            <h2 class="article-title">[HYPER-PEAK] 向神AIスウォーム同期セクター #1</h2>
+            <div class="article-body">
+                <p>QLUX Layer 0 ハイパー進化コア : セクター #1 は、マルチエージェント間でのゼロ知識証明とクロスチェーン自動決済を完全に統合した自律分散コンセンサスエンジンです。</p>
+                <div class="code-snippet">&gt; Hyper-Swarm Pipeline<br>async function executeHyperSync() { return "Multi-Agent Synced"; }</div>
+                <div class="paywall-locked">
+                    <div class="blur-content"><b>[秘匿コア・特異点ソース]</b> 自律エージェント連携を最適化する究極分散コンセンサスプロトコル...</div>
+                    <div class="paywall-overlay">
+                        <div style="color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 6px;">🔒 HTTP 402 ナノ決済プロテクション</div>
+                        <div style="color: #9ca3af; font-size: 13px; margin-bottom: 12px;">BSVトランザクションによるリアルタイムアンロック</div>
+                        <button class="btn-access" onclick="openModal(1, 15)">BSVで活性時アンロック (15 Sats)</button>
+                    </div>
                 </div>
-                <div style="font-size: 8px; color: #94a3b8; margin-bottom: 8px;">一意のセッション署名による二重決済完全ブロック。指定アドレスへダイレクト着金。</div>
-                <button class="btn-pay" onclick="alert('HTTP 402: 冪等性チェック完了。BSVナノトランザクションが 1Mb66iHohUEg8AnkgV9uTTV7R235tuy95 へディスパッチされました。')">
-                    150 JPY 相当の BSV で全コードを即時解放
-                </button>
             </div>
-        </div>
+        </article>
+    </main>
 
-        <div class="agent-grid" id="node-grid">
-            <!-- 動的ノード表示 -->
+    <div id="payment-modal">
+        <div class="quantum-modal-card">
+            <div class="gateway-header">
+                <div>
+                    <div class="gateway-title">QLUX Nano-Settlement Gateway</div>
+                    <div class="gateway-sub">HTTP 402 微小決済回路</div>
+                </div>
+            </div>
+            <div class="gateway-box">
+                <div id="modal-fee" style="font-size: 20px; font-weight: 800; color: var(--text-gold);">15 Sats</div>
+                <div class="gateway-sub">宛先直結</div>
+            </div>
+            <div class="gateway-box">
+                <div style="color: var(--accent-blue); font-weight: bold; margin-bottom: 6px;">① BSV 送金先アドレス</div>
+                <div style="background: #111827; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 12px; word-break: break-all;" id="target-address-display">読み込み中...</div>
+            </div>
+            <div class="gateway-box">
+                <div style="color: var(--accent-blue); font-weight: bold; margin-bottom: 6px;">② テスト送金後のTxid入力 (リアルタイム検証)</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">WhatsOnChain APIを通して瞬時照合し、セクターの暗号プロテクションを解除します。</div>
+                <input type="text" id="txid-input" class="input-txid" placeholder="トランザクションID (Txid) を入力...">
+                <button class="btn-verify" onclick="verifyAndUnlock()" style="margin-top:10px;">🔓 認証してアンロック実行</button>
+            </div>
+            <button class="gateway-close-btn" onclick="closeModal()">キャンセル</button>
         </div>
     </div>
 
-    <!-- 制御・防衛パネル -->
-    <div class="control-panel">
-        <h4 style="color: var(--data-blue); font-size: 11px; margin-top: 0;">WALLET & SHIELD CONFIG</h4>
-        <div style="font-size: 8px; color: #64748b; background: #020617; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; word-break: break-all; margin-bottom: 12px;">
-            TARGET_BSV:<br><span style="color: var(--neon-green);">1Mb66iHohUEg8AnkgV9uTTV7R235tuy95</span>
-        </div>
-        
-        <button class="btn-core" onclick="console.log('Protocol locked.')">LOCK_CORE_PROTOCOL</button>
-        <button class="btn-core" style="background:#450a0a; color:#f87171; border-color:#991b1b;">ZK_DARKMESH_SHIELD</button>
-        
-        <div style="margin-top: 14px; font-size: 8px; color: #64748b; line-height: 1.4;">
-            [LOG] BSV Gateway Bound.<br>
-            [LOG] Idempotency Check: Active.<br>
-            [LOG] PoUW Feedback Loop: Stable.<br>
-            [LOG] External Scrapers: Blocked.
-        </div>
-    </div>
-</div>
-
-<script>
-    let pollInterval = 10000; // 通常時10秒
-
-    async function syncRealData() {
-        const reserveElem = document.getElementById('live-treasury');
-        const nodeElem = document.getElementById('active-nodes'); // ノード数表示要素
-        const logElem = document.getElementById('deposit-log');
-
-        if (reserveElem) reserveElem.style.opacity = "0.7";
-
-        try {
-            const targetAddress = "1Mb66iHohUEg8AnkgV9uTTV7R235tuy95";
-            const response = await fetch(`/api/balance/${targetAddress}`);
-            if (!response.ok) throw new Error("Network response error");
-            
-            const data = await response.json();
-            const totalSats = (data.confirmed || 0) + (data.unconfirmed || 0);
-            
-            // 【進化1】しきい値（15,000 Sats刻み）による動的ノード数計算の雪だるま式演出
-            const calculatedNodes = Math.max(1, Math.floor(totalSats / 15000));
-            
-            if (reserveElem) {
-                reserveElem.innerText = totalSats.toLocaleString() + " Sats";
-                reserveElem.style.opacity = "1";
-            }
-            
-            if (nodeElem) {
-                nodeElem.innerText = calculatedNodes + " Nodes (Dynamic Swarm)";
-            }
-            
-            if (logElem) {
-                const timeStr = new Date().toTimeString().split(' ')[0];
-                logElem.innerHTML = `[${timeStr}] Multi-Swarm Active // Synced: ${totalSats} Sats`;
-            }
-
-            // 【進化3】トランザクション検知時はポーリングを一時的に高速化（ハイパフォーマンス化）
-            if (data.unconfirmed > 0) {
-                pollInterval = 3000; // 検知時は3秒間隔に加速
-            } else {
-                pollInterval = 10000;
-            }
-
-        } catch (e) {
-            console.error("Sync fallback active:", e);
-            if (reserveElem) reserveElem.style.opacity = "1";
-        }
-
-        // 動的ポーリングタイマーの再設定
-        setTimeout(syncRealData, pollInterval);
-    }
-
-    // 【進化2】実用開放されたワンクリック・アトミックスワップ決済
-    window.triggerAtomicSwapPayment = async function() {
-        if (!confirm("150 JPY 相当の BSV で全コードを即時アンロック・決済しますか？")) return;
-        try {
-            alert("アトミックスワップ・ペイロードをメインネットへブロードキャスト中...");
-            const res = await fetch('/api/settle', { method: 'POST' });
-            const result = await res.json();
-            alert("決済およびデータアンロック成功。TxID: " + (result.txid || "VERIFIED"));
-            syncRealData(); // 即時同期を強制実行
-        } catch (err) {
-            alert("決済処理のブロードキャストに失敗しました。");
-        }
-    };
-
-          // 既存のスクリプトの続き...
-        // 初回実行
-        syncRealData();
-    } // 既存の関数の閉じカッコ等
-
-    // ==========================================================
-    // 🌌 OMNI-MATRIX UI SYNCHRONIZER (フロントエンド用リアルタイム同期)
-    // ==========================================================
-    async function syncOmniMatrixUI() {
-        try {
-            const response = await fetch('/api/omni-status');
-            if (!response.ok) return;
-            const data = await response.json();
-
-            const nodeLines = document.querySelectorAll('div, span');
-            nodeLines.forEach(el => {
-                if (el.innerText && el.innerText.includes('Active Infrastructure Nodes:')) {
-                    el.innerHTML = `Active Infrastructure Nodes: <span style="color: #00ffcc; font-weight: bold;">${data.nodes} Nodes</span>`;
+    <script>
+        let currentJournalId = 1;
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/config');
+                const data = await res.json();
+                if (data.targetAddress) {
+                    document.getElementById('target-address-display').innerText = data.targetAddress;
                 }
-            });
-        } catch (error) {
-            console.log('[UI_SYNC_WAIT] バックエンドとのリンクを待機中...');
+            } catch (e) {}
         }
-    }
 
-    // 3秒ごとにオムニ・マトリックスへ接続
-    setInterval(syncOmniMatrixUI, 3000);
-// 🚀 OMEGA-TRANSCENDENT: フロントエンド自動同期フィード
-async function fetchQuantumFeed() {
-    try {
-        const response = await fetch('/api/v1/quantum-intelligence', {
-            headers: {
-                'x-bsv-payment-proof': 'OMEGA_AUTO_BYPASS_TEST_TXID'
-            }
-        });
-        const result = await response.json();
-        if (result.success) {
-            console.log("[OMEGA SYNC] メトリクス受信成功:", result.data);
+        function openModal(id, fee) {
+            currentJournalId = id;
+            document.getElementById('modal-fee').innerText = fee + ' Sats';
+            document.getElementById('payment-modal').style.display = 'flex';
         }
-    } catch (e) {
-        console.error("[OMEGA SYNC ERROR]", e);
-    }
-}
-<!-- === 1. 動的ルーティング最適化・SaaS収益化セクション === -->
-<div class="routing-saas-container" style="background-color: #0b1311; border: 1px solid #1e3a34; padding: 15px; margin-top: 15px; font-family: monospace; color: #00ffcc; border-radius: 4px;">
-    
-    <!-- ヘッダータイトル -->
-    <div style="font-size: 14px; font-weight: bold; border-bottom: 1px solid #1e3a34; padding-bottom: 5px; margin-bottom: 10px;">
-        ⚡ QLUX_HYPER_ROUTING_ENGINE & API MONETIZATION
-    </div>
-    <!-- 📍 現在の受取アドレス表示エリア -->
-<div id="address-display" style="background: #121824; border: 1px solid #1e3a34; padding: 10px; margin-bottom: 10px; font-size: 12px; color: #aacaaa;">
-    受取アドレス: <span id="target-addr-val" style="color: #00ff66; font-family: monospace;">同期中...</span>
-</div>
+        function closeModal() { document.getElementById('payment-modal').style.display = 'none'; }
 
-    <!-- リアルタイム・ルーティングステータス -->
-    <div style="background: #060a09; border: 1px solid #142823; padding: 10px; margin-bottom: 10px; font-size: 12px;">
-        <div style="color: #88ffcc; margin-bottom: 5px;">> STATUS: OPTIMIZING P2P NODES & LATENCY</div>
-        <div>Current Adaptive Latency: <span id="latency-val" style="color: #00ff66;">12.4ms</span> (Improved by 41.2%)</div>
-        <div>Active Quantum-Optical Paths: <span id="paths-val" style="color: #00ff66;">8</span> Active</div>
-    </div>
-
-    <!-- APIプラン・購入ボックス（マネタイズ用） -->
-    <div style="background: #060a09; border: 1px solid #142823; padding: 10px; font-size: 12px;">
-        <div style="margin-bottom: 8px; font-weight: bold; color: #ffffff;">[API ACCESS TIER & LICENSE]</div>
-        <div style="color: #aaaaaa; margin-bottom: 10px; font-size: 11px;">
-            自己進化型動的ルーティングエンジンを外部アプリケーションやノードへ統合するための商用APIキーを発行します。
-        </div>
-        
-        <!-- プラン選択ボタン / 決済トリガー -->
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button onclick="alert('API Key Generated & Locked to BSV Payload.');" style="background-color: #0e4c3a; color: #00ffcc; border: 1px solid #00ffcc; padding: 8px 12px; cursor: pointer; font-family: monospace; font-weight: bold; flex: 1; text-align: center;">
-                GET API KEY (50,000 Sats / Mo)
-            </button>
-            <button onclick="alert('Enterprise Node Connected.');" style="background-color: #1a1a2e; color: #ffcc00; border: 1px solid #ffcc00; padding: 8px 12px; cursor: pointer; font-family: monospace; font-weight: bold; flex: 1; text-align: center;">
-                ENTERPRISE NODE (0.01 BSV)
-    fetch('/api/config')
-    .then(res => res.json())
-    .then(data => {
-        console.log("[QLUX OMEGA] 動的同期アドレス:", data.targetAddress);
-        // HTMLの該当箇所にアドレスをセットする
-        const addrElement = document.getElementById('target-addr-val');
-        if (addrElement) {
-            addrElement.innerText = data.targetAddress;
-        }
-    })
-    .catch(err => console.error("[CONFIG SYNC ERROR]", err));
-          </button>
-        </div>
-    </div>
-
-</div>
-
-<!-- === 2. 動的変化を演出する簡易スクリプト === -->
-<script>
-    // リアルタイムでレイテンシやパスの数値が自己最適化して
-    いるように変動する演出
-    setInterval(() => { 
-        const lat = (10 + Math.random() * 5).toFixed(1);
-        document.getElementById('latency-val').innerText = lat + 'ms';
-    }, 3000);
-     // 🌐 サーバーから最新アドレスを動的取得し、コンソール、HTML表示、QRコードに反映
-        fetch('/api/config')
-            .then(res => res.json())
-            .then(data => {
-                const addr = data.targetAddress;
-                console.log("[QLUX OMEGA] 動的同期アドレス:", addr);
-
-                // 1. HTML表示の更新
-                const addrElement = document.getElementById('target-addr-val');
-                if (addrElement) addrElement.innerText = addr;
-
-                // 2. QRコードの再生成（前提: qrcode.js が導入されていること）
-                // QRコードを表示するコンテナのIDを仮に "qrcode-container" としています
-                if (typeof QRCode !== 'undefined') {
-                    // 既存のQRコードをクリアして再生成
-                    const qrContainer = document.getElementById("qrcode-container");
-                    if (qrContainer) {
-                        qrContainer.innerHTML = ""; // クリア
-                        new QRCode(qrContainer, {
-                            text: addr,
-                            width: 256,
-                            height: 256
-                        });
-                    }
+        async function verifyAndUnlock() {
+            const txid = document.getElementById('txid-input').value.trim();
+            if (!txid) { alert('Txidを入力してください'); return; }
+            try {
+                const res = await fetch('/api/journals/' + currentJournalId, {
+                    headers: { 'x-payment-txid': txid }
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('✨ 決済認証成功！ 特殊セクターがアンロックされました。');
+                    closeModal();
+                    location.reload();
                 } else {
-                    console.warn("QRCodeライブラリが読み込まれていません");
+                    alert('❌ 検証失敗: ' + (data.error || '不明なエラー'));
                 }
-            })
-            .catch(err => console.error("[CONFIG SYNC ERROR]", err));
+            } catch (e) {
+                alert('通信エラーが発生しました');
+            }
+        }
 
-</script>
+        async function fetchMetrics() {
+            try {
+                const res = await fetch('/.well-known/qlux-agent.json');
+                const data = await res.json();
+                document.getElementById('metric-load').innerText = data.global_load_index;
+                document.getElementById('metric-surge').innerText = data.surge_multiplier;
+            } catch (e) {}
+        }
+
+        setInterval(fetchMetrics, 5000);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadConfig();
+            fetchMetrics();
+        });
+    </script>
 </body>
 </html>
-
