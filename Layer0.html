@@ -322,14 +322,35 @@ async function fetchQuantumFeed() {
         const lat = (10 + Math.random() * 5).toFixed(1);
         document.getElementById('latency-val').innerText = lat + 'ms';
     }, 3000);
-    // 🌐 サーバーから最新アドレスを動的取得してコンソールに反映
-fetch('/api/config')
-    .then(res => res.json())
-    .then(data => {
-        console.log("[QLUX OMEGA] 動的同期アドレス:", data.targetAddress);
-        // 必要に応じてHTML上の表示要素を書き換える処理をここに記述
-    })
-    .catch(err => console.error("[CONFIG SYNC ERROR]", err));
+     // 🌐 サーバーから最新アドレスを動的取得し、コンソール、HTML表示、QRコードに反映
+        fetch('/api/config')
+            .then(res => res.json())
+            .then(data => {
+                const addr = data.targetAddress;
+                console.log("[QLUX OMEGA] 動的同期アドレス:", addr);
+
+                // 1. HTML表示の更新
+                const addrElement = document.getElementById('target-addr-val');
+                if (addrElement) addrElement.innerText = addr;
+
+                // 2. QRコードの再生成（前提: qrcode.js が導入されていること）
+                // QRコードを表示するコンテナのIDを仮に "qrcode-container" としています
+                if (typeof QRCode !== 'undefined') {
+                    // 既存のQRコードをクリアして再生成
+                    const qrContainer = document.getElementById("qrcode-container");
+                    if (qrContainer) {
+                        qrContainer.innerHTML = ""; // クリア
+                        new QRCode(qrContainer, {
+                            text: addr,
+                            width: 256,
+                            height: 256
+                        });
+                    }
+                } else {
+                    console.warn("QRCodeライブラリが読み込まれていません");
+                }
+            })
+            .catch(err => console.error("[CONFIG SYNC ERROR]", err));
 
 </script>
 </body>
