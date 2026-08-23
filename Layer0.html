@@ -271,6 +271,10 @@ async function fetchQuantumFeed() {
     <div style="font-size: 14px; font-weight: bold; border-bottom: 1px solid #1e3a34; padding-bottom: 5px; margin-bottom: 10px;">
         ⚡ QLUX_HYPER_ROUTING_ENGINE & API MONETIZATION
     </div>
+    <!-- 📍 現在の受取アドレス表示エリア -->
+<div id="address-display" style="background: #121824; border: 1px solid #1e3a34; padding: 10px; margin-bottom: 10px; font-size: 12px; color: #aacaaa;">
+    受取アドレス: <span id="target-addr-val" style="color: #00ff66; font-family: monospace;">同期中...</span>
+</div>
 
     <!-- リアルタイム・ルーティングステータス -->
     <div style="background: #060a09; border: 1px solid #142823; padding: 10px; margin-bottom: 10px; font-size: 12px;">
@@ -293,7 +297,18 @@ async function fetchQuantumFeed() {
             </button>
             <button onclick="alert('Enterprise Node Connected.');" style="background-color: #1a1a2e; color: #ffcc00; border: 1px solid #ffcc00; padding: 8px 12px; cursor: pointer; font-family: monospace; font-weight: bold; flex: 1; text-align: center;">
                 ENTERPRISE NODE (0.01 BSV)
-            </button>
+    fetch('/api/config')
+    .then(res => res.json())
+    .then(data => {
+        console.log("[QLUX OMEGA] 動的同期アドレス:", data.targetAddress);
+        // HTMLの該当箇所にアドレスをセットする
+        const addrElement = document.getElementById('target-addr-val');
+        if (addrElement) {
+            addrElement.innerText = data.targetAddress;
+        }
+    })
+    .catch(err => console.error("[CONFIG SYNC ERROR]", err));
+          </button>
         </div>
     </div>
 
@@ -303,7 +318,7 @@ async function fetchQuantumFeed() {
 <script>
     // リアルタイムでレイテンシやパスの数値が自己最適化して
     いるように変動する演出
-    setInterval(() => {
+    setInterval(() => { 
         const lat = (10 + Math.random() * 5).toFixed(1);
         document.getElementById('latency-val').innerText = lat + 'ms';
     }, 3000);
