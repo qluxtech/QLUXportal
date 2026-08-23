@@ -15,6 +15,7 @@
             --border-color: #065f46;
             --accent-green: #10b981;
             --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
         }
         body {
             background-color: var(--bg-main);
@@ -52,7 +53,7 @@
         }
         .grid-2 {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
         @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
@@ -88,11 +89,10 @@
             transition: background 0.2s;
         }
         .btn-action:hover { background: #059669; }
-        .btn-danger {
-            background: #991b1b;
-            color: #fca5a5;
-        }
-        .btn-danger:hover { background: #b91c1c; }
+        .btn-purple { background: #7e22ce; }
+        .btn-purple:hover { background: #9333ea; }
+        .btn-gold { background: #b45309; }
+        .btn-gold:hover { background: #d97706; }
         .input-box {
             width: 100%;
             background: #02040a;
@@ -128,26 +128,23 @@
 </head>
 <body>
     <div class="container">
-        <!-- TOP: QSSM FLASH ECONOMY -->
+        <!-- 1. QSSM FLASH ECONOMY -->
         <div class="panel">
             <div class="panel-header">
-                <span>⚡ QSSM FLASH ECONOMY & DYNASTY LIVE</span>
-                <span style="color:var(--text-green);">● STREAMING (1 Sat/Op)</span>
+                <span>⚡ QSSM FLASH ECONOMY & DYNASTY LIVE (MONOPOLY REVENUE)</span>
+                <span style="color:var(--text-green);">● FULL REVENUE ACTIVE</span>
             </div>
             <div class="metric-row">
-                <span>Treasury Reserve:</span>
-                <span class="metric-val-gold">105,180 Sats</span>
+                <span>Treasury Reserve (Total Sats):</span>
+                <span id="treasury-display" class="metric-val-gold">Loading...</span>
             </div>
             <div class="metric-row">
-                <span>Active Infrastructure Nodes:</span>
-                <span class="metric-val-green">1 Node</span>
-            </div>
-            <div class="metric-row" style="margin-top:10px; font-size:11px; color:var(--text-muted);">
-                <span>* Auto-Expansion Threshold: 50,000 Sats per node upgrade.</span>
+                <span>Autonomous Nodes:</span>
+                <span class="metric-val-green">1 Node (Auto-Scaling)</span>
             </div>
         </div>
 
-        <!-- RADAR PANEL -->
+        <!-- 2. BSV TARGET DEPOSIT RADAR -->
         <div class="panel">
             <div class="panel-header">
                 <span>📡 BSV TARGET DEPOSIT RADAR</span>
@@ -158,50 +155,56 @@
                 <span id="target-address-display" style="color:var(--text-gold); word-break:break-all;">読み込み中...</span>
             </div>
             <div class="terminal-box" style="margin-top:10px;">
-                <span style="color:var(--text-green);">🟢 MONITORING INCOMING TX...</span><br>
+                <span style="color:var(--text-green);">🟢 B2B & AGENT MONETIZATION GATEWAY ACTIVE</span><br>
                 <span id="tx-status-log" style="color:var(--text-muted); font-size:10px;">Waiting for network broadcast...</span>
             </div>
         </div>
 
-        <!-- MAIN GRID: LEFT (CORE DYNAMICS) & RIGHT (CONFIG) -->
+        <!-- 3. MAIN GRID: MONETIZATION SUITE (GACHA, VIP, B2B) -->
         <div class="grid-2">
-            <!-- LEFT: CORE DYNAMICS -->
+            <!-- LEFT: AI GACHA & SECTOR STREAM -->
             <div class="panel">
                 <div class="panel-header">
-                    <span>> QLUX_L0_SINGULARITY_CORE_ACTIVE</span>
+                    <span>🎲 AI SINGULARITY GACHA (50 Sats)</span>
                 </div>
                 <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
-                    [ZKP DESTINATION]: 0xzk_hyper_proof // [SYSTEM STATUS]: 100% SECURE
+                    一撃で伝説級の超機密解析セクターを引き当てる高速ガチャ
                 </div>
                 <div class="terminal-box" style="margin-bottom: 12px;">
-                    <div style="color:#fff; font-weight:bold; margin-bottom:4px;">[HYPER-PEAK] 向神AIスウォーム同期セクター #1</div>
-                    <div style="color:var(--text-muted); font-size:10px; margin-bottom:6px;">
-                        QLUX Layer 0 ハイパー進化コア : マルチエージェント間のゼロ知識証明とクロスチェーン自動決済エンジン。
-                    </div>
-                    <div style="background:#030712; padding:8px; border-radius:4px; border:1px dashed #047857; margin-top:8px;">
-                        <div style="font-size:10px; color:var(--text-gold); margin-bottom:4px;">🔒 HTTP 402 / BSV.NANO.SETTLEMENT</div>
-                        <div style="font-size:10px; color:var(--text-muted);">一括ミッション実行による二重用途防止ブロック、秘匿アドレスダイレクト保護。</div>
-                        <button class="btn-action" onclick="openModal(1, 15)">15 JPY 相当の BSV で全コードを即時照合</button>
-                    </div>
+                    <div style="color:var(--text-gold); font-weight:bold; margin-bottom:4px;">🎰 レジェンダリー・ガチャ報酬プロトコル</div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">50 Sats のマイクロ決済で、ランダムに高価値セクターの全データを即時抽出します。</div>
+                    <button class="btn-action btn-gold" onclick="openPaymentModal('gacha', 50)">🎲 50 Sats でガチャを回す</button>
+                </div>
+
+                <div class="panel-header" style="margin-top:16px;">
+                    <span>👑 UNLIMITED VIP PASS (500 Sats)</span>
+                </div>
+                <div class="terminal-box">
+                    <div style="color:var(--accent-purple); font-weight:bold; margin-bottom:4px;">💎 永久パスポート発効</div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">500 Sats でサイト内の全セクターが完全無制限で読み放題になる最上位権限。</div>
+                    <button class="btn-action btn-purple" onclick="openPaymentModal('vip', 500)">👑 500 Sats でVIPパスを購入</button>
                 </div>
             </div>
 
-            <!-- RIGHT: WALlet & SHIELD CONFIG -->
+            <!-- RIGHT: VIRAL AFFILIATE & B2B AGENT SUITE -->
             <div class="panel">
                 <div class="panel-header">
-                    <span>WALLET & SHIELD CONFIG</span>
+                    <span>🚀 VIRAL AFFILIATE BOUNTY</span>
                 </div>
                 <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
-                    Active L0 Daemon Connected
+                    紹介リンク拡散で自動キャッシュバック報酬
                 </div>
                 <div class="terminal-box" style="margin-bottom: 12px; font-size: 10px;">
-                    <div>[001]: BSV Treasury Vault</div>
-                    <div>[002]: Autonomous Swarm Sync</div>
-                    <div>[003]: ZK-ZK-Recursive Proof Engine</div>
-                    <div>[004]: Daemonic Watchdog Protocol</div>
+                    <div>紹介リンク用ハッシュ生成済。SNSや他のAIエージェントにシェアすることで、流入した決済から自動キックバックが発生します。</div>
+                    <button class="btn-action" onclick="copyAffiliateLink()" style="background:#1e3a8a;">🔗 アフィリエイトリンクをコピー</button>
                 </div>
-                <button class="btn-action" onclick="alert('Shield is already fully armed and operational.')">LOCK_CORE_PROTOCOL</button>
-                <button class="btn-action btn-danger" onclick="alert('Zk-Darkmesh is actively shielding node traffic.')">ZK_DARKMESH_SHIELD</button>
+
+                <div class="panel-header" style="margin-top:16px;">
+                    <span>🤖 B2B AI AGENT AUTO-API</span>
+                </div>
+                <div class="terminal-box" style="font-size: 10px;">
+                    <div>HTTP 402 ヘッダーによる機械間自動決済（AI-to-AI Settlement）稼働中。他所のエージェントが自動でAPIを叩いて収益をもたらします。</div>
+                </div>
             </div>
         </div>
     </div>
@@ -210,28 +213,33 @@
     <div id="payment-modal">
         <div class="modal-content">
             <div class="panel-header" style="margin-bottom:12px;">
-                <span>⚡ NANO SETTLEMENT GATEWAY</span>
+                <span id="modal-title">⚡ NANO SETTLEMENT GATEWAY</span>
                 <span onclick="closeModal()" style="cursor:pointer; color:#fca5a5;">[✕]</span>
             </div>
-            <div style="font-size: 12px; margin-bottom: 8px;">必要手数料: <span id="modal-fee" style="color:var(--text-gold); font-weight:bold;">15 Sats</span></div>
+            <div style="font-size: 12px; margin-bottom: 8px;">必要手数料: <span id="modal-fee" style="color:var(--text-gold); font-weight:bold;">50 Sats</span></div>
             <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">① 送金先 BSV アドレス:</div>
             <div class="terminal-box" id="modal-address" style="color:var(--text-gold); word-break:break-all; margin-bottom:10px;">読み込み中...</div>
             <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">② トランザクションID (Txid) 入力:</div>
-            <input type="text" id="txid-input" class="input-box" placeholder="Txid を入力して即時アンロック...">
-            <button class="btn-action" onclick="verifyAndUnlock()" style="margin-top:12px;">🔓 認証してセクター解放</button>
+            <input type="text" id="txid-input" class="input-box" placeholder="Txid を入力して認証...">
+            <button class="btn-action" id="modal-submit-btn" onclick="executePayment()" style="margin-top:12px;">🔓 認証して実行</button>
         </div>
     </div>
 
     <script>
-        let currentJournalId = 1;
+        let currentMode = 'gacha';
+        let targetBsvAddress = '';
 
         async function loadConfig() {
             try {
                 const res = await fetch('/api/config');
                 const data = await res.json();
                 if (data.targetAddress) {
-                    document.getElementById('target-address-display').innerText = data.targetAddress;
-                    document.getElementById('modal-address').innerText = data.targetAddress;
+                    targetBsvAddress = data.targetAddress;
+                    document.getElementById('target-address-display').innerText = targetBsvAddress;
+                    document.getElementById('modal-address').innerText = targetBsvAddress;
+                }
+                if (data.treasuryReserve) {
+                    document.getElementById('treasury-display').innerText = data.treasuryReserve.toLocaleString() + ' Sats';
                 }
             } catch (e) {}
         }
@@ -241,13 +249,15 @@
                 const res = await fetch('/.well-known/qlux-agent.json');
                 const data = await res.json();
                 document.getElementById('load-badge').innerText = 'GLOBAL LOAD: ' + data.global_load_index;
-                document.getElementById('tx-status-log').innerText = 'Synced at ' + new Date().toLocaleTimeString() + ' | Surge: ' + data.surge_multiplier;
+                document.getElementById('treasury-display').innerText = data.global_load_index.toLocaleString() + ' Sats';
+                document.getElementById('tx-status-log').innerText = 'Synced at ' + new Date().toLocaleTimeString() + ' | Multiplier: ' + data.surge_multiplier;
             } catch (e) {}
         }
 
-        function openModal(id, fee) {
-            currentJournalId = id;
+        function openPaymentModal(mode, fee) {
+            currentMode = mode;
             document.getElementById('modal-fee').innerText = fee + ' Sats';
+            document.getElementById('modal-title').innerText = mode === 'gacha' ? '🎲 AI SINGULARITY GACHA GATEWAY' : '👑 UNLIMITED VIP PASS GATEWAY';
             document.getElementById('payment-modal').style.display = 'flex';
         }
 
@@ -255,24 +265,38 @@
             document.getElementById('payment-modal').style.display = 'none';
         }
 
-        async function verifyAndUnlock() {
+        async function executePayment() {
             const txid = document.getElementById('txid-input').value.trim();
             if (!txid) { alert('Txidを入力してください'); return; }
+
+            const endpoint = currentMode === 'gacha' ? '/api/v1/gacha' : '/api/v1/vip-pass';
             try {
-                const res = await fetch('/api/journals/' + currentJournalId, {
-                    headers: { 'x-payment-txid': txid }
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ txid: txid })
                 });
                 const data = await res.json();
                 if (res.ok) {
-                    alert('✨ 決済認証成功！特異点セクターがアンロックされました。');
+                    if (currentMode === 'gacha') {
+                        alert('🎰 ガチャ大成功！特異点セクター報酬:\n\n' + JSON.stringify(data.reward_tier, null, 2));
+                    } else {
+                        alert('👑 VIP永久パス発効成功！全セクターがノー制限で解放されました。');
+                    }
                     closeModal();
                     location.reload();
                 } else {
-                    alert('❌ 検証失敗: ' + (data.error || '不明なエラー'));
+                    alert('❌ 認証失敗: ' + (data.error || '不明なエラー'));
                 }
             } catch (e) {
                 alert('通信エラーが発生しました');
             }
+        }
+
+        function copyAffiliateLink() {
+            const refLink = window.location.origin + '/?ref=qlux_swarm_' + Math.floor(Math.random() * 100000);
+            navigator.clipboard.writeText(refLink);
+            alert('🔗 アフィリエイトリンクをコピーしました！\nこのリンク経由で発生した収益は自動分配されます:\n' + refLink);
         }
 
         setInterval(fetchMetrics, 5000);
