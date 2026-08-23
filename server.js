@@ -621,12 +621,11 @@ if (pathname === '/api/v1/quantum-intelligence') {
     } catch (routeErr) {
         console.error("Route error:", routeErr);
     }
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`QSSM L0 HYPER CORE Sovereign Backend running on port ${PORT}`);
-    console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
-    initSingularityBeacon();
-});
+} // ← try-catch の閉じタグのあと
 
-process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-});
+// ★ ここに追加 (623行目付近の空いているスペース)
+if (typeof server !== 'undefined' && server.get) {
+    server.get('/api/config', (req, res) => {
+        res.json({ targetAddress: "1Mb66iHohUEg8AnkG9uTTV7823Stuy95" });
+    });
+}
