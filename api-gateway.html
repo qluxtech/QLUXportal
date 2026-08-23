@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX // L0 Developer & API Gateway</title>
+    <meta name="description" content="Autonomous AI agent API gateway and HTTP 402 micro-settlement documentation for the QLUX Sovereign Mesh.">
+    
+    <!-- OGP -->
+    <meta property="og:title" content="QLUX L0 Developer & API Gateway">
+    <meta property="og:description" content="Machine-readable API endpoints and HTTP 402 settlement protocols for autonomous AGI systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qluxportal.onrender.com/api-gateway.html">
+
+    <!-- 既存ポータルと完全統一されたサイバー・スタイリング -->
+    <style>
+        :root {
+            --bg-color: #050b0f;
+            --card-bg: rgba(10, 20, 30, 0.75);
+            --border-color: rgba(0, 255, 128, 0.2);
+            --accent-green: #00ff80;
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 20px; }
+        
+        .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        
+        /* ヘッダー */
+        .header-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .gateway-tag { font-size: 11px; color: var(--accent-blue); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+        h1 { font-size: 22px; color: #fff; margin-bottom: 10px; font-weight: 700; }
+        .header-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+        /* セクションカード */
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .section-title { font-size: 15px; color: var(--accent-green); margin-bottom: 12px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        
+        /* コードブロック風表示 */
+        .code-box {
+            background: #020406;
+            border: 1px dashed rgba(0, 255, 128, 0.3);
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 12px;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        .code-comment { color: #64748b; }
+        .code-keyword { color: #a855f7; }
+        .code-string { color: #00ff80; }
+
+        /* エンドポイント一覧テーブル風 */
+        .endpoint-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-top: 8px;
+            border-left: 3px solid var(--accent-purple);
+            font-size: 12px;
+        }
+        .method { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .path { color: #fff; font-family: monospace; }
+        .price-tag { color: var(--accent-green); font-weight: bold; }
+
+        /* ボトムに戻るボタン */
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--accent-green); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header-panel">
+            <div class="gateway-tag">⚡ QLUX MESH // MACHINE-READABLE GATEWAY</div>
+            <h1>L0 Developer & Autonomous API Portal</h1>
+            <p class="header-desc">
+                自律AIエージェント、AGIスウォーム、および外部開発者がQLUXインフラストラクチャとダイレクトに通信し、HTTP 402プロトコルを介してリアルタイムでマイクロ決済を実行するための公式エンドポイント仕様書。
+            </p>
+            <a href="index.html" class="back-link">← メインポータルへ帰還する</a>
+        </div>
+
+        <!-- 1. HTTP 402 プロトコル仕様 -->
+        <div class="section-card">
+            <div class="section-title">📡 HTTP 402 Payment Required Protocol</div>
+            <p style="font-size: 12px; color: var(--text-dim); line-height: 1.5;">
+                当ネットワークのAPIは標準で <code>402 Payment Required</code> を返却します。エージェント側はヘッダーに有効なBSVトランザクション証明（Satsマイクロペイメント）を付与することで、自動的にデータブロックのロックを解除できます。
+            </p>
+            <div class="code-box">
+<span class="code-comment"># Request Header Example from Autonomous Agent</span>
+GET /api/v1/intelligence-sector HTTP/1.1
+Host: qluxportal.onrender.com
+<span class="code-keyword">X-HTTP-402-Payment-Hash:</span> <span class="code-string">"bc1_tx_proof_simulation_sats_50"</span>
+<span class="code-keyword">X-Sovereign-Target:</span> <span class="code-string">"1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95"</span>
+            </div>
+        </div>
+
+        <!-- 2. アクティブ・エンドポイント一覧 -->
+        <div class="section-card">
+            <div class="section-title">⚡ Active API Endpoints for Agents</div>
+            
+            <div class="endpoint-row">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span class="method">POST</span>
+                    <span class="path">/.well-known/qlux-agent.json</span>
+                </div>
+                <span class="price-tag">FREE (Discovery)</span>
+            </div>
+
+            <div class="endpoint-row">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span class="method">POST</span>
+                    <span class="path">/api/singularity-gacha</span>
+                </div>
+                <span class="price-tag">50 Sats</span>
+            </div>
+
+            <div class="endpoint-row">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span class="method">POST</span>
+                    <span class="path">/api/vip-pass-activate</span>
+                </div>
+                <span class="price-tag">500 Sats</span>
+            </div>
+
+            <div class="endpoint-row">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span class="method">GET</span>
+                    <span class="path">/api/telemetry-stream</span>
+                </div>
+                <span class="price-tag">Realtime Mesh</span>
+            </div>
+        </div>
+
+        <!-- 3. Python / JS SDK スニペット -->
+        <div class="section-card">
+            <div class="section-title">🐍 Python Autonomous Client SDK Snippet</div>
+            <p style="font-size: 12px; color: var(--text-dim);">
+                自律AIエージェントが自動でガチャやデータ取得を行うためのサンプルスクリプトです。
+            </p>
+            <div class="code-box">
+<span class="code-keyword">import</span> requests
+
+<span class="code-comment"># QLUX L0 Gateway Connection</span>
+GATEWAY_URL = <span class="code-string">"https://qluxportal.onrender.com/api/singularity-gacha"</span>
+TREASURY = <span class="code-string">"1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95"</span>
+
+<span class="code-keyword">def</span> <span class="code-keyword">trigger_agent_gacha</span>():
+    payload = {<span class="code-string">"sats"</span>: <span class="code-string">50</span>, <span class="code-string">"target"</span>: TREASURY}
+    response = requests.post(GATEWAY_URL, json=payload)
+    <span class="code-keyword">return</span> response.json()
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
