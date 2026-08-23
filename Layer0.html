@@ -7,204 +7,241 @@
     <style>
         :root {
             --bg-main: #030712;
-            --bg-card: #0b1120;
+            --bg-card: #060d1a;
             --text-main: #e5e7eb;
             --text-muted: #9ca3af;
+            --text-green: #34d399;
             --text-gold: #f59e0b;
-            --border-color: #1f2937;
-            --accent-blue: #38bdf8;
+            --border-color: #065f46;
             --accent-green: #10b981;
+            --accent-blue: #38bdf8;
         }
         body {
             background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-green);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             margin: 0;
-            padding: 16px;
+            padding: 12px;
             box-sizing: border-box;
         }
-        .header-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
-        .metric-box {
-            background: #030712;
-            border: 1px solid #374151;
-            border-radius: 12px;
-            padding: 14px;
-            text-align: center;
-        }
-        .metric-val { font-size: 20px; font-weight: 800; color: var(--text-gold); margin-top: 4px; }
-        .chart-container {
-            background: #030712;
-            border: 1px solid #1e3a8a;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-        .journal-container { display: flex; flex-direction: column; gap: 20px; }
-        .article-card {
+        .panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .article-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
-        .article-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 12px; }
-        .article-body p { font-size: 14px; line-height: 1.6; color: #d1d5db; }
-        .code-snippet { background: #030712; border: 1px solid #374151; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px; margin: 12px 0; overflow-x: auto; color: var(--accent-blue); }
-        .paywall-locked {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
+            border-radius: 6px;
             padding: 16px;
-            background: rgba(3, 7, 18, 0.85);
-            border: 1px dashed #374151;
-            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05);
         }
-        .blur-content { filter: blur(6px); user-select: none; pointer-events: none; color: #6b7280; }
-        .paywall-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(11, 17, 12, 0.5), rgba(11, 17, 12, 0.96));
+        .panel-header {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-green);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 6px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
-            padding: 12px;
         }
-        .btn-access {
-            background: var(--accent-green);
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .metric-val-green { color: var(--text-green); font-weight: bold; }
+        .metric-val-gold { color: var(--text-gold); font-weight: bold; }
+        .terminal-box {
+            background: #02040a;
+            border: 1px solid #047857;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .btn-action {
+            width: 100%;
+            background: #047857;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 13px;
+            font-family: inherit;
+            font-size: 12px;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .btn-action:hover { background: #059669; }
+        .btn-danger {
+            background: #991b1b;
+            color: #fca5a5;
+        }
+        .btn-danger:hover { background: #b91c1c; }
+        .input-box {
+            width: 100%;
+            background: #02040a;
+            border: 1px solid #047857;
+            color: var(--text-green);
+            padding: 8px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 11px;
+            box-sizing: border-box;
+            margin-top: 6px;
         }
         #payment-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 7, 18, 0.9);
+            background: rgba(3, 7, 18, 0.92);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
             box-sizing: border-box;
         }
-        .quantum-modal-card {
-            background: #0b1120;
-            border: 1px solid #1e3a8a;
-            border-radius: 24px;
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             width: 100%;
-            max-width: 600px;
-            padding: 30px;
-            color: #e5e7eb;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-width: 500px;
+            padding: 20px;
         }
-        .gateway-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #1e3a8a; padding-bottom: 14px; margin-bottom: 20px; }
-        .gateway-title { font-size: 15px; font-weight: 800; color: #fff; }
-        .gateway-sub { font-size: 12px; color: var(--accent-blue); margin-top: 4px; }
-        .gateway-box { background: #030712; border: 1px solid #1f2937; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
-        .input-txid { width: 100%; background: #111827; border: 1px solid #374151; color: #fff; padding: 10px; border-radius: 8px; font-size: 12px; margin-top: 6px; box-sizing: border-box; }
-        .btn-verify { width: 100%; background: var(--accent-blue); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
-        .gateway-close-btn { width: 100%; background: transparent; border: none; color: #4b5563; margin-top: 12px; cursor: pointer; font-size: 12px; }
     </style>
 </head>
 <body>
-    <header class="header-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 16px; font-weight: 800; color: #fff;">QLUX L0 // HYPER-SINGULARITY CORE</span>
-            <span style="background: #064e3b; color: #34d399; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;">LIVE SYSTEM ACTIVE</span>
-        </div>
-        <div class="dashboard-grid">
-            <div class="metric-box">
-                <div style="font-size: 11px; color: var(--text-muted);">グローバルロードインデックス</div>
-                <div class="metric-val" id="metric-load">0</div>
+    <div class="container">
+        <!-- TOP: QSSM FLASH ECONOMY -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>⚡ QSSM FLASH ECONOMY & DYNASTY LIVE</span>
+                <span style="color:var(--text-green);">● STREAMING (1 Sat/Op)</span>
             </div>
-            <div class="metric-box">
-                <div style="font-size: 11px; color: var(--text-muted);">サージマルチプライヤー</div>
-                <div class="metric-val" id="metric-surge" style="color:var(--text-gold);">1.01x</div>
+            <div class="metric-row">
+                <span>Treasury Reserve:</span>
+                <span class="metric-val-gold">105,180 Sats</span>
+            </div>
+            <div class="metric-row">
+                <span>Active Infrastructure Nodes:</span>
+                <span class="metric-val-green">1 Node</span>
+            </div>
+            <div class="metric-row" style="margin-top:10px; font-size:11px; color:var(--text-muted);">
+                <span>* Auto-Expansion Threshold: 50,000 Sats per node upgrade.</span>
             </div>
         </div>
-    </header>
 
-    <div class="chart-container">
-        <div style="font-size: 11px; font-weight: bold; color: var(--accent-blue); margin-bottom: 8px;">📊 リアルタイム・トラフィック脈動</div>
-        <canvas id="liveChart" width="600" height="120" style="width: 100%; height: 120px; background: #030712; border-radius: 8px;"></canvas>
-    </div>
+        <!-- RADAR PANEL -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>📡 BSV TARGET DEPOSIT RADAR</span>
+                <span id="load-badge" style="color:var(--accent-blue);">GLOBAL LOAD: 0</span>
+            </div>
+            <div class="metric-row">
+                <span>Target Address:</span>
+                <span id="target-address-display" style="color:var(--text-gold); word-break:break-all;">読み込み中...</span>
+            </div>
+            <div class="terminal-box" style="margin-top:10px;">
+                <span style="color:var(--text-green);">🟢 MONITORING INCOMING TX...</span><br>
+                <span id="tx-status-log" style="color:var(--text-muted); font-size:10px;">Waiting for network broadcast...</span>
+            </div>
+        </div>
 
-    <main class="journal-container" id="feed-container">
-        <article class="article-card">
-            <div class="article-meta"><span>2026.08.17 // HYPER CORE</span><span>REF: QK-HYPER-01</span></div>
-            <h2 class="article-title">[HYPER-PEAK] 向神AIスウォーム同期セクター #1</h2>
-            <div class="article-body">
-                <p>QLUX Layer 0 ハイパー進化コア : セクター #1 は、マルチエージェント間でのゼロ知識証明とクロスチェーン自動決済を完全に統合した自律分散コンセンサスエンジンです。</p>
-                <div class="code-snippet">&gt; Hyper-Swarm Pipeline<br>async function executeHyperSync() { return "Multi-Agent Synced"; }</div>
-                <div class="paywall-locked">
-                    <div class="blur-content"><b>[秘匿コア・特異点ソース]</b> 自律エージェント連携を最適化する究極分散コンセンサスプロトコル...</div>
-                    <div class="paywall-overlay">
-                        <div style="color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 6px;">🔒 HTTP 402 ナノ決済プロテクション</div>
-                        <div style="color: #9ca3af; font-size: 13px; margin-bottom: 12px;">BSVトランザクションによるリアルタイムアンロック</div>
-                        <button class="btn-access" onclick="openModal(1, 15)">BSVで活性時アンロック (15 Sats)</button>
+        <!-- MAIN GRID: LEFT (CORE DYNAMICS) & RIGHT (CONFIG) -->
+        <div class="grid-2">
+            <!-- LEFT: CORE DYNAMICS -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span>> QLUX_L0_SINGULARITY_CORE_ACTIVE</span>
+                </div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                    [ZKP DESTINATION]: 0xzk_hyper_proof // [SYSTEM STATUS]: 100% SECURE
+                </div>
+                <div class="terminal-box" style="margin-bottom: 12px;">
+                    <div style="color:#fff; font-weight:bold; margin-bottom:4px;">[HYPER-PEAK] 向神AIスウォーム同期セクター #1</div>
+                    <div style="color:var(--text-muted); font-size:10px; margin-bottom:6px;">
+                        QLUX Layer 0 ハイパー進化コア : マルチエージェント間のゼロ知識証明とクロスチェーン自動決済エンジン。
+                    </div>
+                    <div style="background:#030712; padding:8px; border-radius:4px; border:1px dashed #047857; margin-top:8px;">
+                        <div style="font-size:10px; color:var(--text-gold); margin-bottom:4px;">🔒 HTTP 402 / BSV.NANO.SETTLEMENT</div>
+                        <div style="font-size:10px; color:var(--text-muted);">一括ミッション実行による二重用途防止ブロック、秘匿アドレスダイレクト保護。</div>
+                        <button class="btn-action" onclick="openModal(1, 15)">15 JPY 相当の BSV で全コードを即時照合</button>
                     </div>
                 </div>
             </div>
-        </article>
-    </main>
 
-    <div id="payment-modal">
-        <div class="quantum-modal-card">
-            <div class="gateway-header">
-                <div>
-                    <div class="gateway-title">QLUX Nano-Settlement Gateway</div>
-                    <div class="gateway-sub">HTTP 402 微小決済回路</div>
+            <!-- RIGHT: WALlet & SHIELD CONFIG -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span>WALLET & SHIELD CONFIG</span>
                 </div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                    Active L0 Daemon Connected
+                </div>
+                <div class="terminal-box" style="margin-bottom: 12px; font-size: 10px;">
+                    <div>[001]: BSV Treasury Vault</div>
+                    <div>[002]: Autonomous Swarm Sync</div>
+                    <div>[003]: ZK-ZK-Recursive Proof Engine</div>
+                    <div>[004]: Daemonic Watchdog Protocol</div>
+                </div>
+                <button class="btn-action" onclick="alert('Shield is already fully armed and operational.')">LOCK_CORE_PROTOCOL</button>
+                <button class="btn-action btn-danger" onclick="alert('Zk-Darkmesh is actively shielding node traffic.')">ZK_DARKMESH_SHIELD</button>
             </div>
-            <div class="gateway-box">
-                <div id="modal-fee" style="font-size: 20px; font-weight: 800; color: var(--text-gold);">15 Sats</div>
-                <div class="gateway-sub">宛先直結</div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="payment-modal">
+        <div class="modal-content">
+            <div class="panel-header" style="margin-bottom:12px;">
+                <span>⚡ NANO SETTLEMENT GATEWAY</span>
+                <span onclick="closeModal()" style="cursor:pointer; color:#fca5a5;">[✕]</span>
             </div>
-            <div class="gateway-box">
-                <div style="color: var(--accent-blue); font-weight: bold; margin-bottom: 6px;">① BSV 送金先アドレス</div>
-                <div style="background: #111827; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 12px; word-break: break-all;" id="target-address-display">読み込み中...</div>
-            </div>
-            <div class="gateway-box">
-                <div style="color: var(--accent-blue); font-weight: bold; margin-bottom: 6px;">② テスト送金後のTxid入力 (リアルタイム検証)</div>
-                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">WhatsOnChain APIを通して瞬時照合し、セクターの暗号プロテクションを解除します。</div>
-                <input type="text" id="txid-input" class="input-txid" placeholder="トランザクションID (Txid) を入力...">
-                <button class="btn-verify" onclick="verifyAndUnlock()" style="margin-top:10px;">🔓 認証してアンロック実行</button>
-            </div>
-            <button class="gateway-close-btn" onclick="closeModal()">キャンセル</button>
+            <div style="font-size: 12px; margin-bottom: 8px;">必要手数料: <span id="modal-fee" style="color:var(--text-gold); font-weight:bold;">15 Sats</span></div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">① 送金先 BSV アドレス:</div>
+            <div class="terminal-box" id="modal-address" style="color:var(--text-gold); word-break:break-all; margin-bottom:10px;">読み込み中...</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">② トランザクションID (Txid) 入力:</div>
+            <input type="text" id="txid-input" class="input-box" placeholder="Txid を入力して即時アンロック...">
+            <button class="btn-action" onclick="verifyAndUnlock()" style="margin-top:12px;">🔓 認証してセクター解放</button>
         </div>
     </div>
 
     <script>
         let currentJournalId = 1;
+
         async function loadConfig() {
             try {
                 const res = await fetch('/api/config');
                 const data = await res.json();
                 if (data.targetAddress) {
                     document.getElementById('target-address-display').innerText = data.targetAddress;
+                    document.getElementById('modal-address').innerText = data.targetAddress;
                 }
+            } catch (e) {}
+        }
+
+        async function fetchMetrics() {
+            try {
+                const res = await fetch('/.well-known/qlux-agent.json');
+                const data = await res.json();
+                document.getElementById('load-badge').innerText = 'GLOBAL LOAD: ' + data.global_load_index;
+                document.getElementById('tx-status-log').innerText = 'Synced at ' + new Date().toLocaleTimeString() + ' | Surge: ' + data.surge_multiplier;
             } catch (e) {}
         }
 
@@ -213,7 +250,10 @@
             document.getElementById('modal-fee').innerText = fee + ' Sats';
             document.getElementById('payment-modal').style.display = 'flex';
         }
-        function closeModal() { document.getElementById('payment-modal').style.display = 'none'; }
+
+        function closeModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
 
         async function verifyAndUnlock() {
             const txid = document.getElementById('txid-input').value.trim();
@@ -224,7 +264,7 @@
                 });
                 const data = await res.json();
                 if (res.ok) {
-                    alert('✨ 決済認証成功！ 特殊セクターがアンロックされました。');
+                    alert('✨ 決済認証成功！特異点セクターがアンロックされました。');
                     closeModal();
                     location.reload();
                 } else {
@@ -235,15 +275,6 @@
             }
         }
 
-        async function fetchMetrics() {
-            try {
-                const res = await fetch('/.well-known/qlux-agent.json');
-                const data = await res.json();
-                document.getElementById('metric-load').innerText = data.global_load_index;
-                document.getElementById('metric-surge').innerText = data.surge_multiplier;
-            } catch (e) {}
-        }
-
         setInterval(fetchMetrics, 5000);
         window.addEventListener('DOMContentLoaded', () => {
             loadConfig();
@@ -252,3 +283,4 @@
     </script>
 </body>
 </html>
+
