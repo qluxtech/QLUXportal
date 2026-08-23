@@ -301,11 +301,21 @@ async function fetchQuantumFeed() {
 
 <!-- === 2. 動的変化を演出する簡易スクリプト === -->
 <script>
-    // リアルタイムでレイテンシやパスの数値が自己最適化しているように変動する演出
+    // リアルタイムでレイテンシやパスの数値が自己最適化して
+    いるように変動する演出
     setInterval(() => {
         const lat = (10 + Math.random() * 5).toFixed(1);
         document.getElementById('latency-val').innerText = lat + 'ms';
     }, 3000);
+    // 🌐 サーバーから最新アドレスを動的取得してコンソールに反映
+fetch('/api/config')
+    .then(res => res.json())
+    .then(data => {
+        console.log("[QLUX OMEGA] 動的同期アドレス:", data.targetAddress);
+        // 必要に応じてHTML上の表示要素を書き換える処理をここに記述
+    })
+    .catch(err => console.error("[CONFIG SYNC ERROR]", err));
+
 </script>
 </body>
 </html>
