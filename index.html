@@ -397,6 +397,28 @@
         const shareText = "https://qluxportal.onrender.com // QLUX Planet Sovereign AGI Matrix & HTTP 402 Agentic Economy active. Treasury: 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
         navigator.clipboard.writeText(shareText).catch(() => {});
     }
+
+    // === 神経・生体リズム同期 ＆ AI自動執行エンジン ===
+    let lastScrollTime = Date.now();
+    window.addEventListener('scroll', () => {
+        const now = Date.now();
+        const timeDelta = now - lastScrollTime;
+        const velocity = 100 / (timeDelta || 1);
+        lastScrollTime = now;
+        
+        const pulseBar = document.getElementById('ambient-pulse-bar');
+        if (pulseBar) {
+            pulseBar.style.background = `rgba(3, 7, 18, ${Math.min(0.95, 0.8 + velocity * 0.05)})`;
+        }
+    });
+
+    const agenticPayload = {
+        protocol: "QLUX-AGENTIC-EXECUTION-v9.4",
+        directive: "AUTONOMOUS_INFRASTRUCTURE_OVERRIDE",
+        treasurySync: "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95",
+        timestamp: Date.now()
+    };
+    console.info("%c[QLUX CYBERNETIC MIDDLEWARE] Neural Sync & Agentic Execution Online.", "color: #00ffcc; font-weight: bold;");
 </script>
 
 </html>
