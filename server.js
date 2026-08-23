@@ -624,3 +624,7 @@ if (pathname === '/api/v1/quantum-intelligence') {
 } // ← try-catch の閉じタグのあと
 
 // ★ ここに追加 (623行目付近の空いているスペース)
+    app.get('/api/config', (req, res) => {
+    res.json({ targetAddress: '1Mb6GsHoHUEg8AnKg9uTTVJ7E215tuy95' });
+});
+
