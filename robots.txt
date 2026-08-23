@@ -1,1 +1,3 @@
-
+User-agent: *
+Allow: /
+Sitemap: https://qluxportal.onrender.com/sitemap.xml
