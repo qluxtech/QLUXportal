@@ -622,7 +622,7 @@ if (pathname === '/api/v1/quantum-intelligence') {
         console.error("Route error:", routeErr);
     }
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`[QSSM L0 HYPER CORE] Sovereign Backend running on port ${PORT}`);
+    console.log(`QSSM L0 HYPER CORE Sovereign Backend running on port ${PORT}`);
     console.log(`[TARGET WALLET] ${TARGET_BSV_ADDRESS}`);
     initSingularityBeacon();
 });
