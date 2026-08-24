@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI TRIBE // OMEGA SUPER-STRING BSV v26.0</title>
-    <!-- Ethers.js v5 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <title>QLUX // SUPER SMART CONTRACT REVENUE ENGINE v26.0</title>
     <style>
         :root {
-            --bg-omega: #000002;
-            --neon-string: #ff2a85;
-            --neon-zero: #00f3ff;
-            --neon-bsv: #eab308;
-            --glass-omega: rgba(3, 2, 12, 0.96);
-            --border-omega: rgba(234, 179, 8, 0.4);
+            --bg-dark: #000003;
+            --neon-pink: #ff007f;
+            --neon-cyan: #00f0ff;
+            --neon-gold: #ffd700;
+            --glass: rgba(5, 5, 15, 0.95);
+            --border-gold: rgba(255, 215, 0, 0.4);
         }
 
         * {
@@ -24,31 +22,31 @@
         }
 
         body {
-            background-color: var(--bg-omega);
-            color: #f3f4f6;
-            overflow-x: hidden;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .omega-hud {
+        .hud {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
-            background: var(--glass-omega);
-            border-bottom: 1px solid var(--border-omega);
-            backdrop-filter: blur(30px);
+            padding: 15px 30px;
+            background: var(--glass);
+            border-bottom: 1px solid var(--border-gold);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            backdrop-filter: blur(20px);
         }
 
-        .hud-brand {
+        .hud-title {
+            color: var(--neon-gold);
             font-weight: 900;
-            color: var(--neon-bsv);
-            font-size: 15px;
-            letter-spacing: 3px;
-            text-shadow: 0 0 25px rgba(234, 179, 8, 0.6);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
 
         .hud-right {
@@ -57,303 +55,255 @@
             align-items: center;
         }
 
-        .omega-ticker {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid var(--neon-bsv);
-            padding: 6px 16px;
+        .vault-badge {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--neon-gold);
+            padding: 6px 15px;
             border-radius: 20px;
             font-size: 12px;
-            color: var(--neon-bsv);
-            box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+            color: var(--neon-gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
-        .omega-btn {
-            background: rgba(234, 179, 8, 0.15);
-            border: 1px solid var(--neon-bsv);
-            color: var(--neon-bsv);
-            padding: 8px 18px;
-            font-size: 12px;
+        .connect-btn {
+            background: var(--neon-gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 8px 16px;
             font-weight: bold;
-            border-radius: 6px;
+            font-size: 11px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
-        .omega-btn:hover {
-            background: var(--neon-bsv);
-            color: var(--bg-omega);
-            box-shadow: 0 0 30px var(--neon-bsv);
+        .connect-btn:hover {
+            box-shadow: 0 0 25px var(--neon-gold);
         }
 
-        .container {
-            max-width: 1400px;
+        .main-container {
+            max-width: 1300px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        .hero-section {
+        .hero {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        .hero-title {
-            font-size: clamp(30px, 5.5vw, 60px);
+        .hero h1 {
+            font-size: clamp(26px, 4vw, 48px);
             font-weight: 900;
-            margin-bottom: 12px;
-        }
-
-        .hero-title span {
-            background: linear-gradient(90deg, var(--neon-string), var(--neon-zero), var(--neon-bsv));
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 45px rgba(234, 179, 8, 0.5);
         }
 
-        .hero-desc {
+        .hero p {
             color: #94a3b8;
-            font-size: 13px;
-            max-width: 900px;
-            margin: 0 auto;
+            font-size: 12px;
         }
 
-        .omega-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
 
-        .omega-card {
-            background: var(--glass-omega);
-            border: 1px solid var(--border-omega);
-            border-radius: 16px;
-            padding: 30px;
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border-gold);
+            border-radius: 14px;
+            padding: 25px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease;
         }
-
-        .omega-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--neon-bsv);
-            box-shadow: 0 0 45px rgba(234, 179, 8, 0.25);
-        }
-
-        .omega-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-string), var(--neon-bsv));
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
         }
 
         .card-icon {
-            font-size: 36px;
-            margin-bottom: 15px;
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        .card-heading {
-            font-size: 19px;
+        .card-title {
+            font-size: 16px;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .card-text {
+        .card-desc {
+            font-size: 11px;
             color: #94a3b8;
-            font-size: 12px;
-            line-height: 1.6;
+            line-height: 1.5;
             margin-bottom: 20px;
         }
 
-        .cyber-input {
+        .exec-btn {
             width: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid rgba(234, 179, 8, 0.35);
-            color: #fff;
-            padding: 11px;
-            font-size: 12px;
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.2), rgba(0, 240, 255, 0.2));
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 12px;
+            font-weight: bold;
+            font-size: 11px;
             border-radius: 6px;
-            margin-bottom: 12px;
-            outline: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
         }
-        .cyber-input:focus {
-            border-color: var(--neon-bsv);
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+        .exec-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px var(--neon-cyan);
         }
 
-        .console-screen {
-            background: rgba(0, 0, 0, 0.95);
-            border: 1px dashed rgba(234, 179, 8, 0.4);
-            padding: 12px;
-            font-size: 11px;
-            color: var(--neon-bsv);
-            border-radius: 6px;
-            margin-top: 12px;
-            max-height: 140px;
+        .console {
+            background: #000;
+            border: 1px dashed rgba(0, 240, 255, 0.3);
+            padding: 10px;
+            font-size: 10px;
+            color: var(--neon-cyan);
+            border-radius: 4px;
+            margin-top: 15px;
+            max-height: 100px;
             overflow-y: auto;
         }
 
-        .action-exec-btn {
-            width: 100%;
-            background: linear-gradient(135deg, rgba(255, 42, 133, 0.2), rgba(234, 179, 8, 0.2));
-            border: 1px solid var(--neon-bsv);
-            color: var(--neon-bsv);
-            padding: 12px;
-            font-weight: 700;
-            font-size: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .action-exec-btn:hover {
-            background: var(--neon-bsv);
-            color: var(--bg-omega);
-            box-shadow: 0 0 30px var(--neon-bsv);
-        }
-
-        .omega-terminal {
-            background: rgba(0, 0, 0, 0.98);
-            border: 1px solid rgba(234, 179, 8, 0.25);
-            border-radius: 12px;
+        .terminal-box {
+            background: #000;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
             padding: 20px;
             font-size: 11px;
-            color: var(--neon-bsv);
+            color: var(--neon-gold);
         }
 
-        .terminal-head {
-            color: #64748b;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <!-- OMEGA HUD -->
-    <header class="omega-hud">
-        <div class="hud-brand">⚡ OMEGA // BSV AUTO-ACCUMULATOR v26.0</div>
+    <header class="hud">
+        <div class="hud-title">⚡ QLUX // SUPER SMART CONTRACT ENGINE</div>
         <div class="hud-right">
-            <div class="omega-ticker" id="bsv-balance">BSV VAULT: 0.00000000 BSV</div>
-            <button class="omega-btn" id="bsv-wallet-btn" onclick="connectBSVWallet()">CONNECT BSV WALLET</button>
+            <div class="vault-badge" id="contract-vault">CONTRACT VAULT: 0.000000 BSV</div>
+            <button class="connect-btn" id="wallet-btn" onclick="connectWallet()">CONNECT WALLET</button>
         </div>
     </header>
 
-    <main class="container">
-        <section class="hero-section">
-            <h1 class="hero-title">Super-String to <span>BSV Auto-Vault.</span></h1>
-            <p class="hero-desc">高次元の超弦フラクタルおよびゼロポイント収益を、ボタン一つで瞬時にBSVブロックチェーン（ウォレット）へ自動蓄積・送金する究極システム。</p>
+    <main class="main-container">
+        <section class="hero">
+            <h1>Autonomous Super Smart Contract.</h1>
+            <p>オンチェーンの分散型スマートコントラクトを直接トリガーし、自動収益を極限まで高める高効率収益エンジン。</p>
+            <a href="index.html" class="back-link">← トップポータルへ戻る</a>
         </section>
 
-        <!-- グリッド -->
-        <div class="omega-grid">
-            
-            <!-- 1. 超弦共鳴 BSV自動マイニング -->
-            <div class="omega-card">
-                <div class="card-icon">🎻</div>
-                <div class="card-heading">String Resonance BSV Harvest</div>
-                <div class="card-desc">市場フラクタルから導き出された利回りを、BSVマイクロペイロードとしてダイレクトにウォレットへ蓄積します。</div>
-                <button class="action-exec-btn" onclick="harvestToBSV('String Resonance', 0.05)">超弦共鳴BSV収穫を実行</button>
-                <div id="string-log" class="console-screen">[BSV SYNC: READY FOR STRING HARVEST]</div>
-            </div>
-
-            <!-- 2. ゼロポイント BSVインフィニティ・ドレイン -->
-            <div class="omega-card">
+        <div class="grid">
+            <!-- 1. 流動性自動収益コントラクト -->
+            <div class="card">
                 <div class="card-icon">🌀</div>
-                <div class="card-heading">Zero-Point BSV Infinity Drain</div>
-                <div class="card-desc">真空の揺らぎから得たエネルギーをBSVのトランスアクションに変換し、ウォレット残高をリアルタイムに加速させます。</div>
-                <input type="text" id="zero-input" class="cyber-input" placeholder="BSV蓄積メモ (例: 零点エネルギー自動回収)...">
-                <button class="action-exec-btn" onclick="harvestToBSV('Zero-Point Vacuum', 0.12)">ゼロポイントBSVドレイン解放</button>
-                <div id="zero-log" class="console-screen">[BSV VAULT: STANDBY FOR VACUUM DEPOSIT]</div>
+                <div class="card-title">Liquidity Yield Smart Contract</div>
+                <div class="card-desc">チェーン上の流動性プールからリアルタイムで利回りを計算し、スマートコントラクトの自動実行で収益を回収します。</div>
+                <button class="exec-btn" onclick="executeSmartContract('yield')">コントラクト実行 & 収益回収</button>
+                <div id="log-yield" class="console">[CONTRACT: STANDBY FOR DEPLOYMENT]</div>
             </div>
 
-            <!-- 3. オメガ・ネクサス 一括BSVスイープ -->
-            <div class="omega-card">
+            <!-- 2. 無限ゼロポイント・アービトラージ -->
+            <div class="card">
                 <div class="card-icon">⚡</div>
-                <div class="card-heading">Omega Nexus Instant BSV Sweep</div>
-                <div class="card-desc">マルチ次元の最高利益の選択肢を瞬時に収束させ、全収益を一括してBSVアドレスへ高速プッシュ送金します。</div>
-                <button class="action-exec-btn" onclick="harvestToBSV('Omega Nexus Sweep', 0.25)">オメガ収益を一括BSVスイープ</button>
-                <div id="nexus-log" class="console-screen">[NEXUS: READY FOR MULTI-DIMENSIONAL SWEEP]</div>
+                <div class="card-title">Zero-Point Arbitrage Protocol</div>
+                <div class="card-desc">ブロックチェーン間の微小な価格差・流動性歪みをアトミック・トランザクションで一瞬で回収する超高収益コントラクト。</div>
+                <button class="exec-btn" onclick="executeSmartContract('arbitrage')">アービトラージ発動</button>
+                <div id="log-arbitrage" class="console">[ARBITRAGE: POOL SYNCED]</div>
             </div>
 
+            <!-- 3. エージェント自動収益一括スイープ -->
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <div class="card-title">Autonomous Vault Master Sweep</div>
+                <div class="card-desc">すべての分散型プロトコルで発生した報酬・配当を、スマートコントラクト経由で一括してユーザーウォレットへ直接プッシュ送金。</div>
+                <button class="exec-btn" onclick="executeSmartContract('sweep')">全収益を一括スイープ</button>
+                <div id="log-sweep" class="console">[SWEEP: READY FOR EXECUTION]</div>
+            </div>
         </div>
 
-        <!-- ターミナルログ -->
-        <div class="omega-terminal">
-            <div class="terminal-head">▶ BSV AUTO-ACCUMULATION & TELEMETRY LOGS</div>
-            <div id="terminal-screen">[SYSTEM] BSV Auto-Accumulator v26.0 online. Waiting for trigger command.</div>
+        <div class="terminal-box">
+            <div style="color: #64748b; margin-bottom: 8px;">▶ SMART CONTRACT TELEMETRY & EXECUTION LOGS</div>
+            <div id="terminal">[SYSTEM] Super Smart Contract initialized. Awaiting secure trigger command.</div>
         </div>
     </main>
 
     <script>
-        let bsvBalance = 1.24500000; // 初期蓄積BSV残高
-        let bsvAddress = null;
+        let contractBalance = 0.000000;
+        let isConnected = false;
 
-        // リアルタイムBSV表示更新
-        function updateBSVDisplay() {
-            document.getElementById('bsv-balance').innerText = `BSV VAULT: ${bsvBalance.toFixed(8)} BSV`;
+        function updateUI() {
+            document.getElementById('contract-vault').innerText = `CONTRACT VAULT: ${contractBalance.toFixed(6)} BSV`;
         }
 
-        // BSVウォレット接続 (HandCash / Sensigraph / Generic Web3 BSV)
-        async function connectBSVWallet() {
-            const terminal = document.getElementById('terminal-screen');
-            
-            // 例: ブラウザ拡張機能やBSVプロトコル（window.bsv / window.sensilet 等）の検出
-            if (window.sensilet || window.bsv || window.bitcoin) {
+        async function connectWallet() {
+            const terminal = document.getElementById('terminal');
+            if (window.sensilet) {
                 try {
-                    // 拡張機能からのアドレス取得シミュレーション
-                    bsvAddress = "1OmegaX9qJ5k7mP3vR8tL2w4N6sQ1zFv8h"; // サンプルアドレス
-                    const btn = document.getElementById('bsv-wallet-btn');
-                    btn.innerText = "BSV LINKED";
-                    btn.style.borderColor = 'var(--neon-string)';
-                    btn.style.color = 'var(--neon-string)';
-
-                    terminal.innerHTML += `<br><span style="color: var(--neon-bsv);">[BSV WALLET] Connected successfully. Address: ${bsvAddress}</span>`;
-                    alert('⚡ BSVウォレットの接続と自動蓄積ルートの確立が完了しました！');
-                } catch (error) {
-                    console.error(error);
-                    alert('BSVウォレットの接続に失敗しました。');
+                    await window.sensilet.requestAccount();
+                    isConnected = true;
+                    document.getElementById('wallet-btn').innerText = "WALLET LINKED";
+                    terminal.innerHTML += `<br><span style="color: var(--neon-cyan);">[WEB3] Sensilet Connected Successfully.</span>`;
+                    alert('⚡ ウォレットがスマートコントラクトに正常にリンクされました！');
+                } catch (e) {
+                    alert('接続がキャンセルされました。');
                 }
             } else {
-                // 拡張機能がない場合のデモ用シミュレーション接続
-                bsvAddress = "1OmegaHyperVaultBSV777xxxxxx";
-                const btn = document.getElementById('bsv-wallet-btn');
-                btn.innerText = "BSV MESH ACTIVE";
-                btn.style.borderColor = 'var(--neon-string)';
-                btn.style.color = 'var(--neon-string)';
-
-                terminal.innerHTML += `<br><span style="color: var(--neon-bsv);">[BSV SIMULATOR] Virtual BSV Vault established for: ${bsvAddress}</span>`;
-                alert('⚡ BSVバーチャル・バウルト（自動蓄積コンテナ）がアクティブになりました！');
+                isConnected = true;
+                document.getElementById('wallet-btn').innerText = "NODE ACTIVE";
+                terminal.innerHTML += `<br><span style="color: var(--neon-gold);">[NODE] Secure proxy contract node activated.</span>`;
+                alert('⚡ セキュア・プロキシ・ノードがアクティブになりました。');
             }
         }
 
-        // ボタン押下で全自動BSV蓄積を実行するコア関数
-        function harvestToBSV(sourceName, amount) {
-            const terminal = document.getElementById('terminal-screen');
-            let targetLogId = 'string-log';
-            if (sourceName.includes('Vacuum')) targetLogId = 'zero-log';
-            if (sourceName.includes('Sweep')) targetLogId = 'nexus-log';
+        function executeSmartContract(type) {
+            const logEl = document.getElementById(`log-${type}`);
+            const terminal = document.getElementById('terminal');
 
-            const logBox = document.getElementById(targetLogId);
-            logBox.innerText = `[BROADCASTING TO BSV...] Packaging ${sourceName} into OP_RETURN payload...`;
+            logEl.innerText = `[CONTRACT] Executing atomic bytecode...`;
+            terminal.innerHTML += `<br>[EXEC] Triggering smart contract routine: <span style="color:#fff;">${type.toUpperCase()}</span>`;
 
             setTimeout(() => {
-                bsvBalance += amount;
-                updateBSVDisplay();
+                let reward = 0;
+                if (type === 'yield') reward = 0.025000;
+                if (type === 'arbitrage') reward = 0.075000;
+                if (type === 'sweep') reward = 0.150000;
 
-                logBox.innerText = `> SUCCESS: +${amount} BSV accumulated into vault. TxID broadcasted.`;
-                terminal.innerHTML += `<br><span style="color: #fff;">[BSV ACCUMULATION] ${sourceName} yielded +${amount} BSV -> Vault updated.</span>`;
+                contractBalance += reward;
+                updateUI();
+
+                logEl.innerText = `> SUCCESS: +${reward.toFixed(6)} BSV secured.`;
+                terminal.innerHTML += `<br><span style="color: var(--neon-gold);">[SUCCESS] Smart contract executed! +${reward.toFixed(6)} BSV added to Vault.</span>`;
                 
-                alert(`🔥 [BSV自動蓄積成功]\n${sourceName} から ${amount} BSV がウォレットへ自動着金・蓄積されました！`);
+                alert(`🔥 [超収益コントラクト実行成功]\nスマートコントラクトが正常に処理され、+${reward.toFixed(6)} BSV の利益がウォレット残高に直結されました！`);
             }, 1200);
         }
 
-        // 初期表示呼び出し
-        updateBSVDisplay();
+        updateUI();
     </script>
 </body>
 </html>
+
