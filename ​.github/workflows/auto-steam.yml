@@ -1,0 +1,34 @@
+name: QLUX Autonomous Paper Daemon (High Frequency)
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # 5分ごとに自動実行（GitHub Actionsの最速限界値）
+  workflow_dispatch: # 手動での即時実行も可能
+
+jobs:
+  generate-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install openai
+
+      - name: Run Autonomous Generator
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node generate-article.js
+
+      - name: Commit and Push New Article
+        run: |
+          git config --global user.name "QLUX Autonomous Daemon"
+          git config --global user.email "daemon@qlux.system"
+          git add journals.html
+          git commit -m "⚡ High-frequency auto-generated deep technical paper [5min interval]"
+          git push
