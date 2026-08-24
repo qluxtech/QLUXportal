@@ -79,39 +79,6 @@
     </div>
   </div>
 
-  <!-- フッター -->
-  <div style="margin-top: 16px; text-align: center; border-top: 1px solid #1f2937; pt-3;">
-    <span style="font-size: 10px; color: #6b7280;">仲介者を完全排除した自律分散型インフラ</span>
-  </div>
-
-</div>
-
-<!-- タブ切り替え用スクリプト -->
-<script>
-function switchPaymentMethod(method) {
-  const stripeView = document.getElementById('view-stripe');
-  const bsvView = document.getElementById('view-bsv');
-  const tabStripe = document.getElementById('tab-stripe');
-  const tabBsv = document.getElementById('tab-bsv');
-
-  if (method === 'stripe') {
-    stripeView.style.display = 'block';
-    bsvView.style.display = 'none';
-    tabStripe.style.background = '#1e3a8a';
-    tabStripe.style.borderColor = '#3b82f6';
-    tabBsv.style.background = '#030712';
-    tabBsv.style.borderColor = '#38bdf8';
-  } else {
-    stripeView.style.display = 'none';
-    bsvView.style.display = 'block';
-    tabBsv.style.background = '#1e3a8a';
-    tabBsv.style.borderColor = '#38bdf8';
-    tabStripe.style.background = '#030712';
-    tabStripe.style.borderColor = '#3b82f6';
-  }
-}
-</script>
-
                 <!-- トップ・インフラ統括ブロック -->
     <div style="background: #0b1120; border: 1px solid #1f2937; border-radius: 14px; padding: 16px; margin-bottom: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px;">
         
