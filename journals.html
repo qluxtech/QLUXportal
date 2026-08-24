@@ -474,49 +474,29 @@ function switchPaymentMethod(method) {
 }
 </script>
 
+           <!-- 新しいシンプル決済・VIPパスブロック（journals.html用） -->
+<div style="background: #0b1120; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 24px; margin: 20px 0;">
+  <div style="font-size: 0.75rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px;">
+    Sovereign Ecosystem Access
+  </div>
+  <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: #ffffff;">
+    QLUX プラットフォーム全開放・VIP Pass
+  </h3>
+  <p style="color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+    仲介者を完全排除したプロトコルレベルのナノセトルメント。Stripe（2,000 JPY）またはBSV（500 Sats）による即時決済で全コードを解放します。
+  </p>
 
-            <div class="tab-container">
-                <div class="gateway-tab active" onclick="switchTab(this, 'bsv')">Bitcoin SV (BSV)</div>
-                <div class="gateway-tab" onclick="switchTab(this, 'bank')">法人銀行振込</div>
-                <div class="gateway-tab" onclick="switchTab(this, 'card')">カード / 決済</div>
-            </div>
+  <!-- Stripe直結決済ボタン -->
+  <a href="https://buy.stripe.com/aFacMYbAHdrg2px8gE3Nm01" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; background: #3b82f6; color: #fff; text-align: center; padding: 14px; border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 0.95rem; box-sizing: border-box; margin-bottom: 16px;">
+    Stripe公式決済でVIP Passを取得 (2,000 JPY)
+  </a>
 
-            <!-- Bitcoin SV 決済エリア -->
-            <div id="pane-bsv" class="gateway-box">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">Bitcoin SV (BSV) ダイレクトチェーン送金</div>
-                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">以下の宛先へ直接送金してください。自動検知して即時ロックが解除されます。</div>
-                
-                <div style="background:#111827; padding:14px; border-radius:10px; font-family:monospace; font-size:13px; color:#38bdf8; word-break:break-all; margin-bottom:14px; border:1px solid #374151;">
-                    1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95
-                </div>
+  <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 14px; font-size: 0.75rem; color: #6b7280; display: flex; flex-direction: column; gap: 6px;">
+    <span>💎 BSVナノセトルメント送金先: <strong style="color: #38bdf8;">1Mb66IHohUEg8e4nkgV9uTTV7R235tuy95</strong> (500 Sats)</span>
+    <span>Securely Processed via Stripe & HandCash</span>
+  </div>
+</div>
 
-                <div style="text-align:center; background:#fff; padding:16px; border-radius:10px; margin-bottom:14px;">
-                    <div style="font-size:11px; color:#111827; font-weight:bold; margin-bottom:6px;">SCAN WITH ANY BSV WALLET</div>
-                    <div style="font-family:monospace; font-size:10px; color:#555; word-break:break-all;">bitcoin:1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95?amount=...</div>
-                </div>
-
-                <div style="font-size:12px; color:#f59e0b;">*BSVチェーン以外からの送金は資金が永久に失われますのでご注意ください。</div>
-            </div>
-
-            <!-- 銀行振込エリア（初期非表示） -->
-            <div id="pane-bank" class="gateway-box" style="display:none;">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">みずほ銀行 (自動照合システム)</div>
-                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">振込名義・記事IDリアルタイム自動突き合わせ</div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>銀行名:</span> <span style="color:#fff;">みずほ銀行 (支店コード: 676)</span></div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>口座番号:</span> <span style="color:#38bdf8; font-weight:bold;">3035385 (普通)</span></div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px; color:#d1d5db;"><span>口座名義:</span> <span style="color:#fff;">ヒグチ ダイスケ</span></div>
-                <div style="font-size:12px; color:#f59e0b; margin-top:10px;">*自動照合により振込後数秒間で記事権限が解放されます。</div>
-            </div>
-
-            <!-- カード決済エリア（初期非表示） -->
-            <div id="pane-card" class="gateway-box" style="display:none;">
-                <div style="color:#38bdf8; font-weight:bold; margin-bottom:8px; font-size:14px;">クレジットカード / Stripe 決済</div>
-                <div style="font-size:13px; color:#9ca3af; margin-bottom:14px;">セキュアな外部決済インフラを通じて即時決済を行います。</div>
-                <button style="width:100%; background:#3b82f6; color:#fff; border:none; padding:14px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="alert('Stripe決済へ移行します')">Stripe公式決済 (150 JPY) に進む</button>
-            </div>
-
-            <button class="gateway-close-btn" onclick="closeModal()">キャンセルして戻る</button>
-        </div>
     </div>
 
     <script>
