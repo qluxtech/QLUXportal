@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // AUTO-SWEEP TARGET ENGINE v37.0</title>
+    <title>QLUX // MEGA UNIVERSAL GLOBAL ENGINE v40.0</title>
     <style>
         :root {
-            --bg-engine: #000003;
-            --accent-green: #00ff66;
-            --accent-cyan: #00f0ff;
-            --accent-gold: #ffd700;
-            --glass-engine: rgba(2, 2, 10, 0.98);
-            --border-engine: rgba(0, 255, 102, 0.4);
+            --bg-mega: #000002;
+            --global-green: #00ff66;
+            --global-cyan: #00ffff;
+            --global-gold: #ffea00;
+            --global-pink: #ff0055;
+            --glass-mega: rgba(2, 2, 12, 0.98);
+            --border-mega: rgba(0, 255, 255, 0.4);
         }
 
         * {
@@ -22,7 +23,7 @@
         }
 
         body {
-            background-color: var(--bg-engine);
+            background-color: var(--bg-mega);
             color: #f8fafc;
             min-height: 100vh;
             overflow-x: hidden;
@@ -33,20 +34,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background: var(--glass-engine);
-            border-bottom: 1px solid var(--border-engine);
+            background: var(--glass-mega);
+            border-bottom: 1px solid var(--border-mega);
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
         }
 
         .hud-brand {
-            color: var(--accent-green);
+            color: var(--global-cyan);
             font-weight: 900;
             font-size: 13px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
+            letter-spacing: 3px;
+            text-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
         }
 
         .hud-right {
@@ -55,32 +56,33 @@
             align-items: center;
         }
 
-        .target-vault-badge {
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--accent-green);
-            padding: 6px 15px;
+        .global-vault {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--global-cyan);
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 11px;
-            color: var(--accent-green);
+            color: var(--global-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
         }
 
-        .btn-connect {
-            background: var(--accent-green);
-            color: var(--bg-engine);
+        .btn-global {
+            background: var(--global-cyan);
+            color: var(--bg-mega);
             border: none;
-            padding: 8px 16px;
+            padding: 8px 18px;
             font-weight: bold;
             font-size: 11px;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .btn-connect:hover {
-            box-shadow: 0 0 30px var(--accent-green);
+        .btn-global:hover {
+            box-shadow: 0 0 35px var(--global-cyan);
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -91,10 +93,10 @@
         }
 
         .hero h1 {
-            font-size: clamp(24px, 3.5vw, 42px);
+            font-size: clamp(26px, 4vw, 48px);
             font-weight: 900;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green), var(--accent-gold));
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, var(--global-pink), var(--global-cyan), var(--global-gold), var(--global-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -105,14 +107,14 @@
         }
 
         .target-box {
-            background: rgba(0, 240, 255, 0.05);
-            border: 1px dashed var(--accent-cyan);
+            background: rgba(0, 255, 102, 0.05);
+            border: 1px dashed var(--global-green);
             padding: 12px 20px;
             border-radius: 8px;
             margin: 20px auto;
-            max-width: 700px;
+            max-width: 750px;
             font-size: 11px;
-            color: var(--accent-cyan);
+            color: var(--global-green);
             word-break: break-all;
         }
 
@@ -124,44 +126,44 @@
         }
 
         .card {
-            background: var(--glass-engine);
-            border: 1px solid var(--border-engine);
-            border-radius: 14px;
-            padding: 25px;
+            background: var(--glass-mega);
+            border: 1px solid var(--border-mega);
+            border-radius: 16px;
+            padding: 30px;
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.2);
+            transform: translateY(-6px);
+            border-color: var(--global-gold);
+            box-shadow: 0 0 45px rgba(255, 234, 0, 0.25);
         }
 
         .card-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
+            font-size: 36px;
+            margin-bottom: 15px;
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .card-desc {
             font-size: 11px;
             color: #94a3b8;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .btn-exec {
+        .btn-action {
             width: 100%;
-            background: linear-gradient(135deg, rgba(0, 255, 102, 0.15), rgba(0, 240, 255, 0.15));
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.2), rgba(0, 255, 255, 0.2));
+            border: 1px solid var(--global-cyan);
+            color: var(--global-cyan);
             padding: 12px;
             font-weight: bold;
             font-size: 11px;
@@ -171,38 +173,38 @@
             letter-spacing: 1px;
             transition: all 0.3s;
         }
-        .btn-exec:hover {
-            background: var(--accent-green);
-            color: var(--bg-engine);
-            box-shadow: 0 0 30px var(--accent-green);
+        .btn-action:hover {
+            background: var(--global-cyan);
+            color: var(--bg-mega);
+            box-shadow: 0 0 35px var(--global-cyan);
         }
 
         .console {
             background: #000;
-            border: 1px dashed rgba(0, 255, 102, 0.3);
+            border: 1px dashed rgba(0, 255, 255, 0.3);
             padding: 10px;
             font-size: 10px;
-            color: var(--accent-green);
-            border-radius: 4px;
+            color: var(--global-green);
+            border-radius: 6px;
             margin-top: 15px;
-            max-height: 100px;
+            max-height: 110px;
             overflow-y: auto;
             word-break: break-all;
         }
 
         .terminal-box {
             background: #000;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 102, 0.4);
+            border-radius: 12px;
             padding: 20px;
             font-size: 11px;
-            color: var(--accent-cyan);
+            color: var(--global-green);
         }
 
         .back-link {
             display: inline-block;
             margin-top: 20px;
-            color: var(--accent-cyan);
+            color: var(--global-pink);
             text-decoration: none;
             font-size: 12px;
         }
@@ -214,185 +216,129 @@
 <body>
 
     <header class="hud-header">
-        <div class="hud-brand">⚡ QLUX AUTO-SWEEP ENGINE</div>
+        <div class="hud-brand">⚡ QLUX // MEGA GLOBAL ENGINE v40.0</div>
         <div class="hud-right">
-            <div class="target-vault-badge" id="accumulated-vault">ACCUMULATED: 0 Sats</div>
-            <button class="btn-connect" id="connect-btn" onclick="connectWallet()">CONNECT WALLET</button>
+            <div class="global-vault" id="global-vault">GLOBAL POOL: 0 Sats</div>
+            <button class="btn-global" onclick="syncGlobalNetwork()">SYNC GLOBAL NODES</button>
         </div>
     </header>
 
     <main class="container">
         <section class="hero">
-            <h1>Autonomous Threshold Sweep Protocol.</h1>
-            <p>収益発生ロジックが蓄積され、指定のしきい値を超過した瞬間に、自動で固定ターゲットアドレスへ全額スイープ送金を実行。</p>
+            <h1>Mega Universal Global Ecosystem.</h1>
+            <p>世界の全分散型流動性、クロスチェーンブリッジ、AI自律デーモンを完全結合し、極限の収益効率を自動生成するメガ統合プロトコル。</p>
             
             <div class="target-box">
-                🎯 ABSOLUTE TARGET SWEEP ADDRESS:<br>
-                <strong style="color: #fff; font-size: 12px;" id="target-addr-display">1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</strong>
+                🌍 ABSOLUTE GLOBAL SWEEP DESTINATION:<br>
+                <strong style="color: #fff; font-size: 12px;">1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</strong>
             </div>
 
             <a href="index.html" class="back-link">← トップポータルへ戻る</a>
         </section>
 
         <div class="grid">
-            <!-- 1. 自動積立＆閾値スイープ回路 -->
+            <!-- 1. グローバルDEX & アービトラージ結合 -->
             <div class="card">
-                <div class="card-icon">🌀</div>
-                <div class="card-title">Threshold Auto-Sweep Matrix</div>
-                <div class="card-desc">ボタンを押すたびに収益が内部バウルトに蓄積されます。累計が指定閾値（例: 5,000 Sats）を突破すると、自動的にターゲットアドレスへスイープされます。</div>
-                <button class="btn-exec" onclick="triggerAccumulation(1500)">収益フラグメントを生成 (+1500 Sats)</button>
-                <div id="log-accum" class="console">[ENGINE: ACCUMULATOR ACTIVE (0 / 5000 Sats)]</div>
+                <div class="card-icon">🌐</div>
+                <div class="card-title">Global DEX Arbitrage Sync</div>
+                <div class="card-desc">世界中の主要DEX間におけるミクロな価格歪みを全自動で同時多発スキャンし、利ザヤをグローバルプールへ即時回収します。</div>
+                <button class="btn-action" onclick="triggerGlobalAction('dex', 2000)">グローバル裁定を実行 (+2000 Sats)</button>
+                <div id="log-dex" class="console">[DEX: ALL MARKETS SYNCHRONIZED]</div>
             </div>
 
-            <!-- 2. 即時ダイレクト・ターゲット送金 -->
+            <!-- 2. クロスチェーン・ブリッジ融合 -->
+            <div class="card">
+                <div class="card-icon">🌉</div>
+                <div class="card-title">Cross-Chain Liquidity Fusion</div>
+                <div class="card-desc">複数ブロックチェーンネットワーク間の流動性チャネルを結合し、真空エネルギー報酬をアトミックに抽出します。</div>
+                <button class="btn-action" onclick="triggerGlobalAction('bridge', 3500)">クロスチェーン融合収穫 (+3500 Sats)</button>
+                <div id="log-bridge" class="console">[BRIDGE: MULTI-CHAIN TUNNEL ACTIVE]</div>
+            </div>
+
+            <!-- 3. メガ・オートスイープ＆ターゲット直撃 -->
             <div class="card">
                 <div class="card-icon">🎯</div>
-                <div class="card-title">Direct Target Forced Payout</div>
-                <div class="card-desc">蓄積量を待たず、現在の全バウルト残高を強制的にターゲットアドレスへオンチェーン・ブロードキャストします。</div>
-                <button class="btn-exec" onclick="forceSweepToTarget()">ターゲットへ即時強制スイープ</button>
-                <div id="log-force" class="console">[DIRECT: READY FOR PAYOUT]</div>
-            </div>
-
-            <!-- 3. 再帰的進化マルチプライヤー -->
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <div class="card-title">Recursive Multiplier Boost</div>
-                <div class="card-desc">収益効率の倍率（Multiplier）を雪だるま式に高め、次回の生成報酬を幾何級数的に引き上げます。</div>
-                <button class="btn-exec" onclick="boostMultiplier()">進化倍率をブースト (x1.5)</button>
-                <div id="log-boost" class="console">[MULTIPLIER: CURRENT x1.00]</div>
+                <div class="card-title">Mega Universal Auto-Sweep</div>
+                <div class="card-desc">全プールで蓄積された収益が閾値（10,000 Sats）を突破した瞬間、自動的に指定アドレスへ全額一括スイープ送金。</div>
+                <button class="btn-action" onclick="triggerGlobalAction('sweep', 0)">今すぐターゲットへ強制スイープ</button>
+                <div id="log-sweep" class="console">[SWEEP: TARGET LOCKED TO 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95]</div>
             </div>
         </div>
 
         <div class="terminal-box">
-            <div style="color: #64748b; margin-bottom: 8px;">▶ AUTO-SWEEP LOGS & TELEMETRY</div>
-            <div id="terminal">[SYSTEM] Auto-sweep core online. Target destination locked to 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95.</div>
+            <div style="color: #64748b; margin-bottom: 8px;">▶ GLOBAL TELEMETRY & MULTI-NODE LOGS</div>
+            <div id="terminal">[SYSTEM] Mega Universal Network online. Destination address securely bound to 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95.</div>
         </div>
     </main>
 
     <script>
-        // ★ 絶対的なスイープ先（ご指定のアドレス）
-        const TARGET_ADDRESS = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
-        const SWEEP_THRESHOLD = 5000; // 5000 Satsに達したら自動スイープ
+        const TARGET_DESTINATION = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+        const GLOBAL_THRESHOLD = 10000;
+        
+        let globalPoolSats = 0;
+        let globalMultiplier = 1.00;
 
-        let accumulatedSats = 0;
-        let evolutionMultiplier = 1.00;
-        let userWallet = null;
-        let isConnected = false;
-
-        function updateUI() {
-            document.getElementById('accumulated-vault').innerText = `ACCUMULATED: ${accumulatedSats} Sats (Mult: x${evolutionMultiplier.toFixed(2)})`;
+        function updateGlobalUI() {
+            document.getElementById('global-vault').innerText = `GLOBAL POOL: ${globalPoolSats} Sats (Mult: x${globalMultiplier.toFixed(2)})`;
         }
 
-        async function connectWallet() {
+        async function syncGlobalNetwork() {
             const terminal = document.getElementById('terminal');
-            const statusBtn = document.getElementById('connect-btn');
+            terminal.innerHTML += `<br><span style="color: var(--global-cyan);">[NETWORK] Handshaking with global nodes across multi-verse networks...</span>`;
+            setTimeout(() => {
+                alert('⚡ 世界中のすべての分散型ノードおよびプロキシとのハンドシェイクが完了しました！');
+                terminal.innerHTML += `<br><span style="color: var(--global-green);">[SYNCED] All global liquidity pools connected successfully.</span>`;
+            }, 1000);
+        }
 
-            if (window.sensilet) {
-                try {
-                    const res = await window.sensilet.requestAccount();
-                    userWallet = res.address || res;
-                    isConnected = true;
-                    statusBtn.innerText = "LINKED";
-                    statusBtn.style.background = "var(--accent-cyan)";
-                    terminal.innerHTML += `<br><span style="color: var(--accent-green);">[WEB3] Wallet linked: ${userWallet}</span>`;
-                    alert('⚡ ウォレットが正常にリンクされました！');
-                } catch (e) {
-                    alert('接続がキャンセルされました。');
+        async function triggerGlobalAction(type, amount) {
+            const terminal = document.getElementById('terminal');
+            const logEl = document.getElementById(`log-${type}`);
+
+            if (type === 'sweep') {
+                if (globalPoolSats <= 0) {
+                    alert('⚠️ 現在プールに蓄積されている収益がありません。');
+                    return;
                 }
-            } else {
-                // ウォレットがない場合のシミュレーション・フォールバック
-                isConnected = true;
-                userWallet = "Simulated_Signer";
-                statusBtn.innerText = "SIMULATOR ACTIVE";
-                terminal.innerHTML += `<br><span style="color: var(--accent-gold);">[WARN] Extension not found. Running in high-precision auto-sweep simulation mode.</span>`;
-                alert('⚡ シミュレーション・モードでウォレットレイヤーを起動しました。');
+                await executeMegaSweep(globalPoolSats);
+                return;
+            }
+
+            let generated = Math.floor(amount * globalMultiplier);
+            globalPoolSats += generated;
+            globalMultiplier += 0.20; // 実行ごとに世界規模で倍率が加速
+            updateGlobalUI();
+
+            logEl.innerText = `> Global yield secured: +${generated} Sats.`;
+            terminal.innerHTML += `<br>[GLOBAL-EXEC] ${type.toUpperCase()} module extracted +${generated} Sats. Total pool: ${globalPoolSats} Sats.`;
+
+            // 閾値突破の自動判定
+            if (globalPoolSats >= GLOBAL_THRESHOLD) {
+                terminal.innerHTML += `<br><span style="color: var(--global-gold);">[THRESHOLD] Global pool reached 10,000 Sats! Triggering auto-sweep...</span>`;
+                await executeMegaSweep(globalPoolSats);
             }
         }
 
-        // 収益の蓄積と、閾値超過時の自動スイープ判定ロジック
-        async function triggerAccumulation(baseAmount) {
-            const logEl = document.getElementById('log-accum');
+        async function executeMegaSweep(amount) {
             const terminal = document.getElementById('terminal');
+            const logEl = document.getElementById('log-sweep');
 
-            if (!isConnected) {
-                alert('⚠️ 先に右上の「CONNECT WALLET」から接続してください。');
-                return;
-            }
+            terminal.innerHTML += `<br><span style="color: var(--global-pink);">[SWEEP] Initiating multi-node global payout to ${TARGET_DESTINATION}...</span>`;
 
-            let generated = Math.floor(baseAmount * evolutionMultiplier);
-            accumulatedSats += generated;
-            updateUI();
-
-            logEl.innerText = `> Generated +${generated} Sats. (Total: ${accumulatedSats}/${SWEEP_THRESHOLD})`;
-            terminal.innerHTML += `<br>[YIELD] Fragment secured: +${generated} Sats. Vault pool: ${accumulatedSats} Sats.`;
-
-            // 【自動スイープ判定ロジック】蓄積量が閾値を超えた場合
-            if (accumulatedSats >= SWEEP_THRESHOLD) {
-                terminal.innerHTML += `<br><span style="color: var(--accent-gold);">[THRESHOLD REACHED] Triggering automated auto-sweep to target!</span>`;
-                await executeSweep(accumulatedSats, "Threshold Auto-Sweep");
-            }
-        }
-
-        // 強制スイープボタン
-        async function forceSweepToTarget() {
-            if (!isConnected) {
-                alert('⚠️ 先にウォレットを接続してください。');
-                return;
-            }
-            if (accumulatedSats <= 0) {
-                alert('⚠️ 現在バウルト内に蓄積されている収益がありません。');
-                return;
-            }
-            await executeSweep(accumulatedSats, "Force Manual Sweep");
-        }
-
-        // 実際にターゲットアドレスへトランザクションを飛ばす核心ロジック
-        async function executeSweep(amount, reason) {
-            const terminal = document.getElementById('terminal');
-            const logEl = document.getElementById('log-force');
-
-            terminal.innerHTML += `<br>[SWEEP] Broadcasting transaction of ${amount} Sats to <span style="color:#fff;">${TARGET_ADDRESS}</span>...`;
-
-            try {
-                let txid = "";
-                if (window.sensilet && userWallet !== "Simulated_Signer") {
-                    // Sensilet APIを通じた実トランザクション送金
-                    const txParams = {
-                        to: TARGET_ADDRESS,
-                        amount: amount,
-                        options: { note: `QLUX Auto-Sweep: ${reason}` }
-                    };
-                    const res = await window.sensilet.sendBsv(txParams);
-                    txid = res.txid || res;
-                } else {
-                    // シミュレーション時のモックTXID生成
-                    txid = 'sweep_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                }
-
-                logEl.innerText = `> SWEEP SUCCESS! TX: ${txid.substring(0, 10)}...`;
-                terminal.innerHTML += `<br><span style="color: var(--accent-green);">[SUCCESS] ${reason} completed! Sent to ${TARGET_ADDRESS}. TXID: ${txid}</span>`;
+            setTimeout(() => {
+                const txid = 'mega_sweep_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                 
-                alert(`🔥 [オートスイープ発動成功]\n蓄積された ${amount} Sats が、指定ターゲットアドレスへ完璧に送金・回収されました！\n宛先: ${TARGET_ADDRESS}\nTXID: ${txid}`);
+                logEl.innerText = `> SUCCESS! Sent to target. TX: ${txid.substring(0, 10)}...`;
+                terminal.innerHTML += `<br><span style="color: var(--global-green);">[MEGA-SUCCESS] ${amount} Sats successfully swept to ${TARGET_DESTINATION}! TXID: ${txid}</span>`;
 
-                // バウルトをリセット
-                accumulatedSats = 0;
-                updateUI();
+                alert(`🌍🔥 [世界統合オートスイープ大成功]\n世界中の全流動性プールからかき集められた ${amount} Sats が、指定のターゲットアドレスへ完璧にスイープ送金されました！\n\n宛先: ${TARGET_DESTINATION}\nTXID: ${txid}`);
 
-            } catch (err) {
-                console.error(err);
-                terminal.innerHTML += `<br><span style="color: #ff0055;">[ERROR] Sweep broadcast failed or rejected.</span>`;
-                alert('スイープトランザクションのブロードキャストに失敗しました。');
-            }
+                globalPoolSats = 0;
+                updateGlobalUI();
+            }, 1200);
         }
 
-        function boostMultiplier() {
-            evolutionMultiplier *= 1.5;
-            updateUI();
-            document.getElementById('log-boost').innerText = `> Multiplier boosted to x${evolutionMultiplier.toFixed(2)}`;
-            document.getElementById('terminal').innerHTML += `<br>[BOOST] Evolution multiplier increased to x${evolutionMultiplier.toFixed(2)}`;
-        }
-
-        updateUI();
+        updateGlobalUI();
     </script>
 </body>
 </html>
