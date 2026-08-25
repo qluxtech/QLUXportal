@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX // HYPER-PROXY TELEMETRY NEXUS</title>
+    <style>
+        :root {
+            --bg-deep: #000002;
+            --neon-green: #00ff66;
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff0055;
+            --glass-bg: rgba(2, 2, 12, 0.95);
+            --border-glow: rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .header h1 {
+            font-size: clamp(20px, 3vw, 32px);
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .target-box {
+            background: rgba(0, 255, 102, 0.05);
+            border: 1px dashed var(--neon-green);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: var(--neon-green);
+            word-break: break-all;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+            text-align: center;
+        }
+
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .card-title {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+
+        .metric-value.green {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+        }
+
+        .terminal-box {
+            max-width: 900px;
+            margin: 25px auto 0 auto;
+            background: #000;
+            border: 1px solid rgba(0, 255, 102, 0.4);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 11px;
+            color: var(--neon-green);
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>⚡ QLUX TELEMETRY NEXUS</h1>
+        <p style="font-size: 11px; color: #64748b;">Live Backend Sync & Auto-Sweep Monitor</p>
+    </div>
+
+    <div class="target-box">
+        🎯 LOCKED TARGET DESTINATION:<br>
+        <strong>1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</strong>
+    </div>
+
+    <div class="telemetry-grid">
+        <!-- 1. 現在のバウルト残高 -->
+        <div class="card">
+            <div class="card-title">Vault Balance (Pool)</div>
+            <div id="telemetry-vault-balance" class="metric-value">Loading...</div>
+        </div>
+
+        <!-- 2. 累計生成収益 -->
+        <div class="card">
+            <div class="card-title">Lifetime Revenue</div>
+            <div id="telemetry-total-earnings" class="metric-value green">Loading...</div>
+        </div>
+
+        <!-- 3. グローバル倍率 & ノード状態 -->
+        <div class="card">
+            <div class="card-title">Node Multiplier / Status</div>
+            <div id="telemetry-node-status" class="metric-value" style="font-size: 18px;">Connecting...</div>
+        </div>
+    </div>
+
+    <div class="terminal-box" id="telemetry-terminal">
+        [SYSTEM] Initializing telemetry link to qlux-hyper-proxy backend...
+    </div>
+
+    <script>
+        // バックエンド（qlux-hyper-proxy.js）とリアルタイム同期するスクリプト
+        async function fetchTelemetryData() {
+            const terminal = document.getElementById('telemetry-terminal');
+            try {
+                // 同一オリジンまたはバックエンドのURLを指定
+                const response = await fetch('/proxy/v1/status');
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+
+                // 画面上の数値をリアルタイム更新
+                document.getElementById('telemetry-vault-balance').innerText = `${data.vaultBalanceSats} Sats`;
+                document.getElementById('telemetry-total-earnings').innerText = `${data.totalLifetimeEarningsSats} Sats`;
+                document.getElementById('telemetry-node-status').innerText = `x${data.currentGlobalMultiplier} (ACTIVE)`;
+
+            } catch (err) {
+                console.error("Sync error:", err);
+                terminal.innerHTML += `<br><span style="color: var(--neon-pink);">[SYNC WARNING] Retrying connection to proxy backend...</span>`;
+            }
+        }
+
+        // 3秒ごとに自動同期
+        setInterval(fetchTelemetryData, 3000);
+        window.onload = fetchTelemetryData;
+    </script>
+</body>
+</html>
