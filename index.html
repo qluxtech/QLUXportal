@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // SOVEREIGN UNIFIED NEXUS</title>
+    <title>QLUX // PLANETARY SOVEREIGN NEXUS</title>
     <style>
         :root {
             --bg-deep: #000002;
@@ -14,170 +14,244 @@
             --border-glow: rgba(0, 255, 255, 0.25);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace, sans-serif; }
-        body { background-color: var(--bg-deep); color: #f8fafc; min-height: 100vh; padding: 16px; overflow-x: hidden; }
+        body { background-color: var(--bg-deep); color: #f8fafc; min-height: 100vh; padding: 12px; overflow-x: hidden; }
         
-        /* 画面ビュー切り替え */
-        .view-pane { display: none; }
-        .view-pane.active { display: block; }
+        /* ビュー切り替え */
+        .view-section { display: none; }
+        .view-section.active { display: block; }
 
-        /* ヘッダー */
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { font-size: clamp(18px, 4vw, 24px); color: var(--neon-cyan); text-shadow: 0 0 12px rgba(0, 255, 255, 0.4); margin-bottom: 6px; }
-        .header p { font-size: 10px; color: #94a3b8; letter-spacing: 1px; }
+        /* ヘッダー・ナビ */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid rgba(0,255,255,0.1); }
+        .logo { font-size: 16px; font-weight: bold; color: #fff; letter-spacing: 2px; }
+        .logo span { color: var(--neon-green); font-size: 10px; display: block; }
 
-        /* スマホ対応・横スクロールタブ */
+        /* スマホ用横スクロールタブナビ */
         .nav-container {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             overflow-x: auto;
-            padding: 10px 4px;
+            padding: 8px 0;
             margin-bottom: 20px;
-            background: rgba(0, 255, 255, 0.02);
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
             scrollbar-width: none;
         }
         .nav-container::-webkit-scrollbar { display: none; }
-        
         .nav-tab {
-            background: rgba(0, 255, 255, 0.06);
-            border: 1px solid var(--neon-cyan);
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
             color: var(--neon-cyan);
-            padding: 8px 14px;
-            border-radius: 14px;
-            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
             white-space: nowrap;
             cursor: pointer;
-            transition: all 0.2s;
         }
         .nav-tab.active {
             background: var(--neon-cyan);
             color: #000;
             font-weight: bold;
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
-        /* ターゲット表示 */
-        .target-box { background: rgba(0, 255, 102, 0.04); border: 1px dashed var(--neon-green); padding: 10px; border-radius: 8px; font-size: 10px; color: var(--neon-green); word-break: break-all; margin-bottom: 20px; text-align: center; }
+        /* ヒーローセクション風 */
+        .hero { text-align: center; padding: 30px 10px; }
+        .hero-tag { font-size: 9px; color: var(--neon-cyan); letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+        .hero h1 { font-size: clamp(22px, 5vw, 36px); font-weight: bold; line-height: 1.3; margin-bottom: 15px; color: #fff; }
+        .hero h1 span { color: var(--neon-cyan); text-shadow: 0 0 15px rgba(0,255,255,0.4); }
+        .hero p { font-size: 12px; color: #94a3b8; margin-bottom: 25px; line-height: 1.6; }
 
-        /* カード＆コンテンツレイアウト */
-        .card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px; }
-        @media (min-width: 540px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* グリッド・カード */
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
+        @media(min-width: 600px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
 
-        .card { background: var(--glass-bg); border: 1px solid var(--border-glow); border-radius: 10px; padding: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); }
-        .card-title { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .metric { font-size: 20px; font-weight: bold; color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
-        .metric.green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.3); }
+        .card { background: var(--glass-bg); border: 1px solid var(--border-glow); border-radius: 12px; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        .card-meta { font-size: 9px; color: var(--neon-cyan); margin-bottom: 6px; letter-spacing: 1px; }
+        .card-title { font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 8px; }
+        .card-desc { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+        .metric-value { font-size: 24px; font-weight: bold; color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,255,255,0.4); margin-top: 5px; }
+        .metric-value.green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.4); }
 
-        .content-box { background: var(--glass-bg); border: 1px solid var(--border-glow); border-radius: 10px; padding: 18px; font-size: 12px; line-height: 1.6; margin-bottom: 16px; }
-        .content-box h2 { color: var(--neon-cyan); font-size: 15px; margin-bottom: 10px; }
+        /* サブセクション */
+        .section-title { font-size: 14px; color: var(--neon-green); letter-spacing: 1px; margin: 25px 0 12px 0; text-align: center; text-transform: uppercase; }
         
-        .terminal { background: #000; border: 1px solid rgba(0, 255, 102, 0.4); border-radius: 8px; padding: 12px; font-size: 11px; color: var(--neon-green); height: 130px; overflow-y: auto; margin-top: 12px; }
+        /* ターミナル */
+        .terminal { background: #000; border: 1px solid rgba(0,255,102,0.4); border-radius: 8px; padding: 12px; font-size: 10px; color: var(--neon-green); height: 140px; overflow-y: auto; margin-top: 15px; }
+        
+        .footer { text-align: center; padding: 30px 0; font-size: 9px; color: #475569; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>⚡ QLUX SOVEREIGN NEXUS</h1>
-        <p>Unified Multi-View Encapsulation Matrix</p>
+        <div class="logo">QLUX <span>PLANETARY SOVEREIGN</span></div>
+        <div style="font-size: 10px; color: var(--neon-cyan);">v9.4.2-ULTRA</div>
     </div>
 
-    <!-- 横スクロールナビ -->
+    <!-- スマホ対応・横スクロールマルチビュータブ -->
     <div class="nav-container">
-        <button class="nav-tab active" onclick="switchView('portal')">Portal</button>
+        <button class="nav-tab active" onclick="switchView('portal')">Portal Dashboard</button>
         <button class="nav-tab" onclick="switchView('layer0')">Layer 0</button>
         <button class="nav-tab" onclick="switchView('gateway')">API Gateway</button>
         <button class="nav-tab" onclick="switchView('journals')">Journals</button>
         <button class="nav-tab" onclick="switchView('docs')">Node Docs</button>
-        <button class="nav-tab" onclick="switchView('string')">String</button>
-        <button class="nav-tab" onclick="switchView('telemetry')">Telemetry</button>
+        <button class="nav-tab" onclick="switchView('string')">STRING</button>
+        <button class="nav-tab" onclick="switchView('telemetry')">Live Telemetry</button>
     </div>
 
-    <div class="target-box">
-        🎯 LOCKED TARGET: <strong>1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</strong>
-    </div>
+    <!-- 1. Portal Dashboard ビュー -->
+    <div id="view-portal" class="view-section active">
+        <div class="hero">
+            <div class="hero-tag">Global Sovereign Matrix // v9.4.2-ULTRA</div>
+            <h1>The Architecture of <span>Absolute Intelligence</span>.</h1>
+            <p>すべての知性と企業と産業が、ここで交差する。</p>
+        </div>
 
-    <!-- 1. Portal ビュー -->
-    <div id="view-portal" class="view-pane active">
-        <div class="card-grid">
+        <div class="section-title">Sovereign Operator Dashboards</div>
+        <div class="grid-3">
             <div class="card">
-                <div class="card-title">Treasury Reserve</div>
-                <div id="portal-revenue" class="metric green">107,180 Sats</div>
+                <div class="card-meta">SYSTEM THROUGHPUT // LIVE</div>
+                <div class="metric-value">2,490,128</div>
+                <div class="card-desc" style="margin-top:5px;">TX/sec : グローバルメッシュ全体でのリアルタイム処理トランザクション量。</div>
             </div>
             <div class="card">
-                <div class="card-title">Mesh Status</div>
-                <div class="metric">100% SECURE</div>
+                <div class="card-meta">ACTIVE AI AGENTS</div>
+                <div class="metric-value">84,392</div>
+                <div class="card-desc" style="margin-top:5px;">自律稼働中の専門AIトライブ・インスタンス数。</div>
+            </div>
+            <div class="card">
+                <div class="card-meta">LATENCY POOL</div>
+                <div class="metric-value green">0.14 ms</div>
+                <div class="card-desc" style="margin-top:5px;">未来エッジノード間の平均同期遅延時間。</div>
             </div>
         </div>
-        <div class="content-box">
-            <h2>Portal Ecosystem Overview</h2>
-            <p>Welcome to the core portal of QLUX. Autonomous agent transaction layers and automated micro-settlements are fully unified under a single sovereign protocol matrix.</p>
+
+        <div class="section-title">Sovereign Intelligence Tribe</div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-meta">MONETIZATION // ACTIVE</div>
+                <div class="card-title">エグゼクティブ・コンシェルジュ</div>
+                <div class="card-desc">世界中の言語と習習慣を網羅し、高度な商談・アライメント調整を24時間自律実行。</div>
+            </div>
+            <div class="card">
+                <div class="card-meta">SYNTHESIS // ACTIVE</div>
+                <div class="card-title">ダイナミック仕様書生成</div>
+                <div class="card-desc">プロジェクトの要件を入力するだけで、法務・規制・財務を含む完璧な仕様書を即時構築。</div>
+            </div>
+            <div class="card">
+                <div class="card-meta">SETTLEMENT // SECURE</div>
+                <div class="card-title">HTTP 402 自律決済</div>
+                <div class="card-desc">エージェント間のマイクロトランザクション及び報酬直接移転を暗号学的に担保。</div>
+            </div>
         </div>
     </div>
 
     <!-- 2. Layer 0 ビュー -->
-    <div id="view-layer0" class="view-pane">
-        <div class="content-box">
-            <h2>Layer 0 Architecture</h2>
-            <p>The foundational bedrock of QLUX sovereign intelligence. Operates independent of legacy routing, ensuring immutable data propagation across edge nodes.</p>
+    <div id="view-layer0" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">FOUNDATIONAL BEDROCK</div>
+            <h1>Layer 0 <span>Autonomous Mesh</span></h1>
+            <p>中央集権に依存しない、完全自律型の分散インフラストラクチャ。</p>
+        </div>
+        <div class="card">
+            <div class="card-meta">ARCHITECTURE SPEC</div>
+            <div class="card-title">ゼロトラスト・データ伝播</div>
+            <div class="card-desc">いかなる環境下でもシステムの中断を許さない堅牢性を持ち、エッジノード間で超高速に同期します。</div>
         </div>
     </div>
 
     <!-- 3. API Gateway ビュー -->
-    <div id="view-gateway" class="view-pane">
-        <div class="content-box">
-            <h2>API Gateway & HTTP 402</h2>
-            <p>Handles real-time autonomous agent requests. Inbound data streams are automatically parsed, micro-metered, and routed to the treasury reserve.</p>
+    <div id="view-gateway" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">HTTP 402 MONETIZATION</div>
+            <h1>API Gateway & <span>Micro-Settlements</span></h1>
+            <p>エージェント通信をリアルタイムに収益化する次世代ゲートウェイ。</p>
+        </div>
+        <div class="card">
+            <div class="card-meta">TARGET WALLET</div>
+            <div class="card-title" style="font-size:11px; word-break:break-all; color:var(--neon-green);">1Mb66iHohUEg8eAnkgV9uTTV7R235tuy95</div>
+            <div class="card-desc" style="margin-top:10px;">自動スイープ機能により、すべての収益がリアルタイムにプールへ集約されます。</div>
         </div>
     </div>
 
     <!-- 4. Journals ビュー -->
-    <div id="view-journals" class="view-pane">
-        <div class="content-box">
-            <h2>QLUX Journals & Logs</h2>
-            <p>Historical architecture logs, protocol evolutions, and engineering specifications are archived here for sovereign verification.</p>
+    <div id="view-journals" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">RESEARCH & INSIGHTS</div>
+            <h1>Latest Protocol <span>Journals</span></h1>
+            <p>QLUXコア開発チームによる技術論文およびエコシステムの進捗レポート。</p>
+        </div>
+        <div class="card">
+            <div class="card-meta">2026.08.16 // RESEARCH</div>
+            <div class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実験的最適化</div>
+            <div class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデルと、その信号学的安全性について。</div>
         </div>
     </div>
 
     <!-- 5. Node Docs ビュー -->
-    <div id="view-docs" class="view-pane">
-        <div class="content-box">
-            <h2>Sovereign Node Docs</h2>
-            <p>Guidelines for deploying high-performance edge nodes, managing auto-sweep parameters, and maintaining cryptographic consensus.</p>
+    <div id="view-docs" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">SOVEREIGN NODES</div>
+            <h1>Global Node <span>Documentation</span></h1>
+            <p>エッジノードの構築、運用、およびセキュリティ監査に関するガイドライン。</p>
+        </div>
+        <div class="card">
+            <div class="card-meta">DEPLOYMENT GUIDE</div>
+            <div class="card-title">高密度物性コンパイルと熱共鳴制御</div>
+            <div class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</div>
         </div>
     </div>
 
-    <!-- 6. String ビュー -->
-    <div id="view-string" class="view-pane">
-        <div class="content-box">
-            <h2>String Binary Matrix</h2>
-            <p>Low-level data encoding sequences and serialized payload arrays optimized for ultra-fast proxy distribution.</p>
+    <!-- 6. STRING ビュー -->
+    <div id="view-string" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">BINARY MATRIX</div>
+            <h1>String Payload <span>Encoding</span></h1>
+            <p>超高速プロキシ配信に最適化されたシリアライズ・データストリーム。</p>
+        </div>
+        <div class="card">
+            <div class="card-meta">ACTIVE ENCODING</div>
+            <div class="card-title">螺旋巻き交互正巻き逆巻き構造</div>
+            <div class="card-desc">低レベルデータ配列とシリアル通信のための高速処理マトリクス。</div>
         </div>
     </div>
 
     <!-- 7. Telemetry ビュー -->
-    <div id="view-telemetry" class="view-pane">
-        <div class="card-grid">
+    <div id="view-telemetry" class="view-section">
+        <div class="hero">
+            <div class="hero-tag">GLOBAL MESH TELEMETRY</div>
+            <h1>Real-Time <span>Status Stream</span></h1>
+            <p>世界中のノードとAIトライブの稼働状況をミリ秒単位で監視。</p>
+        </div>
+
+        <div class="grid-3">
             <div class="card">
-                <div class="card-title">Vault Balance</div>
-                <div id="tele-vault" class="metric">0 Sats</div>
+                <div class="card-meta">VAULT BALANCE</div>
+                <div id="tele-vault" class="metric-value">0 Sats</div>
             </div>
             <div class="card">
-                <div class="card-title">Lifetime Revenue</div>
-                <div id="tele-earnings" class="metric green">107,180 Sats</div>
+                <div class="card-meta">LIFETIME REVENUE</div>
+                <div id="tele-earnings" class="metric-value green">107,180 Sats</div>
+            </div>
+            <div class="card">
+                <div class="card-meta">NODE MULTIPLIER</div>
+                <div class="metric-value" style="font-size:18px;">x11.00 ACTIVE</div>
             </div>
         </div>
-        <div class="content-box">
-            <h2>Live Telemetry Stream</h2>
+
+        <div class="card">
+            <div class="card-meta">SYSTEM TERMINAL LOG</div>
             <div class="terminal" id="tele-terminal">
-                [SYSTEM] Unified single-bag capsule online. Polishing telemetry feed...
+                [SYSTEM] Unified single-bag capsule online. Synchronizing matrix nodes...
             </div>
         </div>
     </div>
 
+    <div class="footer">
+        &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. All Rights Reserved.
+    </div>
+
     <script>
         function switchView(viewId) {
-            document.querySelectorAll('.view-pane').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
 
             document.getElementById('view-' + viewId).classList.add('active');
@@ -190,7 +264,6 @@
                 if (!res.ok) return;
                 const data = await res.json();
 
-                document.getElementById('portal-revenue').innerText = `${data.totalLifetimeEarningsSats.toLocaleString()} Sats`;
                 document.getElementById('tele-vault').innerText = `${data.vaultBalanceSats} Sats`;
                 document.getElementById('tele-earnings').innerText = `${data.totalLifetimeEarningsSats.toLocaleString()} Sats`;
 
