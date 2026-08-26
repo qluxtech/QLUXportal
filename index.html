@@ -3,352 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // PLANETARY SOVEREIGN</title>
+    <title>QLUX // Planetary Sovereign Ecosystem</title>
     <style>
         :root {
-            --bg-deep: #000002;
-            --neon-green: #00ff66;
-            --neon-cyan: #00ffff;
-            --glass-bg: rgba(6, 6, 20, 0.95);
-            --border-glow: rgba(0, 255, 255, 0.25);
+            --bg-deep: #030712;
+            --bg-card: #0b1120;
+            --border-color: rgba(56, 189, 248, 0.15);
+            --accent-cyan: #38bdf8;
+            --accent-green: #22c55e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace, sans-serif; }
-        body { background-color: var(--bg-deep); color: #f8fafc; min-height: 100vh; padding: 16px 12px; overflow-x: hidden; scroll-behavior: smooth; }
-
-        /* トップナビゲーション（ロゴを大きく視認性高く修正） */
-        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,255,255,0.2); flex-wrap: wrap; gap: 12px; }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; display: inline-block; text-shadow: 0 0 10px rgba(0,255,255,0.4); }
-        .logo span { color: var(--neon-green); font-size: 11px; display: block; margin-top: 3px; letter-spacing: 2px; }
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+        /* Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-badge {
+            font-size: 0.65rem;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        nav.nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            overflow-x: auto;
+            max-width: 65vw;
+            padding-bottom: 4px;
+        }
+        nav.nav-links::-webkit-scrollbar { display: none; }
+        nav.nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        nav.nav-links a:hover {
+            color: #fff;
+            background: rgba(56, 189, 248, 0.08);
+            border-color: var(--border-color);
+        }
         
-        .nav-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 11px; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; background: rgba(255,255,255,0.03); transition: 0.2s; font-weight: bold; }
-        .nav-links a:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,255,255,0.2); }
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-        /* ヒーローセクション */
-        .hero { text-align: center; padding: 40px 10px 30px 10px; }
-        .hero-tag { font-size: 11px; color: var(--neon-cyan); letter-spacing: 4px; margin-bottom: 16px; text-transform: uppercase; font-weight: bold; }
-        .hero h1 { font-size: clamp(30px, 7.5vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 20px; color: #fff; }
-        .hero h1 span { color: var(--neon-cyan); text-shadow: 0 0 25px rgba(0,255,255,0.6); }
-        .hero p { font-size: 14px; color: #94a3b8; margin-bottom: 30px; line-height: 1.7; }
-        
-        .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
-        .btn { background: rgba(0,255,255,0.1); border: 1px solid var(--neon-cyan); color: var(--neon-cyan); padding: 12px 22px; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 0 15px rgba(0,255,255,0.15); transition: 0.2s; }
-        .btn:hover { background: rgba(0,255,255,0.2); }
-        .btn.primary { background: #fff; color: #000; border-color: #fff; }
-        .btn.layer0 { background: #0077cc; color: #fff; border-color: #00aaff; }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px 0;
+        }
+        .hero-tag {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto 32px auto;
+            line-height: 1.6;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+        .btn:hover { transform: translateY(-2px); opacity: 0.95; }
+        .btn-primary { background: #fff; color: #000; }
+        .btn-cyan { background: #0284c7; color: #fff; }
+        .btn-dark { background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); }
 
-        /* セクション共通 */
-        .section-header { text-align: center; margin: 60px 0 25px 0; }
-        .section-tag { font-size: 10px; color: var(--neon-green); letter-spacing: 3px; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
-        .section-header h2 { font-size: 22px; color: #fff; margin-bottom: 8px; letter-spacing: 1px; font-weight: bold; }
-        .section-header p { font-size: 12px; color: #94a3b8; line-height: 1.6; max-width: 700px; margin: 0 auto; }
+        /* Telemetry Ticker */
+        .ticker-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        .ticker-item span { color: var(--accent-cyan); font-weight: bold; }
 
-        /* グリッドスタックレイアウト（圧倒的ボリュームを保持） */
-        .grid-stack { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 35px; }
-        @media(min-width: 768px) { .grid-stack { grid-template-columns: repeat(3, 1fr); } }
-        @media(min-width: 550px) and (max-width: 767px) { .grid-stack { grid-template-columns: repeat(2, 1fr); } }
+        /* Grid Section */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover { border-color: rgba(56, 189, 248, 0.4); }
+        .card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: #fff; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
-        .card { background: var(--glass-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 24px; box-shadow: 0 10px 35px rgba(0,0,0,0.85); position: relative; }
-        .card-meta { font-size: 10px; color: var(--neon-cyan); margin-bottom: 10px; letter-spacing: 2px; font-weight: bold; }
-        .card-title { font-size: 17px; font-weight: bold; color: #fff; margin-bottom: 12px; line-height: 1.4; }
-        .card-desc { font-size: 12px; color: #94a3b8; line-height: 1.7; }
-        .metric-big { font-size: 30px; font-weight: bold; color: var(--neon-cyan); text-shadow: 0 0 15px rgba(0,255,255,0.4); margin-top: 10px; }
-
-        /* テレメトリボックス */
-        .telemetry-box { background: var(--glass-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 22px; margin-bottom: 35px; box-shadow: 0 10px 35px rgba(0,0,0,0.85); }
-        .telemetry-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 12px; }
-        .telemetry-row:last-child { border-bottom: none; }
-
-        /* Stripeバナー */
-        .stripe-banner { background: linear-gradient(135deg, rgba(5,25,18,0.95), rgba(5,15,30,0.95)); border: 1px solid var(--neon-green); border-radius: 18px; padding: 35px 20px; text-align: center; margin: 50px 0; box-shadow: 0 0 40px rgba(0,255,102,0.2); }
-        .stripe-banner h3 { font-size: 24px; color: #fff; margin-bottom: 12px; font-weight: bold; }
-        .stripe-banner p { font-size: 13px; color: #94a3b8; margin-bottom: 25px; line-height: 1.7; max-width: 650px; margin-left: auto; margin-right: auto; }
-
-        /* フッター */
-        .site-footer { border-top: 1px solid rgba(255,255,255,0.12); margin-top: 60px; padding: 45px 12px 25px 12px; font-size: 12px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 30px; }
-        @media(min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
-        .footer-col h4 { color: #fff; font-size: 12px; margin-bottom: 12px; letter-spacing: 1px; font-weight: bold; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; }
-        .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.2s; }
-        .footer-col ul li a:hover { color: var(--neon-cyan); }
-        .legal-link { color: #94a3b8; text-decoration: none; border-bottom: 1px dashed var(--neon-cyan); display: inline-block; margin-top: 20px; font-size: 12px; }
-
-        /* 特商法セクション */
-        #legal-specs { scroll-margin-top: 30px; background: rgba(5,12,20,0.95); border: 1px solid rgba(56,189,248,0.3); border-radius: 18px; padding: 30px 22px; margin-top: 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: rgba(3, 7, 18, 0.95);
+            padding: 60px 20px 40px 20px;
+            margin-top: 80px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        .footer-col h4 { color: #fff; font-size: 0.95rem; margin-bottom: 16px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+        .footer-col ul li a:hover { color: var(--accent-cyan); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
 <body>
 
-    <!-- トップナビゲーション（ロゴとタイトルの視認性を大幅向上） -->
-    <header class="top-nav">
-        <a href="#" class="logo">QLUX<span>PLANETARY SOVEREIGN</span></a>
+    <!-- Header Navigation -->
+    <header>
+        <a href="index.html" class="logo-area">
+            QLUX <span class="logo-badge">PLANETARY SOVEREIGN</span>
+        </a>
         <nav class="nav-links">
-            <a href="#dashboard">Console</a>
-            <a href="#stripe-section">Access Protocol</a>
-            <a href="#ecosystem">Ecosystem</a>
-            <a href="#telemetry">Telemetry</a>
-            <a href="#security">Security Audit</a>
+            <a href="secret-console.html">Console</a>
+            <a href="Layer0.html">Access Protocol</a>
+            <a href="journals.html">Ecosystem</a>
+            <a href="telemetry.html">Telemetry</a>
+            <a href="security-audit.html">Security Audit</a>
         </nav>
     </header>
 
-    <!-- ヒーローセクション -->
-    <section class="hero">
-        <div class="hero-tag">GLOBAL SOVEREIGN MATRIX // v9.4.2-ULTRA</div>
-        <h1>The Architecture of <span>Absolute Intelligence</span>.</h1>
-        <p>すべての知性と企業と産業が、ここで交差する。</p>
-        <div class="btn-group">
-            <a href="#dashboard" class="btn primary">Launch Live Console ➔</a>
-            <a href="#stripe-section" class="btn layer0">Enter Layer 0</a>
-            <a href="#journals" class="btn">QLUX Journals</a>
-        </div>
-    </section>
-
-    <!-- ダッシュボードセクション -->
-    <div class="section-header" id="dashboard">
-        <div class="section-tag">Command & Control</div>
-        <h2>Sovereign Operator Dashboards</h2>
-        <p>プラットフォームの中核をリアルタイムで監視・制御する、マルチファンクション・コンソール。</p>
-    </div>
-
-    <div class="grid-stack">
-        <div class="card">
-            <div class="card-meta">SYSTEM THROUGHPUT // LIVE</div>
-            <div class="metric-big" id="agent-flow">2,490,128 TX/sec</div>
-            <div class="card-desc">グローバルメッシュ全体でのリアルタイム処理トランザクション量。</div>
-        </div>
-        <div class="card">
-            <div class="card-meta">ACTIVE AI AGENTS</div>
-            <div class="metric-big" id="active-agents">84,392</div>
-            <div class="card-desc">自律稼働中の専門AIトライブ・インスタンス数。</div>
-        </div>
-        <div class="card">
-            <div class="card-meta">LATENCY POOL</div>
-            <div class="metric-big" id="latency-pool">0.14 ms</div>
-            <div class="card-desc">主要エッジノード間の平均同期遅延時間。</div>
-        </div>
-    </div>
-
-    <!-- コアパラダイムセクション -->
-    <div class="section-header" id="ecosystem">
-        <div class="section-tag">Core Paradigm</div>
-        <h2 style="font-size:26px; color:#fff; margin-bottom:12px;">Q <span>LUX</span></h2>
-        <p>境界なき知性と高密度物性が織りナス、次世代の統合基盤。</p>
-    </div>
-
-    <div class="grid-stack">
-        <div class="card">
-            <div class="card-meta">01 / AUTONOMOUS AI TRIBE</div>
-            <div class="card-title">自律型AIエージェント群</div>
-            <div class="card-desc">世界中の環境と需要を瞬時に同期し、高度な機能・アライメント調整を24時間自律実行。</div>
-        </div>
-        <div class="card">
-            <div class="card-meta">02 / PHYSICAL ENGINEERING</div>
-            <div class="card-title">高密度物性コンパイル</div>
-            <div class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</div>
-        </div>
-        <div class="card">
-            <div class="card-meta">03 / PLANETARY MESH</div>
-            <div class="card-title">分散メッシュインフラ</div>
-            <div class="card-desc">世界中の独立ノードがゼロレイテンシーで接続し、極限耐性と最高度の安全性を提供。</div>
-        </div>
-        <div class="card" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(6,6,20,0.95), rgba(10,25,35,0.95));">
-            <div class="card-meta">04 / CLOSED-LOOP ECONOMY</div>
-            <div class="card-title">循環型エコノミー</div>
-            <div class="card-desc">エネルギーの完全再利用と価値の供給をAIがリアルタイムで動的に最適化・執行。</div>
-        </div>
-    </div>
-
-    <!-- 哲学と未来像セクション -->
-    <div class="section-header">
-        <div class="section-tag">Executive Philosophy</div>
-        <h2>哲学と未来像</h2>
-        <p>QLUXが目指す、テクノロジーと人間の完全な調和。</p>
-    </div>
-
-    <div class="grid-stack" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-        <div class="card">
-            <div class="card-meta">01 / PHILOSOPHY</div>
-            <div class="card-title">過剰を削ぎ落とし、純度を極限まで高める</div>
-            <div class="card-desc">真に価値のあるシステムに過剰は不要である。本質的な機能だけを抽出し、秩序が認める信頼を構築する。</div>
-        </div>
-        <div class="card">
-            <div class="card-meta">02 / AUTONOMY</div>
-            <div class="card-title">人間を雑務から解放し、創造へ導く</div>
-            <div class="card-desc">反復的な判断や処理はすべてAIトライブが代行。人類はより高次元の意思決定とクリエイティブに集中する。</div>
-        </div>
-    </div>
-
-    <!-- AIオーケストレーション / ソーヴァレイン・トライブ -->
-    <div class="section-header">
-        <div class="section-tag">AI Orchestration</div>
-        <h2>Sovereign Intelligence Tribe</h2>
-        <p>あらゆるタスクを高度に遂行する、QLUX専属の自律知能クラスター。</p>
-    </div>
-
-    <div class="grid-stack">
-        <div class="card">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:10px;">
-                <span style="color:var(--neon-cyan);">EXECUTIVE AGENT</span>
-                <span style="color:var(--neon-green);">● ACTIVE</span>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-tag">Global Sovereign Matrix // v9.4.2-ULTRA</div>
+            <h1>The Architecture of Absolute Intelligence.</h1>
+            <p>すべての知性と企業と産業が、ここで交差する。仲介者を完全に排除したピアツーピアのデータ同期と超高効率な自律分散インフラストラクチャ。</p>
+            <div class="hero-actions">
+                <a href="secret-console.html" class="btn btn-primary">Launch Live Console →</a>
+                <a href="Layer0.html" class="btn btn-cyan">Enter Layer 0</a>
+                <a href="journals.html" class="btn btn-dark">QLUX Journals</a>
             </div>
-            <div class="card-title">エグゼクティブ・コンシェルジュ</div>
-            <div class="card-desc">世界中の意図と習習慣を網羅し、高度な商談・アライメント調整を24時間自律実行。</div>
+        </section>
+
+        <!-- Telemetry Ticker -->
+        <div class="ticker-bar">
+            <div class="ticker-item">SYSTEM THROUGHPUT: <span>2,490,128 TX/sec</span></div>
+            <div class="ticker-item">ACTIVE AI AGENTS: <span>84,392</span></div>
+            <div class="ticker-item">LATENCY POOL: <span>0.14 ms</span></div>
         </div>
-        <div class="card">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:10px;">
-                <span style="color:var(--neon-cyan);">SYNTHESIS</span>
-                <span style="color:var(--neon-green);">● ACTIVE</span>
+
+        <!-- Core Paradigm Grid -->
+        <div class="grid-3">
+            <div class="card">
+                <div style="font-size: 0.75rem; color: var(--accent-cyan); font-family: monospace; margin-bottom: 8px;">01 / AUTONOMOUS AI TRIBE</div>
+                <h3>自律型AIエージェント群</h3>
+                <p>世界中の環境と需要を即時に同期し、高度な機能・アライメント調整を24時間自律実行する分散クラスタ。</p>
+                <a href="Layer0.html" style="color: var(--accent-cyan); font-size: 0.85rem; text-decoration: none; font-weight: bold;">Explore Protocol →</a>
             </div>
-            <div class="card-title">ダイナミック仕様書生成</div>
-            <div class="card-desc">プロジェクトの要件を入力するだけで、法務・規制・財務を含む完璧な仕様書を即時構築。</div>
-        </div>
-        <div class="card">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:10px;">
-                <span style="color:var(--neon-cyan);">SETTLEMENT</span>
-                <span style="color:var(--neon-green);">● SECURE</span>
+            <div class="card">
+                <div style="font-size: 0.75rem; color: var(--accent-cyan); font-family: monospace; margin-bottom: 8px;">02 / PHYSICAL ENGINEERING</div>
+                <h3>高密度物性コンパイル</h3>
+                <p>ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</p>
+                <a href="journals.html" style="color: var(--accent-cyan); font-size: 0.85rem; text-decoration: none; font-weight: bold;">Read Journals →</a>
             </div>
-            <div class="card-title">HTTP 402 自律決済</div>
-            <div class="card-desc">エージェント間のマイクロトランザクションおよび定額直接移転を暗号学的に担保。</div>
+            <div class="card">
+                <div style="font-size: 0.75rem; color: var(--accent-cyan); font-family: monospace; margin-bottom: 8px;">03 / PLANETARY MESH</div>
+                <h3>分散メッシュインフラ</h3>
+                <p>世界中の独立ノードがゼロレイテンシーで接続し、極限耐性と最高度の安全性を提供する分散ネットワーク。</p>
+                <a href="telemetry.html" style="color: var(--accent-cyan); font-size: 0.85rem; text-decoration: none; font-weight: bold;">View Telemetry →</a>
+            </div>
+        </div>
+
+        <!-- Stripe VIP Pass & Sovereign Subscription Section -->
+        <div style="background: #0b1120; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; padding: 36px; margin: 60px 0; text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #38bdf8, #22c55e);"></div>
+            <div style="font-size: 0.75rem; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; font-family: monospace;">
+                SECURE STRIPE GATEWAY // SOVEREIGN TIER
+            </div>
+            <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; color: #fff;">
+                QLUX プラットフォーム全開放・VIP Pass
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px; margin: 0 auto 24px auto; line-height: 1.6;">
+                仲介者を完全排除したプロトコルレベルのナノセトルメント。Stripe（2,000 JPY）またはBSV（500 Sats）による即時決済で、全秘匿セクターとコードベースへの永久アクセス権を取得できます。
+            </p>
+
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+                <a href="https://buy.stripe.com/aFacMYbAHdrg2px8gE3Nm01" target="_blank" rel="noopener noreferrer" class="btn btn-cyan" style="padding: 14px 28px; font-size: 1rem;">
+                    Stripe公式決済でVIP Passを取得 (2,000 JPY)
+                </a>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px;">
+                💎 BSVナノセトルメント送金先: <strong style="color: var(--accent-cyan);">1Mb66IHohUEg8e4nkgV9uTTV7R235tuy95</strong> (500 Sats) &nbsp;|&nbsp; Securely Processed via Stripe & HandCash
+            </div>
         </div>
     </div>
 
-    <!-- 地球規模インフラストラクチャ & テレメトリ -->
-    <div class="section-header" id="telemetry">
-        <div class="section-tag">Global Infrastructure</div>
-        <h2>地球規模で同期する、圧倒的レジリエンス。</h2>
-        <p>単一の障害点を持たない分散メッシュ構造により、いかなる状況下でもシステムの中断を許さない堅牢性を誇ります。</p>
-    </div>
-
-    <div style="margin-bottom: 20px; font-size: 12px; color: #94a3b8; line-height: 1.8;">
-        <div>✓ ゼロトラストセキュリティと完全暗号化通信</div>
-        <div>✓ AIによるリアルタイム負荷分散・自己修復機能</div>
-        <div>✓ グローバル主権下でのミリ秒単位の同期</div>
-    </div>
-
-    <div class="telemetry-box">
-        <div class="card-meta" style="margin-bottom:15px;">GLOBAL MESH TELEMETRY</div>
-        <div class="telemetry-row">
-            <span style="color:#fff; font-weight:bold;">Tokyo Prime Node</span>
-            <span style="color:var(--neon-green); font-weight:bold;">99.999% [SECURE]</span>
-        </div>
-        <div class="telemetry-row">
-            <span style="color:#fff; font-weight:bold;">Zurich Core Node</span>
-            <span style="color:var(--neon-green); font-weight:bold;">99.999% [SECURE]</span>
-        </div>
-        <div class="telemetry-row">
-            <span style="color:#fff; font-weight:bold;">New York Edge Node</span>
-            <span style="color:var(--neon-green); font-weight:bold;">99.999% [SECURE]</span>
-        </div>
-        <div class="telemetry-row" style="border-bottom:none;">
-            <span style="color:#fff; font-weight:bold;">Autonomous AI Tribe</span>
-            <span style="color:var(--neon-green); font-weight:bold;">SYNCHRONIZED</span>
-        </div>
-    </div>
-
-    <!-- リサーチ・ジャーナル -->
-    <div class="section-header" id="journals">
-        <div class="section-tag">Research & Insights</div>
-        <h2>Latest Protocol Journals</h2>
-        <p>QLUXコア開発チームによる技術論文、哲学、およびエコシステムの進捗レポート。</p>
-    </div>
-
-    <div class="grid-stack">
-        <div class="card">
-            <div class="card-meta">2026.08.14 // RESEARCH</div>
-            <div class="card-title">自律型AIトライブ間におけるHTTP 402プロトコルの実験的最適化</div>
-            <div class="card-desc">仲介者を完全に排除したマイクロエージェント間の即時決済モデルと、その暗号学的安全性について。</div>
-            <a href="#" style="color:var(--neon-cyan); font-size:11px; display:inline-block; margin-top:14px; text-decoration:none; font-weight:bold;">Read Journal ➔</a>
-        </div>
-        <div class="card">
-            <div class="card-meta">2026.08.01 // ARCHITECTURE</div>
-            <div class="card-title">高密度物性コンパイルと熱共鳴制御の統合フェーズ</div>
-            <div class="card-desc">ハードウェアとソフトウェアの境界を溶解させる、次世代マテリアル・インフラストラクチャの設計思想。</div>
-            <a href="#" style="color:var(--neon-cyan); font-size:11px; display:inline-block; margin-top:14px; text-decoration:none; font-weight:bold;">Read Journal ➔</a>
-        </div>
-        <div class="card">
-            <div class="card-meta">2026.07.22 // DEEP DIVE</div>
-            <div class="card-title">プラネタリー・メッシュにおけるゼロトラスト自己修復アルゴリズム</div>
-            <div class="card-desc">グローバル規模の障害シミュレーションから導き出された、完全自律型ネットワークのレジリエンス。</div>
-            <a href="#" style="color:var(--neon-cyan); font-size:11px; display:inline-block; margin-top:14px; text-decoration:none; font-weight:bold;">Read Journal ➔</a>
-        </div>
-    </div>
-
-    <!-- Stripe決済アクセスバナー -->
-    <div class="stripe-banner" id="stripe-section">
-        <div class="card-meta" style="margin-bottom:10px;">SECURE STRIPE GATEWAY // MONTHLY TIER</div>
-        <h3>Sovereign Proへアクセスする</h3>
-        <p>月額9,800円のフルアクセスにより、専用シークレットコンソール、リアルタイムAIメンター、および無制限のAPIエンドポイントが即時プロビジョニングされます。</p>
-        <a href="https://buy.stripe.com/8x25ka0v34UkC071g3N=00" target="_blank" class="btn primary" style="font-size:13px; padding:14px 28px;">
-            ⚡ LAUNCH SOVEREIGN SUBSCRIPTION (¥9,800/mo)
-        </a>
-        <div style="font-size:11px; color:#aaa; margin-top:15px;">🔒 決済完了後、専用のSecret Consoleへ自動的に安全にリダイレクトされます。</div>
-    </div>
-
-    <!-- フッター -->
-    <footer class="site-footer">
+    <!-- Footer -->
+    <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo" style="font-size:15px; text-decoration:none; color:#fff;">QLUX</a>
-                <p style="color:#94a3b8; font-size:11px; line-height:1.6; margin-top:10px;">Planetary Sovereign Autonomous Ecosystem. Designed for absolute intelligence and infinite scalability.</p>
+                <h4>QLUX</h4>
+                <p style="font-size: 0.8rem; line-height: 1.5;">Planetary Sovereign Autonomous Ecosystem. Designed for absolute intelligence and infinite scalability.</p>
             </div>
             <div class="footer-col">
                 <h4>Ecosystem</h4>
                 <ul>
-                    <li><a href="#ecosystem">Core Paradigm</a></li>
-                    <li><a href="#journals">AI Tribe</a></li>
-                    <li><a href="#ecosystem">Infrastructure</a></li>
+                    <li><a href="Layer0.html">Core Paradigm</a></li>
+                    <li><a href="journals.html">AI Tribe</a></li>
+                    <li><a href="telemetry.html">Infrastructure</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Console & Dev</h4>
                 <ul>
-                    <li><a href="#telemetry">Live Telemetry</a></li>
-                    <li><a href="#journals">Research Journals</a></li>
-                    <li><a href="#telemetry">Global Nodes</a></li>
+                    <li><a href="telemetry.html">Live Telemetry</a></li>
+                    <li><a href="journals.html">Research Journals</a></li>
+                    <li><a href="secret-console.html">Global Nodes</a></li>
                 </ul>
             </div>
-            <div class="footer-col" id="security">
+            <div class="footer-col">
                 <h4>Sovereign</h4>
                 <ul>
-                    <li><a href="#stripe-section">Access Protocol</a></li>
-                    <li><a href="#legal-specs">Whitepaper</a></li>
-                    <li><a href="#legal-specs">Security Audit</a></li>
+                    <li><a href="Layer0.html">Access Protocol</a></li>
+                    <li><a href="security-audit.html">Security Audit</a></li>
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; font-size: 10px; color: #666; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06);">
-            &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN
-        </div>
-        <div>
-            <a href="#legal-specs" class="legal-link">⚖️ Legal Information & Specifications (特商法に基づく表記)</a>
+        <div class="footer-bottom">
+            &copy; 2026 QLUX TECHNOLOGIES SOVEREIGN. All rights reserved.
         </div>
     </footer>
 
-    <!-- 特商法に基づく表記セクション -->
-    <section id="legal-specs">
-        <div style="font-size: 0.8rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 10px; font-weight: bold;">
-            ENTERPRISE LICENSING & SPECIFICATIONS
-        </div>
-        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; color: #ffffff;">
-            QLUX プレミアム・エコシステムアクセス
-        </h3>
-        <p style="color: #9ca3af; font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px;">
-            QLUXは、高度なスケーラビリティと超低レイテンシを両立する次世代の高性能分散データインフラストラクチャです。プレミアムプランにご加入いただくことで、企業向けAPIへの無制限アクセス権および開発者ツールチェーンの完全なライセンスが即時プロビジョニングされます。
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 22px;">
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(56, 189, 248, 0.08); padding: 18px; border-radius: 12px;">
-                <div style="color: #fff; font-weight: 600; margin-bottom: 8px; font-size: 12px;">■ 提供内容・デジタル商品仕様</div>
-                <p style="color: #9ca3af; font-size: 0.85rem; margin: 0; line-height: 1.6;">決済完了後、システム連携によりQLUXポータルのプレミアムAPIエンドポイントへのアクセス権および対応するデジタルライセンスキーが同時発行されます。</p>
-            </div>
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(56, 189, 248, 0.08); padding: 18px; border-radius: 12px;">
-                <div style="color: #fff; font-weight: 600; margin-bottom: 8px; font-size: 12px;">■ 返金・キャンセルポリシー</div>
-                <p style="color: #9ca3af; font-size: 0.85rem; margin: 0; line-height: 1.6;">デジタルサービスの性質上、購入手続き完了後の返品・返金はお受けしておりません。システム障害による接続不良時は速やかにサポート対応いたします。</p>
-            </div>
-        </div>
-
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; font-size: 0.8rem; color: #6b7280; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-            <span>運営主体・特商法に関するお問い合わせはポータル管理者にお願いいたします。</span>
-            <span>Sec
+</body>
+</html>
