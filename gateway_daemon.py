@@ -111,5 +111,4 @@ def trigger_realtime_megasystem():
 
 if __name__ == "__main__":
     trigger_realtime_megasystem()
-EOF
-python3 gateway_daemon.py
+
