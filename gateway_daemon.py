@@ -1,4 +1,3 @@
-cat << 'EOF' > gateway_daemon.py
 import os
 import subprocess
 import time
