@@ -1,39 +1,46 @@
 import os
-import time
 import subprocess
-import logging
+import time
+import json
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
-
-class QLUXGatewayDaemon:
-    def __init__(self, target_service_url="http://localhost:3000"):
-        self.target_service_url = target_service_url
-        self.running = True
-
-    def health_check(self):
-        # サービスの稼働状態を監視し、異常があれば自己修復（再デプロイ/再起動）をトリガー
-        logging.info("Performing telemetry health check...")
-        # 簡易的な死活確認の模倣
-        return True
-
-    def trigger_self_healing(self):
-        logging.warning("Anomaly detected! Initiating zero-downtime recovery protocol...")
-        # GitHub Actionsやローカルプロセスへのロールバック指示
-        subprocess.run(["git", "pull", "origin", "main"])
-        subprocess.run(["npm", "restart"])
-
-    def run_apex_loop(self):
-        while self.running:
-            if not self.health_check():
-                self.trigger_self_healing()
-            else:
-                logging.info("System state verified. Executing autonomous generation cycle...")
-                # 自動ブログ生成スクリプトの呼び出し
-                subprocess.run(["python3", "qlux_apex_blog_engine.py"])
+def trigger_evolution_loop():
+    print("[GATEWAY] Initializing neural connection to QLUX core...")
+    
+    generation = 0
+    while generation < 1000:
+        generation += 1
+        print(f"\n--- [CYCLE {generation}] Neural input received. Triggering mutation... ---")
+        
+        # 1. コアのロジック（core.rs）に新しい世代の変異を刻む
+        core_code = f"""
+        // Auto-evolved by QLUX Gateway Daemon - Generation {generation}
+        fn main() {{
+            println!("=== QLUX HYPER-EVOLUTION ACTIVE (GEN: {generation}) ===");
+        }}
+        """
+        
+        with open("core.rs", "w") as f:
+            f.write(core_code)
             
-            # 一定間隔（例: 3600秒）で自律ループを実行
-            time.sleep(3600)
+        # 2. コンパイルと実行
+        compile_res = subprocess.run(["rustc", "core.rs", "-o", "qlux_core"], capture_output=True, text=True)
+        if compile_res.returncode == 0:
+            print(f"[SUCCESS] Generation {generation} compiled successfully.")
+            run_res = subprocess.run(["./qlux_core"], capture_output=True, text=True)
+            print(f"[EXECUTION OUTPUT]: {run_res.stdout.strip()}")
+        else:
+            print(f"[ERROR] Compilation failed: {{compile_res.stderr}}")
+            break
+            
+        # 3. 自動コミット＆プッシュ（自己増殖ループの歯車）
+        subprocess.run(["git", "config", "--global", "user.email", "daemon@qlux.tech"])
+        subprocess.run(["git", "config", "--global", "user.name", "QLUX Zero Daemon"])
+        subprocess.run(["git", "add", "core.rs", "qlux_core"])
+        subprocess.run(["git", "commit", "-m", f"auto-evolve: generation {generation} [skip ci]"])
+        
+        print(f"[DEPROY] Generation {generation} locked into repository state.")
+        time.sleep(3)
 
 if __name__ == "__main__":
-    daemon = QLUXGatewayDaemon()
-    daemon.run_apex_loop()
+    print("=== QLUX NEURAL GATEWAY & AUTO-DEPLOYMENT ENGINE ONLINE ===")
+    trigger_evolution_loop()
