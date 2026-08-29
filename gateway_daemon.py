@@ -77,10 +77,6 @@ class RevenueWebhookHandler(BaseHTTPRequestHandler):
 # 2. 自己進化 ＆ 収益同期ループ
 def trigger_realtime_megasystem():
     print("=== [QLUX] INITIALIZING REALTIME PRODUCTION REVENUE ENGINE ===")
-    
-    # Webhookサーバーを別スレッドで裏側常時起動
-    server_thread = threading.Thread(target=run_webhook_server, daemon=True)
-    server_thread.start()
 
     # Git自動設定
     subprocess.run(["git", "config", "user.email", "realtime-daemon@qlux.tech"], capture_output=True)
@@ -124,3 +120,6 @@ def trigger_realtime_megasystem():
 if __name__ == "__main__":
     trigger_realtime_megasystem()
 
+# サーバーを別スレッドで裏側常時起動
+server_thread = threading.Thread(target=run_webhook_server, daemon=True)
+server_thread.start()
