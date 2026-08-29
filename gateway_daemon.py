@@ -44,6 +44,21 @@ class RevenueWebhookHandler(BaseHTTPRequestHandler):
             print(f"[WEBHOOK ERROR] {e}")
             self.send_response(400)
             self.end_headers()
+def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.end_headers()
+        html_content = """
+        <html>
+            <head><title>QLUX Revenue Gateway</title></head>
+            <body style="background: #0f172a; color: #38bdf8; font-family: sans-serif; text-align: center; padding-top: 50px;">
+                <h1>🚀 QLUX Realtime Revenue Gateway</h1>
+                <p>Status: <b>ONLINE & LISTENING</b></p>
+                <p>Ready for Stripe & Handcash Webhooks.</p>
+            </body>
+        </html>
+        """
+        self.wfile.write(html_content.encode('utf-8'))
 
 def run_webhook_server():
     server_address = ('', 8080)
