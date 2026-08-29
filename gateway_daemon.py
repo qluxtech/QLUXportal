@@ -11,6 +11,12 @@ HANDCASH_APP_ID = "6a7987969b239d1da6e89505"
 HANDCASH_SECRET = "db01ad39e1f40529f286f11dd4fcd554d097b5d25f55d195fcc086f120eab84f"
 HANDCASH_TOKEN = "bf5d7f6fbc24d129ff5d833854e576b2c80f9e085368a2bd5fb3748c04130f22"
 
+def run_webhook_server():
+    server_address = ('', 8080)
+    httpd = HTTPServer(server_address, RevenueWebhookHandler)
+    print(f"[GATEWAY] Live Webhook Server listening on port 8080...")
+    httpd.serve_forever()
+
 # リアルタイム収益カウンター
 revenue_ledger = {
     "fiat_usd": 4200.00,
