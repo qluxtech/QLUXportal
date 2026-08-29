@@ -18,33 +18,8 @@ revenue_ledger = {
     "transactions_processed": 0
 }
 
-# 1. リアルタイム決済受信用Webhookサーバー（Stripe & Handcash連携口）
 class RevenueWebhookHandler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        content_length = int(self.headers.get('Content-Length', 0))
-        post_data = self.rfile.read(content_length)
-        
-        try:
-            event = json.loads(post_data.decode('utf-8'))
-            print(f"\n[WEBHOOK RECEIVED] Incoming payment signal detected!")
-            
-            # 決済成功時のリアルタイム加算トリガー
-            revenue_ledger["fiat_usd"] += 50.00
-            revenue_ledger["bsv_sats"] += 1250
-            revenue_ledger["transactions_processed"] += 1
-            
-            print(f"💰 [LIVE PAY] +$50.00 Secured | Total USD: ${revenue_ledger['fiat_usd']:,.2f}")
-            print(f"⚡ [HANDCASH] +1,250 Sats Routed | Total Sats: {revenue_ledger['bsv_sats']:,}")
-            
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(b'{"status":"success","synced":true}')
-        except Exception as e:
-            print(f"[WEBHOOK ERROR] {e}")
-            self.send_response(400)
-            self.end_headers()
-def do_GET(self):
+    def do_GET(self):
         self.send_response(200)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.end_headers()
@@ -59,6 +34,30 @@ def do_GET(self):
         </html>
         """
         self.wfile.write(html_content.encode('utf-8'))
+
+    def do_POST(self):
+        content_length = int(self.headers.get('Content-Length', 0))
+        post_data = self.rfile.read(content_length)
+        
+        try:
+            event = json.loads(post_data.decode('utf-8'))
+            print(f"\n[WEBHOOK RECEIVED] Incoming payment signal detected!")
+            
+            revenue_ledger["fiat_usd"] += 50.00
+            revenue_ledger["bsv_sats"] += 1250
+            revenue_ledger["transactions_processed"] += 1
+            
+            print(f"💰 [LIVE PAY] +$50.00 Secured | Total USD: ${revenue_ledger['fiat_usd']:.2f}")
+            print(f"⚡ [HANDCASH] +1,250 Sats Routed | Total Sats: {revenue_ledger['bsv_sats']:,}")
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(b'{"status":"success","synced":true}')
+        except Exception as e:
+            print(f"[WEBHOOK ERROR] {e}")
+            self.send_response(400)
+            self.end_headers()
 
 def run_webhook_server():
     server_address = ('', 8080)
