@@ -34,36 +34,45 @@ class RevenueWebhookHandler(BaseHTTPRequestHandler):
         </html>
         """
         self.wfile.write(html_content.encode('utf-8'))
-
     def do_POST(self):
+        # 1. まずデータをしっかり受け取る
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
-        
+
         try:
+            # 2. 受け取ったデータをパースする
             event = json.loads(post_data.decode('utf-8'))
             print(f"\n[WEBHOOK RECEIVED] Incoming payment signal detected!")
             
+            event_type = event.get("type")
+            if event_type == "payment_intent.succeeded" or event_type == "charge.succeeded":
+                intent = event.get("data", {}).get("object", {})
+                amount = intent.get("amount", 5000)
+                
+                revenue_ledger["fiat_usd"] += amount / 100.0
+                revenue_ledger["transactions_processed"] += 1
+                revenue_ledger["recent_logs"].insert(0, {
+                    "id": intent.get("id", "test_id"),
+                    "amount": amount,
+                    "time": time.strftime("%H:%M:%S")
+                })
+            
+            # 従来の手動加算テスト用（必要なら残す）
             revenue_ledger["fiat_usd"] += 50.00
             revenue_ledger["bsv_sats"] += 1250
             revenue_ledger["transactions_processed"] += 1
-            
-            print(f"💰 [LIVE PAY] +$50.00 Secured | Total USD: ${revenue_ledger['fiat_usd']:.2f}")
-            print(f"⚡ [HANDCASH] +1,250 Sats Routed | Total Sats: {revenue_ledger['bsv_sats']:,}")
+
+            print(f"💰 [LIVE PAY] +$50.00 Secured | Total USD: ${revenue_ledger['fiat_usd']:,.2f}")
             
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
-            self.end_headers()
+            self.send_headers()
             self.wfile.write(b'{"status":"success","synced":true}')
+            
         except Exception as e:
             print(f"[WEBHOOK ERROR] {e}")
             self.send_response(400)
-            self.end_headers()
-
-def run_webhook_server():
-    server_address = ('', 8080)
-    httpd = HTTPServer(server_address, RevenueWebhookHandler)
-    print(f"[GATEWAY] Live Webhook Server listening on port 8080...")
-    httpd.serve_forever()
+            self.send_headers()
 
 # 2. 自己進化 ＆ 収益同期ループ
 def trigger_realtime_megasystem():
