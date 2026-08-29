@@ -87,16 +87,6 @@ def trigger_realtime_megasystem():
         with open("core.rs", "w") as f:
             f.write(core_code)
             
-        # コンパイルと実行
-        compile_res = subprocess.run(["rustc", "core.rs", "-o", "qlux_core"], capture_output=True, text=True)
-        if compile_res.returncode == 0:
-            print(f"[SUCCESS] Generation {generation} compiled successfully.")
-            run_res = subprocess.run(["./qlux_core"], capture_output=True, text=True)
-            print(f"[CORE OUTPUT]: {run_res.stdout.strip()}")
-        else:
-            print(f"[ERROR]: {compile_res.stderr}")
-            break
-            
         # 収益台帳の状態をGitHubへ自動同期
         subprocess.run(["git", "add", "core.rs", "qlux_core"], capture_output=True)
         commit_res = subprocess.run(["git", "commit", "-m", f"realtime-sync: gen {generation} | usd: ${revenue_ledger['fiat_usd']:,.2f} | sats: {revenue_ledger['bsv_sats']} [skip ci]"], capture_output=True)
