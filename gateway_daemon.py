@@ -124,11 +124,12 @@ def trigger_realtime_megasystem():
         time.sleep(3)
 
 if __name__ == "__main__":
-    trigger_realtime_megasystem()
-
-if __name__ == "__main__":
-    print("[GATEWAY] Starting Live Webhook Server on port 8080...")
+    # 1. 自己進化ループやGit同期を裏側（別スレッド）で常時走らせる
+    megasystem_thread = threading.Thread(target=trigger_realtime_megasystem, daemon=True)
+    megasystem_thread.start()
+    
+    # 2. メインスレッドではWebhookサーバーを前面で常時待ち受ける（これでLiveになる！）
     server_address = ('', 8080)
     httpd = HTTPServer(server_address, RevenueWebhookHandler)
+    print(f"[GATEWAY] Live Webhook Server listening on port 8080...")
     httpd.serve_forever()
-
