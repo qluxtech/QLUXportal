@@ -126,6 +126,9 @@ def trigger_realtime_megasystem():
 if __name__ == "__main__":
     trigger_realtime_megasystem()
 
-# サーバーを別スレッドで裏側常時起動
-server_thread = threading.Thread(target=run_webhook_server, daemon=True)
-server_thread.start()
+if __name__ == "__main__":
+    print("[GATEWAY] Starting Live Webhook Server on port 8080...")
+    server_address = ('', 8080)
+    httpd = HTTPServer(server_address, RevenueWebhookHandler)
+    httpd.serve_forever()
+
