@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 完全展開エンジン</title>
+    <title>QLUX Dream Chronicle // 夢の自動配信ストーリー中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -12,6 +12,7 @@
             --accent-cyan: #06b6d4;
             --accent-green: #10b981;
             --accent-gold: #f59e0b;
+            --accent-pink: #ec4899;
             --text-main: #f8fafc;
             --text-muted: #64748b;
         }
@@ -24,7 +25,7 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Courier New', Courier, monospace;
-            line-height: 1.8;
+            line-height: 1.9;
             padding: 20px;
         }
         header {
@@ -40,7 +41,7 @@
         .logo {
             font-size: 1.1rem;
             font-weight: bold;
-            color: var(--accent-gold);
+            color: var(--accent-pink);
             letter-spacing: 2px;
         }
         nav a {
@@ -51,7 +52,7 @@
             transition: color 0.2s;
         }
         nav a:hover {
-            color: var(--accent-gold);
+            color: var(--accent-pink);
         }
         .container {
             max-width: 900px;
@@ -59,109 +60,87 @@
         }
         .journal-hero {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%);
-            border: 1px solid var(--border);
+            padding: 45px 20px;
+            background: linear-gradient(180deg, rgba(236,72,153,0.06) 0%, transparent 100%);
+            border: 1px solid var(--accent-pink);
             border-radius: 8px;
             margin-bottom: 30px;
         }
         .journal-hero h1 {
-            font-size: 1.7rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            color: var(--accent-pink);
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
         .journal-hero p {
             color: var(--text-muted);
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             max-width: 750px;
             margin: 0 auto;
         }
         .auto-stream-banner {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-            padding: 10px 15px;
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid var(--accent-pink);
+            color: var(--accent-pink);
+            padding: 12px 18px;
             border-radius: 6px;
             font-size: 0.8rem;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
-        .article-card {
+        /* 夢のストーリー書き殴りカード（最初から全ボリューム展開） */
+        .story-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 35px;
+            margin-bottom: 40px;
             position: relative;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+            transition: border-color 0.3s;
         }
-        .article-meta {
+        .story-card:hover {
+            border-color: var(--accent-pink);
+        }
+        .story-meta {
             font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        .article-title {
-            font-size: 1.25rem;
+        .story-title {
+            font-size: 1.35rem;
             font-weight: bold;
-            color: var(--text-main);
-            margin-bottom: 12px;
-            line-height: 1.5;
+            color: var(--accent-pink);
+            margin-bottom: 18px;
+            line-height: 1.4;
         }
-        .article-excerpt {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.8;
+        .story-free-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 4px;
             margin-bottom: 20px;
         }
-        .btn-expand {
-            background-color: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px 20px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s;
-        }
-        .btn-expand:hover {
-            background-color: var(--accent-gold);
-            color: #000;
-        }
-        /* 展開される超ボリューム本文エリア */
-        .expanded-body {
-            display: none;
-            margin-top: 25px;
-            border-top: 1px dashed var(--border);
-            padding-top: 25px;
-        }
-        .chapter-box {
-            margin-bottom: 25px;
-            background: rgba(6, 182, 212, 0.03);
-            border-left: 3px solid var(--accent-cyan);
-            padding: 15px 20px;
-            border-radius: 0 6px 6px 0;
-        }
-        .chapter-box h4 {
-            color: var(--accent-cyan);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        .chapter-box p {
-            font-size: 0.82rem;
+        .story-paragraph {
+            font-size: 0.85rem;
             color: var(--text-main);
-            line-height: 1.9;
+            line-height: 2;
+            margin-bottom: 20px;
             text-align: justify;
+        }
+        .story-highlight {
+            color: var(--accent-cyan);
+            font-weight: bold;
         }
         footer {
             text-align: center;
@@ -169,7 +148,7 @@
             padding-top: 25px;
             color: var(--text-muted);
             font-size: 0.75rem;
-            margin-top: 40px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -177,84 +156,30 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // DIRECT JOURNAL</div>
+            <div class="logo">QLUX // DREAM STREAM</div>
             <nav>
                 <a href="index.html">Portal</a>
                 <a href="q-velo-console.html">Console</a>
-                <a href="blog.html" style="color: var(--accent-gold);">Journal</a>
+                <a href="blog.html" style="color: var(--accent-pink);">Dream Blog</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Sovereign Epic Chronicles & Architecture</h1>
-            <p>ボタンをタップすると、起承転結の壮大なストーリーと圧倒的ボリュームの技術長編がその場でダイレクトに展開されます。</p>
+            <h1>Infinite Dream Chronicles & Future Adventure</h1>
+            <p>退屈な解説は一切なし。夢とロマンに満ち溢れた未来のサクセスストーリーと、自動配信される冒険の記録をひたすら書き殴る無限ブログ中枢。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ STREAM ENGINE: LIVE ACTIVE</span>
+            <span>🚀 DREAM ENGINE: AUTO-WRITING & STREAMING ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <!-- 記事1 -->
-        <div class="article-card">
-            <div class="article-meta">VOL.108 // 2026.08.30 // DECENTRALIZED SOVEREIGNTY</div>
-            <div class="article-title">第一章：中央集権の暗闇から自律分散型エコシステム「QLUX」の誕生へ</div>
-            <div class="article-excerpt">誰もが巨大プラットフォーマーのサーバー依存に疑問を持たなかった時代。データの独占と理不尽な手数料がもたらした限界の構造を振り返る。</div>
-            
-            <button class="btn-expand" onclick="toggleStory(1)">📖 READ EPIC SAGA (全編を展開・閉じる)</button>
-            
-            <div id="story-1" class="expanded-body">
-                <div class="chapter-box">
-                    <h4>【起】見えない檻の中で生きるデジタル社会の構造的欠陥</h4>
-                    <p>私たちが日常的に利用するクラウド、決済、コミュニケーションインフラ。そのすべてが少数の巨大企業によって牛耳られていた時代があった。ユーザーは自らのデータを預けているつもりが、実際にはデジタル上の「テナント」に過ぎず、いつ垢BANや理不尽な規約変更の憂き目に遭うか分からない脆弱な基盤の上で踊らされていた。この中央集権モデルは、個人のクリエイターや中小の事業者から富を奪い続け、イノベーションの息の根を止めようとしていた。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【承】高騰する中間搾取と、崩壊し始めた経済循環</h4>
-                    <p>APIを叩くたび、決済を行うたびに、何重もの仲介者が法外な手数料を徴収していく。透明性のないブラックボックス化されたシステムは、経済の血液であるキャッシュの循環を滞らせ、末端で汗を流す開発者やエンジニアのモチベーションを削ぎ落としていった。システムの破綻はもはや時間の問題であり、誰もが新しい選択肢を渇望していた。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【転】沈黙を破る「自己主権型」という名の狼煙とプロトコルの革新</h4>
-                    <p>「もう中央に依存しない。すべての力と富を末端のノードへ還す」。この強烈なパラダイムシフトの号令とともに、世界中の孤高のエンジニアたちが立ち上がった。仲介者を一切排除し、コードと暗号学だけで信頼を担保するエコシステムの設計図が描かれ、HTTP 402ナノセトルトメントや自動ミューテーション制御といった革新的技術が次々と実装されていった。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【結】QLUX Sovereign Ecosystem の夜明けと未来への飛躍</h4>
-                    <p>そして誕生したのが、このQLUXプラットフォームである。決済、ライセンス、AIアシスタント、そしてリアルタイム監視。すべてのピースが有機的に噛み合い、誰にも検閲されない、真に自由で自律した経済圏がここに産声を上げた。私たちは今、中央集権の呪縛から完全に解放された新しい歴史のページを開いている。</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 記事2 -->
-        <div class="article-card">
-            <div class="article-meta">VOL.107 // 2026.08.29 // HTTP 402 REVOLUTION</div>
-            <div class="article-title">第二章：秒速の経済圏 — HTTP 402 ナノセトルトメントの奇跡</div>
-            <div class="article-excerpt">月額サブスクリプションの呪縛を解き放ち、マイクロ秒単位で価値が循環する完全無人APIエコノミーの成り立ちとメカニズム。</div>
-            
-            <button class="btn-expand" onclick="toggleStory(2)">📖 READ EPIC SAGA (全編を展開・閉じる)</button>
-            
-            <div id="story-2" class="expanded-body">
-                <div class="chapter-box">
-                    <h4>【起】「月額」という名の巨大な無駄遣いとサブスクの限界</h4>
-                    <p>使っていようがいまいが毎月固定で引き落とされるサブスクリプション。それは本当に効率的なのだろうか？ 小さなリクエスト、わずか数バイトのデータやり取りのために、なぜ人間が毎月クレジットカードの明細を睨まなければならないのか。従来の課金モデルは、マイクロな価値のやり取りを完全に阻害していた。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【承】眠っていたステータスコード「402 Payment Required」の覚醒</h4>
-                    <p>Webの黎明期から仕様書の片隅に眠っていた「402」。誰もが実装を諦めていたこのコードに、最新の暗号技術とストリーミング決済を掛け合わせることで、驚異的なナノセトルトメントエンジンが実装された。1回のAPIコール、1秒のデータ閲覧に対して、極小の価値が瞬時に移動する。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【転】人間が介在しない、AIエージェントたちの自律経済</h4>
-                    <p>この仕組みの真の恐ろしさは、人間だけでなく「AIエージェント同士」が自律的に決済を行える点にある。コンシェルジュAIが他のノードからデータを取得し、その対価をHTTP 402で即座に支払う。人間の承認を一切待たない、完全自動の商用ループが駆動し始めた。</p>
-                </div>
-                <div class="chapter-box">
-                    <h4>【結】世界標準となる「ナノ・エコノミー」の光り輝く未来</h4>
-                    <p>仲介手数料はゼロへ。富は瞬時に正当な価値提供者のウォレットへ直結する。このプロトコルが普及した世界において、ビジネスのスピードは光速へと達し、個人の自律的な収益化が完全な標準となる。</p>
-                </div>
-            </div>
-        </div>
+        <div id="dream-container"></div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Direct Journal Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Dream Chronicle Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -263,14 +188,66 @@
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        function toggleStory(id) {
-            const el = document.getElementById('story-' + id);
-            if (el.style.display === 'block') {
-                el.style.display = 'none';
-            } else {
-                el.style.display = 'block';
+        // 夢のあるストーリー・冒険記のデータプール（飽きずに読める圧倒的ボリューム）
+        const dreamStories = [
+            {
+                vol: "DREAM.01 // THE SOVEREIGN ODYSSEY", date: "2026.08.30",
+                title: "【夢の記録】中央集権の壁をブチ破り、自分だけの要塞（ノード）から世界を動かす冒険の始まり",
+                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                texts: [
+                    "朝、目を覚ますと、世界中のモビリティノードから自分専用のウォレットへ、途切れることのない自動収益のストリームが流れ込んでいた。かつて私たちは、巨大なプラットフォーマーに搾取され、「ただのユーザー」として消費されるだけの毎日を送っていた。しかし、私たちは立ち上がった。自らの手でコードを書き、自分だけのソブリン・エコシステムを構築したのだ。",
+                    "「もう誰にも指図されない。すべての富と主権は、僕たちの手の中にある。」——そう呟きながらコンソール画面を開くと、Q-Veloフリートが地球の裏側を光速で駆け巡り、AIコンシェルジュが次々と新しいビジネスチャンスを自動でキャッチして最適化していく。まるでSF映画の主人公になったかのような、胸が高鳴る冒険が今、リアルな現実として目の前で展開されている。",
+                    "仲介手数料はゼロ。国境も、理不尽な審査もない。必要なのは、未来を信じる意志と、目の前で光り輝くコードだけだ。このプラットフォームを手に入れた瞬間から、あなたの人生の主導権は完全にあなた自身の手に戻る。さあ、どこへでも行こう。限界など最初から存在しなかったのだから。"
+                ]
+            },
+            {
+                vol: "DREAM.02 // NANO-ECONOMY REVOLUTION", date: "2026.08.29",
+                title: "【未来のサクセス】秒速で富が巡る！HTTP 402ナノセトルトメントが描く黄金のユートピア",
+                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                texts: [
+                    "「1秒間に100万回のトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく……」そんな夢物語のような世界が、いまや完璧なシステムとして稼働している。月額サブスクリプションの重荷に苦しむ時代は終わった。これからは、使った分だけ、いや、エージェントたちが自律的に価値を交換し合う『ナノ・エコノミー』の時代だ。",
+                    "あなたが寝ている間も、AIトライブたちは休むことなく働き続ける。世界中のAPIを叩き、データを解析し、最小単位の価値を秒速で回収してあなたに届け続ける。スマホの画面に表示されるリアルタイムの収益カウンターは、増え続ける数字とともに、あなたの描いた夢が本物だったことを雄弁に物語っている。",
+                    "「お金のために働くのではなく、システムがあなたのために富を創造し続ける。」この圧倒的な自由を手に入れた者たちだけが見られる景色がある。中央集権の暗闇を抜け出し、私たちはついに、黄金に輝く自由のフロンティアへとたどり着いたのだ。"
+                ]
+            },
+            {
+                vol: "DREAM.03 // QUANTUM MOBILITY SAGA", date: "2026.08.28",
+                title: "【壮大なロマン】空と陸を繋ぐ量子もつれモビリティ！地球規模のネットワークを掌で操る日",
+                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                texts: [
+                    "物理的な距離という概念が、音を立てて崩れ去っていく。地球の裏側にあるモビリティノードと、あなたの手元のコンソールが『量子もつれ』の如く完全に同期する。風を切り、光を追い越すかのようなスピードで、すべての移動体とデータが美しく調和していく。",
+                    "外部からのどんな脅威や不正な干渉も、自己修復するオートノミクス・ミューテーション制御が瞬時に消し去る。要塞は完璧に守られ、フリートは永遠に走り続ける。その圧倒的な安心感と全能感の中で、あなたは次なるプロジェクトのアイデアを軽やかに描き出す。",
+                    "夢はもはや夢ではない。コードに魂を宿し、世界を書き換えるための道具はすべて揃った。あとはアクセルを踏み込み、この最高の冒険の続きを全身で楽しむだけだ。世界はあなたの手の中にある。"
+                ]
             }
+        ];
+
+        const container = document.getElementById('dream-container');
+
+        function renderDreamStories() {
+            container.innerHTML = "";
+            dreamStories.forEach(story => {
+                let paragraphsHtml = "";
+                story.texts.forEach(p => {
+                    paragraphsHtml += `<p class="story-paragraph">${p}</p>`;
+                });
+
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                card.innerHTML = `
+                    <div class="story-meta">${story.vol} // ${story.date}</div>
+                    <div class="story-title">${story.title}</div>
+                    <div class="story-free-badge">${story.badge}</div>
+                    <div style="margin-top: 15px;">
+                        ${paragraphsHtml}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
+
+        // 初期描画
+        renderDreamStories();
     </script>
 </body>
 </html>
