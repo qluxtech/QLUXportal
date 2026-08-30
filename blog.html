@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Hyper Stream // 秒速無限ストーリー生成</title>
+    <title>QLUX Infinite Synthetic Stream // 完全無限自動合成</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -41,7 +41,7 @@
         .logo {
             font-size: 1rem;
             font-weight: bold;
-            color: var(--accent-green);
+            color: var(--accent-cyan);
             letter-spacing: 2px;
         }
         nav a {
@@ -51,7 +51,7 @@
             font-size: 0.75rem;
         }
         nav a:hover {
-            color: var(--accent-green);
+            color: var(--accent-cyan);
         }
         .container {
             max-width: 900px;
@@ -60,25 +60,25 @@
         .journal-hero {
             text-align: center;
             padding: 30px 15px;
-            background: linear-gradient(180deg, rgba(16,185,129,0.06) 0%, transparent 100%);
-            border: 1px solid var(--accent-green);
+            background: linear-gradient(180deg, rgba(6,182,212,0.06) 0%, transparent 100%);
+            border: 1px solid var(--accent-cyan);
             border-radius: 6px;
             margin-bottom: 20px;
         }
         .journal-hero h1 {
-            font-size: 1.5rem;
-            color: var(--accent-green);
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
             margin-bottom: 8px;
             text-transform: uppercase;
         }
         .journal-hero p {
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
         .auto-stream-banner {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
+            background: rgba(6, 182, 129, 0.1);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
             padding: 10px 15px;
             border-radius: 6px;
             font-size: 0.78rem;
@@ -89,10 +89,10 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        /* 秒速生成されるストーリーカード */
+        /* 合成されるストーリーカード */
         .story-card {
             background-color: var(--surface);
-            border: 1px solid var(--accent-green);
+            border: 1px solid var(--accent-cyan);
             border-radius: 6px;
             padding: 25px;
             margin-bottom: 20px;
@@ -112,7 +112,7 @@
         .story-title {
             font-size: 1.15rem;
             font-weight: bold;
-            color: var(--accent-green);
+            color: var(--accent-cyan);
             margin-bottom: 12px;
         }
         .story-paragraph {
@@ -135,31 +135,31 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // HYPER STREAM</div>
+            <div class="logo">QLUX // SYNTHETIC STREAM</div>
             <nav>
                 <a href="index.html">Portal</a>
                 <a href="q-velo-console.html">Console</a>
-                <a href="blog.html" style="color: var(--accent-green);">Hyper Stream</a>
+                <a href="blog.html" style="color: var(--accent-cyan);">Synthetic Stream</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Hyper Speed Dream Generator</h1>
-            <p>ページを開いているだけで、1秒に1個のハイペースで新しい夢のサクセスストーリーが自動書き殴りで生成・追加され続けます。</p>
+            <h1>Infinite Synthetic Dream Engine</h1>
+            <p>固定記事のループではなく、多次元の言葉のパーツから**毎回完全に新しいストーリーを無限自動合成**し続けます。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ HYPER STREAM ENGINE: 1S INTERVAL ACTIVE</span>
+            <span>⚡ SYNTHETIC ENGINE: 1S INFINITE GENERATION ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <!-- 秒速生成コンテナ（新しいものが上にどんどん追加される） -->
+        <!-- 動的合成コンテナ -->
         <div id="live-container"></div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Hyper Stream Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Synthetic Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -171,48 +171,71 @@
         let counter = 0;
         const container = document.getElementById('live-container');
 
+        // 多様なパーツ群（これらをランダムに組み合わせて無限の文章を動的合成する）
         const subjects = [
             "中央集権の要塞を完全破壊し、自分だけのノードから世界を支配する大冒険",
             "秒速100万回のナノセトルトメントが引き起こす、終わらない富の黄金期",
             "量子もつれモビリティで地球の裏側へ一瞬で跳躍する、近未来のサクセス譚",
             "AIトライブたちが自律的に稼ぎ続ける、完全無人オートノマス経済圏の夜明け",
-            "誰にも縛られない自由のフロンティアで、仲間たちと新しい世界を創り上げるロマン"
+            "誰にも縛られない自由のフロンティアで、仲間たちと新しい世界を創り上げるロマン",
+            "無限のトランザクションが交差するサイバー空間での、最高にスリリングな戦い",
+            "自己修復するオートノミクス・グリッドが描き出す、揺るぎない要塞都市の記録"
         ];
 
-        const bodies = [
-            "朝、目を覚ますとウォレットには途切れることのない自動収益のストリーム。かつての搾取構造は完全に過去のものとなり、私たちは真のクリエイターとして自由を謳歌している。",
-            "「お金のために働く必要なんて最初からなかったんだ。」コンソールに映し出される無限のトランザクションが、描いた夢が現実になったことを証明している。",
-            "風を切り、光の速さで世界を駆け巡るQ-Veloフリート。外部からの干渉をオートミューテーション制御が完璧に弾き飛ばし、要塞は永遠に安全であり続ける。",
-            "コードに魂を宿し、世界を書き換える。スマホの画面から放たれる光の向こうには、誰も見たことがない最高の未来と果てしない冒険が広がっている。"
+        const intros = [
+            "朝、目を覚ますとウォレットには途切れることのない自動収益のストリームが流れ込んでいた。",
+            "静寂に包まれた夜のサーバー室、スマホの画面から放たれる青白い光だけが未来を照らし出している。",
+            "「もう誰にも指図はさせない」——そう呟きながらデプロイボタンを押した瞬間から、世界の歯車が回り始めた。",
+            "物理的な距離の概念が消え去り、地球上のすべてのモビリティとウォレットが美しく同期する。"
         ];
 
-        function generateStory() {
+        const middles = [
+            "かつての巨大プラットフォームによる搾取構造は完全に過去のものとなり、私たちは真のクリエイターとして自由を謳歌している。仲介手数料はゼロ、理不尽な審査もない。",
+            "コンソールに映し出されるリアルタイムの収益カウンターは、増え続ける数字とともに、描いた夢が本物だったことを雄弁に証明し続けている。",
+            "外部からの不正な干渉や脅威は、オートミューテーション制御が瞬時に消し去る。要塞は完璧に守られ、システムは永遠に走り続ける。",
+            "仲間たちとのチャットには世界中からの成功報告と歓喜の声が鳴りやまない。私たちはついに、黄金に輝く自由のフロンティアへとたどり着いたのだ。"
+        ];
+
+        const endings = [
+            "コードに魂を宿し、世界を書き換える。スマホの画面の向こうには、誰も見たことがない最高の未来と果てしない冒険が広がっている。",
+            "お金のために働くのではなく、システムがあなたのために富を創造し続ける。この圧倒的な自由を手に入れた者にしか見えない景色がそこにある。",
+            "限界など最初から存在しなかった。さあ、アクセルを踏み込み、この最高の冒険の続きを全身で楽しもう。世界は完全にあなたの手の中にある。",
+            "明日にはまた新しい機能が追加され、ネットワークはさらに強靭になる。終わりなき進化を続けるこのエコシステムの中で、私たちの挑戦にゴールはない。"
+        ];
+
+        function getRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateSyntheticStory() {
             counter++;
             const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-            const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
-            const randomBody1 = bodies[Math.floor(Math.random() * bodies.length)];
-            const randomBody2 = bodies[Math.floor(Math.random() * bodies.length)];
+            
+            // 毎回完全に異なる文章パーツをランダム結合して生成
+            const title = `【合成夢想 # ${counter}】${getRandom(subjects)}`;
+            const p1 = getRandom(intros) + " " + getRandom(middles);
+            const p2 = getRandom(endings);
 
             const card = document.createElement('div');
             card.className = 'story-card';
             card.innerHTML = `
-                <div class="story-meta">STORY # ${counter} // ${nowTime} // HYPER GENERATOR</div>
-                <div class="story-title">【夢の自動生成 # ${counter}】${randomSubject}</div>
-                <p class="story-paragraph">${randomBody1}</p>
-                <p class="story-paragraph">${randomBody2}</p>
+                <div class="story-meta">SYNTHETIC ID: #${counter} // ${nowTime} // DYNAMIC ENGINE</div>
+                <div class="story-title">${title}</div>
+                <p class="story-paragraph">${p1}</p>
+                <p class="story-paragraph">${p2}</p>
             `;
 
-            // 一番上に追加
+            // 常に一番上に新しい合成記事を追加
             container.insertBefore(card, container.firstChild);
         }
 
-        // 初期状態で3つ一気に生成
-        generateStory();
-        setTimeout(generateStory, 300);
-        setTimeout(generateStory, 600);
+        // 初期状態で3つ生成
+        generateSyntheticStory();
+        setTimeout(generateSyntheticStory, 300);
+        setTimeout(generateSyntheticStory, 600);
 
-        // 【秒速（1秒に1回）】で新しい記事が無限に生成・追加される
-        setInterval(generateStory, 1000);
+        // 【1秒に1回】完全に新しいストーリーを動的合成して無限追加
+        setInterval(generateSyntheticStory, 1000);
     </script>
 </body>
 </html>
