@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 完全自動配信・無限ナレッジ中枢</title>
+    <title>QLUX Sovereign Journal // 圧倒的ストーリー中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -24,7 +24,7 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Courier New', Courier, monospace;
-            line-height: 1.7;
+            line-height: 1.8;
             padding: 20px;
         }
         header {
@@ -60,14 +60,14 @@
         .journal-hero {
             text-align: center;
             padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(16,185,129,0.05) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(245,158,11,0.05) 0%, transparent 100%);
             border: 1px solid var(--border);
             border-radius: 8px;
             margin-bottom: 30px;
         }
         .journal-hero h1 {
             font-size: 1.8rem;
-            color: var(--accent-green);
+            color: var(--accent-gold);
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -79,9 +79,9 @@
             margin: 0 auto;
         }
         .auto-stream-banner {
-            background: rgba(6, 182, 212, 0.1);
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
             padding: 10px 15px;
             border-radius: 6px;
             font-size: 0.8rem;
@@ -102,7 +102,7 @@
             transition: border-color 0.3s;
         }
         .article-card:hover {
-            border-color: var(--accent-green);
+            border-color: var(--accent-gold);
         }
         .article-meta {
             font-size: 0.75rem;
@@ -142,8 +142,8 @@
         }
         .btn-read {
             background-color: transparent;
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
             padding: 8px 18px;
             font-family: monospace;
             font-weight: bold;
@@ -156,16 +156,16 @@
             text-transform: uppercase;
         }
         .btn-read:hover {
-            background-color: var(--accent-green);
+            background-color: var(--accent-gold);
             color: #000;
-            box-shadow: 0 0 10px rgba(16,185,129,0.4);
+            box-shadow: 0 0 10px rgba(245,158,11,0.4);
         }
-        /* モーダルウィンドウ（全編無料表示用） */
+        /* 長編モーダルウィンドウ */
         #reader-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 4, 10, 0.92);
+            background: rgba(2, 4, 10, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -173,12 +173,12 @@
         }
         .modal-content {
             background: var(--surface);
-            border: 1px solid var(--accent-green);
+            border: 1px solid var(--accent-gold);
             border-radius: 8px;
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
-            padding: 30px;
-            max-height: 80vh;
+            padding: 40px;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
         }
@@ -186,10 +186,25 @@
             position: absolute;
             top: 15px; right: 20px;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
         }
         .modal-close:hover { color: var(--text-main); }
+        .story-chapter {
+            margin-bottom: 25px;
+        }
+        .story-chapter h3 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--accent-cyan);
+            padding-left: 10px;
+        }
+        .story-chapter p {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            line-height: 1.9;
+        }
         footer {
             text-align: center;
             border-top: 1px solid var(--border);
@@ -204,94 +219,92 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // INFINITE JOURNAL</div>
+            <div class="logo">QLUX // EPIC SAGA JOURNAL</div>
             <nav>
                 <a href="index.html">Portal Home</a>
                 <a href="q-velo-console.html">Q-Velo Console</a>
-                <a href="blog.html" style="color: var(--accent-green);">Journal (Auto)</a>
+                <a href="blog.html" style="color: var(--accent-gold);">Epic Journal</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Autonomous Intelligence Infinite Stream</h1>
+            <h1>Sovereign Epic Chronicles & Architecture</h1>
             <p>
-                AI自律エージェント中枢により、世界中の分散ノードからリアルタイム自動配信される技術論文・プロトコル会報。すべてのコンテンツはソブリン特権により完全無料開放中。
+                中央集権の崩壊から、自律分散型エコシステムの誕生、そして全宇宙的モビリティの未来に至るまで。起承転結の壮大なストーリーで綴る最高峰の技術長編。
             </p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ AUTONOMOUS STREAM ENGINE: ONLINE (Auto-Sync Active)</span>
+            <span>⚡ NARRATIVE ENGINE: ACTIVE (Epic Story Mode)</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <!-- 記事コンテナ（自動配信・動的追加エリア） -->
-        <div id="articles-container">
-            <!-- JavaScriptにより無限自動生成されます -->
-        </div>
+        <div id="articles-container"></div>
 
     </div>
 
-    <!-- 記事閲覧モーダル -->
+    <!-- 長編ストーリー閲覧モーダル -->
     <div id="reader-modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
             <div id="modal-meta" style="color: var(--accent-gold); font-size: 0.75rem; margin-bottom: 10px;"></div>
-            <h2 id="modal-title" style="color: var(--accent-green); font-size: 1.3rem; margin-bottom: 15px;"></h2>
-            <div id="modal-body" style="font-size: 0.85rem; color: var(--text-main); line-height: 1.9;"></div>
+            <h2 id="modal-title" style="color: var(--accent-gold); font-size: 1.4rem; margin-bottom: 25px;"></h2>
+            <div id="modal-body"></div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Infinite Automated Journal Engine. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Epic Narrative & Technical Core. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // リアルタイム時計
         setInterval(() => {
             const now = new Date();
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        // 自動配信される大量の最先端ジャーナルデータプール（ボリューム満載）
-        const feedPool = [
+        // 起承転結のストーリー構造を持つ圧倒的ボリュームの記事プール
+        const epicPool = [
             {
-                vol: "VOL.108", date: "2026.08.30", cat: "DECENTRALIZED ARCHITECTURE",
-                title: "量子もつれモビリティネットワークにおける超低遅延同期の数理モデル",
-                excerpt: "地球規模の分散ノード間でミリ秒の壁を打破し、完全なリアルタイム同期を実現する量子もつれパケット制御の最新実装成果を公開。",
-                full: "本論文では、従来の光ファイバー網の物理的限界を超えるため、量子もつれ状態を利用した非同期ルーティングプロトコルの実証実験結果を解説します。各モビリティエージェントが自律的に位相を合わせることで、ゼロ・レイテンシーの通信インフラが確立されます。"
+                vol: "SAGA.01", date: "2026.08.30", cat: "THE GENESIS OF SOVEREIGNTY",
+                title: "第一章：暗雲垂れ込める中央集権の要塞と、個人の主権喪失",
+                excerpt: "誰もが巨大プラットフォーマーのサーバー依存に疑問を持たなかった時代。データの独占と理不尽な手数料がもたらした限界の構造を振り返る。",
+                chapters: [
+                    { title: "【起】見えない檻の中で生きるデジタル社会", text: "私たちが日常的に利用するクラウド、決済、コミュニケーションインフラ。そのすべてが少数の巨大企業によって牛耳られていた時代があった。ユーザーは自らのデータを預けているつもりが、実際にはデジタル上の「テナント」に過ぎず、いつ垢BANや理不尽な規約変更の憂き目に遭うか分からない脆弱な基盤の上で踊らされていた。" },
+                    { title: "【承】高騰する中間搾取と、崩壊し始めた経済循環", text: "APIを叩くたび、決済を行うたびに、何重もの仲介者が法外な手数料を徴収していく。この中央集権モデルは、個人のクリエイターや中小の事業者から富を奪い続け、イノベーションの息の根を止めようとしていた。システムの破綻はもはや時間の問題だった。" },
+                    { title: "【転】沈黙を破る「自己主権型」という名の狼煙", text: "「もう中央に依存しない。すべての力と富を末端のノードへ還す」。この強烈なパラダイムシフトの号令とともに、世界中の孤高のエンジニアたちが立ち上がった。仲介者を一切排除し、コードと暗号学だけで信頼を担保するエコシステムの設計図が、今まさに描かれ始めたのである。" },
+                    { title: "【結】QLUX Sovereign Ecosystem の夜明け", text: "そして誕生したのが、このQLUXプラットフォームである。決済、ライセンス、AIアシスタント、そしてリアルタイム監視。すべてのピースが有機的に噛み合い、誰にも検閲されない、真に自由で自律した経済圏がここに産声arqを上げた。" }
+                ]
             },
             {
-                vol: "VOL.107", date: "2026.08.29", cat: "HTTP 402 PROTOCOL",
-                title: "仲介者ゼロの衝撃：ナノセトルトメントが書き換えるグローバルAPI経済",
-                excerpt: "クレジットカード会社や決済代行手数料を完全にバイパスし、APIコールごとに秒速で極小金額が決済される自律経済圏の仕組み。",
-                full: "HTTP 402ステータスコードを拡張したナノ決済ゲートウェイにより、人間の承認プロセスを一切挟まない完全無人のマネタイズが実現します。AIエージェント同士が自律的に価値を交換し合う次世代の商用インフラストラクチャです。"
+                vol: "SAGA.02", date: "2026.08.29", cat: "HTTP 402 REVOLUTION",
+                title: "第二章：秒速の経済圏 — HTTP 402 ナノセトルトメントの奇跡",
+                excerpt: "月額サブスクリプションの呪縛を解き放ち、マイクロ秒単位で価値が循環する完全無人APIエコノミーの成り立ちとメカニズム。",
+                chapters: [
+                    { title: "【起】「月額」という名の巨大な無駄遣い", text: "使っていようがいまいが毎月固定で引き落とされるサブスクリプション。それは本当に効率的なのだろうか？ 小さなリクエスト、わずか数バイトのデータやり取りのために、なぜ人間が毎月クレジットカードの明細を睨まなければならないのか。" },
+                    { title: "【承】眠っていたステータスコード「402 Payment Required」の覚醒", text: "Webの黎明期から仕様書の片隅に眠っていた「402」。誰もが実装を諦めていたこのコードに、最新の暗号技術とストリーミング決済を掛け合わせることで、驚異的なナノセトルトメントエンジンが実装された。1回のAPIコール、1秒のデータ閲覧に対して、極小の価値が瞬時に移動する。" },
+                    { title: "【転】人間が介在しない、AIエージェントたちの自律経済", text: "この仕組みの真の恐ろしさは、人間だけでなく「AIエージェント同士」が自律的に決済を行える点にある。コンシェルジュAIが他のノードからデータを取得し、その対価をHTTP 402で即座に支払う。人間の承認を一切待たない、完全自動の商用ループが駆動し始めた。" },
+                    { title: "【結】世界標準となる「ナノ・エコノミー」の未来", text: "仲介手数料はゼロへ。富は瞬時に正当な価値提供者のウォレットへ直結する。このプロトコルが普及した世界において、ビジネスのスピードは光速へと達する。" }
+                ]
             },
             {
-                vol: "VOL.106", date: "2026.08.28", cat: "AUTONOMOUS AI TRIBE",
-                title: "マルチエージェント協調システムにおける動的ミューテーションの最適化",
-                excerpt: "予期せぬトラフィック急増や外部からの干渉に対し、AIトライブ自身がコード構造を動的に書き換えて自己修復する防御メカニズム。",
-                full: "ゼロ・トラスト環境下において、システムは静的な防御では生き残れません。自律型ミューテーションエンジンは、リアルタイムで脆弱性をスキャンし、ミリ秒単位でパッチを自動適用することで100%の稼働率を担保します。"
-            },
-            {
-                vol: "VOL.105", date: "2026.08.27", cat: "SECURITY & SOVEREIGNTY",
-                title: "中央集権サーバーからの完全脱却：ソブリン・ノード構築の完全ガイド",
-                excerpt: "特定のクラウドベンダーや国家権力に依存しない、完全な自己主権型（Sovereign）インフラをデプロイするための実践的アーキテクチャ。",
-                full: "クラウドの寡占化が進む現代において、インフラの主権を取り戻すことは急務です。本稿では、分散メッシュネットワーク上に暗号学的検証を経たプライベートノードを立ち上げ、検閲耐性を持つシステムを構築する手順を詳細に解説します。"
-            },
-            {
-                vol: "VOL.104", date: "2026.08.26", cat: "PERFORMANCE MATRIX",
-                title: "秒間100万トランザクションを支えるスケーラブル・データベースの非同期処理",
-                excerpt: "莫大なモビリティデータを遅延なく処理し続けるために設計された、分散型ストリームデータパイプラインの内部構造を徹底解析。",
-                full: "高負荷時においてもパフォーマンスを落とさないため、独自のメモリキャッシュレイヤーと非同期キューイングシステムを統合。スケーラビリティの限界を突破した次世代データベースエンジンの全貌を公開します。"
+                vol: "SAGA.03", date: "2026.08.28", cat: "QUANTUM MOBILITY NEXUS",
+                title: "第三章：地球を駆け巡るモビリティ — Q-Velo と自己修復メッシュ",
+                excerpt: "物理的な移動体とデジタルネットワークが完全に融合し、ミリ秒単位で自律制御される次世代モビリティインフラの壮大な実験記録。",
+                chapters: [
+                    { title: "【起】孤立した乗り物たちとアナログな限界", text: "かつての移動体は、ネットワークから切り離された孤独な鉄の塊に過ぎなかった。メンテナンスは手作業、経路の最適化はドライバーの勘に頼り、予期せぬ故障やトラブルに対してシステムはあまりにも無力だった。" },
+                    { title: "【承】すべてのモビリティを「生きたノード」へ変える", text: "Q-Veloフリートの導入により、すべての移動体がネットワークの末端ノード（Sovereign Node）へと昇華した。位置情報、速度、機体の健康状態がミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算される。" },
+                    { title: "【転】ミューテーション制御による完全自動の防衛網", text: "過酷な環境や外部からの不正なトラフィック干渉を受けたとき、ネットワークは自らの意思を持つかのようにコードを動的に書き換え（ミューテーション）、瞬時に脅威を隔離・無力化する。誰の指示も仰がない、完全自律型のセキュリティ防壁だ。" },
+                    { title: "【結】境界線のない世界へ向かって", text: "空、陸、そしてデジタル空間。そのすべての境界線が溶け合い、地球の裏側まで一瞬で結ばれる。QLUXが切り拓くモビリティの未来に、不可能の文字は存在しない。" }
+                ]
             }
         ];
 
-        // 記事を動的にレンダリング（自動配信風表示）
         const container = document.getElementById('articles-container');
 
         function renderArticles() {
             container.innerHTML = "";
-            feedPool.forEach((item, index) => {
+            epicPool.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'article-card';
                 card.innerHTML = `
@@ -299,8 +312,8 @@
                     <div class="article-title">${item.title}</div>
                     <div class="article-excerpt">${item.excerpt}</div>
                     <div class="article-footer">
-                        <span class="nanopay-badge">⚡ FREE SOVEREIGN ACCESS</span>
-                        <button class="btn-read" onclick="openReader(${index})">FULL TEXT (無料開放)</button>
+                        <span class="nanopay-badge">⚡ EPIC STORY: FULL FREE ACCESS</span>
+                        <button class="btn-read" onclick="openReader(${index})">READ EPIC SAGA (全編を読む)</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -308,10 +321,20 @@
         }
 
         function openReader(index) {
-            const article = feedPool[index];
+            const article = epicPool[index];
             document.getElementById('modal-meta').innerText = `${article.vol} // ${article.date} // ${article.cat}`;
             document.getElementById('modal-title').innerText = article.title;
-            document.getElementById('modal-body').innerText = article.full;
+            
+            let bodyHtml = "";
+            article.chapters.forEach(ch => {
+                bodyHtml += `
+                    <div class="story-chapter">
+                        <h3>${ch.title}</h3>
+                        <p>${ch.text}</p>
+                    </div>
+                `;
+            });
+            document.getElementById('modal-body').innerHTML = bodyHtml;
             document.getElementById('reader-modal').style.display = 'flex';
         }
 
@@ -319,24 +342,7 @@
             document.getElementById('reader-modal').style.display = 'none';
         }
 
-        // 初期描画
         renderArticles();
-
-        // リアルタイム自動配信シミュレーション（新着記事が自動でストリームに流れてくる演出）
-        setInterval(() => {
-            const newVolNum = 109 + Math.floor(Math.random() * 10);
-            const dynamicArticles = [
-                {
-                    vol: `VOL.${newVolNum}`, date: "2026.08.30", cat: "LIVE AUTO-STREAM",
-                    title: `リアルタイム配信ノード #${newVolNum}: 自律経済圏のグローバル拡大とスループット自動調停`,
-                    excerpt: "世界中のエージェントからのリクエスト増大に伴い、メッシュネットワークが自動的にノードを拡張し、遅延をゼロに抑える動的最適化の速報。",
-                    full: "たった今、全地球規模のメッシュネットワークにおいて自動スケーリングが発動し、新規ノードが統合されました。追加の費用や手動設定なしで、すべての接続ユーザーに対して最高速度のトランザクション環境が自動提供されます。"
-                }
-            ];
-            feedPool.unshift(dynamicArticles[0]);
-            if(feedPool.length > 8) feedPool.pop(); // 常に最新8件を保持
-            renderArticles();
-        }, 30000); // 30秒ごとに新しい記事が自動配信される演出
     </script>
 </body>
 </html>
