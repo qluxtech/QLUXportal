@@ -1,0 +1,33 @@
+name: QLUX Autonomous Daemon Stream
+
+on:
+  schedule:
+    - cron: '0 * * * *' # 1時間ごとに自動実行（デーモン稼働）
+  workflow_dispatch:
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Autonomous Generation Script
+        run: |
+          node generate-blog.js
+
+      - name: Commit and Push New Epic Articles
+        run: |
+          git config --global user.name "QLUX Autonomous Daemon"
+          git config --global user.email "daemon@qlux.ai"
+          git add .
+          git commit -m "autonomous: generate new sovereign epic article [skip ci]"
+          git push
+
