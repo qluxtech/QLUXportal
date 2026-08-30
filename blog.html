@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 堅牢無限配信中枢</title>
+    <title>QLUX Sovereign Journal // ライブ配信中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -48,7 +48,6 @@
             text-decoration: none;
             margin-left: 15px;
             font-size: 0.8rem;
-            transition: color 0.2s;
         }
         nav a:hover {
             color: var(--accent-gold);
@@ -70,7 +69,6 @@
             color: var(--accent-gold);
             margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
         .journal-hero p {
             color: var(--text-muted);
@@ -125,7 +123,6 @@
             color: var(--text-main);
             line-height: 2.1;
             margin-bottom: 22px;
-            text-align: justify;
         }
         .story-quote {
             border-left: 3px solid var(--accent-gold);
@@ -164,10 +161,11 @@
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ ROBUST STREAM: INFINITE GENERATION ACTIVE</span>
+            <span>⚡ LIVE STREAM: ACTIVE ENGINE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
+        <!-- 記事が追加されるコンテナ -->
         <div id="live-container"></div>
 
     </div>
@@ -177,13 +175,11 @@
     </footer>
 
     <script>
-        // 時計の更新
+        // 時計
         setInterval(() => {
             const now = new Date();
-            const clockEl = document.getElementById('live-clock');
-            if (clockEl) {
-                clockEl.innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-            }
+            const clock = document.getElementById('live-clock');
+            if(clock) clock.innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
         const titles = [
@@ -208,13 +204,13 @@
             "「世界を書き換えるのは、特権階級の人間ではない。未来を信じ、キーボードを叩く私たち一人ひとりだ。」この確信を胸に、私たちは今日も新しいコードをデプロイし続けます。終わりのない冒険と、最高にエキサイティングなサクセスの未来へ向かって、アクセルはすでにフルオープンにされています。"
         ];
 
-        function getRandomItem(arr) {
+        function rand(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        function generateMassiveStory() {
+        function createStory() {
             const container = document.getElementById('live-container');
-            if (!container) return;
+            if(!container) return;
 
             const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
             
@@ -222,28 +218,22 @@
             card.className = 'story-card';
             card.innerHTML = `
                 <div class="story-date">SOVEREIGN ARCHIVE // ${nowTime} // QLUX ENGINE</div>
-                <div class="story-title">${getRandomItem(titles)}</div>
-                <p class="story-paragraph">${getRandomItem(bodies)}</p>
-                <div class="story-quote">${getRandomItem(quotes)}</div>
-                <p class="story-paragraph">${getRandomItem(bodies)}</p>
-                <p class="story-paragraph">${getRandomItem(bodies)}</p>
+                <div class="story-title">${rand(titles)}</div>
+                <p class="story-paragraph">${rand(bodies)}</p>
+                <div class="story-quote">${rand(quotes)}</div>
+                <p class="story-paragraph">${rand(bodies)}</p>
+                <p class="story-paragraph">${rand(bodies)}</p>
             `;
 
-            // 常に一番上に最新の超大作を追加
             container.insertBefore(card, container.firstChild);
         }
 
-        // ページ読み込み時に即座に3つ生成
-        window.addEventListener('DOMContentLoaded', () => {
-            generateMassiveStory();
-            setTimeout(generateMassiveStory, 300);
-            setTimeout(generateMassiveStory, 600);
-        });
+        // すぐに実行（イベント待ちなしで確実に動かす）
+        createStory();
+        createStory();
 
-        // 定期的に新しい超大作を自動配信（追加）
-        setInterval(() => {
-            generateMassiveStory();
-        }, 8000);
+        // 5秒ごとに新しい大ボリューム記事を追加配信
+        setInterval(createStory, 5000);
     </script>
 </body>
 </html>
