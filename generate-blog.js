@@ -43,12 +43,25 @@ try {
                 <div class="story-quote">「コードこそがこの世界の絶対的な法律である。」</div>
             </div>`;
 
-    // 既存のHTMLにマーカーがある位置を基準に、新しい記事を最上部へ挿入
+    // 既存のHTMLからすべての story-card を正規表現で抽出し、配列として保持
+    const cardRegex = /<div class="story-card">[\s\S]*?<\/div>\s*<\/div>/g;
+    let existingCards = htmlContent.match(cardRegex) || [];
+
+    // 新しいカードを先頭に追加
+    existingCards.unshift(newCard);
+
+    // 最大件数（ここでは最新10件）に制限し、古いものを自動で切り捨てる
+    const maxCards = 10;
+    if (existingCards.length > maxCards) {
+        existingCards = existingCards.slice(0, maxCards);
+    }
+
+    // マーカー以降を新しいカード群で完全に再構築
     const parts = htmlContent.split(targetMarker);
-    const updatedHtml = parts[0] + targetMarker + "\n" + newCard + "\n" + parts[1];
+    const updatedHtml = parts[0] + targetMarker + "\n" + existingCards.join("\n") + "\n";
 
     fs.writeFileSync(htmlPath, updatedHtml, 'utf8');
-    console.log("Stream update completed successfully.");
+    console.log("Max 10 stream limit applied successfully.");
 } catch (e) {
     console.log("Error:", e);
 }
