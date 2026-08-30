@@ -2,20 +2,21 @@ name: Auto Blog Generator
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: setup-node@v4
         with:
           node-version: '20'
 
@@ -27,5 +28,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add blog.html
-          git commit -m "autonomous: force stream update" || echo "No changes"
-          git push origin HEAD:main --force
+          git commit -m "autonomous: update blog stream" || echo "No changes"
+          git push
