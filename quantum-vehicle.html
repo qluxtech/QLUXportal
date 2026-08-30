@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Velo Nexus // 超光速分散型量子自動車インフラ - QLUX</title>
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --surface: #0b0f19;
+            --border: #1e293b;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent-cyan);
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(6,182,212,0.05) 0%, transparent 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 25px;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background-color: var(--accent-cyan);
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .terminal {
+            background-color: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-bottom: 40px;
+        }
+        .terminal-header {
+            color: var(--text-muted);
+            border-bottom: 1px solid #111;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cta-box {
+            text-align: center;
+            padding: 40px;
+            border: 1px dashed var(--accent-cyan);
+            border-radius: 8px;
+            background: rgba(6,182,212,0.02);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-cyan);
+            color: #000;
+            padding: 12px 30px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">QLUX // Q-VELO NEXUS</div>
+        <nav>
+            <a href="index.html">Portal Home</a>
+            <a href="secret-console.html">Console</a>
+            <a href="telemetry.html">Telemetry</a>
+            <a href="journals.html">Journals</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>超光速分散型量子自動車インフラ</h1>
+        <p>地球上のすべてのモビリティ、産業、知性を量子もつれとHTTP 402ナノセトルトメントで完全同期。人間の介入を一切排除した不滅の惑星モビリティOS。</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="card">
+            <h3>01 // Quantum Fleet Mesh</h3>
+            <p>中央サーバーを完全排除。地球上のすべてのEV・自動運転車・物流トレーラーが遅延ゼロ（0.00ms）で直結され、交通渋滞と事故の概念を地球上から根絶する。</p>
+        </div>
+        <div class="card">
+            <h3>02 // HTTP 402 Nano-Settlement</h3>
+            <p>移動、エネルギーの融通、ルート譲渡の瞬間に、人間が財布やクレカを出すフェーズを消滅。マシン間自律取引がミリ秒単位でリアルタイム完結。</p>
+        </div>
+        <div class="card">
+            <h3>03 // Autonomous Mutation</h3>
+            <p>走るごとにコードや構造が自律的に自己修復・進化。サイバー攻撃や物理的障害を周囲のフリートが瞬時に検知・無効化する絶対防衛シールド。</p>
+        </div>
+    </div>
+
+    <div class="terminal">
+        <div class="terminal-header">
+            <span>GLOBAL_QUANTUM_MOBILITY_DAEMON.log</span>
+            <span>STATUS: SYNCHRONIZED [0.00ms]</span>
+        </div>
+        <p>&gt; initializing quantum entanglement across 1,489,203,110 mobile nodes...</p>
+        <p>&gt; HTTP 402 micro-clearing house active. Zero human friction enforced.</p>
+        <p>&gt; Q-Velo Nexus planetary grid running at absolute resilience. All systems nominal.</p>
+    </div>
+
+    <div class="cta-box">
+        <h3 style="color: var(--accent-cyan); margin-bottom: 10px;">GLOBAL DEPLOYMENT ACTIVATION</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">全地球規模のインフラストラクチャ・ライセンス接続およびノードプロビジョニングを実行します。</p>
+        <a href="secret-console.html" class="btn">Launch Q-Velo Console</a>
+    </div>
+
+    <footer>
+        <p>&copy; QLUX Planetary Sovereign Autonomous Ecosystem. Designed for absolute intelligence and infinite scalability.</p>
+    </footer>
+
+</body>
+</html>
