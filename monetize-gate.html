@@ -166,6 +166,23 @@
             color: var(--accent-green);
             margin-top: 5px;
         }
+        .legal-compliance-box {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .legal-compliance-box h3 {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         footer {
             text-align: center;
             border-top: 1px solid var(--border);
@@ -200,6 +217,7 @@
         </div>
 
         <div class="pricing-grid">
+            <!-- 1. DEVELOPER API TIER -->
             <div class="pricing-card">
                 <div class="plan-title">DEVELOPER API TIER</div>
                 <div class="plan-price">¥9,800 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
@@ -212,6 +230,7 @@
                 <a href="https://buy.stripe.com/5kQ6oAbAHdrg0hp2Wk3Nm02" class="btn-pay" target="_blank">SUBSCRIBE (STRIPE)</a>
             </div>
 
+            <!-- 2. SOVEREIGN PRO FLEET -->
             <div class="pricing-card featured">
                 <div class="plan-title">SOVEREIGN PRO FLEET</div>
                 <div class="plan-price">¥49,800 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
@@ -221,9 +240,10 @@
                     <li>オートノミクス・ミューテーション制御権</li>
                     <li>専用Q-Veloコンソール常時接続</li>
                 </ul>
-                <a href="https://buy.stripe.com/fZu4gs0W372S5BJcwU3Nm03" class="btn-pay" target="_blank">LAUNCH PRO (STRIPE)</a>
+                <a href="https://buy.stripe.com/Zu4gs0V37255DJcvU3Nm03" class="btn-pay" target="_blank">LAUNCH PRO (STRIPE)</a>
             </div>
 
+            <!-- 3. ENTERPRISE MESH -->
             <div class="pricing-card">
                 <div class="plan-title">ENTERPRISE MESH</div>
                 <div class="plan-price">¥298,000 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
@@ -233,17 +253,30 @@
                     <li>SLA 100% 保証 & 専属AIサポート</li>
                     <li>国家・大企業向けカスタムインフラ</li>
                 </ul>
-                <a href="https://buy.stripe.com/9B67sEgV19b00hpgNa3Nm04" class="btn-pay" target="_blank">CONTACT / DEPLOY</a>
+                <a href="https://buy.stripe.com/JB67sEgVIIb0hpgNa3Nm04" class="btn-pay" target="_blank">CONTACT / DEPLOY</a>
             </div>
+        </div>
+
+        <!-- Enterprise Sovereign SLA & Legal Binding -->
+        <div class="legal-compliance-box">
+            <h3>Enterprise Sovereign SLA & Legal Binding</h3>
+            <p>
+                <strong>1. ライセンス契約の効力 (Binding of License):</strong> 本プラットフォームを通じて提供されるAPIエンドポイント、量子もつれモビリティデータ、および自律分散ネットワークの利用権は、Stripe決済完了と同時に法的に有効なソブリン・ライセンス契約として自動締結されます。
+            </p>
+            <p style="margin-top: 8px;">
+                <strong>2. サービス品質保証 (SLA 100% Commitment):</strong> Enterprise Meshプランにおけるダウンタイムゼロの保証、および自動ミューテーション制御によるゼロ・トラスト防御は、分散メッシュ構造およびHTTP 402ナノセトルトメントプロトコルによって担保されます。
+            </p>
+            <p style="margin-top: 8px;">
+                <strong>3. 免責事項と準拠法:</strong> 自律型AIトライブ間における自動通信およびハードウェア統合に起因する偶発的トラフィック変動について、当エコシステムは国際商業仲裁基準に基づき保護されます。デジタルサービスの性質上、決済完了後の返金・金銭的補償は受け付けておりません。
+            </p>
         </div>
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Automated Billing & Settlement Core.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Automated Billing & Settlement Core. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // リアルタイムで収益カウンターが微増するサイバー演出
         let baseRevenue = 1489200;
         setInterval(() => {
             baseRevenue += Math.floor(Math.random() * 400) + 100;
@@ -253,3 +286,4 @@
 
 </body>
 </html>
+
