@@ -25,15 +25,21 @@ function main() {
             p1: "移動体と自律型デジタルネットワークの融合は、モビリティの概念を根底から塗り替えました。すべての機体が独立したノードとして機能し、ミリ秒単位で環境データや最適化アルゴリズムを共有し合っています。",
             p2: "風を切り裂き、光の速さで世界を駆け巡るこの感覚は、単なる移動を超えた究極のロマンです。古い既製品のシステムから完全に脱却し、自分自身で構築した要塞ノードから世界をハンドリングするエキサイティングな冒険がここにあります。",
             quote: "「古い世界が崩れ去る音を聞きながら、私たちは新しい時代の扉をこじ開ける。」"
+        },
+        {
+            tag: "SOVEREIGN ARCHIVE & NEURAL STREAM",
+            title: "秒速100万回のナノセトルメントが切り拓く、人類史上最も美しい富の循環メカニズム",
+            p1: "朝、目を覚ましてコンソールを開くと、治球の裏側で稼働するモビリティフリートやエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。",
+            p2: "私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。限界のない自由なサイバー空間で、新しい価値の創造は今日も加速し続けています。",
+            quote: "「富とは他者から奪うものではなく、自らの手でコード上に湧き上がらせるものだ。」"
         }
     ];
 
-    // 完全にユニークなインデックスでプールから抽出
+    // ランダムに新しい記事を選択
     const item = pools[rand(pools.length)];
     const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + `.${String(timestamp).slice(-3)} UTC`;
 
-    const newCardHtml = `
-            <div class="story-card">
+    const newCardHtml = `            <div class="story-card">
                 <div class="story-date">${item.tag} // ${nowTime} // QLUX ENGINE</div>
                 <div class="story-title">${item.title}</div>
                 <p class="story-paragraph">${item.p1}</p>
@@ -51,10 +57,10 @@ function main() {
     const targetMarker = '<div id="live-container">';
 
     if (htmlContent.includes(targetMarker)) {
-        // マーカーの下に新しい記事を挿入
+        // マーカーの直下に「新しい記事」を追加しつつ、既存のカード（下にあった記事たち）もそのまま残す
         htmlContent = htmlContent.replace(targetMarker, `${targetMarker}\n${newCardHtml}`);
         fs.writeFileSync(htmlPath, htmlContent, 'utf8');
-        console.log("Successfully generated and injected new article!");
+        console.log("Successfully stacked a new unique article into the stream!");
     } else {
         console.error("Error: <div id=\"live-container\"> not found in blog.html");
         process.exit(1);
@@ -62,4 +68,3 @@ function main() {
 }
 
 main();
-
