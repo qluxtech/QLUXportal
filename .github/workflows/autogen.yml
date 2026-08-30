@@ -26,8 +26,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          git reset --mixed origin/main || true
           git add blog.html
-          git commit -m "autonomous: rapid stream sync" || echo "No changes"
+          git commit -m "autonomous: force stream update" || echo "No changes"
           git push origin HEAD:main --force
