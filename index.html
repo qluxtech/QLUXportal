@@ -78,6 +78,17 @@
             background: rgba(56, 189, 248, 0.08);
             border-color: var(--border-color);
         }
+                /* ライブ・ネオン効果の追加パーツ */
+        .stat-card { cursor: pointer; position: relative; }
+        .stat-card::after {
+            content: 'VERIFY →';
+            position: absolute;
+            top: 12px; right: 12px;
+            font-family: monospace; font-size: 0.6rem;
+            color: var(--border-color);
+            transition: color 0.3s ease;
+        }
+        .stat-card:hover::after { color: var(--accent-cyan); }
 
         /* Container */
         .container {
