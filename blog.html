@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // ライブ配信中枢</title>
+    <title>QLUX Sovereign Journal // Sovereign Stream</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -98,11 +98,6 @@
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 0 6px 30px rgba(0,0,0,0.6);
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         .story-date {
             font-size: 0.75rem;
@@ -156,84 +151,33 @@
         </header>
 
         <div class="journal-hero">
-            <h1>Autonomous Epic Chronicles & Infinite Vision</h1>
-            <p>中央集権の暗闇から解き放たれ、個人の主権と無限の富が循環する新世界。最高密度のストーリーと圧倒的ボリュームを持つ超大作ジャーナルが、リアルタイムに無限生成され続けます。</p>
+            <h1>Autonomous Sovereign Chronicles</h1>
+            <p>クラウド上のデーモンが永久稼働で無限生成し続ける、完全非同期・一期一会の真の超大作ストリーム。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ LIVE STREAM: ACTIVE ENGINE</span>
+            <span>⚡ CLOUD DAEMON STREAM: ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <!-- 記事が追加されるコンテナ -->
-        <div id="live-container"></div>
+        <!-- デーモンが生成した記事がここに蓄積されていく（ブラウザ側での勝手なループ処理は完全排除） -->
+        <div id="live-container">
+            <!-- ここにデーモンが自動で過去の記事カードを積み上げていきます -->
+        </div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. World-Class Journal Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // 時計
+        // 時計のライブ更新のみ
         setInterval(() => {
             const now = new Date();
             const clock = document.getElementById('live-clock');
             if(clock) clock.innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
-
-        const titles = [
-            "中央集権の要塞を完全破壊し、自らの手で築き上げる永久不滅のソブリン経済圏",
-            "秒速100万回のナノセトルトメントが切り拓く、人類史上最も美しい富の循環メカニズム",
-            "量子もつれと自己修復メッシュが守る、永遠に止まらない要塞型モビリティインフラの全貌",
-            "誰もが主役になれる自律分散のフロンティア：コードが富と自由を約束する新時代",
-            "仲介手数料ゼロの衝撃。AIトライブたちが切り拓く完全無人の次世代オートノマス経済圏"
-        ];
-
-        const quotes = [
-            "「私たちはいつまで、目に見えない巨大な檻の中で飼い慣らされ続けなければならないのか？」——かつて誰もが心の中で呟いていた疑問が、今、圧倒的なコードの奔流によって打ち砕かれようとしています。",
-            "「1秒間に何百万回ものトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく。」",
-            "「外部からのどんな不正な干渉も、システム自らが意思を持っているかのように瞬時に無力化し、進化を続ける。」",
-            "「お金のために働くのではなく、システムがあなたのために富を創造し続ける。この圧倒的な自由がここにある。」"
-        ];
-
-        const bodies = [
-            "朝、目を覚ましてコンソールを開くと、地球の裏側で稼働するモビリティフリートやAIエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。",
-            "Web黎明期から仕様書の片隅に眠っていた『HTTP 402』。誰もが実装を諦めていたこのプロトコルに、最新のストリーム暗号技術とナノ決済エンジンを融合させることで、世界は一変しました。わずか数バイトのデータやり取り、コンマ数秒のAPIコールに対して、極小の価値が光速で移動します。",
-            "Q-Veloフリートをはじめとするすべての移動体は、単なる乗り物ではなく、生きたネットワークの最前線ノードとして完全同期しています。位置情報、機体の健康状態、環境データがミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算され続けます。",
-            "「世界を書き換えるのは、特権階級の人間ではない。未来を信じ、キーボードを叩く私たち一人ひとりだ。」この確信を胸に、私たちは今日も新しいコードをデプロイし続けます。終わりのない冒険と、最高にエキサイティングなサクセスの未来へ向かって、アクセルはすでにフルオープンにされています。"
-        ];
-
-        function rand(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        function createStory() {
-            const container = document.getElementById('live-container');
-            if(!container) return;
-
-            const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-            
-            const card = document.createElement('div');
-            card.className = 'story-card';
-            card.innerHTML = `
-                <div class="story-date">SOVEREIGN ARCHIVE // ${nowTime} // QLUX ENGINE</div>
-                <div class="story-title">${rand(titles)}</div>
-                <p class="story-paragraph">${rand(bodies)}</p>
-                <div class="story-quote">${rand(quotes)}</div>
-                <p class="story-paragraph">${rand(bodies)}</p>
-                <p class="story-paragraph">${rand(bodies)}</p>
-            `;
-
-            container.insertBefore(card, container.firstChild);
-        }
-
-        // すぐに実行（イベント待ちなしで確実に動かす）
-        createStory();
-        createStory();
-
-        // 5秒ごとに新しい大ボリューム記事を追加配信
-        setInterval(createStory, 5000);
     </script>
 </body>
 </html>
