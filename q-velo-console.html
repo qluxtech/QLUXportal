@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Velo Sovereign Console // 惑星規模・量子自動車統括中枢</title>
+    <style>
+        :root {
+            --bg-deep: #02040a;
+            --surface: #070d1a;
+            --border: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.5;
+            padding: 15px;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent-cyan);
+        }
+        .status-banner {
+            background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, rgba(16,185,129,0.1) 100%);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .status-title {
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+        .status-badge {
+            background-color: var(--accent-green);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .panel {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+        }
+        .panel h3 {
+            font-size: 0.95rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .metric-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        .metric-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .terminal-box {
+            background-color: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            height: 220px;
+            overflow-y: auto;
+            margin-bottom: 25px;
+        }
+        .control-panel {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .btn-grid {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 10px 20px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(6,182,212,0.4);
+        }
+        .btn-danger {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        .btn-danger:hover {
+            background-color: #ef4444;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(239,68,68,0.4);
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">QLUX // Q-VELO SOVEREIGN CONSOLE</div>
+        <nav>
+            <a href="index.html">Portal Home</a>
+            <a href="quantum-vehicle.html">Q-Velo Nexus</a>
+            <a href="secret-console.html">Main Console</a>
+            <a href="telemetry.html">Telemetry</a>
+        </nav>
+    </header>
+
+    <div class="status-banner">
+        <div>
+            <div class="status-title">PLANETARY MOBILITY MATRIX // ACTIVE</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Japan & Global Node Sync: 100.0% Sovereign Coverage</div>
+        </div>
+        <div class="status-badge">ABSOLUTE ZERO LATENCY</div>
+    </div>
+
+    <div class="grid-dashboard">
+        <div class="panel">
+            <h3>ACTIVE NODES (GLOBAL/JP)</h3>
+            <div class="metric-value" id="node-count">1,489,203,110</div>
+            <div class="metric-sub">Fully quantum-entangled units online</div>
+        </div>
+        <div class="panel">
+            <h3>HTTP 402 SETTLEMENT RATE</h3>
+            <div class="metric-value" id="tx-rate">849,203 TPS</div>
+            <div class="metric-sub">Autonomous nano-clearing per second</div>
+        </div>
+        <div class="panel">
+            <h3>MUTATION & SELF-HEALING</h3>
+            <div class="metric-value" style="color: var(--accent-green);">v9.4.2-STABLE</div>
+            <div class="metric-sub">Zero security breaches recorded</div>
+        </div>
+    </div>
+
+    <div class="terminal-box" id="terminal-log">
+        [00:00:01] SYSTEM BOOT: Q-Velo Sovereign Core loaded successfully.<br>
+        [00:00:02] QUANTUM MESH: Initializing entanglement across 47 prefectures in Japan & international sectors.<br>
+        [00:00:03] HTTP 402 ENGINE: Autonomous nano-settlement gateway active. Zero human friction enforced.<br>
+        [00:00:04] AI TRIBE: Differentiable quantum-neural circuits synchronized. Ready for planetary command.
+    </div>
+
+    <div class="control-panel">
+        <h3 style="color: var(--accent-cyan); margin-bottom: 10px; font-size: 1rem;">SOVEREIGN COMMAND OVERRIDE</h3>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 15px;">全地球・全産業のモビリティ網に対する超光速パルス同期、および緊急自己修復コードの即時一斉デプロイ。</p>
+        <div class="btn-grid">
+            <button class="btn" onclick="triggerSync()">強制量子同期パルス発射</button>
+            <button class="btn" onclick="triggerEconomy()">HTTP 402 決済ブースト</button>
+            <button class="btn btn-danger" onclick="triggerMutation()">緊急ミューテーション起動</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; QLUX Planetary Sovereign Autonomous Ecosystem. World-Dominating Quantum Mobility Infrastructure.</p>
+    </footer>
+
+    <script>
+        function logMessage(msg) {
+            const term = document.getElementById('terminal-log');
+            const time = new Date().toLocaleTimeString();
+            term.innerHTML += `<br>[${time}] ${msg}`;
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function triggerSync() {
+            logMessage("SUCCESS: Planetary quantum entanglement pulse broadcasted. All vehicles synchronized at 0.00ms.");
+            document.getElementById('node-count').innerText = "1,489,254,820";
+        }
+
+        function triggerEconomy() {
+            logMessage("INFO: HTTP 402 nano-settlement throughput surged to 1,200,000 TPS. Zero human intermediaries.");
+            document.getElementById('tx-rate').innerText = "1,200,000 TPS";
+        }
+
+        function triggerMutation() {
+            logMessage("WARNING & OVERRIDE: Autonomous mutation code deployed across all global fleets. Threat vectors neutralized.");
+        }
+    </script>
+
+</body>
+</html>
+
