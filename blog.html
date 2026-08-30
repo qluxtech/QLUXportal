@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX Sovereign Journal // 技術中枢・公式会報</title>
+    <style>
+        :root {
+            --bg-deep: #02040a;
+            --surface: #070d1a;
+            --border: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .journal-hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(6,182,212,0.05) 0%, transparent 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .journal-hero h1 {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .journal-hero p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .article-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+        .article-card:hover {
+            border-color: var(--accent-cyan);
+        }
+        .article-meta {
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .article-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+        .article-excerpt {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-top: 1px dashed var(--border);
+            padding-top: 15px;
+        }
+        .nanopay-badge {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .btn-read {
+            background-color: transparent;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 8px 18px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .btn-read:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 10px rgba(6,182,212,0.4);
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 25px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">QLUX // SOVEREIGN JOURNAL</div>
+            <nav>
+                <a href="index.html">Portal Home</a>
+                <a href="q-velo-console.html">Q-Velo Console</a>
+                <a href="quantum-vehicle.html">Q-Velo Nexus</a>
+                <a href="journal.html" style="color: var(--accent-cyan);">Journal</a>
+            </nav>
+        </header>
+
+        <div class="journal-hero">
+            <h1>Sovereign Intelligence Journal</h1>
+            <p>
+                自律分散インフラ、HTTP 402ナノセトルトメントプロトコル、および量子もつれモビリティに関する最先端のアーキテクチャ・論文・公式エスタブリッシュメントを発信。
+            </p>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">VOL.042 // 2026.08.30 // ARCHITECTURE</div>
+            <div class="article-title">HTTP 402 ナノセトルトメントが実現する「完全無人APIエコノミー」の構造改革</div>
+            <div class="article-excerpt">
+                従来の月額サブスクリプションモデルの限界を突破し、マイクロ秒単位で経済活動を完結させるHTTP 402プロトコルの実装詳細。仲介者を一切排除したStripe及びブロックチェーン連動による、真の自己主権型決済ネットワークの全貌を紐解く。
+            </div>
+            <div class="article-footer">
+                <span class="nanopay-badge">⚡ HTTP 402 Micro-Settlement Active</span>
+                <a href="#" class="btn-read" onclick="alert('HTTP 402: ナノ決済認証を経てフルテキストをアンロックします。'); return false;">UNLOCK FULL TEXT (¥150)</a>
+            </div>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">VOL.041 // 2026.08.15 // MOBILITY NEXUS</div>
+            <div class="article-title">Q-Velo フリートにおける自律型ミューテーション制御とゼロ・トラスト防御</div>
+            <div class="article-excerpt">
+                地球全域に分散するモビリティノード間において、外部からの改ざんやトラフィック異常をミリ秒単位で検知・自己修復するオートノミクス・ミューテーション制御アルゴリズムの数理モデルと実用検証結果について。
+            </div>
+            <div class="article-footer">
+                <span class="nanopay-badge">⚡ HTTP 402 Micro-Settlement Active</span>
+                <a href="#" class="btn-read" onclick="alert('HTTP 402: ナノ決済認証を経てフルテキストをアンロックします。'); return false;">UNLOCK FULL TEXT (¥250)</a>
+            </div>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">VOL.040 // 2026.08.01 // MANIFESTO</div>
+            <div class="article-title">中央集権の終焉と、ソブリン・エコシステムが導く次世代インフラの選択</div>
+            <div class="article-excerpt">
+                巨大プラットフォーマーや国家による中央集権的サーバー群に依存するリスクが最高潮に達する現在。すべてのデータと利益を個々の自律エージェントおよび事業者の手に取り戻すための、QLUXマニフェストの基本理念。
+            </div>
+            <div class="article-footer">
+                <span class="nanopay-badge" style="color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(245,158,11,0.1);">PUBLIC RELEASE // FREE</span>
+                <a href="#" class="btn-read" style="border-color: var(--accent-gold); color: var(--accent-gold);" onclick="alert('パブリックリリース記事です。自由に閲覧できます。'); return false;">READ ARTICLE</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Journal & Technical Publications Core. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
+
