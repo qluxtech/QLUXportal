@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX Sovereign Billing & Monetization Gateway // 収益中枢</title>
+    <style>
+        :root {
+            --bg-deep: #02040a;
+            --surface: #070d1a;
+            --border: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .hero-billing {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(245,158,11,0.05) 0%, transparent 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .hero-billing h1 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .pricing-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: left;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+        .pricing-card:hover {
+            border-color: var(--accent-gold);
+        }
+        .pricing-card.featured {
+            border-color: var(--accent-cyan);
+            background: linear-gradient(180deg, rgba(6,182,212,0.05) 0%, var(--surface) 100%);
+        }
+        .plan-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+        .plan-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+        .pricing-card.featured .plan-price {
+            color: var(--accent-cyan);
+        }
+        .plan-features {
+            list-style: none;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        .plan-features li::before {
+            content: "✓ ";
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        .btn-pay {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 12px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .btn-pay:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(245,158,11,0.4);
+        }
+        .pricing-card.featured .btn-pay {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+        .pricing-card.featured .btn-pay:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(6,182,212,0.4);
+        }
+        .revenue-ticker {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .ticker-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-top: 5px;
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">QLUX // MONETIZATION GATEWAY</div>
+            <nav>
+                <a href="index.html">Portal Home</a>
+                <a href="q-velo-console.html">Q-Velo Console</a>
+                <a href="quantum-vehicle.html">Q-Velo Nexus</a>
+            </nav>
+        </header>
+
+        <div class="hero-billing">
+            <h1>自動収益化・ソブリンライセンス発行中枢</h1>
+            <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 600px; margin: 0 auto;">
+                Stripeグローバル決済およびHTTP 402ナノセトルトメントを通じた、完全自動課金エコシステム。人間を介さず、瞬時にAPIキーとライセンスを発行。
+            </p>
+        </div>
+
+        <div class="revenue-ticker">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">REAL-TIME REVENUE STREAM (TODAY)</div>
+            <div class="ticker-value" id="revenue-display">¥1,489,200 JPY / ⚡ 4,820 TPS</div>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-title">DEVELOPER API TIER</div>
+                <div class="plan-price">¥9,800 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
+                <ul class="plan-features">
+                    <li>Q-Velo エンドポイントアクセス</li>
+                    <li>月間 100万トランザクション許容</li>
+                    <li>自動ライセンスキー即時発行</li>
+                    <li>標準AIトライブ連携</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-payment-link-dev" class="btn-pay" target="_blank">SUBSCRIBE (STRIPE)</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="plan-title">SOVEREIGN PRO FLEET</div>
+                <div class="plan-price">¥49,800 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
+                <ul class="plan-features">
+                    <li>全地球モビリティ・リアルタイムデータ</li>
+                    <li>HTTP 402 ナノ決済ゲートウェイ無制限</li>
+                    <li>オートノミクス・ミューテーション制御権</li>
+                    <li>専用Q-Veloコンソール常時接続</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-payment-link-pro" class="btn-pay" target="_blank">LAUNCH PRO (STRIPE)</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="plan-title">ENTERPRISE MESH</div>
+                <div class="plan-price">¥298,000 <span style="font-size: 0.8rem; color: var(--text-muted);">/ mo</span></div>
+                <ul class="plan-features">
+                    <li>専用量子もつれ・プライベートノード</li>
+                    <li>全自動カスタマイズ・コード生成</li>
+                    <li>SLA 100% 保証 & 専属AIサポート</li>
+                    <li>国家・大企業向けカスタムインフラ</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-payment-link-enterprise" class="btn-pay" target="_blank">CONTACT / DEPLOY</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Automated Billing & Settlement Core.</p>
+    </footer>
+
+    <script>
+        // リアルタイムで収益カウンターが微増するサイバー演出
+        let baseRevenue = 1489200;
+        setInterval(() => {
+            baseRevenue += Math.floor(Math.random() * 400) + 100;
+            document.getElementById('revenue-display').innerText = `¥${baseRevenue.toLocaleString()} JPY / ⚡ 4,820 TPS`;
+        }, 3000);
+    </script>
+
+</body>
+</html>
+
