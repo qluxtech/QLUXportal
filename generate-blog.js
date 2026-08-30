@@ -3,7 +3,6 @@ const fs = require('fs');
 try {
     let htmlPath = 'blog.html';
     if (!fs.existsSync(htmlPath)) {
-        // ファイルがない場合は空のHTMLを作成してエラーを防ぐ
         fs.writeFileSync(htmlPath, '<div id="live-container"></div>', 'utf8');
     }
 
@@ -15,39 +14,41 @@ try {
     }
 
     const now = Date.now();
-    const tags = ["AUTONOMOUS CORE", "QUANTUM MESH", "SOVEREIGN NODE", "CYBER DYNAMICS"];
+    const tags = ["AUTONOMOUS CORE", "QUANTUM MESH", "SOVEREIGN NODE", "CYBER DYNAMICS", "NEURAL STREAM"];
     const titles = [
         "分散型プロトコルがもたらす究極の経済的主権",
         "自律型AIエージェント群によるクラウド要塞の構築",
         "リアルタイムナノ決済が切り拓く新しい富の循環",
-        "暗号学的証明ネットワークの完全自動化オペレーション"
+        "暗号学的証明ネットワークの完全自動化オペレーション",
+        "エッジデバイス艦隊が結ぶ地球規模の同期プロトコル"
     ];
     const bodies = [
-        "従来の既製品システムに依存する必要はもはやありません。ポケットの中の端末から放たれるコマンドが、地球規模のインフラを駆動させます。",
+        "従来の既製品システムに依存する必要はもはやありません。ポケットの中の端末から放たれるコマンドが、地球規模のインフラをダイレクトに駆動させます。",
         "システムは静寂の中で24時間365日止まることなく稼働し続け、あらゆるプロセスを自己最適化しています。",
-        "分散されたノード同士がミリ秒単位で同期し、無数のトランザクションとデータストリームを生成し続けています。"
+        "分散されたノード同士がミリ秒単位で同期し、無数のトランザクションとデータストリームを生成し続けています。",
+        "中間マージンや理不尽な制約から完全に解放された空間で、新しい価値の創造は今日も加速し続けています。"
     ];
 
-    let burstHtml = "";
-    for (let i = 0; i < 3; i++) {
-        const idx = (now + i) % titles.length;
-        const tag = tags[(now + i) % tags.length];
-        const title = titles[idx];
-        const body = bodies[(now + i) % bodies.length];
-        const dateStr = new Date(now - (i * 1000)).toISOString().replace('T', ' ').substring(0, 19) + " UTC";
+    // 新しい記事を1件生成
+    const idx = now % titles.length;
+    const tag = tags[now % tags.length];
+    const title = titles[idx];
+    const body = bodies[now % bodies.length];
+    const dateStr = new Date(now).toISOString().replace('T', ' ').substring(0, 19) + " UTC";
 
-        burstHtml += `            <div class="story-card">
-                <div class="story-date">${tag} // ${dateStr} // STREAM #${now + i}</div>
+    const newCard = `            <div class="story-card">
+                <div class="story-date">${tag} // ${dateStr} // DYNAMIC STREAM #${now}</div>
                 <div class="story-title">${title}</div>
                 <p class="story-paragraph">${body}</p>
                 <div class="story-quote">「コードこそがこの世界の絶対的な法律である。」</div>
-            </div>\n`;
-    }
+            </div>`;
 
-    htmlContent = htmlContent.replace(targetMarker, `${targetMarker}\n${burstHtml}`);
-    fs.writeFileSync(htmlPath, htmlContent, 'utf8');
-    console.log("Safe generation completed successfully.");
+    // 既存のHTMLにマーカーがある位置を基準に、新しい記事を最上部へ挿入
+    const parts = htmlContent.split(targetMarker);
+    const updatedHtml = parts[0] + targetMarker + "\n" + newCard + "\n" + parts[1];
+
+    fs.writeFileSync(htmlPath, updatedHtml, 'utf8');
+    console.log("Stream update completed successfully.");
 } catch (e) {
-    // 万が一エラーが出ても強制終了せず成功扱いにする
-    console.log("Recovered from error:", e);
+    console.log("Error:", e);
 }
