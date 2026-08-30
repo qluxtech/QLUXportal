@@ -2,7 +2,7 @@ name: QLUX Autonomous Daemon Stream
 
 on:
   schedule:
-    - cron: '0 * * * *' # 1時間ごとに自動実行（デーモン稼働）
+    - cron: '0 * * * *' # 1時間ごとに自動実行
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run Autonomous Generation Script
+      - name: Run AI Autonomous Generation Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           node generate-blog.js
 
@@ -28,6 +30,5 @@ jobs:
           git config --global user.name "QLUX Autonomous Daemon"
           git config --global user.email "daemon@qlux.ai"
           git add .
-          git commit -m "autonomous: generate new sovereign epic article [skip ci]"
+          git commit -m "autonomous: generate AI sovereign epic article [skip ci]"
           git push
-
