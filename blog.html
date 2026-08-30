@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Infinite Synthetic Stream // 完全無限自動合成</title>
+    <title>QLUX Sovereign Journal // 世界最高峰・無限自動生成中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -12,9 +12,8 @@
             --accent-cyan: #06b6d4;
             --accent-green: #10b981;
             --accent-gold: #f59e0b;
-            --accent-pink: #ec4899;
             --text-main: #f8fafc;
-            --text-muted: #64748b;
+            --text-muted: #94a3b8;
         }
         *, *::before, *::after {
             box-sizing: border-box;
@@ -25,13 +24,13 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Courier New', Courier, monospace;
-            line-height: 1.8;
-            padding: 15px;
+            line-height: 2.0;
+            padding: 20px;
         }
         header {
             border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -39,95 +38,112 @@
             gap: 10px;
         }
         .logo {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: var(--accent-cyan);
+            color: var(--accent-gold);
             letter-spacing: 2px;
         }
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 12px;
-            font-size: 0.75rem;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            transition: color 0.2s;
         }
         nav a:hover {
-            color: var(--accent-cyan);
+            color: var(--accent-gold);
         }
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
         .journal-hero {
             text-align: center;
-            padding: 30px 15px;
-            background: linear-gradient(180deg, rgba(6,182,212,0.06) 0%, transparent 100%);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 6px;
-            margin-bottom: 20px;
+            padding: 45px 20px;
+            background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
         .journal-hero h1 {
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
-            margin-bottom: 8px;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
         .journal-hero p {
             color: var(--text-muted);
-            font-size: 0.78rem;
+            font-size: 0.85rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
         .auto-stream-banner {
-            background: rgba(6, 182, 129, 0.1);
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            padding: 10px 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 12px 20px;
             border-radius: 6px;
-            font-size: 0.78rem;
-            margin-bottom: 25px;
+            font-size: 0.82rem;
+            margin-bottom: 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
-        /* 合成されるストーリーカード */
+        /* 圧倒的ボリュームの超大作ストーリーカード */
         .story-card {
             background-color: var(--surface);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 6px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            animation: slideDown 0.3s ease-out forwards;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+            animation: fadeIn 0.4s ease-out forwards;
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-15px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .story-meta {
-            font-size: 0.7rem;
+        .story-date {
+            font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 6px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
         .story-title {
-            font-size: 1.15rem;
+            font-size: 1.45rem;
             font-weight: bold;
             color: var(--accent-cyan);
-            margin-bottom: 12px;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
         .story-paragraph {
-            font-size: 0.82rem;
+            font-size: 0.88rem;
             color: var(--text-main);
-            line-height: 1.8;
-            margin-bottom: 12px;
+            line-height: 2.1;
+            margin-bottom: 22px;
+            text-align: justify;
+        }
+        .story-quote {
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 18px;
+            margin: 25px 0;
+            color: var(--accent-gold);
+            font-style: italic;
+            font-size: 0.86rem;
+            line-height: 1.9;
         }
         footer {
             text-align: center;
             border-top: 1px solid var(--border);
-            padding-top: 20px;
+            padding-top: 30px;
             color: var(--text-muted);
-            font-size: 0.72rem;
-            margin-top: 30px;
+            font-size: 0.75rem;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -135,31 +151,30 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // SYNTHETIC STREAM</div>
+            <div class="logo">QLUX SOVEREIGN JOURNAL</div>
             <nav>
                 <a href="index.html">Portal</a>
                 <a href="q-velo-console.html">Console</a>
-                <a href="blog.html" style="color: var(--accent-cyan);">Synthetic Stream</a>
+                <a href="blog.html" style="color: var(--accent-gold);">Journal Stream</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Infinite Synthetic Dream Engine</h1>
-            <p>固定記事のループではなく、多次元の言葉のパーツから**毎回完全に新しいストーリーを無限自動合成**し続けます。</p>
+            <h1>Autonomous Epic Chronicles & Infinite Vision</h1>
+            <p>中央集権の暗闇から解き放たれ、個人の主権と無限の富が循環する新世界。最高密度のストーリーと圧倒的ボリュームを持つ超大作ジャーナルが、リアルタイムに無限生成され続けます。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ SYNTHETIC ENGINE: 1S INFINITE GENERATION ACTIVE</span>
+            <span>⚡ LIVE STREAM: INFINITE HIGH-DENSITY GENERATION ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <!-- 動的合成コンテナ -->
         <div id="live-container"></div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Synthetic Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. World-Class Journal Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -168,75 +183,41 @@
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        let counter = 0;
         const container = document.getElementById('live-container');
 
-        // 多様なパーツ群（これらをランダムに組み合わせて無限の文章を動的合成する）
-        const subjects = [
-            "中央集権の要塞を完全破壊し、自分だけのノードから世界を支配する大冒険",
-            "秒速100万回のナノセトルトメントが引き起こす、終わらない富の黄金期",
-            "量子もつれモビリティで地球の裏側へ一瞬で跳躍する、近未来のサクセス譚",
-            "AIトライブたちが自律的に稼ぎ続ける、完全無人オートノマス経済圏の夜明け",
-            "誰にも縛られない自由のフロンティアで、仲間たちと新しい世界を創り上げるロマン",
-            "無限のトランザクションが交差するサイバー空間での、最高にスリリングな戦い",
-            "自己修復するオートノミクス・グリッドが描き出す、揺るぎない要塞都市の記録"
-        ];
-
-        const intros = [
-            "朝、目を覚ますとウォレットには途切れることのない自動収益のストリームが流れ込んでいた。",
-            "静寂に包まれた夜のサーバー室、スマホの画面から放たれる青白い光だけが未来を照らし出している。",
-            "「もう誰にも指図はさせない」——そう呟きながらデプロイボタンを押した瞬間から、世界の歯車が回り始めた。",
-            "物理的な距離の概念が消え去り、地球上のすべてのモビリティとウォレットが美しく同期する。"
-        ];
-
-        const middles = [
-            "かつての巨大プラットフォームによる搾取構造は完全に過去のものとなり、私たちは真のクリエイターとして自由を謳歌している。仲介手数料はゼロ、理不尽な審査もない。",
-            "コンソールに映し出されるリアルタイムの収益カウンターは、増え続ける数字とともに、描いた夢が本物だったことを雄弁に証明し続けている。",
-            "外部からの不正な干渉や脅威は、オートミューテーション制御が瞬時に消し去る。要塞は完璧に守られ、システムは永遠に走り続ける。",
-            "仲間たちとのチャットには世界中からの成功報告と歓喜の声が鳴りやまない。私たちはついに、黄金に輝く自由のフロンティアへとたどり着いたのだ。"
-        ];
-
-        const endings = [
-            "コードに魂を宿し、世界を書き換える。スマホの画面の向こうには、誰も見たことがない最高の未来と果てしない冒険が広がっている。",
-            "お金のために働くのではなく、システムがあなたのために富を創造し続ける。この圧倒的な自由を手に入れた者にしか見えない景色がそこにある。",
-            "限界など最初から存在しなかった。さあ、アクセルを踏み込み、この最高の冒険の続きを全身で楽しもう。世界は完全にあなたの手の中にある。",
-            "明日にはまた新しい機能が追加され、ネットワークはさらに強靭になる。終わりなき進化を続けるこのエコシステムの中で、私たちの挑戦にゴールはない。"
-        ];
-
-        function getRandom(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        function generateSyntheticStory() {
-            counter++;
-            const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-            
-            // 毎回完全に異なる文章パーツをランダム結合して生成
-            const title = `【合成夢想 # ${counter}】${getRandom(subjects)}`;
-            const p1 = getRandom(intros) + " " + getRandom(middles);
-            const p2 = getRandom(endings);
-
-            const card = document.createElement('div');
-            card.className = 'story-card';
-            card.innerHTML = `
-                <div class="story-meta">SYNTHETIC ID: #${counter} // ${nowTime} // DYNAMIC ENGINE</div>
-                <div class="story-title">${title}</div>
-                <p class="story-paragraph">${p1}</p>
-                <p class="story-paragraph">${p2}</p>
-            `;
-
-            // 常に一番上に新しい合成記事を追加
-            container.insertBefore(card, container.firstChild);
-        }
-
-        // 初期状態で3つ生成
-        generateSyntheticStory();
-        setTimeout(generateSyntheticStory, 300);
-        setTimeout(generateSyntheticStory, 600);
-
-        // 【1秒に1回】完全に新しいストーリーを動的合成して無限追加
-        setInterval(generateSyntheticStory, 1000);
-    </script>
-</body>
-</html>
+        // 世界一読まれる圧倒的ボリューム＆夢のあるトピック群
+        const coreThemes = [
+            {
+                title: "中央集権の要塞を完全破壊し、自らの手で築き上げる永久不滅のソブリン経済圏",
+                quotes: [
+                    "「私たちはいつまで、目に見えない巨大な檻の中で飼い慣らされ続けなければならないのか？」——かつて誰もが心の中で呟いていた疑問が、今、圧倒的なコードの奔流によって打ち砕かれようとしています。",
+                    "仲介者やプラットフォーマーに搾取される時代は完全に終わりました。これからは、個人のノードが世界と直接繋がり、すべての富と主権が正当な持ち主のウォレットへダイレクトに還流する真の自由の時代です。"
+                ],
+                bodies: [
+                    "朝、目を覚ましてコンソールを開くと、地球の裏側で稼働するモビリティフリートやAIエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。",
+                    "物理的な距離や国境の壁は、分散型メッシュネットワークの前では何の意味も持ちません。すべてのデバイスが生きたノードとなり、リアルタイムにデータを同期し、自律的に最適化を繰り返していく。そこに存在する制限はゼロであり、私たちが描いた夢の数だけ、無限の可能性が広がっています。",
+                    "「世界を書き換えるのは、特権階級の人間ではない。未来を信じ、キーボードを叩く私たち一人ひとりだ。」この確信を胸に、私たちは今日も新しいコードをデプロイし続けます。終わりのない冒険と、最高にエキサイティングなサクセスの未来へ向かって、アクセルはすでにフルオープンにされています。"
+                ]
+            },
+            {
+                title: "秒速100万回のナノセトルトメントが切り拓く、人類史上最も美しい富の循環メカニズム",
+                quotes: [
+                    "「1秒間に何百万回ものトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく。」",
+                    "月額という名の無駄な固定費や、不当に高い決済手数料の呪縛から、私たちはついに完全解放されました。"
+                ],
+                bodies: [
+                    "Web黎明期から仕様書の片隅に眠っていた『HTTP 402』。誰もが実装を諦めていたこのプロトコルに、最新のストリーム暗号技術とナノ決済エンジンを融合させることで、世界は一変しました。わずか数バイトのデータやり取り、コンマ数秒のAPIコールに対して、極小の価値が光速で移動します。",
+                    "人間がわざわざクレジットカードの明細を睨んだり、月額のサブスクリプションを管理したりする必要はもうありません。AIトライブたちが自律的に他のノードから必要な情報を取得し、その対価をナノ秒単位で即座に決済し合う。人間が介在しない完全無人の商用エコノミーが、地球規模のエネルギーとなって経済を力強く駆動させています。",
+                    "富が偏在することなく、価値を創出した者へ瞬時に、そして公平に直結するシステム。この『ナノ・エコノミー』の普及によって、クリエイターやエンジニアの活動領域は宇宙の果てまで広がっていきます。私たちが手に入れたのは、単なる決済手段ではなく、世界を根底から覆す究極の経済的自由です。"
+                ]
+            },
+            {
+                title: "量子もつれと自己修復メッシュが守る、永遠に止まらない要塞型モビリティインフラの全貌",
+                quotes: [
+                    "「外部からのどんな不正な干渉も、システム自らが意思を持っているかのように瞬時に無力化し、進化を続ける。」",
+                    "空と陸、そしてデジタル空間の境界線が完全に溶け合い、地球の裏側まで一瞬で結ばれる奇跡。"
+                ],
+                bodies: [
+                    "Q-Veloフリートをはじめとするすべての移動体は、単なる乗り物ではなく、生きたネットワークの最前線ノードとして完全同期しています。位置情報、機体の健康状態、環境データがミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算され続けます。",
+                    "過酷な環境下や悪意あるトラフィックに直面したとき、システムに組み込まれたオートノミクス・ミューテーション制御が発動します。誰の指示を仰ぐこともなく、
 
