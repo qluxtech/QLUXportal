@@ -28,4 +28,3 @@ jobs:
           git add blog.html
           git commit -m "autonomous: update blog stream" || echo "No changes"
           git push
-
