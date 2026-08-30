@@ -15,131 +15,26 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 2.0;
-            padding: 20px;
-        }
-        header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .logo {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-            letter-spacing: 2px;
-        }
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 15px;
-            font-size: 0.8rem;
-        }
-        nav a:hover {
-            color: var(--accent-gold);
-        }
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
-        .journal-hero {
-            text-align: center;
-            padding: 45px 20px;
-            background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .journal-hero h1 {
-            font-size: 1.8rem;
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-        .journal-hero p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-        .auto-stream-banner {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 0.82rem;
-            margin-bottom: 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .story-card {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 6px 30px rgba(0,0,0,0.6);
-        }
-        .story-date {
-            font-size: 0.75rem;
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .story-title {
-            font-size: 1.45rem;
-            font-weight: bold;
-            color: var(--accent-cyan);
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        .story-paragraph {
-            font-size: 0.88rem;
-            color: var(--text-main);
-            line-height: 2.1;
-            margin-bottom: 22px;
-        }
-        .story-quote {
-            border-left: 3px solid var(--accent-gold);
-            padding-left: 18px;
-            margin: 25px 0;
-            color: var(--accent-gold);
-            font-style: italic;
-            font-size: 0.86rem;
-            line-height: 1.9;
-        }
-        footer {
-            text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 30px;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-top: 50px;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-deep); color: var(--text-main); font-family: 'Courier New', Courier, monospace; line-height: 2.0; padding: 20px; }
+        header { border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .logo { font-size: 1.1rem; font-weight: bold; color: var(--accent-gold); letter-spacing: 2px; }
+        nav a { color: var(--text-muted); text-decoration: none; margin-left: 15px; font-size: 0.8rem; }
+        nav a:hover { color: var(--accent-gold); }
+        .container { max-width: 950px; margin: 0 auto; }
+        .journal-hero { text-align: center; padding: 45px 20px; background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 30px; }
+        .journal-hero h1 { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 12px; text-transform: uppercase; }
+        .journal-hero p { color: var(--text-muted); font-size: 0.85rem; max-width: 800px; margin: 0 auto; line-height: 1.8; }
+        .auto-stream-banner { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent-green); color: var(--accent-green); padding: 12px 20px; border-radius: 6px; font-size: 0.82rem; margin-bottom: 35px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .story-card { background-color: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 40px; margin-bottom: 40px; box-shadow: 0 6px 30px rgba(0,0,0,0.6); }
+        .story-date { font-size: 0.75rem; color: var(--accent-gold); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+        .story-title { font-size: 1.45rem; font-weight: bold; color: var(--accent-cyan); margin-bottom: 25px; line-height: 1.5; }
+        .story-paragraph { font-size: 0.88rem; color: var(--text-main); line-height: 2.1; margin-bottom: 22px; }
+        .story-quote { border-left: 3px solid var(--accent-gold); padding-left: 18px; margin: 25px 0; color: var(--accent-gold); font-style: italic; font-size: 0.86rem; line-height: 1.9; }
+        footer { text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: var(--text-muted); font-size: 0.75rem; margin-top: 50px; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <header>
             <div class="logo">QLUX SOVEREIGN JOURNAL</div>
@@ -149,30 +44,22 @@
                 <a href="blog.html" style="color: var(--accent-gold);">Journal Stream</a>
             </nav>
         </header>
-
         <div class="journal-hero">
             <h1>Autonomous Sovereign Chronicles</h1>
             <p>クラウド上のデーモンが永久稼働で無限生成し続ける、完全非同期・一期一会の真の超大作ストリーム。</p>
         </div>
-
         <div class="auto-stream-banner">
             <span>⚡ CLOUD DAEMON STREAM: ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
-
-        <!-- デーモンが生成した記事がここに蓄積されていく（ブラウザ側での勝手なループ処理は完全排除） -->
         <div id="live-container">
-            <!-- ここにデーモンが自動で過去の記事カードを積み上げていきます -->
+            <!-- デーモンが生成した記事がここに蓄積されていきます -->
         </div>
-
     </div>
-
     <footer>
         <p>&copy; QLUX Sovereign Autonomous Ecosystem. All Rights Reserved.</p>
     </footer>
-
     <script>
-        // 時計のライブ更新のみ
         setInterval(() => {
             const now = new Date();
             const clock = document.getElementById('live-clock');
