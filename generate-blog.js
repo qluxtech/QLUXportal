@@ -1,8 +1,19 @@
 const fs = require('fs');
 
 function main() {
-    const timestamp = Date.now();
-    const rand = (max) => (timestamp + Math.floor(Math.random() * 99999)) % max;
+    let htmlPath = 'blog.html';
+    if (!fs.existsSync(htmlPath)) {
+        console.error("Error: blog.html does not exist!");
+        process.exit(1);
+    }
+
+    let htmlContent = fs.readFileSync(htmlPath, 'utf8');
+    const targetMarker = '<div id="live-container">';
+
+    if (!htmlContent.includes(targetMarker)) {
+        console.error("Error: <div id=\"live-container\"> not found in blog.html");
+        process.exit(1);
+    }
 
     const pools = [
         {
@@ -29,42 +40,32 @@ function main() {
         {
             tag: "SOVEREIGN ARCHIVE & NEURAL STREAM",
             title: "秒速100万回のナノセトルメントが切り拓く、人類史上最も美しい富の循環メカニズム",
-            p1: "朝、目を覚ましてコンソールを開くと、治球の裏側で稼働するモビリティフリートやエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。",
+            p1: "朝、目を覚ましてコンソールを開くと、地球の裏側で稼働するモビリティフリートやエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。",
             p2: "私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。限界のない自由なサイバー空間で、新しい価値の創造は今日も加速し続けています。",
-            quote: "「富とは他者から奪うものではなく、自らの手でコード上に湧き上がらせるものだ。」"
+            quote: "<h1>富とは他者から奪うものではなく、自らの手でコード上に湧き上がらせるものだ。</h1>"
         }
     ];
 
-    // ランダムに新しい記事を選択
-    const item = pools[rand(pools.length)];
-    const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + `.${String(timestamp).slice(-3)} UTC`;
+    let accumulatedCards = "";
+    const baseTime = Date.now();
 
-    const newCardHtml = `            <div class="story-card">
-                <div class="story-date">${item.tag} // ${nowTime} // QLUX ENGINE</div>
+    // 1回の実行で一気に5記事を生成して束ねる
+    for (let i = 0; i < 5; i++) {
+        const item = pools[(baseTime + i) % pools.length];
+        const timeOffset = new Date(baseTime - (i * 1000)).toISOString().replace('T', ' ').substring(0, 19) + `.${String(baseTime).slice(-3)} UTC`;
+        
+        accumulatedCards += `            <div class="story-card">
+                <div class="story-date">${item.tag} // ${timeOffset} // QLUX BURST ENGINE #${i+1}</div>
                 <div class="story-title">${item.title}</div>
                 <p class="story-paragraph">${item.p1}</p>
                 <div class="story-quote">${item.quote}</div>
                 <p class="story-paragraph">${item.p2}</p>
-            </div>`;
-
-    let htmlPath = 'blog.html';
-    if (!fs.existsSync(htmlPath)) {
-        console.error("Error: blog.html does not exist!");
-        process.exit(1);
+            </div>\n`;
     }
 
-    let htmlContent = fs.readFileSync(htmlPath, 'utf8');
-    const targetMarker = '<div id="live-container">';
-
-    if (htmlContent.includes(targetMarker)) {
-        // マーカーの直下に「新しい記事」を追加しつつ、既存のカード（下にあった記事たち）もそのまま残す
-        htmlContent = htmlContent.replace(targetMarker, `${targetMarker}\n${newCardHtml}`);
-        fs.writeFileSync(htmlPath, htmlContent, 'utf8');
-        console.log("Successfully stacked a new unique article into the stream!");
-    } else {
-        console.error("Error: <div id=\"live-container\"> not found in blog.html");
-        process.exit(1);
-    }
+    htmlContent = htmlContent.replace(targetMarker, `${targetMarker}\n${accumulatedCards}`);
+    fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+    console.log("Successfully burst-stacked 5 epic articles into the stream!");
 }
 
 main();
