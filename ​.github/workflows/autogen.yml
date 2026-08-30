@@ -1,12 +1,12 @@
-name: QLUX Autonomous Daemon Stream
+name: Auto Blog Generator
 
 on:
   schedule:
-    - cron: '0 * * * *' # 1時間ごとに自動実行
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
-  build-and-commit:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,16 +19,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run AI Autonomous Generation Script
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          node generate-blog.js
+      - name: Run Generator Script
+        run: node generate-blog.js
 
-      - name: Commit and Push New Epic Articles
+      - name: Commit and Push
         run: |
-          git config --global user.name "QLUX Autonomous Daemon"
-          git config --global user.email "daemon@qlux.ai"
-          git add .
-          git commit -m "autonomous: generate AI sovereign epic article [skip ci]"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog.html
+          git commit -m "Auto-generate new blog post" || echo "No changes"
           git push
