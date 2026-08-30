@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 限界突破超ボリューム中枢</title>
+    <title>QLUX Sovereign Journal // 完全展開エンジン</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -66,15 +66,15 @@
             margin-bottom: 30px;
         }
         .journal-hero h1 {
-            font-size: 1.9rem;
+            font-size: 1.7rem;
             color: var(--accent-gold);
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
         .journal-hero p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             max-width: 750px;
             margin: 0 auto;
         }
@@ -92,70 +92,76 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        /* 超ボリューム記事ブロック */
-        .article-block {
+        .article-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 35px;
-            margin-bottom: 40px;
+            padding: 30px;
+            margin-bottom: 30px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         .article-meta {
             font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
         .article-title {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: bold;
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
-            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
         .article-excerpt {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 25px;
-            border-left: 2px solid var(--accent-cyan);
-            padding-left: 15px;
+            margin-bottom: 20px;
         }
-        /* 起承転結の超ボリューム本文セクション */
-        .story-content {
+        .btn-expand {
+            background-color: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 10px 20px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .btn-expand:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+        /* 展開される超ボリューム本文エリア */
+        .expanded-body {
+            display: none;
+            margin-top: 25px;
             border-top: 1px dashed var(--border);
             padding-top: 25px;
-            margin-top: 20px;
         }
         .chapter-box {
             margin-bottom: 25px;
+            background: rgba(6, 182, 212, 0.03);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 15px 20px;
+            border-radius: 0 6px 6px 0;
         }
         .chapter-box h4 {
-            color: var(--accent-gold);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
         }
         .chapter-box p {
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             color: var(--text-main);
             line-height: 1.9;
             text-align: justify;
-        }
-        .free-badge {
-            display: inline-block;
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent-green);
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
         }
         footer {
             text-align: center;
@@ -163,7 +169,7 @@
             padding-top: 25px;
             color: var(--text-muted);
             font-size: 0.75rem;
-            margin-top: 50px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -171,32 +177,84 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // INFINITE EPIC JOURNAL</div>
+            <div class="logo">QLUX // DIRECT JOURNAL</div>
             <nav>
-                <a href="index.html">Portal Home</a>
-                <a href="q-velo-console.html">Q-Velo Console</a>
-                <a href="blog.html" style="color: var(--accent-gold);">Epic Journal</a>
+                <a href="index.html">Portal</a>
+                <a href="q-velo-console.html">Console</a>
+                <a href="blog.html" style="color: var(--accent-gold);">Journal</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Autonomous Intelligence Infinite Chronicles</h1>
-            <p>
-                自動配信エンジンにより生成される、起承転結の壮大なストーリーと圧倒的ボリュームを誇る永久保存版技術論文・インフラ会報。すべての記事は無制限かつ無料で全編公開中。
-            </p>
+            <h1>Sovereign Epic Chronicles & Architecture</h1>
+            <p>ボタンをタップすると、起承転結の壮大なストーリーと圧倒的ボリュームの技術長編がその場でダイレクトに展開されます。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ STREAM ENGINE: ONLINE // FULL TEXT UNLOCKED</span>
+            <span>⚡ STREAM ENGINE: LIVE ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <div id="epic-container"></div>
+        <!-- 記事1 -->
+        <div class="article-card">
+            <div class="article-meta">VOL.108 // 2026.08.30 // DECENTRALIZED SOVEREIGNTY</div>
+            <div class="article-title">第一章：中央集権の暗闇から自律分散型エコシステム「QLUX」の誕生へ</div>
+            <div class="article-excerpt">誰もが巨大プラットフォーマーのサーバー依存に疑問を持たなかった時代。データの独占と理不尽な手数料がもたらした限界の構造を振り返る。</div>
+            
+            <button class="btn-expand" onclick="toggleStory(1)">📖 READ EPIC SAGA (全編を展開・閉じる)</button>
+            
+            <div id="story-1" class="expanded-body">
+                <div class="chapter-box">
+                    <h4>【起】見えない檻の中で生きるデジタル社会の構造的欠陥</h4>
+                    <p>私たちが日常的に利用するクラウド、決済、コミュニケーションインフラ。そのすべてが少数の巨大企業によって牛耳られていた時代があった。ユーザーは自らのデータを預けているつもりが、実際にはデジタル上の「テナント」に過ぎず、いつ垢BANや理不尽な規約変更の憂き目に遭うか分からない脆弱な基盤の上で踊らされていた。この中央集権モデルは、個人のクリエイターや中小の事業者から富を奪い続け、イノベーションの息の根を止めようとしていた。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【承】高騰する中間搾取と、崩壊し始めた経済循環</h4>
+                    <p>APIを叩くたび、決済を行うたびに、何重もの仲介者が法外な手数料を徴収していく。透明性のないブラックボックス化されたシステムは、経済の血液であるキャッシュの循環を滞らせ、末端で汗を流す開発者やエンジニアのモチベーションを削ぎ落としていった。システムの破綻はもはや時間の問題であり、誰もが新しい選択肢を渇望していた。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【転】沈黙を破る「自己主権型」という名の狼煙とプロトコルの革新</h4>
+                    <p>「もう中央に依存しない。すべての力と富を末端のノードへ還す」。この強烈なパラダイムシフトの号令とともに、世界中の孤高のエンジニアたちが立ち上がった。仲介者を一切排除し、コードと暗号学だけで信頼を担保するエコシステムの設計図が描かれ、HTTP 402ナノセトルトメントや自動ミューテーション制御といった革新的技術が次々と実装されていった。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【結】QLUX Sovereign Ecosystem の夜明けと未来への飛躍</h4>
+                    <p>そして誕生したのが、このQLUXプラットフォームである。決済、ライセンス、AIアシスタント、そしてリアルタイム監視。すべてのピースが有機的に噛み合い、誰にも検閲されない、真に自由で自律した経済圏がここに産声を上げた。私たちは今、中央集権の呪縛から完全に解放された新しい歴史のページを開いている。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 記事2 -->
+        <div class="article-card">
+            <div class="article-meta">VOL.107 // 2026.08.29 // HTTP 402 REVOLUTION</div>
+            <div class="article-title">第二章：秒速の経済圏 — HTTP 402 ナノセトルトメントの奇跡</div>
+            <div class="article-excerpt">月額サブスクリプションの呪縛を解き放ち、マイクロ秒単位で価値が循環する完全無人APIエコノミーの成り立ちとメカニズム。</div>
+            
+            <button class="btn-expand" onclick="toggleStory(2)">📖 READ EPIC SAGA (全編を展開・閉じる)</button>
+            
+            <div id="story-2" class="expanded-body">
+                <div class="chapter-box">
+                    <h4>【起】「月額」という名の巨大な無駄遣いとサブスクの限界</h4>
+                    <p>使っていようがいまいが毎月固定で引き落とされるサブスクリプション。それは本当に効率的なのだろうか？ 小さなリクエスト、わずか数バイトのデータやり取りのために、なぜ人間が毎月クレジットカードの明細を睨まなければならないのか。従来の課金モデルは、マイクロな価値のやり取りを完全に阻害していた。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【承】眠っていたステータスコード「402 Payment Required」の覚醒</h4>
+                    <p>Webの黎明期から仕様書の片隅に眠っていた「402」。誰もが実装を諦めていたこのコードに、最新の暗号技術とストリーミング決済を掛け合わせることで、驚異的なナノセトルトメントエンジンが実装された。1回のAPIコール、1秒のデータ閲覧に対して、極小の価値が瞬時に移動する。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【転】人間が介在しない、AIエージェントたちの自律経済</h4>
+                    <p>この仕組みの真の恐ろしさは、人間だけでなく「AIエージェント同士」が自律的に決済を行える点にある。コンシェルジュAIが他のノードからデータを取得し、その対価をHTTP 402で即座に支払う。人間の承認を一切待たない、完全自動の商用ループが駆動し始めた。</p>
+                </div>
+                <div class="chapter-box">
+                    <h4>【結】世界標準となる「ナノ・エコノミー」の光り輝く未来</h4>
+                    <p>仲介手数料はゼロへ。富は瞬時に正当な価値提供者のウォレットへ直結する。このプロトコルが普及した世界において、ビジネスのスピードは光速へと達し、個人の自律的な収益化が完全な標準となる。</p>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Infinite Epic Journal Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Direct Journal Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -205,88 +263,14 @@
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        // 圧倒的長編・起承転結ストーリーデータ
-        const epicArticles = [
-            {
-                vol: "VOL.108 // SPECIAL EPIC EDITION", date: "2026.08.30", cat: "DECENTRALIZED SOVEREIGNTY",
-                title: "量子もつれモビリティとHTTP 402が描く、中央集権崩壊後の新経済圏",
-                excerpt: "従来のクラウド依存・高額仲介手数料の構造から完全に脱却し、全地球規模の自律エージェントがマイクロ秒単位で価値を交換し合う究極のインフラストラクチャの全貌。",
-                chapters: [
-                    {
-                        subtitle: "【起】 — 見えない檻の中で搾取され続けたデジタル経済の限界",
-                        text: "私たちが日常的に利用するインターネットインフラは、いつの間にか少数の巨大プラットフォーマーや国家権力による「検閲可能な檻」と化していました。APIを1回叩くたびに、決済を行うたびに、目に見えない仲介者が法外な手数料を徴収し、イノベーションの息の根を止めていく。この中央集権モデルは、個人のクリエイターや自律分散を志すエンジニアたちから富を奪い続ける構造的な欠陥を抱えていました。"
-                    },
-                    {
-                        subtitle: "【承】 — 眠っていたプロトコル『402』の覚醒とナノセトルトメントの衝撃",
-                        text: "その圧倒的な閉塞感を打ち破るため、私たちはWeb黎明期から放置されていたステータスコード『HTTP 402 Payment Required』に最新の暗号学的証明とストリーミング決済を融合させました。月額定額制という無駄を排除し、マイクロ秒単位・最小単位のデータやり取りごとに富が瞬時に移動する『ナノセトルトメントプロトコル』が誕生した瞬間です。人間の承認を一切必要としない、完全無人の商用エコノミーが駆動し始めました。"
-                    },
-                    {
-                        subtitle: "【転】 — AIトライブと自動ミューテーション制御による自己防衛",
-                        text: "経済圏が自動化されるにつれて、セキュリティとスケーラビリティの課題が浮上しました。静的なファイアウォールでは、巧妙化する外部からの干渉を防げません。ここで導入されたのが『オートノミクス・ミューテーション制御』です。AIトライブが自律的にネットワークの脆弱性をスキャンし、ミリ秒単位でコード構造を自己書き換えして脅威を完全に無力化する、ゼロ・トラストの要塞が完成しました。"
-                    },
-                    {
-                        subtitle: "【結】 — 全ての富と主権を末端のノードへ。QLUXが導く未来",
-                        text: "現在、QLUXソブリン・エコシステムは世界中に分散するモビリティノードと完全に同期し、止まることのない収益と実行権限をリアルタイムで発効し続けています。中央集権の終焉と、個人の自己主権（Sovereignty）が完全に確立された世界。その最前線に立つ私たちは、すでに次なる次元のフロンティアへと歩みを進めています。"
-                    }
-                ]
-            },
-            {
-                vol: "VOL.107 // ARCHITECTURE REPORT", date: "2026.08.29", cat: "AUTONOMOUS MESH",
-                title: "秒間100万TPSを叩き出す分散型ストリーム処理とゼロ・レイテンシーの数理",
-                excerpt: "莫大なモビリティデータを遅延ゼロで同期し続けるために設計された、非同期キューイングとメモリキャッシュレイヤーの極限最適化プロセス。",
-                chapters: [
-                    {
-                        subtitle: "【起】 — 物理的限界に直面した従来のデータベースと通信遅延",
-                        text: "地球規模に広がるモビリティフリートから送出されるテレメトリーデータは、秒単位で爆発的な増加を見せていました。従来の集中型データベースや中央サーバーを経由するアーキテクチャでは、物理的な光速の壁とルーティング遅延に阻まれ、リアルタイムな自律制御を行うことは不可能でした。"
-                    },
-                    {
-                        subtitle: "【承】 — ピアツーピア・メッシュ構造への完全移行と分散同期",
-                        text: "このボトルネックを解消するため、私たちはすべてのノードが対等な立場（Peer-to-Peer）でデータを送受信する分散メッシュ構造へとシステムを全面刷新しました。中央の親機に頼ることなく、隣接するノード同士が瞬時にデータを伝搬・検証し合うことで、ネットワーク全体の遅延を極限まで圧縮することに成功しました。"
-                    },
-                    {
-                        subtitle: "【転】 — メモリキャッシュの極限最適化と非同期パイプライン",
-                        text: "さらに、I/O待ち時間をゼロにするための独自の非同期ストリーム・パイプラインを実装。高負荷時においてもメモリ内でトラフィックを完璧に調停し、秒間数百万件のトランザクション（TPS）が何のエラーも起こすことなくシームレスに処理される頑健性を手に入れました。"
-                    },
-                    {
-                        subtitle: "【結】 — どんな悪環境でも揺るがない『完全無停止』のインフラへ",
-                        text: "この堅牢なインフラ基盤により、世界中のいかなる場所からアクセスしても、リアルタイム収益カウンターやコンソール、そしてAPIエンドポイントはミリ秒以下の応答速度を維持し続けます。止まらない、検閲されない、真に強靭なデジタル基盤の証明がここにあります。"
-                    }
-                ]
+        function toggleStory(id) {
+            const el = document.getElementById('story-' + id);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
             }
-        ];
-
-        const container = document.getElementById('epic-container');
-
-        function renderEpicArticles() {
-            container.innerHTML = "";
-            epicArticles.forEach(item => {
-                let chaptersHtml = "";
-                item.chapters.forEach(ch => {
-                    chaptersHtml += `
-                        <div class="chapter-box">
-                            <h4>⚡ ${ch.subtitle}</h4>
-                            <p>${ch.text}</p>
-                        </div>
-                    `;
-                });
-
-                const block = document.createElement('div');
-                block.className = 'article-block';
-                block.innerHTML = `
-                    <div class="article-meta">${item.vol} // ${item.date} // ${item.cat}</div>
-                    <div class="article-title">${item.title}</div>
-                    <div class="article-excerpt">${item.excerpt}</div>
-                    <div class="free-badge">⚡ 100% FREE SOVEREIGN EPIC CONTENT (全編自動展開)</div>
-                    <div class="story-content">
-                        ${chaptersHtml}
-                    </div>
-                `;
-                container.appendChild(block);
-            });
         }
-
-        // 初期描画
-        renderEpicArticles();
     </script>
 </body>
 </html>
