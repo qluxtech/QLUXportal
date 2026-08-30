@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 圧倒的ストーリー中枢</title>
+    <title>QLUX Sovereign Journal // 限界突破超ボリューム中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -54,19 +54,19 @@
             color: var(--accent-gold);
         }
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .journal-hero {
             text-align: center;
             padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(245,158,11,0.05) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%);
             border: 1px solid var(--border);
             border-radius: 8px;
             margin-bottom: 30px;
         }
         .journal-hero h1 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: var(--accent-gold);
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -85,125 +85,77 @@
             padding: 10px 15px;
             border-radius: 6px;
             font-size: 0.8rem;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
-        .article-card {
+        /* 超ボリューム記事ブロック */
+        .article-block {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 25px;
+            padding: 35px;
+            margin-bottom: 40px;
             position: relative;
-            transition: border-color 0.3s;
-        }
-        .article-card:hover {
-            border-color: var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         .article-meta {
             font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
         .article-title {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: var(--text-main);
-            margin-bottom: 12px;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
         .article-excerpt {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border-left: 2px solid var(--accent-cyan);
+            padding-left: 15px;
         }
-        .article-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+        /* 起承転結の超ボリューム本文セクション */
+        .story-content {
             border-top: 1px dashed var(--border);
-            padding-top: 15px;
+            padding-top: 25px;
+            margin-top: 20px;
         }
-        .nanopay-badge {
+        .chapter-box {
+            margin-bottom: 25px;
+        }
+        .chapter-box h4 {
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chapter-box p {
+            font-size: 0.84rem;
+            color: var(--text-main);
+            line-height: 1.9;
+            text-align: justify;
+        }
+        .free-badge {
+            display: inline-block;
             font-size: 0.75rem;
             color: var(--accent-green);
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid var(--accent-green);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 4px;
-        }
-        .btn-read {
-            background-color: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 8px 18px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-        }
-        .btn-read:hover {
-            background-color: var(--accent-gold);
-            color: #000;
-            box-shadow: 0 0 10px rgba(245,158,11,0.4);
-        }
-        /* 長編モーダルウィンドウ */
-        #reader-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 4, 10, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: var(--surface);
-            border: 1px solid var(--accent-gold);
-            border-radius: 8px;
-            max-width: 800px;
-            width: 100%;
-            padding: 40px;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 15px; right: 20px;
-            color: var(--text-muted);
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-        .modal-close:hover { color: var(--text-main); }
-        .story-chapter {
-            margin-bottom: 25px;
-        }
-        .story-chapter h3 {
-            color: var(--accent-cyan);
-            font-size: 1rem;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 10px;
-        }
-        .story-chapter p {
-            font-size: 0.85rem;
-            color: var(--text-main);
-            line-height: 1.9;
+            margin-bottom: 20px;
         }
         footer {
             text-align: center;
@@ -211,7 +163,7 @@
             padding-top: 25px;
             color: var(--text-muted);
             font-size: 0.75rem;
-            margin-top: 40px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -219,7 +171,7 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // EPIC SAGA JOURNAL</div>
+            <div class="logo">QLUX // INFINITE EPIC JOURNAL</div>
             <nav>
                 <a href="index.html">Portal Home</a>
                 <a href="q-velo-console.html">Q-Velo Console</a>
@@ -228,33 +180,23 @@
         </header>
 
         <div class="journal-hero">
-            <h1>Sovereign Epic Chronicles & Architecture</h1>
+            <h1>Autonomous Intelligence Infinite Chronicles</h1>
             <p>
-                中央集権の崩壊から、自律分散型エコシステムの誕生、そして全宇宙的モビリティの未来に至るまで。起承転結の壮大なストーリーで綴る最高峰の技術長編。
+                自動配信エンジンにより生成される、起承転結の壮大なストーリーと圧倒的ボリュームを誇る永久保存版技術論文・インフラ会報。すべての記事は無制限かつ無料で全編公開中。
             </p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ NARRATIVE ENGINE: ACTIVE (Epic Story Mode)</span>
+            <span>⚡ STREAM ENGINE: ONLINE // FULL TEXT UNLOCKED</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <div id="articles-container"></div>
+        <div id="epic-container"></div>
 
-    </div>
-
-    <!-- 長編ストーリー閲覧モーダル -->
-    <div id="reader-modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div id="modal-meta" style="color: var(--accent-gold); font-size: 0.75rem; margin-bottom: 10px;"></div>
-            <h2 id="modal-title" style="color: var(--accent-gold); font-size: 1.4rem; margin-bottom: 25px;"></h2>
-            <div id="modal-body"></div>
-        </div>
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Epic Narrative & Technical Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Infinite Epic Journal Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -263,86 +205,88 @@
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        // 起承転結のストーリー構造を持つ圧倒的ボリュームの記事プール
-        const epicPool = [
+        // 圧倒的長編・起承転結ストーリーデータ
+        const epicArticles = [
             {
-                vol: "SAGA.01", date: "2026.08.30", cat: "THE GENESIS OF SOVEREIGNTY",
-                title: "第一章：暗雲垂れ込める中央集権の要塞と、個人の主権喪失",
-                excerpt: "誰もが巨大プラットフォーマーのサーバー依存に疑問を持たなかった時代。データの独占と理不尽な手数料がもたらした限界の構造を振り返る。",
+                vol: "VOL.108 // SPECIAL EPIC EDITION", date: "2026.08.30", cat: "DECENTRALIZED SOVEREIGNTY",
+                title: "量子もつれモビリティとHTTP 402が描く、中央集権崩壊後の新経済圏",
+                excerpt: "従来のクラウド依存・高額仲介手数料の構造から完全に脱却し、全地球規模の自律エージェントがマイクロ秒単位で価値を交換し合う究極のインフラストラクチャの全貌。",
                 chapters: [
-                    { title: "【起】見えない檻の中で生きるデジタル社会", text: "私たちが日常的に利用するクラウド、決済、コミュニケーションインフラ。そのすべてが少数の巨大企業によって牛耳られていた時代があった。ユーザーは自らのデータを預けているつもりが、実際にはデジタル上の「テナント」に過ぎず、いつ垢BANや理不尽な規約変更の憂き目に遭うか分からない脆弱な基盤の上で踊らされていた。" },
-                    { title: "【承】高騰する中間搾取と、崩壊し始めた経済循環", text: "APIを叩くたび、決済を行うたびに、何重もの仲介者が法外な手数料を徴収していく。この中央集権モデルは、個人のクリエイターや中小の事業者から富を奪い続け、イノベーションの息の根を止めようとしていた。システムの破綻はもはや時間の問題だった。" },
-                    { title: "【転】沈黙を破る「自己主権型」という名の狼煙", text: "「もう中央に依存しない。すべての力と富を末端のノードへ還す」。この強烈なパラダイムシフトの号令とともに、世界中の孤高のエンジニアたちが立ち上がった。仲介者を一切排除し、コードと暗号学だけで信頼を担保するエコシステムの設計図が、今まさに描かれ始めたのである。" },
-                    { title: "【結】QLUX Sovereign Ecosystem の夜明け", text: "そして誕生したのが、このQLUXプラットフォームである。決済、ライセンス、AIアシスタント、そしてリアルタイム監視。すべてのピースが有機的に噛み合い、誰にも検閲されない、真に自由で自律した経済圏がここに産声arqを上げた。" }
+                    {
+                        subtitle: "【起】 — 見えない檻の中で搾取され続けたデジタル経済の限界",
+                        text: "私たちが日常的に利用するインターネットインフラは、いつの間にか少数の巨大プラットフォーマーや国家権力による「検閲可能な檻」と化していました。APIを1回叩くたびに、決済を行うたびに、目に見えない仲介者が法外な手数料を徴収し、イノベーションの息の根を止めていく。この中央集権モデルは、個人のクリエイターや自律分散を志すエンジニアたちから富を奪い続ける構造的な欠陥を抱えていました。"
+                    },
+                    {
+                        subtitle: "【承】 — 眠っていたプロトコル『402』の覚醒とナノセトルトメントの衝撃",
+                        text: "その圧倒的な閉塞感を打ち破るため、私たちはWeb黎明期から放置されていたステータスコード『HTTP 402 Payment Required』に最新の暗号学的証明とストリーミング決済を融合させました。月額定額制という無駄を排除し、マイクロ秒単位・最小単位のデータやり取りごとに富が瞬時に移動する『ナノセトルトメントプロトコル』が誕生した瞬間です。人間の承認を一切必要としない、完全無人の商用エコノミーが駆動し始めました。"
+                    },
+                    {
+                        subtitle: "【転】 — AIトライブと自動ミューテーション制御による自己防衛",
+                        text: "経済圏が自動化されるにつれて、セキュリティとスケーラビリティの課題が浮上しました。静的なファイアウォールでは、巧妙化する外部からの干渉を防げません。ここで導入されたのが『オートノミクス・ミューテーション制御』です。AIトライブが自律的にネットワークの脆弱性をスキャンし、ミリ秒単位でコード構造を自己書き換えして脅威を完全に無力化する、ゼロ・トラストの要塞が完成しました。"
+                    },
+                    {
+                        subtitle: "【結】 — 全ての富と主権を末端のノードへ。QLUXが導く未来",
+                        text: "現在、QLUXソブリン・エコシステムは世界中に分散するモビリティノードと完全に同期し、止まることのない収益と実行権限をリアルタイムで発効し続けています。中央集権の終焉と、個人の自己主権（Sovereignty）が完全に確立された世界。その最前線に立つ私たちは、すでに次なる次元のフロンティアへと歩みを進めています。"
+                    }
                 ]
             },
             {
-                vol: "SAGA.02", date: "2026.08.29", cat: "HTTP 402 REVOLUTION",
-                title: "第二章：秒速の経済圏 — HTTP 402 ナノセトルトメントの奇跡",
-                excerpt: "月額サブスクリプションの呪縛を解き放ち、マイクロ秒単位で価値が循環する完全無人APIエコノミーの成り立ちとメカニズム。",
+                vol: "VOL.107 // ARCHITECTURE REPORT", date: "2026.08.29", cat: "AUTONOMOUS MESH",
+                title: "秒間100万TPSを叩き出す分散型ストリーム処理とゼロ・レイテンシーの数理",
+                excerpt: "莫大なモビリティデータを遅延ゼロで同期し続けるために設計された、非同期キューイングとメモリキャッシュレイヤーの極限最適化プロセス。",
                 chapters: [
-                    { title: "【起】「月額」という名の巨大な無駄遣い", text: "使っていようがいまいが毎月固定で引き落とされるサブスクリプション。それは本当に効率的なのだろうか？ 小さなリクエスト、わずか数バイトのデータやり取りのために、なぜ人間が毎月クレジットカードの明細を睨まなければならないのか。" },
-                    { title: "【承】眠っていたステータスコード「402 Payment Required」の覚醒", text: "Webの黎明期から仕様書の片隅に眠っていた「402」。誰もが実装を諦めていたこのコードに、最新の暗号技術とストリーミング決済を掛け合わせることで、驚異的なナノセトルトメントエンジンが実装された。1回のAPIコール、1秒のデータ閲覧に対して、極小の価値が瞬時に移動する。" },
-                    { title: "【転】人間が介在しない、AIエージェントたちの自律経済", text: "この仕組みの真の恐ろしさは、人間だけでなく「AIエージェント同士」が自律的に決済を行える点にある。コンシェルジュAIが他のノードからデータを取得し、その対価をHTTP 402で即座に支払う。人間の承認を一切待たない、完全自動の商用ループが駆動し始めた。" },
-                    { title: "【結】世界標準となる「ナノ・エコノミー」の未来", text: "仲介手数料はゼロへ。富は瞬時に正当な価値提供者のウォレットへ直結する。このプロトコルが普及した世界において、ビジネスのスピードは光速へと達する。" }
-                ]
-            },
-            {
-                vol: "SAGA.03", date: "2026.08.28", cat: "QUANTUM MOBILITY NEXUS",
-                title: "第三章：地球を駆け巡るモビリティ — Q-Velo と自己修復メッシュ",
-                excerpt: "物理的な移動体とデジタルネットワークが完全に融合し、ミリ秒単位で自律制御される次世代モビリティインフラの壮大な実験記録。",
-                chapters: [
-                    { title: "【起】孤立した乗り物たちとアナログな限界", text: "かつての移動体は、ネットワークから切り離された孤独な鉄の塊に過ぎなかった。メンテナンスは手作業、経路の最適化はドライバーの勘に頼り、予期せぬ故障やトラブルに対してシステムはあまりにも無力だった。" },
-                    { title: "【承】すべてのモビリティを「生きたノード」へ変える", text: "Q-Veloフリートの導入により、すべての移動体がネットワークの末端ノード（Sovereign Node）へと昇華した。位置情報、速度、機体の健康状態がミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算される。" },
-                    { title: "【転】ミューテーション制御による完全自動の防衛網", text: "過酷な環境や外部からの不正なトラフィック干渉を受けたとき、ネットワークは自らの意思を持つかのようにコードを動的に書き換え（ミューテーション）、瞬時に脅威を隔離・無力化する。誰の指示も仰がない、完全自律型のセキュリティ防壁だ。" },
-                    { title: "【結】境界線のない世界へ向かって", text: "空、陸、そしてデジタル空間。そのすべての境界線が溶け合い、地球の裏側まで一瞬で結ばれる。QLUXが切り拓くモビリティの未来に、不可能の文字は存在しない。" }
+                    {
+                        subtitle: "【起】 — 物理的限界に直面した従来のデータベースと通信遅延",
+                        text: "地球規模に広がるモビリティフリートから送出されるテレメトリーデータは、秒単位で爆発的な増加を見せていました。従来の集中型データベースや中央サーバーを経由するアーキテクチャでは、物理的な光速の壁とルーティング遅延に阻まれ、リアルタイムな自律制御を行うことは不可能でした。"
+                    },
+                    {
+                        subtitle: "【承】 — ピアツーピア・メッシュ構造への完全移行と分散同期",
+                        text: "このボトルネックを解消するため、私たちはすべてのノードが対等な立場（Peer-to-Peer）でデータを送受信する分散メッシュ構造へとシステムを全面刷新しました。中央の親機に頼ることなく、隣接するノード同士が瞬時にデータを伝搬・検証し合うことで、ネットワーク全体の遅延を極限まで圧縮することに成功しました。"
+                    },
+                    {
+                        subtitle: "【転】 — メモリキャッシュの極限最適化と非同期パイプライン",
+                        text: "さらに、I/O待ち時間をゼロにするための独自の非同期ストリーム・パイプラインを実装。高負荷時においてもメモリ内でトラフィックを完璧に調停し、秒間数百万件のトランザクション（TPS）が何のエラーも起こすことなくシームレスに処理される頑健性を手に入れました。"
+                    },
+                    {
+                        subtitle: "【結】 — どんな悪環境でも揺るがない『完全無停止』のインフラへ",
+                        text: "この堅牢なインフラ基盤により、世界中のいかなる場所からアクセスしても、リアルタイム収益カウンターやコンソール、そしてAPIエンドポイントはミリ秒以下の応答速度を維持し続けます。止まらない、検閲されない、真に強靭なデジタル基盤の証明がここにあります。"
+                    }
                 ]
             }
         ];
 
-        const container = document.getElementById('articles-container');
+        const container = document.getElementById('epic-container');
 
-        function renderArticles() {
+        function renderEpicArticles() {
             container.innerHTML = "";
-            epicPool.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'article-card';
-                card.innerHTML = `
+            epicArticles.forEach(item => {
+                let chaptersHtml = "";
+                item.chapters.forEach(ch => {
+                    chaptersHtml += `
+                        <div class="chapter-box">
+                            <h4>⚡ ${ch.subtitle}</h4>
+                            <p>${ch.text}</p>
+                        </div>
+                    `;
+                });
+
+                const block = document.createElement('div');
+                block.className = 'article-block';
+                block.innerHTML = `
                     <div class="article-meta">${item.vol} // ${item.date} // ${item.cat}</div>
                     <div class="article-title">${item.title}</div>
                     <div class="article-excerpt">${item.excerpt}</div>
-                    <div class="article-footer">
-                        <span class="nanopay-badge">⚡ EPIC STORY: FULL FREE ACCESS</span>
-                        <button class="btn-read" onclick="openReader(${index})">READ EPIC SAGA (全編を読む)</button>
+                    <div class="free-badge">⚡ 100% FREE SOVEREIGN EPIC CONTENT (全編自動展開)</div>
+                    <div class="story-content">
+                        ${chaptersHtml}
                     </div>
                 `;
-                container.appendChild(card);
+                container.appendChild(block);
             });
         }
 
-        function openReader(index) {
-            const article = epicPool[index];
-            document.getElementById('modal-meta').innerText = `${article.vol} // ${article.date} // ${article.cat}`;
-            document.getElementById('modal-title').innerText = article.title;
-            
-            let bodyHtml = "";
-            article.chapters.forEach(ch => {
-                bodyHtml += `
-                    <div class="story-chapter">
-                        <h3>${ch.title}</h3>
-                        <p>${ch.text}</p>
-                    </div>
-                `;
-            });
-            document.getElementById('modal-body').innerHTML = bodyHtml;
-            document.getElementById('reader-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('reader-modal').style.display = 'none';
-        }
-
-        renderArticles();
+        // 初期描画
+        renderEpicArticles();
     </script>
 </body>
 </html>
