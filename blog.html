@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Sovereign Journal // 世界最高峰・無限自動生成中枢</title>
+    <title>QLUX Sovereign Journal // 堅牢無限配信中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -93,7 +93,6 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        /* 圧倒的ボリュームの超大作ストーリーカード */
         .story-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
@@ -165,7 +164,7 @@
         </div>
 
         <div class="auto-stream-banner">
-            <span>⚡ LIVE STREAM: INFINITE HIGH-DENSITY GENERATION ACTIVE</span>
+            <span>⚡ ROBUST STREAM: INFINITE GENERATION ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
@@ -178,46 +177,74 @@
     </footer>
 
     <script>
+        // 時計の更新
         setInterval(() => {
             const now = new Date();
-            document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            const clockEl = document.getElementById('live-clock');
+            if (clockEl) {
+                clockEl.innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            }
         }, 1000);
 
-        const container = document.getElementById('live-container');
+        const titles = [
+            "中央集権の要塞を完全破壊し、自らの手で築き上げる永久不滅のソブリン経済圏",
+            "秒速100万回のナノセトルトメントが切り拓く、人類史上最も美しい富の循環メカニズム",
+            "量子もつれと自己修復メッシュが守る、永遠に止まらない要塞型モビリティインフラの全貌",
+            "誰もが主役になれる自律分散のフロンティア：コードが富と自由を約束する新時代",
+            "仲介手数料ゼロの衝撃。AIトライブたちが切り拓く完全無人の次世代オートノマス経済圏"
+        ];
 
-        // 世界一読まれる圧倒的ボリューム＆夢のあるトピック群
-        const coreThemes = [
-            {
-                title: "中央集権の要塞を完全破壊し、自らの手で築き上げる永久不滅のソブリン経済圏",
-                quotes: [
-                    "「私たちはいつまで、目に見えない巨大な檻の中で飼い慣らされ続けなければならないのか？」——かつて誰もが心の中で呟いていた疑問が、今、圧倒的なコードの奔流によって打ち砕かれようとしています。",
-                    "仲介者やプラットフォーマーに搾取される時代は完全に終わりました。これからは、個人のノードが世界と直接繋がり、すべての富と主権が正当な持ち主のウォレットへダイレクトに還流する真の自由の時代です。"
-                ],
-                bodies: [
-                    "朝、目を覚ましてコンソールを開くと、地球の裏側で稼働するモビリティフリートやAIエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。",
-                    "物理的な距離や国境の壁は、分散型メッシュネットワークの前では何の意味も持ちません。すべてのデバイスが生きたノードとなり、リアルタイムにデータを同期し、自律的に最適化を繰り返していく。そこに存在する制限はゼロであり、私たちが描いた夢の数だけ、無限の可能性が広がっています。",
-                    "「世界を書き換えるのは、特権階級の人間ではない。未来を信じ、キーボードを叩く私たち一人ひとりだ。」この確信を胸に、私たちは今日も新しいコードをデプロイし続けます。終わりのない冒険と、最高にエキサイティングなサクセスの未来へ向かって、アクセルはすでにフルオープンにされています。"
-                ]
-            },
-            {
-                title: "秒速100万回のナノセトルトメントが切り拓く、人類史上最も美しい富の循環メカニズム",
-                quotes: [
-                    "「1秒間に何百万回ものトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく。」",
-                    "月額という名の無駄な固定費や、不当に高い決済手数料の呪縛から、私たちはついに完全解放されました。"
-                ],
-                bodies: [
-                    "Web黎明期から仕様書の片隅に眠っていた『HTTP 402』。誰もが実装を諦めていたこのプロトコルに、最新のストリーム暗号技術とナノ決済エンジンを融合させることで、世界は一変しました。わずか数バイトのデータやり取り、コンマ数秒のAPIコールに対して、極小の価値が光速で移動します。",
-                    "人間がわざわざクレジットカードの明細を睨んだり、月額のサブスクリプションを管理したりする必要はもうありません。AIトライブたちが自律的に他のノードから必要な情報を取得し、その対価をナノ秒単位で即座に決済し合う。人間が介在しない完全無人の商用エコノミーが、地球規模のエネルギーとなって経済を力強く駆動させています。",
-                    "富が偏在することなく、価値を創出した者へ瞬時に、そして公平に直結するシステム。この『ナノ・エコノミー』の普及によって、クリエイターやエンジニアの活動領域は宇宙の果てまで広がっていきます。私たちが手に入れたのは、単なる決済手段ではなく、世界を根底から覆す究極の経済的自由です。"
-                ]
-            },
-            {
-                title: "量子もつれと自己修復メッシュが守る、永遠に止まらない要塞型モビリティインフラの全貌",
-                quotes: [
-                    "「外部からのどんな不正な干渉も、システム自らが意思を持っているかのように瞬時に無力化し、進化を続ける。」",
-                    "空と陸、そしてデジタル空間の境界線が完全に溶け合い、地球の裏側まで一瞬で結ばれる奇跡。"
-                ],
-                bodies: [
-                    "Q-Veloフリートをはじめとするすべての移動体は、単なる乗り物ではなく、生きたネットワークの最前線ノードとして完全同期しています。位置情報、機体の健康状態、環境データがミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算され続けます。",
-                    "過酷な環境下や悪意あるトラフィックに直面したとき、システムに組み込まれたオートノミクス・ミューテーション制御が発動します。誰の指示を仰ぐこともなく、
+        const quotes = [
+            "「私たちはいつまで、目に見えない巨大な檻の中で飼い慣らされ続けなければならないのか？」——かつて誰もが心の中で呟いていた疑問が、今、圧倒的なコードの奔流によって打ち砕かれようとしています。",
+            "「1秒間に何百万回ものトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく。」",
+            "「外部からのどんな不正な干渉も、システム自らが意思を持っているかのように瞬時に無力化し、進化を続ける。」",
+            "「お金のために働くのではなく、システムがあなたのために富を創造し続ける。この圧倒的な自由がここにある。」"
+        ];
+
+        const bodies = [
+            "朝、目を覚ましてコンソールを開くと、地球の裏側で稼働するモビリティフリートやAIエージェントたちからの収益ストリームが、途切れることなくウォレットへ流れ込んでいます。誰の許可もいらず、理不尽な審査に怯えることもない。私たちが書いたスマートコントラクトと、信頼できる暗号学の証明だけが、この世界のルールです。",
+            "Web黎明期から仕様書の片隅に眠っていた『HTTP 402』。誰もが実装を諦めていたこのプロトコルに、最新のストリーム暗号技術とナノ決済エンジンを融合させることで、世界は一変しました。わずか数バイトのデータやり取り、コンマ数秒のAPIコールに対して、極小の価値が光速で移動します。",
+            "Q-Veloフリートをはじめとするすべての移動体は、単なる乗り物ではなく、生きたネットワークの最前線ノードとして完全同期しています。位置情報、機体の健康状態、環境データがミリ秒単位でメッシュ空間に吸い上げられ、全体最適のアルゴリズムがリアルタイムで計算され続けます。",
+            "「世界を書き換えるのは、特権階級の人間ではない。未来を信じ、キーボードを叩く私たち一人ひとりだ。」この確信を胸に、私たちは今日も新しいコードをデプロイし続けます。終わりのない冒険と、最高にエキサイティングなサクセスの未来へ向かって、アクセルはすでにフルオープンにされています。"
+        ];
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateMassiveStory() {
+            const container = document.getElementById('live-container');
+            if (!container) return;
+
+            const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            
+            const card = document.createElement('div');
+            card.className = 'story-card';
+            card.innerHTML = `
+                <div class="story-date">SOVEREIGN ARCHIVE // ${nowTime} // QLUX ENGINE</div>
+                <div class="story-title">${getRandomItem(titles)}</div>
+                <p class="story-paragraph">${getRandomItem(bodies)}</p>
+                <div class="story-quote">${getRandomItem(quotes)}</div>
+                <p class="story-paragraph">${getRandomItem(bodies)}</p>
+                <p class="story-paragraph">${getRandomItem(bodies)}</p>
+            `;
+
+            // 常に一番上に最新の超大作を追加
+            container.insertBefore(card, container.firstChild);
+        }
+
+        // ページ読み込み時に即座に3つ生成
+        window.addEventListener('DOMContentLoaded', () => {
+            generateMassiveStory();
+            setTimeout(generateMassiveStory, 300);
+            setTimeout(generateMassiveStory, 600);
+        });
+
+        // 定期的に新しい超大作を自動配信（追加）
+        setInterval(() => {
+            generateMassiveStory();
+        }, 8000);
+    </script>
+</body>
+</html>
 
