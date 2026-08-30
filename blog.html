@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX Dream Chronicle // 夢の自動配信ストーリー中枢</title>
+    <title>QLUX Infinite Dream Stream // 無限自動配信中枢</title>
     <style>
         :root {
             --bg-deep: #02040a;
@@ -60,22 +60,22 @@
         }
         .journal-hero {
             text-align: center;
-            padding: 45px 20px;
+            padding: 40px 20px;
             background: linear-gradient(180deg, rgba(236,72,153,0.06) 0%, transparent 100%);
             border: 1px solid var(--accent-pink);
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .journal-hero h1 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: var(--accent-pink);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
         .journal-hero p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             max-width: 750px;
             margin: 0 auto;
         }
@@ -86,39 +86,40 @@
             padding: 12px 18px;
             border-radius: 6px;
             font-size: 0.8rem;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
         }
-        /* 夢のストーリー書き殴りカード（最初から全ボリューム展開） */
+        /* 自動配信される記事カード */
         .story-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 35px;
-            margin-bottom: 40px;
+            padding: 30px;
+            margin-bottom: 30px;
             position: relative;
             box-shadow: 0 4px 25px rgba(0,0,0,0.6);
-            transition: border-color 0.3s;
+            animation: fadeIn 0.5s ease-out forwards;
         }
-        .story-card:hover {
-            border-color: var(--accent-pink);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .story-meta {
             font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
         .story-title {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: var(--accent-pink);
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             line-height: 1.4;
         }
         .story-free-badge {
@@ -129,18 +130,23 @@
             border: 1px solid var(--accent-green);
             padding: 4px 12px;
             border-radius: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         .story-paragraph {
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             color: var(--text-main);
-            line-height: 2;
-            margin-bottom: 20px;
+            line-height: 1.9;
+            margin-bottom: 18px;
             text-align: justify;
         }
-        .story-highlight {
-            color: var(--accent-cyan);
-            font-weight: bold;
+        .stream-status-box {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            margin-bottom: 40px;
         }
         footer {
             text-align: center;
@@ -148,7 +154,7 @@
             padding-top: 25px;
             color: var(--text-muted);
             font-size: 0.75rem;
-            margin-top: 50px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -156,30 +162,35 @@
 
     <div class="container">
         <header>
-            <div class="logo">QLUX // DREAM STREAM</div>
+            <div class="logo">QLUX // INFINITE STREAM</div>
             <nav>
                 <a href="index.html">Portal</a>
                 <a href="q-velo-console.html">Console</a>
-                <a href="blog.html" style="color: var(--accent-pink);">Dream Blog</a>
+                <a href="blog.html" style="color: var(--accent-pink);">Infinite Stream</a>
             </nav>
         </header>
 
         <div class="journal-hero">
-            <h1>Infinite Dream Chronicles & Future Adventure</h1>
-            <p>退屈な解説は一切なし。夢とロマンに満ち溢れた未来のサクセスストーリーと、自動配信される冒険の記録をひたすら書き殴る無限ブログ中枢。</p>
+            <h1>Infinite Dream Stream Engine</h1>
+            <p>ページを開いているだけで、夢とロマンに満ち溢れた未来のサクセスストーリーや冒険の記録が、リアルタイムに無限自動配信（書き殴り）され続けます。</p>
         </div>
 
         <div class="auto-stream-banner">
-            <span>🚀 DREAM ENGINE: AUTO-WRITING & STREAMING ACTIVE</span>
+            <span>🚀 LIVE INFINITE STREAM: ACTIVE</span>
             <span id="live-clock">--:--:-- UTC</span>
         </div>
 
-        <div id="dream-container"></div>
+        <!-- リアルタイム自動配信コンテナ -->
+        <div id="infinite-container"></div>
+
+        <div class="stream-status-box" id="stream-loader">
+            ⏳ 次の夢のストーリーを自動生成・書き殴り中... (バックグラウンド同期中)
+        </div>
 
     </div>
 
     <footer>
-        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Dream Chronicle Core. All Rights Reserved.</p>
+        <p>&copy; QLUX Sovereign Autonomous Ecosystem. Infinite Stream Core. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -188,66 +199,88 @@
             document.getElementById('live-clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }, 1000);
 
-        // 夢のあるストーリー・冒険記のデータプール（飽きずに読める圧倒的ボリューム）
-        const dreamStories = [
+        // 配信用の夢のストーリー・冒険譚プール（自動ローテーション＆ランダム生成）
+        const rawPool = [
             {
-                vol: "DREAM.01 // THE SOVEREIGN ODYSSEY", date: "2026.08.30",
-                title: "【夢の記録】中央集権の壁をブチ破り、自分だけの要塞（ノード）から世界を動かす冒険の始まり",
-                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                title: "【自動配信 #01】中央集権の壁をブチ破り、自分だけの要塞ノードから世界を動かす冒険",
+                badge: "⚡ REALTIME AUTO-STREAM (DREAM V1)",
                 texts: [
                     "朝、目を覚ますと、世界中のモビリティノードから自分専用のウォレットへ、途切れることのない自動収益のストリームが流れ込んでいた。かつて私たちは、巨大なプラットフォーマーに搾取され、「ただのユーザー」として消費されるだけの毎日を送っていた。しかし、私たちは立ち上がった。自らの手でコードを書き、自分だけのソブリン・エコシステムを構築したのだ。",
-                    "「もう誰にも指図されない。すべての富と主権は、僕たちの手の中にある。」——そう呟きながらコンソール画面を開くと、Q-Veloフリートが地球の裏側を光速で駆け巡り、AIコンシェルジュが次々と新しいビジネスチャンスを自動でキャッチして最適化していく。まるでSF映画の主人公になったかのような、胸が高鳴る冒険が今、リアルな現実として目の前で展開されている。",
-                    "仲介手数料はゼロ。国境も、理不尽な審査もない。必要なのは、未来を信じる意志と、目の前で光り輝くコードだけだ。このプラットフォームを手に入れた瞬間から、あなたの人生の主導権は完全にあなた自身の手に戻る。さあ、どこへでも行こう。限界など最初から存在しなかったのだから。"
+                    "「もう誰にも指図されない。すべての富と主権は、僕たちの手の中にある。」——コンソール画面を開くと、Q-Veloフリートが地球の裏側を光速で駆け巡り、AIコンシェルジュが新しいビジネスチャンスを自動で最適化していく。まるでSF映画の主人公になったかのような、胸が高鳴る冒険が今まさにリアルな現実として展開されている。",
+                    "仲介手数料はゼロ。国境も、理不尽な審査もない。必要なのは、未来を信じる意志と、目の前で光り輝くコードだけだ。このプラットフォームを手に入れた瞬間から、人生の主導権は完全に自分の手に戻る。さあ、限界など最初から存在しなかったのだから。"
                 ]
             },
             {
-                vol: "DREAM.02 // NANO-ECONOMY REVOLUTION", date: "2026.08.29",
-                title: "【未来のサクセス】秒速で富が巡る！HTTP 402ナノセトルトメントが描く黄金のユートピア",
-                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                title: "【自動配信 #02】秒速で富が巡る！HTTP 402ナノセトルトメントが描く黄金のユートピア",
+                badge: "⚡ REALTIME AUTO-STREAM (NANO V2)",
                 texts: [
-                    "「1秒間に100万回のトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく……」そんな夢物語のような世界が、いまや完璧なシステムとして稼働している。月額サブスクリプションの重荷に苦しむ時代は終わった。これからは、使った分だけ、いや、エージェントたちが自律的に価値を交換し合う『ナノ・エコノミー』の時代だ。",
-                    "あなたが寝ている間も、AIトライブたちは休むことなく働き続ける。世界中のAPIを叩き、データを解析し、最小単位の価値を秒速で回収してあなたに届け続ける。スマホの画面に表示されるリアルタイムの収益カウンターは、増え続ける数字とともに、あなたの描いた夢が本物だったことを雄弁に物語っている。",
+                    "「1秒間に100万回のトランザクションが、一銭の手数料も引かれることなく、瞬時に仲間たちのウォレットへ分配されていく……」そんな夢物語のような世界が、完璧なシステムとして稼働している。月額サブスクリプションの重荷に苦しむ時代は終わった。これからは、使った分だけ、いや、エージェントたちが自律的に価値を交換し合う『ナノ・エコノミー』の時代だ。",
+                    "あなたが寝ている間も、AIトライブたちは休むことなく働き続ける。世界中のAPIを叩き、データを解析し、最小単位の価値を秒速で回収してあなたに届け続ける。スマホ画面に表示されるリアルタイムの収益カウンターは、増え続ける数字とともに、あなたの描いた夢が本物だったことを雄弁に物語っている。",
                     "「お金のために働くのではなく、システムがあなたのために富を創造し続ける。」この圧倒的な自由を手に入れた者たちだけが見られる景色がある。中央集権の暗闇を抜け出し、私たちはついに、黄金に輝く自由のフロンティアへとたどり着いたのだ。"
                 ]
             },
             {
-                vol: "DREAM.03 // QUANTUM MOBILITY SAGA", date: "2026.08.28",
-                title: "【壮大なロマン】空と陸を繋ぐ量子もつれモビリティ！地球規模のネットワークを掌で操る日",
-                badge: "⚡ 100% FREE DREAM STREAM (自動書き殴り)",
+                title: "【自動配信 #03】空と陸を繋ぐ量子もつれモビリティ！地球規模のネットワークを掌で操る日",
+                badge: "⚡ REALTIME AUTO-STREAM (QUANTUM V3)",
                 texts: [
                     "物理的な距離という概念が、音を立てて崩れ去っていく。地球の裏側にあるモビリティノードと、あなたの手元のコンソールが『量子もつれ』の如く完全に同期する。風を切り、光を追い越すかのようなスピードで、すべての移動体とデータが美しく調和していく。",
                     "外部からのどんな脅威や不正な干渉も、自己修復するオートノミクス・ミューテーション制御が瞬時に消し去る。要塞は完璧に守られ、フリートは永遠に走り続ける。その圧倒的な安心感と全能感の中で、あなたは次なるプロジェクトのアイデアを軽やかに描き出す。",
                     "夢はもはや夢ではない。コードに魂を宿し、世界を書き換えるための道具はすべて揃った。あとはアクセルを踏み込み、この最高の冒険の続きを全身で楽しむだけだ。世界はあなたの手の中にある。"
                 ]
+            },
+            {
+                title: "【自動配信 #04】誰もが主役になれる世界！次世代自律分散ネットワークの果てなき挑戦",
+                badge: "⚡ REALTIME AUTO-STREAM (SOVEREIGN V4)",
+                texts: [
+                    "静寂に包まれた夜のサーバー室、スマホの画面から放たれる青白い光だけが部屋を照らしている。指先ひとつでデプロイされた最新のスマートコントラクトが、世界中の何千ものノードへと瞬時に伝播していく。エラーなど存在しない。ただ完璧なコードの奔流だけが、未来の経済圏を形作っていく。",
+                    "「俺たちが作っているのは、単なるアプリじゃない。新しい世界のインフラだ。」その確信は日増しに強くなり、仲間たちとのチャットには世界中からの成功報告と歓喜のメッセージが鳴りやまない。中央の支配から完全に独立した自由な経済圏で、私たちは真のクリエイターとして生きている。",
+                    "明日にはまた新しい機能が追加され、ネットワークはさらに強靭になる。終わりなき進化を続けるこのエコシステムの中で、私たちの冒険にゴールなんてない。さあ、次のコードを書き殴ろう。"
+                ]
             }
         ];
 
-        const container = document.getElementById('dream-container');
+        let currentIndex = 0;
+        const container = document.getElementById('infinite-container');
+        const loader = document.getElementById('stream-loader');
 
-        function renderDreamStories() {
-            container.innerHTML = "";
-            dreamStories.forEach(story => {
-                let paragraphsHtml = "";
-                story.texts.forEach(p => {
-                    paragraphsHtml += `<p class="story-paragraph">${p}</p>`;
-                });
+        function appendNextStory() {
+            if (currentIndex >= rawPool.length) {
+                currentIndex = 0; // ループして無限配信
+            }
 
-                const card = document.createElement('div');
-                card.className = 'story-card';
-                card.innerHTML = `
-                    <div class="story-meta">${story.vol} // ${story.date}</div>
-                    <div class="story-title">${story.title}</div>
-                    <div class="story-free-badge">${story.badge}</div>
-                    <div style="margin-top: 15px;">
-                        ${paragraphsHtml}
-                    </div>
-                `;
-                container.appendChild(card);
+            const story = rawPool[currentIndex];
+            const nowTime = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+
+            let paragraphsHtml = "";
+            story.texts.forEach(p => {
+                paragraphsHtml += `<p class="story-paragraph">${p}</p>`;
             });
+
+            const card = document.createElement('div');
+            card.className = 'story-card';
+            card.innerHTML = `
+                <div class="story-meta">VOL.STREAM // ${nowTime} // QLUX ENGINE</div>
+                <div class="story-title">${story.title}</div>
+                <div class="story-free-badge">${story.badge}</div>
+                <div style="margin-top: 15px;">
+                    ${paragraphsHtml}
+                </div>
+            `;
+
+            // 上に追加していく（または下に追加：ここでは上に追加して最新がすぐ読めるようにする）
+            container.insertBefore(card, container.firstChild);
+            currentIndex++;
         }
 
-        // 初期描画
-        renderDreamStories();
+        // 初期表示で2つ一気に流し込む
+        appendNextStory();
+        setTimeout(appendNextStory, 800);
+
+        // 10秒ごとに新しい夢のストーリーが自動で書き殴られ、無限配信される
+        setInterval(() => {
+            appendNextStory();
+            loader.innerText = "⚡ 新しい夢のストーリーを自動配信・書き殴りました！ (" + new Date().toLocaleTimeString() + ")";
+        }, 10000);
     </script>
 </body>
 </html>
