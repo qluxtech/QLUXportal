@@ -2,7 +2,7 @@ name: Auto Blog Generator
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '* * * * *'  # 1分おきの限界最速自動ストリーム
   workflow_dispatch:
 
 jobs:
@@ -27,5 +27,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add blog.html
-          git commit -m "autonomous: dynamic infinite generate articles" || echo "No changes"
+          git commit -m "autonomous: maximum speed stream update" || echo "No changes"
           git push
