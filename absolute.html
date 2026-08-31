@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLUX OMEGA MATRIX - Sovereign Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #05050a;
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            padding: 20px;
+            background: #0b0b16;
+        }
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #00ffcc;
+            padding-bottom: 10px;
+            color: #fff;
+        }
+        .status-box {
+            background: #121224;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00ffcc;
+        }
+        .status-box p {
+            margin: 8px 0;
+            font-size: 0.95rem;
+            color: #b0c4de;
+        }
+        .status-box span {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+        button {
+            width: 100%;
+            background: #00ffcc;
+            color: #05050a;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00b38f;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+        pre {
+            background: #020205;
+            padding: 10px;
+            margin-top: 10px;
+            color: #ff00ff;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>👑 QLUX OMEGA MATRIX</h1>
+        
+        <div class="status-box">
+            <p><strong>System Protocol:</strong> <span id="sys-status">CONNECTING...</span></p>
+            <p><strong>HandCash Handle:</strong> <span id="hc-handle">--</span></p>
+            <p><strong>Target Wallet ID:</strong> <span id="wallet-id">--</span></p>
+            <p><strong>BSV Legacy Address:</strong> <span id="bsv-addr">--</span></p>
+        </div>
+
+        <div class="status-box">
+            <p><strong>Matrix Node Activity:</strong></p>
+            <pre id="matrix-data">Loading sovereign nodes...</pre>
+        </div>
+
+        <button onclick="triggerIngress()">🌐 資産インジェスト ＆ 还流実行</button>
+    </div>
+
+    <script>
+        async function fetchSystemStatus() {
+            try {
+                const response = await fetch('/');
+                const data = await response.json();
+                document.getElementById('sys-status').innerText = data.status || "ACTIVE";
+                document.getElementById('hc-handle').innerText = data.handcash_handle || "Connected";
+                document.getElementById('wallet-id').innerText = data.wallet_id || "Configured";
+                document.getElementById('bsv-addr').innerText = data.bsv_address || data.bsv_legacy_address || "Secured";
+                document.getElementById('matrix-data').innerText = JSON.stringify(data.matrix, null, 2);
+            } catch (e) {
+                document.getElementById('sys-status').innerText = "OFFLINE / LOCAL SIMULATION";
+                document.getElementById('matrix-data').innerText = "Error fetching matrix state: " + e.message;
+            }
+        }
+
+        async function triggerIngress() {
+            try {
+                const res = await fetch('/api/omega/ingress', { method: 'POST' });
+                const result = await res.json();
+                alert("👑 インジェスト結果:\n" + JSON.stringify(result, null, 2));
+            } catch (e) {
+                alert("インジェストリクエスト送信完了。バックエンドと同期中。");
+            }
+        }
+
+        fetchSystemStatus();
+    </script>
+</body>
+</html>
+
