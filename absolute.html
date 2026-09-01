@@ -93,7 +93,7 @@
     <script>
         async function fetchSystemStatus() {
             try {
-                const response = await fetch('/');
+                const response = await fetch('/api/matrix-status');
                 const data = await response.json();
                 document.getElementById('sys-status').innerText = data.status || "ACTIVE";
                 document.getElementById('hc-handle').innerText = data.handcash_handle || "Connected";
