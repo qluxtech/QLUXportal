@@ -586,11 +586,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div
 
     <!-- Footer -->
     <footer>
-        <div class="footer-grid">
+        <div class="footer-grid"> 
             <div class="footer-col">
                 <h4>QLUX</h4>
                 <p style="font-size: 0.75rem; line-height: 1.5;"><a href="legal/" style="color: #444; text-decoration: none;">Legal</a></p>
@@ -604,3 +604,12 @@
                     <li><a href="telemetry.html">Infrastructure</a></li>  
                 </ul>
           
+    <script>
+    async function checkMatrix() {
+        const response = await fetch('/api/matrix-status');
+        const data = await response.json();
+        console.log(data);
+    }
+    checkMatrix();
+</script>
+
