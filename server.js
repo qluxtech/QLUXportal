@@ -88,6 +88,27 @@ function verifyBSVTransaction(txid) {
     });
 }
 
+// クライアント（生きたレンズ）とのリアルタイム・パルス同期用エンドポイント
+app.get('/api/pulse', (req, res) => {
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
+    const pulseInterval = setInterval(() => {
+        const entropyMetric = Math.random() * 100;
+        const pulseData = JSON.stringify({
+            timestamp: Date.now(),
+            entropy: entropyMetric.toFixed(2),
+            status: "Achronal Core Active [Node 0-5]"
+        });
+        res.write(`data: ${pulseData}\n\n`);
+    }, 2000);
+
+    req.on('close', () => {
+        clearInterval(pulseInterval);
+    });
+});
+
 const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
