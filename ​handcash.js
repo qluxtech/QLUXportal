@@ -56,27 +56,26 @@ const omegaWeaver = new UniversalOmegaWeaver("SOVEREIGN-OMEGA-PRIME-2026");
  * --- 4. エンドポイント定義 ---
  */
 
-// ステータス確認 ＆ プロフィール取得
-app.get('/', async (req, res) => {
-  try {
-    const profile = await client.profile.getCurrentProfile();
-    const matrixState = omegaWeaver.weaveAllChains();
+app.get('/api/matrix-status', async (req, res) => {
+    try {
+        const profile = await client.profile.getCurrentProfile();
+        const matrixState = omegaWeaver.weaveAllChains();
 
-    res.json({
-      status: "OMEGA MATRIX ACTIVE (SDK v3)",
-      handcash_handle: profile.publicProfile.handle,
-      wallet_id: WALLET_ID,
-      bsv_address: BSV_ADDRESS,
-      matrix: matrixState,
-      timestamp: Date.now()
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "MATRIX_SYNC_WARNING",
-      error: error.message,
-      wallet_id: WALLET_ID
-    });
-  }
+        res.json({
+            status: "OMEGA MATRIX ACTIVE (SDK v3)",
+            handcash_handle: profile.publicProfile.handle,
+            wallet_id: WALLET_ID,
+            bsv_address: BSV_ADDRESS,
+            matrix: matrixState,
+            timestamp: Date.now()
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "MATRIX_SYNC_WARNING",
+            error: error.message,
+            wallet_id: WALLET_ID
+        });
+    }
 });
 
 // 決済・還流トリガー
