@@ -93,7 +93,7 @@ const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // 【超強力ガード】ファイルやジャーナル以外の、あらゆるステータス・状態取得系のリクエストを無条件で救出する
+    // ステータス取得系のリクエストを無条件で救出する強力ガード
     if (!pathname.startsWith('/api/journals/') && !pathname.endsWith('.html') && !pathname.endsWith('.js') && !pathname.endsWith('.css') && pathname !== '/') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
@@ -155,7 +155,8 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    let targetFile = pathname === '/' ? 'Layer0.html' : pathname;
+    // デフォルトで absolute.html を読み込むように変更
+    let targetFile = pathname === '/' ? 'absolute.html' : pathname;
     let filePath = path.join(__dirname, targetFile);
 
     fs.readFile(filePath, (err, content) => {
