@@ -257,23 +257,24 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify({ status: "HYPER_SUCCESS", id: authHeader, data_sector: journal }));
         return;
     }
-    // --- 👑 追加：マトリクス状態 ＆ 手数料・HandCash情報API ---
-    if (pathname === '/api/matrix-status' || pathname === '/api/matrix-status/') {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({
-            status: "OMEGA MATRIX ACTIVE (SDK v3)",
-            handcash_handle: "connected_sovereign",
-            wallet_id: "6a3b47d3673f825c523af052",
-            bsv_address: TARGET_BSV_ADDRESS,
-            matrix: {
-                layers: "1-5 Sovereign Core Active",
-                protocol: "QLUX-OMEGA-MATRIX",
-                shield: "Immunity Boost Enabled",
-                global_requests: globalRequestCounter
-            }
-        }));
-        return;
-    }
+    
+// --- 👑 追加: マトリクス状態 & 手数料・HandCash情報API ---
+if (pathname === '/api/matrix-status' || pathname === '/api/matrix-status/') {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({
+        status: "OMEGA MATRIX ACTIVE (SDK v3)",
+        handcash_handle: "connected_sovereign",
+        wallet_id: "6a3b47d3673f825c523af052",
+        bsv_address: TARGET_BSV_ADDRESS,
+        matrix: {
+            layers: "1-5 Sovereign Core Active",
+            protocol: "QLUX-OMEGA-MATRIX",
+            shield: "Immunity Boost Enabled",
+            global_requests: globalRequestCounter
+        }
+    }));
+    return;
+}
 
     let targetFile = pathname === '/' ? 'Layer0.html' : pathname;
     let filePath = path.join(__dirname, targetFile);
