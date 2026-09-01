@@ -604,12 +604,24 @@
                     <li><a href="telemetry.html">Infrastructure</a></li>  
                 </ul>
           
-    <script>
-    async function checkMatrix() {
-        const response = await fetch('/api/matrix-status');
-        const data = await response.json();
-        console.log(data);
+  <script>
+    async function fetchSystemStatus() {
+        try {
+            const response = await fetch('/api/matrix-status');
+            const data = await response.json();
+            
+            // 画面のID要素にデータを流し込む
+            document.getElementById('sys-status').innerText = data.status || "ACTIVE";
+            document.getElementById('hc-handle').innerText = data.handcash_handle || "Connected";
+            document.getElementById('wallet-id').innerText = data.wallet_id || "Configured";
+            document.getElementById('bsv-addr').innerText = data.bsv_address || "Secured";
+            document.getElementById('matrix-data').innerText = JSON.stringify(data.matrix, null, 2);
+        } catch (e) {
+            document.getElementById('sys-status').innerText = "ONLINE / LOCAL SIMULATION";
+            document.getElementById('matrix-data').innerText = "Error fetching matrix state: " + e.message;
+        }
     }
-    checkMatrix();
+    fetchSystemStatus();
 </script>
+
 
