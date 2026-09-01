@@ -258,7 +258,7 @@ const server = http.createServer(async (req, res) => {
         return;
     }
     // --- 👑 追加：マトリクス状態 ＆ 手数料・HandCash情報API ---
-    if (pathname === '/api/matrix-status') {
+    if (pathname === '/api/matrix-status' || pathname === '/api/matrix-status/') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "OMEGA MATRIX ACTIVE (SDK v3)",
