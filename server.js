@@ -90,7 +90,11 @@ function verifyBSVTransaction(txid) {
 }
 
 const server = http.createServer(async (req, res) => {
-    if (req.url && req.url.includes('matrix-status')) {
+    const parsedUrl = url.parse(req.url, true);
+    const pathname = parsedUrl.pathname;
+
+    // matrix-statusの判定を確実にキャッチするように修正
+    if (pathname.includes('matrix-status')) {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "OMEGA MATRIX ACTIVE (SDK v3)",
@@ -106,9 +110,6 @@ const server = http.createServer(async (req, res) => {
         }));
         return;
     }
-
-    const parsedUrl = url.parse(req.url, true);
-    const pathname = parsedUrl.pathname;
 
     if (pathname.startsWith('/api/journals/')) {
         const id = parseInt(pathname.split('/')[3], 10);
