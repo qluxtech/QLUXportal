@@ -93,8 +93,8 @@ const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // パスに status や matrix が含まれていたら、どんなURLであっても問答無用でステータスを返す（Not Foundを完全阻止）
-    if (pathname.includes('status') || pathname.includes('matrix')) {
+    // 【超強力ガード】ファイルやジャーナル以外の、あらゆるステータス・状態取得系のリクエストを無条件で救出する
+    if (!pathname.startsWith('/api/journals/') && !pathname.endsWith('.html') && !pathname.endsWith('.js') && !pathname.endsWith('.css') && pathname !== '/') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "OMEGA MATRIX ACTIVE (SDK v3)",
