@@ -1,21 +1,3 @@
-    // 👑 最強パスガード：matrix-statusが含まれていれば絶対にJSONを返す
-    if (req.url && req.url.includes('matrix-status')) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({
-            status: "OMEGA MATRIX ACTIVE (SDK v3)",
-            handcash_handle: "connected_sovereign",
-            wallet_id: "6a3b47d3673f825c523af052",
-            bsv_address: TARGET_BSV_ADDRESS,
-            matrix: {
-                layers: "1-5 Sovereign Core Active",
-                protocol: "QLUX-OMEGA-MATRIX",
-                shield: "Immunity Boost Enabled",
-                global_requests: globalRequestCounter
-            }
-        }));
-        return;
-    }
-
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -106,6 +88,31 @@ function verifyBSVTransaction(txid) {
         }).on('error', () => resolve(false));
     });
 }
+
+const server = http.createServer(async (req, res) => {
+    // 👑 最強パスガードをここに移動！
+    if (req.url && req.url.includes('matrix-status')) {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            status: "OMEGA MATRIX ACTIVE (SDK v3)",
+            handcash_handle: "connected_sovereign",
+            wallet_id: "6a3b47d3673f825c523af052",
+            bsv_address: TARGET_BSV_ADDRESS,
+            matrix: {
+                layers: "1-5 Sovereign Core Active",
+                protocol: "QLUX-OMEGA-MATRIX",
+                shield: "Immunity Boost Enabled",
+                global_requests: globalRequestCounter
+            }
+        }));
+        return;
+    }
+
+    const parsedUrl = url.parse(req.url, true);
+    const pathname = parsedUrl.pathname;
+    
+    // ...（これ以降の処理が続く）
+
 
 const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
