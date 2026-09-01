@@ -93,8 +93,8 @@ const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // matrix-statusの判定を確実にキャッチするように修正
-    if (pathname.includes('matrix-status')) {
+    // パスに status や matrix が含まれていたら、どんなURLであっても問答無用でステータスを返す（Not Foundを完全阻止）
+    if (pathname.includes('status') || pathname.includes('matrix')) {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
             status: "OMEGA MATRIX ACTIVE (SDK v3)",
