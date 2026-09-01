@@ -5,8 +5,7 @@ const path = require('path');
 const url = require('url');
 
 const PORT = process.env.PORT || 10000;
-const TARGET_BSV_ADDRESS = process.env.WALLET_ID || '1MB6iHohUEg8oAnkgv9uTTV7R235tuy95';
-
+const TARGET_BSV_ADDRESS = process.env.WALLET_ID || '1144ctcReNSuwCKFmWN3VigNJc7AXWdyU6';
 const processedTxs = new Set();
 let globalRequestCounter = 105180;
 const loadHistory = [];
