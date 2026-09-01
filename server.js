@@ -178,3 +178,4 @@ server.listen(PORT, () => {
     console.log("QLUX Singularity L0 Core running on port " + PORT);
     initSingularityBeacon();
 });
+
