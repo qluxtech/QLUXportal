@@ -1,12 +1,12 @@
 {
-  "name": "qlux-backend",
+  "name": "qlux-portal",
   "version": "1.0.0",
-  "description": "QLUX L0 Sovereign Backend",
+  "description": "QLUX Sovereign Living Core",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
