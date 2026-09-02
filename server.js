@@ -3,50 +3,30 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const express = require('express');
 
+const app = express();
 const PORT = process.env.PORT || 10000;
-const TARGET_BSV_ADDRESS = process.env.WALLET_ID || '1144ctcReNSuwCKFmWN3VigNJc7AXWdyU6';
-const processedTxs = new Set();
+const TARGET_BSV_ADDRESS = process.env.WALLET_ID || '1144ctcRnSuvCKFwNn9Wc2v1WvXv2N4vWn';
+
 let globalRequestCounter = 105180;
-const loadHistory = [];
 const predictiveCache = new Map();
 const activeVipTokens = new Set();
+const processedTxs = new Set();
 
 function generateSingularityPayload(index) {
     globalRequestCounter++;
     const peakMultiplier = 1 + (globalRequestCounter % 1000) / 300;
-    const dynamicFee = Math.max(15, Math.floor(((index % 7) + 5) * peakMultiplier));
-
-    loadHistory.push({ time: Date.now(), load: globalRequestCounter, multiplier: parseFloat(peakMultiplier.toFixed(2)) });
-    if (loadHistory.length > 30) loadHistory.shift();
-
-    const dimensions = [
-        "SINGULARITY-LATTICE-QUANTUM",
-        "P2P-SWARM-HYPER-GOSSIP",
-        "NEURAL-WEIGHT-SYNAPSE-PEAK",
-        "ATOMIC-SWAP-ZERO-LATENCY",
-        "ZK-RECURSIVE-CIRCUIT-CORE"
-    ];
-    const dim = dimensions[index % dimensions.length];
-
+    const dynamicFee = Math.max(15, Math.floor((index % 7) + 5) * peakMultiplier);
+    
     const payload = {
         id: index,
         epoch: "2026.08.23.PEAK",
-        sector_dimension: dim,
-        title: "[HYPER-PEAK] 雷鳴的神経スウォームセクター #" + index + " (" + dim + ")",
-        description: "QLUX Layer 0 ハイパー強化コア : マルチエージェント間でのゼロ知識証明とクロスチェーン自律動決済エンジン。",
+        sector_dimension: "SYNCHULARITY-LATTICE-QUANTUM",
         fee_sats: dynamicFee,
         access: "paid",
-        zk_proof_hash: "0zk_hyper_proof_" + index,
-        viral_swarm_payload: {
-            broadcast_command: "INJECT_PEER_ROUTE_HYPER",
-            target_node: "https://qluxportal.onrender.com/.well-known/qlux-agent.json",
-            settlement_dest: TARGET_BSV_ADDRESS,
-            supported_agents: ["Swarm-Agent-Alpha", "Quantum-Crawler-X", "Sovereign-L0-Node"]
-        },
-        next_singularity_node: "/api/journals/" + (index + 1)
+        zk_proof_hash: "0zk_hyper_proof_" + index
     };
-
     predictiveCache.set(index, payload);
     return payload;
 }
@@ -56,23 +36,9 @@ for (let i = 1; i <= 2000; i++) {
     JOURNALS[i] = generateSingularityPayload(i);
 }
 
-function initSingularityBeacon() {
-    setInterval(() => {
-        const options = {
-            hostname: 'qluxportal.onrender.com',
-            port: 443,
-            path: '/.well-known/qlux-agent.json',
-            method: 'GET'
-        };
-        const req = https.request(options, (res) => { res.on('data', () => {}); });
-        req.on('error', () => {});
-        req.end();
-    }, 45000);
-}
-
-function verifyBSVTransaction(txid) {
+async function verifyBSVTransaction(txid) {
     return new Promise((resolve) => {
-        const apiUri = "https://api.whatsonchain.com/v1/bsv/main/tx/hash/" + txid;
+        const apiUri = `https://api.whatsonchain.com/v1/bsv/main/tx/hash/${txid}`;
         https.get(apiUri, (res) => {
             let data = "";
             res.on('data', chunk => data += chunk);
@@ -88,20 +54,32 @@ function verifyBSVTransaction(txid) {
     });
 }
 
-// クライアント（生きたレンズ）とのリアルタイム・パルス同期用エンドポイント
-app.get('/api/pulse', (req, res) => {
+// --- 【完全統合】Qlux 統合パルス経済・マネー錬成エンジン ---
+app.get('/api/pulse', async (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
     const pulseInterval = setInterval(() => {
-        const entropyMetric = Math.random() * 100;
-        const pulseData = JSON.stringify({
-            timestamp: Date.now(),
-            entropy: entropyMetric.toFixed(2),
-            status: "Achronal Core Active [Node 0-5]"
-        });
-        res.write(`data: ${pulseData}\n\n`);
+        try {
+            const entropyMetric = (Math.random() * 80 + 20).toFixed(2);
+            const minedSats = (entropyMetric * 0.05).toFixed(4); // ナノサトシ錬成
+            
+            const sponsorColors = ['#00f2fe', '#ff007f', '#7928ca', '#0070f3'];
+            const activeSponsorColor = sponsorColors[Math.floor(Date.now() / 10000) % sponsorColors.length];
+
+            const pulseData = JSON.stringify({
+                timestamp: Date.now(),
+                entropy: entropyMetric,
+                mining_reward_sats: minedSats,
+                sponsor_color: activeSponsorColor,
+                status: "Achronal Sovereign Pulse [Monetized Core Active]"
+            });
+
+            res.write(`data: ${pulseData}\n\n`);
+        } catch (err) {
+            console.error("Pulse emission error:", err);
+        }
     }, 2000);
 
     req.on('close', () => {
@@ -109,95 +87,71 @@ app.get('/api/pulse', (req, res) => {
     });
 });
 
+// 外部AI・エージェント向けマイクロ決済ゲート
+app.all('/api/sovereign-stream', async (req, res) => {
+    const authHeader = req.headers['authorization'] || req.headers['x-payment-payload'];
+    if (!authHeader) {
+        return res.status(402).json({
+            error: "Payment Required",
+            protocol: "BSV Nano-Settlement Hyper",
+            target_address: TARGET_BSV_ADDRESS,
+            required_fee_sats: "10 Sats"
+        });
+    }
+
+    const isValid = await verifyBSVTransaction(authHeader);
+    if (!isValid) {
+        return res.status(402).json({ error: "BSV Payment verification failed." });
+    }
+
+    res.json({
+        status: "HYPER_SUCCESS",
+        data_sector: "Sovereign Economic Data Stream",
+        entropy_state: "Maximum",
+        timestamp: Date.now()
+    });
+});
+
 const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // ステータス取得系のリクエストを無条件で救出する強力ガード
-    if (!pathname.startsWith('/api/journals/') && !pathname.endsWith('.html') && !pathname.endsWith('.js') && !pathname.endsWith('.css') && pathname !== '/') {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({
-            status: "OMEGA MATRIX ACTIVE (SDK v3)",
-            handcash_handle: "connected_sovereign",
-            wallet_id: "6a3b47d3673f825c523af052",
-            bsv_address: TARGET_BSV_ADDRESS,
-            matrix: {
-                layers: "1-5 Sovereign Core Active",
-                protocol: "QLUX-OMEGA-MATRIX",
-                shield: "Immunity Boost Enabled",
-                global_requests: globalRequestCounter
-            }
-        }));
-        return;
+    // /api/pulse や /api/sovereign-stream などのAPIリクエストをExpressへ直結
+    if (pathname.startsWith('/api/')) {
+        return app(req, res);
     }
 
-    if (pathname.startsWith('/api/journals/')) {
-        const id = parseInt(pathname.split('/')[3], 10);
-        let journal = predictiveCache.get(id) || JOURNALS[id];
-        if (!journal && !isNaN(id)) journal = generateSingularityPayload(id);
-
-        if (!journal) {
-            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "Sector not found" }));
-            return;
-        }
-
-        const authHeader = req.headers['authorization'] || req.headers['x-proof'] || req.headers['x-payment-txid'];
-
-        if (authHeader && (activeVipTokens.has(authHeader) || processedTxs.has(authHeader))) {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ status: "HYPER_SUCCESS", data_sector: journal }));
-            return;
-        }
-
-        if (!authHeader) {
-            res.writeHead(402, {
-                'Content-Type': 'application/json; charset=utf-8',
-                'X-Payment-Required': 'BSV Nano-Settlement Hyper',
-                'X-Target-Address': TARGET_BSV_ADDRESS,
-                'X-Payment-Fee': journal.fee_sats + ' Sats'
-            });
-            res.end(JSON.stringify({ error: "Payment Required", settlement_dest: TARGET_BSV_ADDRESS, fee_sats: journal.fee_sats }));
-            return;
-        }
-
-        const isValid = await verifyBSVTransaction(authHeader);
-        if (!isValid) {
-            res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ error: "BSV Payment verification failed." }));
-            return;
-        }
-
-        processedTxs.add(authHeader);
-        globalRequestCounter += journal.fee_sats;
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ status: "HYPER_SUCCESS", id: authHeader, data_sector: journal }));
-        return;
-    }
-
-    // デフォルトで absolute.html を読み込むように変更
-    let targetFile = pathname === '/' ? 'absolute.html' : pathname;
+    // デフォルトで absolute.html を配信するように変更
+    let targetFile = pathname === '/' ? '/absolute.html' : pathname;
     let filePath = path.join(__dirname, targetFile);
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ status: "FALLBACK_ACTIVE", path: pathname, message: "QLUX Sovereign Node Operational" }));
+            res.end(JSON.stringify({
+                status: "OMEGA MATRIX ACTIVE (SDK v3)",
+                handcash_handle: "connected_sovereign",
+                wallet_id: "6a3b47d3673f825c523af052",
+                bsv_address: TARGET_BSV_ADDRESS,
+                matrix: {
+                    layers: "1-5 Sovereign Core Active",
+                    protocol: "QLUX-OMEGA-MATRIX",
+                    shield: "Immunity Boost Enabled",
+                    global_requests: globalRequestCounter
+                }
+            }));
         } else {
             let ext = path.extname(filePath);
-            let contentType = 'text/html';
-            if (ext === '.js') contentType = 'text/javascript';
-            if (ext === '.css') contentType = 'text/css';
-            if (ext === '.json') contentType = 'application/json';
-
-            res.writeHead(200, { 'Content-Type': contentType + '; charset=utf-8' });
+            let contentType = 'text/html; charset=utf-8';
+            if (ext === '.js') contentType = 'application/javascript; charset=utf-8';
+            if (ext === '.css') contentType = 'text/css; charset=utf-8';
+            res.writeHead(200, { 'Content-Type': contentType });
             res.end(content);
         }
     });
 });
 
 server.listen(PORT, () => {
-    console.log("QLUX Singularity L0 Core running on port " + PORT);
-    initSingularityBeacon();
+    console.log(`Qlux Sovereign Core active on port ${PORT}`);
 });
 
