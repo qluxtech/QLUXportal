@@ -39,10 +39,12 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive'
+            'Connection': 'keep-alive',
+            'X-Accel-Buffering': 'no' // Render/Nginxでのバッファリング無効化
         });
 
-        const pulseInterval = setInterval(() => {
+        // 接続直後に即座に初期データを送信する関数
+        const sendPulse = () => {
             try {
                 const entropyMetric = (Math.random() * 80 + 20).toFixed(2);
                 const minedSats = (entropyMetric * 0.05).toFixed(4);
@@ -62,7 +64,10 @@ const server = http.createServer(async (req, res) => {
             } catch (err) {
                 console.error("Pulse error:", err);
             }
-        }, 2000);
+        };
+
+        sendPulse(); // 接続確立と同時に1発目を即時送信
+        const pulseInterval = setInterval(sendPulse, 2000); // 以降2秒おき
 
         req.on('close', () => {
             clearInterval(pulseInterval);
