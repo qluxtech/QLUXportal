@@ -51,14 +51,20 @@
             transition: box-shadow 0.4s ease, background 0.4s ease;
         }
 
+        /* 視認性を飛躍的に向上させたステータス表示 */
         .core-status {
             margin-top: 24px;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #00f2fe;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.9);
             text-align: center;
+            font-weight: bold;
+            background: rgba(3, 3, 5, 0.7);
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.4);
         }
 
         @keyframes pulse-core {
@@ -83,7 +89,7 @@
 
     <div id="singularity-container">
         <div id="coreSphere" class="core-sphere"></div>
-        <div id="statusText" class="core-status">Achronal Pulse: Initializing...</div>
+        <div id="statusText" class="core-status">INITIALIZING PULSE...</div>
     </div>
 
     <script>
@@ -161,28 +167,34 @@
         }
         animate();
 
-        // サーバー心臓部とのイベントストリーム同期
-        if (!!window.EventSource) {
-            const source = new EventSource('/api/pulse');
-            
-            source.onmessage = function(e) {
-                const data = JSON.parse(e.data);
-                pulseIntensity = 2.5; 
+        // サーバー心臓部との自動再接続対応イベントストリーム同期
+        function connectSse() {
+            if (!!window.EventSource) {
+                const source = new EventSource('/api/pulse');
                 
-                statusEl.textContent = `Pulse: ${data.entropy}% | Mined: +${data.mining_reward_sats} Sats`;
-                
-                if (data.sponsor_color && coreSphere) {
-                    coreSphere.style.boxShadow = `0 0 120px ${data.sponsor_color}, inset 0 0 50px rgba(255, 255, 255, 0.6)`;
-                    setTimeout(() => {
-                        coreSphere.style.boxShadow = '';
-                    }, 400);
-                }
-            };
+                source.onmessage = function(e) {
+                    const data = JSON.parse(e.data);
+                    pulseIntensity = 2.5; 
+                    
+                    statusEl.textContent = `PULSE: ${data.entropy}% | MINED: +${data.mining_reward_sats} SATS`;
+                    
+                    if (data.sponsor_color && coreSphere) {
+                        coreSphere.style.boxShadow = `0 0 120px ${data.sponsor_color}, inset 0 0 50px rgba(255, 255, 255, 0.6)`;
+                        setTimeout(() => {
+                            coreSphere.style.boxShadow = '';
+                        }, 400);
+                    }
+                };
 
-            source.onerror = function(err) {
-                console.log("Achronal sync fallback: Operating on local sovereign pulse.");
-            };
+                source.onerror = function(err) {
+                    console.log("Achronal sync reconnecting...");
+                    statusEl.textContent = "RECONNECTING TO CORE...";
+                    source.close();
+                    setTimeout(connectSse, 3000); // 3秒後に自動再接続
+                };
+            }
         }
+        connectSse();
     </script>
 </body>
 </html>
