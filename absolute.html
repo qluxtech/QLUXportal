@@ -17,10 +17,9 @@
             background-color: #030305;
             overflow: hidden;
             font-family: 'Courier New', monospace;
-            color: #Bub4f8;
+            color: #00f2fe;
         }
 
-        /* 画面全体をレンズ・生体キャンバスにする */
         #core-canvas {
             position: absolute;
             top: 0;
@@ -30,7 +29,6 @@
             z-index: 1;
         }
 
-        /* 中央の心臓（特異点） */
         #singularity-container {
             position: absolute;
             top: 50%;
@@ -63,7 +61,6 @@
             text-align: center;
         }
 
-        /* 呼吸する縦長のコアのアニメーション */
         @keyframes pulse-core {
             0% {
                 transform: scale(0.95);
@@ -121,7 +118,6 @@
             }
         }, { passive: true });
 
-        // プラズマ粒子クラス
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
@@ -152,7 +148,7 @@
         const particles = Array.from({ length: 60 }, () => new Particle());
 
         function animate() {
-            ctx.fillStyle = 'rgba(3, 3, 5, 0.2);';
+            ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
             ctx.fillRect(0, 0, width, height);
             pulseIntensity = Math.max(1.0, pulseIntensity - 0.05);
 
@@ -165,19 +161,16 @@
         }
         animate();
 
-        // --- サーバー心臓部との経済パルス同期レイヤー ---
+        // サーバー心臓部とのイベントストリーム同期
         if (!!window.EventSource) {
             const source = new EventSource('/api/pulse');
             
             source.onmessage = function(e) {
                 const data = JSON.parse(e.data);
-                
                 pulseIntensity = 2.5; 
                 
-                // サーバーから届いた熱量とマイニング報酬をレンズに表示
                 statusEl.textContent = `Pulse: ${data.entropy}% | Mined: +${data.mining_reward_sats} Sats`;
                 
-                // スポンサーカラーに合わせて中央のコアをダイナミックに変異させる
                 if (data.sponsor_color && coreSphere) {
                     coreSphere.style.boxShadow = `0 0 120px ${data.sponsor_color}, inset 0 0 50px rgba(255, 255, 255, 0.6)`;
                     setTimeout(() => {
@@ -193,3 +186,4 @@
     </script>
 </body>
 </html>
+
