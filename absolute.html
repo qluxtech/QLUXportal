@@ -17,7 +17,7 @@
             background-color: #030305;
             overflow: hidden;
             font-family: 'Courier New', monospace;
-            color: #8ab4f8;
+            color: #Bub4f8;
         }
 
         /* 画面全体をレンズ・生体キャンバスにする */
@@ -31,7 +31,7 @@
         }
 
         /* 中央の心臓（特異点） */
-        .singularity-container {
+        #singularity-container {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -50,18 +50,20 @@
             border-radius: 50%;
             box-shadow: 0 0 50px rgba(0, 242, 254, 0.4), inset 0 0 20px rgba(255, 0, 128, 0.6);
             animation: pulse-core 4s ease-in-out infinite;
+            transition: box-shadow 0.4s ease, background 0.4s ease;
         }
 
         .core-status {
             margin-top: 24px;
             font-size: 11px;
-            letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.7);
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
+            text-align: center;
         }
 
-        /* 呼吸する鼓動のアニメーション */
+        /* 呼吸する縦長のコアのアニメーション */
         @keyframes pulse-core {
             0% {
                 transform: scale(0.95);
@@ -76,106 +78,39 @@
                 box-shadow: 0 0 30px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(255, 0, 128, 0.4);
             }
         }
-
-        /* オーロラのように揺らぐ背景グラデーション */
-        .ambient-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(15, 5, 30, 0.8) 0%, rgba(3, 3, 5, 1) 90%);
-            z-index: 2;
-            pointer-events: none;
-            mix-blend-mode: screen;
-        }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
     <canvas id="core-canvas"></canvas>
 
-    <div class="singularity-container">
-        <div class="core-sphere" id="coreSphere"></div>
-        <div class="core-status" id="coreStatus">Achronal Pulse: Initializing...</div>
+    <div id="singularity-container">
+        <div id="coreSphere" class="core-sphere"></div>
+        <div id="statusText" class="core-status">Achronal Pulse: Initializing...</div>
     </div>
 
     <script>
         const canvas = document.getElementById('core-canvas');
         const ctx = canvas.getContext('2d');
-        const statusEl = document.getElementById('coreStatus');
+        const statusEl = document.getElementById('statusText');
+        const coreSphere = document.getElementById('coreSphere');
 
-        let width, height;
-        let particles = [];
-        let pulseIntensity = 1.0;
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-        function resize() {
+        window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        // 空間を漂うエネルギー粒子（パルス・プラズマ）
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 0.5;
-                this.baseSpeedX = (Math.random() - 0.5) * 0.4;
-                this.baseSpeedY = (Math.random() - 0.5) * 0.4;
-                this.angle = Math.random() * Math.PI * 2;
-                this.life = Math.random() * 100 + 50;
-                this.color = Math.random() > 0.5 ? '#00f2fe' : '#ff007f';
-            }
-            update(mouseX, mouseY) {
-                // マウスやタッチの存在にシステムが磁気共鳴する
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                let attractionX = 0;
-                let attractionY = 0;
-                if (dist < 150 && dist > 10) {
-                    attractionX = (dx / dist) * 1.5;
-                    attractionY = (dy / dist) * 1.5;
-                }
-
-                this.x += this.baseSpeedX + attractionX;
-                this.y += this.baseSpeedY + attractionY;
-
-                // 画面外への逃走防止
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-            }
-        }
-
-        // 粒子の生成
-        for (let i = 0; i < 120; i++) {
-            particles.push(new Particle());
-        }
+        });
 
         let mouseX = width / 2;
         let mouseY = height / 2;
+        let pulseIntensity = 1.0;
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            pulseIntensity = 1.8; // 存在に反応して活性化
+            pulseIntensity = 1.8;
         });
 
         window.addEventListener('touchmove', (e) => {
@@ -186,64 +121,75 @@
             }
         }, { passive: true });
 
-        // ステータスログの自律変化（生命の鼓動テキスト）
-        const statuses = [
-            "Achronal Pulse: Synchronized",
-            "Entropic Flow: Stable [Node 0-5 Active]",
-            "Thermodynamic Inevitability: Streaming",
-            "Zero Delay Singularity: Bound"
-        ];
-        let statusIdx = 0;
-        setInterval(() => {
-            statusIdx = (statusIdx + 1) % statuses.length;
-            statusEl.textContent = statuses[statusIdx];
-        }, 4000);
+        // プラズマ粒子クラス
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.color = Math.random() > 0.5 ? '#00f2fe' : '#ff007f';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+            }
+        }
 
-        // 描画ループ
+        const particles = Array.from({ length: 60 }, () => new Particle());
+
         function animate() {
-            ctx.fillStyle = 'rgba(3, 3, 5, 0.2)'; // 軌跡の残像を生む
+            ctx.fillStyle = 'rgba(3, 3, 5, 0.2);';
             ctx.fillRect(0, 0, width, height);
-
-            pulseIntensity += (1.0 - pulseIntensity) * 0.05; // 減衰して呼吸に戻る
+            pulseIntensity = Math.max(1.0, pulseIntensity - 0.05);
 
             particles.forEach(p => {
-                p.update(mouseX, mouseY);
+                p.update();
                 p.draw();
             });
 
             requestAnimationFrame(animate);
         }
-
         animate();
-        // --- server.js とのリアルタイム・パルス同調レイヤー ---
-if (!!window.EventSource) {
-    const source = new EventSource('/api/pulse');
-    
-    source.onmessage = function(e) {
-        const data = JSON.parse(e.data);
-        
-        // サーバーからのパルスを受信した瞬間、レンズ全体が活性化する
-        pulseIntensity = 2.5; 
-        
-        // ステータスをサーバーのエントロピー情報と同期
-        statusEl.textContent = `Server Pulse: ${data.entropy}% [${data.status}]`;
-        
-        // サーバーの鼓動に合わせて中央のコアを物理的に一瞬フラッシュさせる
-        const coreSphere = document.getElementById('coreSphere');
-        if (coreSphere) {
-            coreSphere.style.boxShadow = '0 0 120px rgba(255, 0, 128, 0.9), inset 0 0 50px rgba(0, 242, 254, 1)';
-            setTimeout(() => {
-                coreSphere.style.boxShadow = '';
-            }, 300);
+
+        // --- サーバー心臓部との経済パルス同期レイヤー ---
+        if (!!window.EventSource) {
+            const source = new EventSource('/api/pulse');
+            
+            source.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                
+                pulseIntensity = 2.5; 
+                
+                // サーバーから届いた熱量とマイニング報酬をレンズに表示
+                statusEl.textContent = `Pulse: ${data.entropy}% | Mined: +${data.mining_reward_sats} Sats`;
+                
+                // スポンサーカラーに合わせて中央のコアをダイナミックに変異させる
+                if (data.sponsor_color && coreSphere) {
+                    coreSphere.style.boxShadow = `0 0 120px ${data.sponsor_color}, inset 0 0 50px rgba(255, 255, 255, 0.6)`;
+                    setTimeout(() => {
+                        coreSphere.style.boxShadow = '';
+                    }, 400);
+                }
+            };
+
+            source.onerror = function(err) {
+                console.log("Achronal sync fallback: Operating on local sovereign pulse.");
+            };
         }
-    };
-
-    source.onerror = function(err) {
-        console.log("Achronal sync fallback: Operating on local sovereign pulse.");
-    };
-}
-
     </script>
 </body>
 </html>
-
