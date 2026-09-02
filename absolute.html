@@ -215,6 +215,34 @@
         }
 
         animate();
+        // --- server.js とのリアルタイム・パルス同調レイヤー ---
+if (!!window.EventSource) {
+    const source = new EventSource('/api/pulse');
+    
+    source.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        
+        // サーバーからのパルスを受信した瞬間、レンズ全体が活性化する
+        pulseIntensity = 2.5; 
+        
+        // ステータスをサーバーのエントロピー情報と同期
+        statusEl.textContent = `Server Pulse: ${data.entropy}% [${data.status}]`;
+        
+        // サーバーの鼓動に合わせて中央のコアを物理的に一瞬フラッシュさせる
+        const coreSphere = document.getElementById('coreSphere');
+        if (coreSphere) {
+            coreSphere.style.boxShadow = '0 0 120px rgba(255, 0, 128, 0.9), inset 0 0 50px rgba(0, 242, 254, 1)';
+            setTimeout(() => {
+                coreSphere.style.boxShadow = '';
+            }, 300);
+        }
+    };
+
+    source.onerror = function(err) {
+        console.log("Achronal sync fallback: Operating on local sovereign pulse.");
+    };
+}
+
     </script>
 </body>
 </html>
