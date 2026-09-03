@@ -97,8 +97,8 @@
         <div class="header-title">Hypergeometric Tesseract Singularity Grid</div>
         
         <div class="status-box">
-            <div class="status-text" id="systemState">INITIALIZING DIMENSIONAL MATRIX...</div>
-            <div class="metric-value" id="metricDisplay">DIMENSION: 4.00D | FLUX: 10.00 TW</div>
+            <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
+            <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
         </div>
     </div>
 
@@ -151,26 +151,31 @@
         }
         animate();
 
-        // バックエンド（超幾何学エンジン）とのリアルタイム同期
+        // バックエンド（超幾何学エンジン）との完全リアルタイム同期
         async function fetchSingularityMetrics() {
             try {
-                const response = await fetch('/api/tesseract-feed');
+                // ルート（/）または /api/tesseract-feed からデータを取得
+                const response = await fetch('/api/tesseract-feed', {
+                    headers: { 'Accept': 'application/json' }
+                });
                 const data = await response.json();
+                
                 if (data && data.tesseractData) {
                     const t = data.tesseractData;
                     document.getElementById('systemState').innerText = `STATE: ${t.architectural_state}`;
                     document.getElementById('metricDisplay').innerText = 
-                        `DIMENSION: ${t.current_dimension} | VECTORS: ${t.absorbed_vectors}`;
+                        `DIMENSION: ${t.current_dimension} | FLUX: ${t.flux_power_watts}`;
+                } else if (data && data.status) {
+                    document.getElementById('systemState').innerText = `STATE: ${data.status}`;
                 }
             } catch (e) {
-                document.getElementById('systemState').innerText = "VORTEX SYNCHRONIZING...";
+                document.getElementById('systemState').innerText = "VORTEX PULSING...";
             }
         }
 
-        // 定期的にバックエンドから最新の次元数やトラフィック量を取得して画面を進化させる
-        setInterval(fetchSingularityMetrics, 3000);
+        // 2秒ごとにバックエンドの状態を同期
+        setInterval(fetchSingularityMetrics, 2000);
         fetchSingularityMetrics();
     </script>
 </body>
 </html>
-
