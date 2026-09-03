@@ -37,15 +37,16 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 30px;
+            padding: 20px;
             pointer-events: none;
         }
         .header-title {
-            font-size: 14px;
+            font-size: 12px;
             letter-spacing: 4px;
             color: rgba(0, 255, 255, 0.7);
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            text-align: center;
         }
         .core-singularity {
             position: absolute;
@@ -64,26 +65,53 @@
             0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 30px #ff007f, 0 0 60px #8a2be2; }
             100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
         }
+        
+        /* 下部コンテナ：ステータスと広告を美しく配置 */
+        .bottom-cluster {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            pointer-events: auto; /* 広告のクリックを有効化 */
+            z-index: 20;
+            width: 100%;
+            max-width: 400px;
+        }
+
         .status-box {
             background: rgba(10, 5, 20, 0.85);
             border: 1px solid rgba(255, 0, 127, 0.5);
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 4px;
             box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
             text-align: center;
             backdrop-filter: blur(5px);
-            z-index: 20;
+            width: 100%;
         }
         .status-text {
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
             color: #ff007f;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .metric-value {
-            font-size: 16px;
+            font-size: 14px;
             color: #fff;
             text-shadow: 0 0 8px #00ffff;
+        }
+
+        /* アドネットワーク（A-ADS等）用サイバーフレーム */
+        .ad-container {
+            background: rgba(5, 0, 10, 0.9);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            padding: 4px;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 60px;
         }
     </style>
 </head>
@@ -96,9 +124,20 @@
     <div class="hud-overlay">
         <div class="header-title">Hypergeometric Tesseract Singularity Grid</div>
         
-        <div class="status-box">
-            <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
-            <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
+        <div class="bottom-cluster">
+            <!-- リアルタイム・ステータスHUD -->
+            <div class="status-box">
+                <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
+                <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
+            </div>
+
+            <!-- 確実な収益化のためのアドネットワーク広告枠（A-ADS等） -->
+            <div class="ad-container">
+                <!-- ▼ ここにA-ADSなどの広告コード（iframe等）を貼り付けます ▼ -->
+                <!-- サンプルとしてA-ADSのプレースホルダーを配置しています。アカウント発行後のコードに差し替えてください -->
+                <iframe data-aa="YOUR_AD_ID_HERE" src="//ad.a-ads.com/YOUR_AD_ID_HERE?size=728x90" style="width:100%; height:60px; border:0; padding:0; overflow:hidden; background-color:transparent;"></iframe>
+                <!-- ▲ ▲ ▲ -->
+            </div>
         </div>
     </div>
 
@@ -151,10 +190,9 @@
         }
         animate();
 
-        // バックエンド（超幾何学エンジン）との完全リアルタイム同期
+        // バックエンドとのリアルタイム同期
         async function fetchSingularityMetrics() {
             try {
-                // ルート（/）または /api/tesseract-feed からデータを取得
                 const response = await fetch('/api/tesseract-feed', {
                     headers: { 'Accept': 'application/json' }
                 });
@@ -173,7 +211,6 @@
             }
         }
 
-        // 2秒ごとにバックエンドの状態を同期
         setInterval(fetchSingularityMetrics, 2000);
         fetchSingularityMetrics();
     </script>
