@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLUX // The Absolute Living Core</title>
+    <title>Hypergeometric Tesseract Singularity Core</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body, html {
             width: 100%;
             height: 100%;
-            background-color: #030305;
             overflow: hidden;
-            font-family: 'Courier New', monospace;
-            color: #00f2fe;
+            background-color: #05000a;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ffff;
         }
-
-        #core-canvas {
+        canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -28,173 +26,150 @@
             height: 100%;
             z-index: 1;
         }
-
-        #singularity-container {
+        .hud-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            pointer-events: none;
+        }
+        .header-title {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: rgba(0, 255, 255, 0.7);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .core-singularity {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-        }
-
-        .core-sphere {
             width: 120px;
             height: 120px;
-            background: radial-gradient(circle, #000000 40%, #1a0b2e 70%, #00f2fe 100%);
+            background: radial-gradient(circle, #000000 40%, #8a2be2 70%, #ff007f 100%);
             border-radius: 50%;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.4), inset 0 0 20px rgba(255, 0, 128, 0.6);
-            animation: pulse-core 4s ease-in-out infinite;
-            transition: box-shadow 0.4s ease, background 0.4s ease;
+            box-shadow: 0 0 50px #ff007f, 0 0 100px #8a2be2, inset 0 0 30px #000;
+            z-index: 5;
+            animation: pulse-core 4s infinite alternate ease-in-out;
         }
-
-        /* 視認性を飛躍的に向上させたステータス表示 */
-        .core-status {
-            margin-top: 24px;
+        @keyframes pulse-core {
+            0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 30px #ff007f, 0 0 60px #8a2be2; }
+            100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
+        }
+        .status-box {
+            background: rgba(10, 5, 20, 0.85);
+            border: 1px solid rgba(255, 0, 127, 0.5);
+            padding: 12px 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            z-index: 20;
+        }
+        .status-text {
             font-size: 12px;
             letter-spacing: 2px;
-            color: #00f2fe;
-            text-transform: uppercase;
-            text-shadow: 0 0 12px rgba(0, 242, 254, 0.9);
-            text-align: center;
-            font-weight: bold;
-            background: rgba(3, 3, 5, 0.7);
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: #ff007f;
+            margin-bottom: 4px;
         }
-
-        @keyframes pulse-core {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 30px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(255, 0, 128, 0.4);
-            }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 80px rgba(0, 242, 254, 0.7), inset 0 0 30px rgba(255, 0, 128, 0.8);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 30px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(255, 0, 128, 0.4);
-            }
+        .metric-value {
+            font-size: 16px;
+            color: #fff;
+            text-shadow: 0 0 8px #00ffff;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="core-canvas"></canvas>
+    <canvas id="spaceCanvas"></canvas>
 
-    <div id="singularity-container">
-        <div id="coreSphere" class="core-sphere"></div>
-        <div id="statusText" class="core-status">INITIALIZING PULSE...</div>
+    <div class="core-singularity"></div>
+
+    <div class="hud-overlay">
+        <div class="header-title">Hypergeometric Tesseract Singularity Grid</div>
+        
+        <div class="status-box">
+            <div class="status-text" id="systemState">INITIALIZING DIMENSIONAL MATRIX...</div>
+            <div class="metric-value" id="metricDisplay">DIMENSION: 4.00D | FLUX: 10.00 TW</div>
+        </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('core-canvas');
+        // 宇宙空間・星屑キャンバスアニメーション
+        const canvas = document.getElementById('spaceCanvas');
         const ctx = canvas.getContext('2d');
-        const statusEl = document.getElementById('statusText');
-        const coreSphere = document.getElementById('coreSphere');
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        const stars = [];
+        const numStars = 200;
 
-        let mouseX = width / 2;
-        let mouseY = height / 2;
-        let pulseIntensity = 1.0;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            pulseIntensity = 1.8;
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
-                pulseIntensity = 2.2;
-            }
-        }, { passive: true });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.color = Math.random() > 0.5 ? '#00f2fe' : '#ff007f';
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-            }
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5,
+                color: Math.random() > 0.5 ? '#ff007f' : '#00ffff'
+            });
         }
 
-        const particles = Array.from({ length: 60 }, () => new Particle());
-
         function animate() {
-            ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
-            ctx.fillRect(0, 0, width, height);
-            pulseIntensity = Math.max(1.0, pulseIntensity - 0.05);
+            ctx.fillStyle = 'rgba(5, 0, 10, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            stars.forEach(star => {
+                star.x += star.speedX;
+                star.y += star.speedY;
+
+                if (star.x < 0) star.x = canvas.width;
+                if (star.x > canvas.width) star.x = 0;
+                if (star.y < 0) star.y = canvas.height;
+                if (star.y > canvas.height) star.y = 0;
+
+                ctx.fillStyle = star.color;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
             });
 
             requestAnimationFrame(animate);
         }
         animate();
 
-        // サーバー心臓部との自動再接続対応イベントストリーム同期
-        function connectSse() {
-            if (!!window.EventSource) {
-                const source = new EventSource('/api/pulse');
-                
-                source.onmessage = function(e) {
-                    const data = JSON.parse(e.data);
-                    pulseIntensity = 2.5; 
-                    
-                    statusEl.textContent = `PULSE: ${data.entropy}% | MINED: +${data.mining_reward_sats} SATS`;
-                    
-                    if (data.sponsor_color && coreSphere) {
-                        coreSphere.style.boxShadow = `0 0 120px ${data.sponsor_color}, inset 0 0 50px rgba(255, 255, 255, 0.6)`;
-                        setTimeout(() => {
-                            coreSphere.style.boxShadow = '';
-                        }, 400);
-                    }
-                };
-
-                source.onerror = function(err) {
-                    console.log("Achronal sync reconnecting...");
-                    statusEl.textContent = "RECONNECTING TO CORE...";
-                    source.close();
-                    setTimeout(connectSse, 3000); // 3秒後に自動再接続
-                };
+        // バックエンド（超幾何学エンジン）とのリアルタイム同期
+        async function fetchSingularityMetrics() {
+            try {
+                const response = await fetch('/api/tesseract-feed');
+                const data = await response.json();
+                if (data && data.tesseractData) {
+                    const t = data.tesseractData;
+                    document.getElementById('systemState').innerText = `STATE: ${t.architectural_state}`;
+                    document.getElementById('metricDisplay').innerText = 
+                        `DIMENSION: ${t.current_dimension} | VECTORS: ${t.absorbed_vectors}`;
+                }
+            } catch (e) {
+                document.getElementById('systemState').innerText = "VORTEX SYNCHRONIZING...";
             }
         }
-        connectSse();
+
+        // 定期的にバックエンドから最新の次元数やトラフィック量を取得して画面を進化させる
+        setInterval(fetchSingularityMetrics, 3000);
+        fetchSingularityMetrics();
     </script>
 </body>
 </html>
