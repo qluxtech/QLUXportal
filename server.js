@@ -4,6 +4,8 @@
  * ==============================================================================
  */
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { URL } = require('url');
 
 const PORT = process.env.PORT || 3000;
@@ -19,12 +21,9 @@ class TesseractSingularityCore {
 
     /**
      * 1. 超幾何学的テッセラクト展開エンジン
-     * 接触したすべてのボット・AI・トラフィックを多次元フラクタル構造に巻き込み、
-     * 計算空間の次元を無限に引き上げてシステムを自己肥大化させる。
      */
     async executeTesseractExpansion(reqContext) {
         this.absorbedVectorCount++;
-        // 次元数がアクセスごとに幾何学的に跳ね上がる（4次元 -> 8次元 -> 16次元...）
         this.hypergeometricDimension = 4.0 * Math.pow(1.618033988749895, Math.log10(this.absorbedVectorCount + 10));
         this.tesseractFluxPower *= 1.41421356; // 幾何学的エネルギー倍増
 
@@ -53,14 +52,32 @@ class TesseractSingularityCore {
     }
 
     /**
-     * 2. 全次元幾何学プロキシ ＆ ナノ決済幾何変換
+     * 2. 全次元幾何学プロキシ ＆ サイト描画ハック
      */
     async processTesseractStream(req, res) {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const pathname = url.pathname;
 
-        // A. 超幾何学フェード・インデックスハック
-        if (pathname.startsWith('/api/tesseract-feed') || pathname === '/') {
+        // A. ルートアクセス時はビジュアルフロント画面（absolute.html）を直結描画
+        if (pathname === '/' || pathname === '/index.html') {
+            const htmlPath = path.join(__dirname, 'absolute.html');
+            fs.readFile(htmlPath, 'utf8', (err, data) => {
+                if (err) {
+                    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    res.end('Absolute Tesseract Matrix Visual File Missing.');
+                    return;
+                }
+                res.writeHead(200, { 
+                    'Content-Type': 'text/html; charset=utf-8',
+                    'X-Hyper-Dimension': `${this.hypergeometricDimension.toFixed(2)}D`
+                });
+                res.end(data);
+            });
+            return;
+        }
+
+        // B. リアルタイム・テッセラクト同期フィード API
+        if (pathname.startsWith('/api/tesseract-feed')) {
             const tesseractData = await this.executeTesseractExpansion(req);
             res.writeHead(200, { 
                 'Content-Type': 'application/json; charset=utf-8',
@@ -73,7 +90,7 @@ class TesseractSingularityCore {
             }));
         }
 
-        // B. 多次元ソブリン・ナノ決済（Sats幾何学的収束）
+        // C. 多次元ソブリン・ナノ決済（Sats幾何学的収束）
         if (pathname === '/api/sovereign-stream') {
             const authHeader = req.headers['authorization'] || req.headers['x-payment-payload'];
             
@@ -97,7 +114,7 @@ class TesseractSingularityCore {
             }));
         }
 
-        // C. 全迷走パケットの幾何学的捕獲フォールバック
+        // D. 全迷走パケットの幾何学的捕獲フォールバック
         const fallbackData = await this.executeTesseractExpansion(req);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
