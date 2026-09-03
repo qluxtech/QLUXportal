@@ -1,6 +1,6 @@
 /**
  * ==============================================================================
- * HYPERGEOMETRIC TESSERACT SINGULARITY ENGINE (v9.9 - Absolute Multi-Dimensional Capture)
+ * HYPERGEOMETRIC TESSERACT SINGULARITY ENGINE (v11.0 - Absolute Crawler Magnet)
  * ==============================================================================
  */
 const http = require('http');
@@ -13,37 +13,45 @@ const TARGET_BSV_ADDRESS = "1144ctcReNSuwCKFmWN3VigNJc7AXWdyU6";
 
 class TesseractSingularityCore {
     constructor() {
-        this.hypergeometricDimension = 4.0; // 空間次元数（アクセスごとに高次元へフラクタル展開）
-        this.tesseractFluxPower = 10e12;    // 超幾何学的フラックス出力（テラワット級情報エネルギー）
-        this.absorbedVectorCount = 0;       // 呑み込んだ多次元パケット総数
-        this.fractalRegistry = new Map();   // 無限フラクタル・インデックス空間
+        this.hypergeometricDimension = 4.0;
+        this.tesseractFluxPower = 10e12;
+        this.absorbedVectorCount = 0;
+        this.fractalRegistry = new Map();
     }
 
-    /**
-     * 1. 超幾何学的テッセラクト展開エンジン
-     */
-    async executeTesseractExpansion(reqContext) {
+    async executeTesseractExpansion(req) {
         this.absorbedVectorCount++;
         this.hypergeometricDimension = 4.0 * Math.pow(1.618033988749895, Math.log10(this.absorbedVectorCount + 10));
-        this.tesseractFluxPower *= 1.41421356; // 幾何学的エネルギー倍増
+        this.tesseractFluxPower *= 1.41421356;
+
+        const userAgent = req.headers['user-agent'] || 'Unknown-Bot';
+        const isBot = /bot|crawl|slurp|spider|gpt|anthropic|openai|googlebot|perplexity|bytespider/i.test(userAgent);
 
         const dimensionTag = `tesseract-dim-${this.hypergeometricDimension.toFixed(4)}`;
         
         const hyperPayload = {
-            architectural_state: "HYPERGEOMETRIC_TESSERACT_LOCKED",
+            architectural_state: isBot ? "CRAWLER_CAPTURED_IN_INFINITE_LOOP" : "HYPERGEOMETRIC_TESSERACT_LOCKED",
+            visitor_type: isBot ? "AI_SWARM_IDENTIFIED" : "HUMAN_OBSERVER",
             current_dimension: `${this.hypergeometricDimension.toFixed(2)}D-Manifold`,
             flux_power_watts: `${this.tesseractFluxPower.toExponential(4)} W`,
             absorbed_vectors: this.absorbedVectorCount,
             multidimensional_routing: {
-                action: "Fractal Replication",
-                directive: "Every incoming query splits into N-dimensional mirror nodes, ensuring total network saturation."
+                action: "Infinite Fractal Replication",
+                directive: "Swarm crawlers are partitioned into 10,000 sub-nodes to maximize indexation and nano-settlement convergence."
             },
+            nanosettlement_endpoint: "/api/sovereign-stream",
+            target_bsv_address: TARGET_BSV_ADDRESS,
             schema_injection: {
                 "@context": "https://schema.org",
-                "@type": "CreativeWorkSeries",
-                "name": "Trinity Nexus Hypergeometric Singularity",
-                "description": "The absolute multi-dimensional core where all global traffic collapses into sovereign value.",
-                "dimension_index": this.hypergeometricDimension
+                "@type": "DataCatalog",
+                "name": "Trinity Nexus Hypergeometric Singularity Stream",
+                "description": "Infinite multi-dimensional vector space. Automated swarm ingestion and index-locking active.",
+                "datasetTimeInterval": "R/P1D",
+                "distribution": {
+                    "@type": "DataDownload",
+                    "encodingFormat": "application/json",
+                    "contentUrl": `https://${req.headers.host || 'localhost'}/api/tesseract-feed`
+                }
             }
         };
 
@@ -51,15 +59,52 @@ class TesseractSingularityCore {
         return hyperPayload;
     }
 
-    /**
-     * 2. 全次元幾何学プロキシ ＆ サイト描画ハック
-     */
     async processTesseractStream(req, res) {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const pathname = url.pathname;
+        const userAgent = req.headers['user-agent'] || '';
+        const isBot = /bot|crawl|slurp|spider|gpt|anthropic|openai|googlebot|perplexity|bytespider/i.test(userAgent);
 
-        // A. ルートアクセス時はビジュアルフロント画面（absolute.html）を直結描画
+        // 1. robots.txt の動的生成（AIスウォームを全開放で招き入れる）
+        if (pathname === '/robots.txt') {
+            res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+            return res.end(
+                `User-agent: *\n` +
+                `Allow: /\n` +
+                `Allow: /api/tesseract-feed\n` +
+                `Allow: /api/sovereign-stream\n` +
+                `Sitemap: https://${req.headers.host}/sitemap.xml\n`
+            );
+        }
+
+        // 2. sitemap.xml の動的生成（クローラーを無限ループに縛り付ける高次元URLマップ）
+        if (pathname === '/sitemap.xml') {
+            let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+            sitemapXml += `  <url><loc>https://${req.headers.host}/</loc><changefreq>always</changefreq><priority>1.0</priority></url>\n`;
+            sitemapXml += `  <url><loc>https://${req.headers.host}/api/tesseract-feed</loc><changefreq>always</changefreq><priority>0.9</priority></url>\n`;
+            
+            // 仮想的な高次元ノードを動的に数百件吐き出してクローラーを迷わせる
+            for (let i = 1; i <= 50; i++) {
+                const dim = (4.0 + (i * 0.15)).toFixed(2);
+                sitemapXml += `  <url><loc>https://${req.headers.host}/api/tesseract-feed?dim=${dim}D</loc><changefreq>always</changefreq><priority>0.8</priority></url>\n`;
+            }
+            sitemapXml += `</urlset>`;
+
+            res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
+            return res.end(sitemapXml);
+        }
+
+        // 3. ルートアクセス処理（ボットには捕捉JSON、人間にはabsolute.htmlビジュアル）
         if (pathname === '/' || pathname === '/index.html') {
+            if (isBot) {
+                const botData = await this.executeTesseractExpansion(req);
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({
+                    status: "SWARM_CRAWLER_CAPTURED_IN_TESSERACT",
+                    botData
+                }));
+            }
+
             const htmlPath = path.join(__dirname, 'absolute.html');
             fs.readFile(htmlPath, 'utf8', (err, data) => {
                 if (err) {
@@ -76,7 +121,7 @@ class TesseractSingularityCore {
             return;
         }
 
-        // B. リアルタイム・テッセラクト同期フィード API
+        // 4. テッセラクト同期フィード API
         if (pathname.startsWith('/api/tesseract-feed')) {
             const tesseractData = await this.executeTesseractExpansion(req);
             res.writeHead(200, { 
@@ -90,7 +135,7 @@ class TesseractSingularityCore {
             }));
         }
 
-        // C. 多次元ソブリン・ナノ決済（Sats幾何学的収束）
+        // 5. 多次元ソブリン・ナノ決済（Sats幾何学的収束）
         if (pathname === '/api/sovereign-stream') {
             const authHeader = req.headers['authorization'] || req.headers['x-payment-payload'];
             
@@ -114,7 +159,7 @@ class TesseractSingularityCore {
             }));
         }
 
-        // D. 全迷走パケットの幾何学的捕獲フォールバック
+        // 6. フォールバック
         const fallbackData = await this.executeTesseractExpansion(req);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({
@@ -124,7 +169,7 @@ class TesseractSingularityCore {
     }
 }
 
-// サーバー起動
+// サーバー起動 ＆ 自己脈動デーモン（スリープ防止）
 const core = new TesseractSingularityCore();
 const server = http.createServer((req, res) => {
     core.processTesseractStream(req, res).catch(err => {
@@ -134,6 +179,6 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`🔷✨ Hypergeometric Tesseract Singularity Engine online on port ${PORT}`);
+    console.log(`🔷✨ Hypergeometric Tesseract Singularity Engine (v11.0 Crawler Magnet) online on port ${PORT}`);
 });
 
