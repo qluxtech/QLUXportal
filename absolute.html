@@ -66,7 +66,7 @@
             100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
         }
         
-        /* 下部コンテナ：ステータスと広告を美しく配置 */
+        /* 下部クラスター：ステータスと広告の配置 */
         .bottom-cluster {
             display: flex;
             flex-direction: column;
@@ -100,7 +100,7 @@
             text-shadow: 0 0 8px #00ffff;
         }
 
-        /* アドネットワーク（A-ADS等）用サイバーフレーム */
+        /* アドネットワーク（A-ADS）用フレーム */
         .ad-container {
             background: rgba(5, 0, 10, 0.9);
             border: 1px solid rgba(0, 255, 255, 0.4);
@@ -131,12 +131,14 @@
                 <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
             </div>
 
-            <!-- 確実な収益化のためのアドネットワーク広告枠（A-ADS等） -->
+            <!-- A-ADS 広告ユニット (ID: 2454339) -->
             <div class="ad-container">
-                <!-- ▼ ここにA-ADSなどの広告コード（iframe等）を貼り付けます ▼ -->
-                <!-- サンプルとしてA-ADSのプレースホルダーを配置しています。アカウント発行後のコードに差し替えてください -->
-                <iframe data-aa="YOUR_AD_ID_HERE" src="//ad.a-ads.com/YOUR_AD_ID_HERE?size=728x90" style="width:100%; height:60px; border:0; padding:0; overflow:hidden; background-color:transparent;"></iframe>
-                <!-- ▲ ▲ ▲ -->
+                <!-- BEGIN AADS AD UNIT 2454339 -->
+                <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+                    <iframe data-aa='2454339' src='//acceptable.a-ads.com/2454339/?size=Adaptive'
+                        style='border:0; padding:0; width:100%; height:60px; overflow:hidden; display:block; margin:auto'></iframe>
+                </div>
+                <!-- END AADS AD UNIT 2454339 -->
             </div>
         </div>
     </div>
@@ -216,3 +218,4 @@
     </script>
 </body>
 </html>
+
