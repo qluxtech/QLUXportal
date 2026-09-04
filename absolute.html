@@ -66,13 +66,12 @@
             100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
         }
         
-        /* 下部クラスター：ステータスと広告の配置 */
         .bottom-cluster {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            pointer-events: auto; /* 広告のクリックを有効化 */
+            pointer-events: auto;
             z-index: 20;
             width: 100%;
             max-width: 400px;
@@ -100,7 +99,6 @@
             text-shadow: 0 0 8px #00ffff;
         }
 
-        /* アドネットワーク（A-ADS）用フレーム */
         .ad-container {
             background: rgba(5, 0, 10, 0.9);
             border: 1px solid rgba(0, 255, 255, 0.4);
@@ -125,13 +123,11 @@
         <div class="header-title">Hypergeometric Tesseract Singularity Grid</div>
         
         <div class="bottom-cluster">
-            <!-- リアルタイム・ステータスHUD -->
             <div class="status-box">
                 <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
                 <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
             </div>
 
-            <!-- A-ADS 広告ユニット (ID: 2454339) -->
             <div class="ad-container">
                 <!-- BEGIN AADS AD UNIT 2454339 -->
                 <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
@@ -144,7 +140,6 @@
     </div>
 
     <script>
-        // 宇宙空間・星屑キャンバスアニメーション
         const canvas = document.getElementById('spaceCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -192,7 +187,6 @@
         }
         animate();
 
-        // バックエンドとのリアルタイム同期
         async function fetchSingularityMetrics() {
             try {
                 const response = await fetch('/api/tesseract-feed', {
