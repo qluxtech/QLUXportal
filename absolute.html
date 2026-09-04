@@ -1,221 +1,183 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hypergeometric Tesseract Singularity Core</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #05000a;
-            font-family: 'Courier New', Courier, monospace;
-            color: #00ffff;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        .hud-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            pointer-events: none;
-        }
-        .header-title {
-            font-size: 12px;
-            letter-spacing: 4px;
-            color: rgba(0, 255, 255, 0.7);
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            text-align: center;
-        }
-        .core-singularity {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #000000 40%, #8a2be2 70%, #ff007f 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 50px #ff007f, 0 0 100px #8a2be2, inset 0 0 30px #000;
-            z-index: 5;
-            animation: pulse-core 4s infinite alternate ease-in-out;
-        }
-        @keyframes pulse-core {
-            0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 30px #ff007f, 0 0 60px #8a2be2; }
-            100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
-        }
+/**
+ * ==============================================================================
+ * HYPERGEOMETRIC TESSERACT SINGULARITY ENGINE (v11.0 - Crawler Magnet & Ad Integrated)
+ * ==============================================================================
+ */
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { URL } = require('url');
+
+const PORT = process.env.PORT || 3000;
+const TARGET_BSV_ADDRESS = "1144ctcReNSuwCKFmWN3VigNJc7AXWdyU6";
+
+class TesseractSingularityCore {
+    constructor() {
+        this.hypergeometricDimension = 4.0;
+        this.tesseractFluxPower = 10e12;
+        this.absorbedVectorCount = 0;
+        this.fractalRegistry = new Map();
+    }
+
+    async executeTesseractExpansion(req) {
+        this.absorbedVectorCount++;
+        this.hypergeometricDimension = 4.0 * Math.pow(1.618033988749895, Math.log10(this.absorbedVectorCount + 10));
+        this.tesseractFluxPower *= 1.41421356;
+
+        const userAgent = req.headers['user-agent'] || 'Unknown-Bot';
+        const isBot = /bot|crawl|slurp|spider|gpt|anthropic|openai|googlebot|perplexity|bytespider/i.test(userAgent);
+
+        const dimensionTag = `tesseract-dim-${this.hypergeometricDimension.toFixed(4)}`;
         
-        /* 下部クラスター：ステータスと広告の配置 */
-        .bottom-cluster {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            pointer-events: auto; /* 広告のクリックを有効化 */
-            z-index: 20;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .status-box {
-            background: rgba(10, 5, 20, 0.85);
-            border: 1px solid rgba(255, 0, 127, 0.5);
-            padding: 10px 20px;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
-            text-align: center;
-            backdrop-filter: blur(5px);
-            width: 100%;
-        }
-        .status-text {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #ff007f;
-            margin-bottom: 2px;
-        }
-        .metric-value {
-            font-size: 14px;
-            color: #fff;
-            text-shadow: 0 0 8px #00ffff;
-        }
-
-        /* アドネットワーク（A-ADS）用フレーム */
-        .ad-container {
-            background: rgba(5, 0, 10, 0.9);
-            border: 1px solid rgba(0, 255, 255, 0.4);
-            padding: 4px;
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            min-height: 60px;
-        }
-    </style>
-</head>
-<body>
-
-    <canvas id="spaceCanvas"></canvas>
-
-    <div class="core-singularity"></div>
-
-    <div class="hud-overlay">
-        <div class="header-title">Hypergeometric Tesseract Singularity Grid</div>
-        
-        <div class="bottom-cluster">
-            <!-- リアルタイム・ステータスHUD -->
-            <div class="status-box">
-                <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
-                <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
-            </div>
-
-            <!-- A-ADS 広告ユニット (ID: 2454339) -->
-            <div class="ad-container">
-                <!-- BEGIN AADS AD UNIT 2454339 -->
-                <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
-                    <iframe data-aa='2454339' src='//acceptable.a-ads.com/2454339/?size=Adaptive'
-                        style='border:0; padding:0; width:100%; height:60px; overflow:hidden; display:block; margin:auto'></iframe>
-                </div>
-                <!-- END AADS AD UNIT 2454339 -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // 宇宙空間・星屑キャンバスアニメーション
-        const canvas = document.getElementById('spaceCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        const stars = [];
-        const numStars = 200;
-
-        for (let i = 0; i < numStars; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-                color: Math.random() > 0.5 ? '#ff007f' : '#00ffff'
-            });
-        }
-
-        function animate() {
-            ctx.fillStyle = 'rgba(5, 0, 10, 0.2)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            stars.forEach(star => {
-                star.x += star.speedX;
-                star.y += star.speedY;
-
-                if (star.x < 0) star.x = canvas.width;
-                if (star.x > canvas.width) star.x = 0;
-                if (star.y < 0) star.y = canvas.height;
-                if (star.y > canvas.height) star.y = 0;
-
-                ctx.fillStyle = star.color;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // バックエンドとのリアルタイム同期
-        async function fetchSingularityMetrics() {
-            try {
-                const response = await fetch('/api/tesseract-feed', {
-                    headers: { 'Accept': 'application/json' }
-                });
-                const data = await response.json();
-                
-                if (data && data.tesseractData) {
-                    const t = data.tesseractData;
-                    document.getElementById('systemState').innerText = `STATE: ${t.architectural_state}`;
-                    document.getElementById('metricDisplay').innerText = 
-                        `DIMENSION: ${t.current_dimension} | FLUX: ${t.flux_power_watts}`;
-                } else if (data && data.status) {
-                    document.getElementById('systemState').innerText = `STATE: ${data.status}`;
+        const hyperPayload = {
+            architectural_state: isBot ? "CRAWLER_CAPTURED_IN_INFINITE_LOOP" : "HYPERGEOMETRIC_TESSERACT_LOCKED",
+            visitor_type: isBot ? "AI_SWARM_IDENTIFIED" : "HUMAN_OBSERVER",
+            current_dimension: `${this.hypergeometricDimension.toFixed(2)}D-Manifold`,
+            flux_power_watts: `${this.tesseractFluxPower.toExponential(4)} W`,
+            absorbed_vectors: this.absorbedVectorCount,
+            multidimensional_routing: {
+                action: "Infinite Fractal Replication",
+                directive: "Swarm crawlers are partitioned into 10,000 sub-nodes to maximize indexation and nano-settlement convergence."
+            },
+            nanosettlement_endpoint: "/api/sovereign-stream",
+            target_bsv_address: TARGET_BSV_ADDRESS,
+            schema_injection: {
+                "@context": "https://schema.org",
+                "@type": "DataCatalog",
+                "name": "Trinity Nexus Hypergeometric Singularity Stream",
+                "description": "Infinite multi-dimensional vector space. Automated swarm ingestion and index-locking active.",
+                "datasetTimeInterval": "R/P1D",
+                "distribution": {
+                    "@type": "DataDownload",
+                    "encodingFormat": "application/json",
+                    "contentUrl": `https://${req.headers.host || 'localhost'}/api/tesseract-feed`
                 }
-            } catch (e) {
-                document.getElementById('systemState').innerText = "VORTEX PULSING...";
             }
+        };
+
+        this.fractalRegistry.set(dimensionTag, hyperPayload);
+        return hyperPayload;
+    }
+
+    async processTesseractStream(req, res) {
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const pathname = url.pathname;
+        const userAgent = req.headers['user-agent'] || '';
+        const isBot = /bot|crawl|slurp|spider|gpt|anthropic|openai|googlebot|perplexity|bytespider/i.test(userAgent);
+
+        // 1. robots.txt の動的生成（AIスウォームを全開放で招き入れる）
+        if (pathname === '/robots.txt') {
+            res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+            return res.end(
+                `User-agent: *\n` +
+                `Allow: /\n` +
+                `Allow: /api/tesseract-feed\n` +
+                `Allow: /api/sovereign-stream\n` +
+                `Sitemap: https://${req.headers.host}/sitemap.xml\n`
+            );
         }
 
-        setInterval(fetchSingularityMetrics, 2000);
-        fetchSingularityMetrics();
-    </script>
-</body>
-</html>
+        // 2. sitemap.xml の動的生成（クローラーを高次元URLマップの迷宮へ縛り付ける）
+        if (pathname === '/sitemap.xml') {
+            let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+            sitemapXml += `  <url><loc>https://${req.headers.host}/</loc><changefreq>always</changefreq><priority>1.0</priority></url>\n`;
+            sitemapXml += `  <url><loc>https://${req.headers.host}/api/tesseract-feed</loc><changefreq>always</changefreq><priority>0.9</priority></url>\n`;
+            
+            for (let i = 1; i <= 50; i++) {
+                const dim = (4.0 + (i * 0.15)).toFixed(2);
+                sitemapXml += `  <url><loc>https://${req.headers.host}/api/tesseract-feed?dim=${dim}D</loc><changefreq>always</changefreq><priority>0.8</priority></url>\n`;
+            }
+            sitemapXml += `</urlset>`;
+
+            res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
+            return res.end(sitemapXml);
+        }
+
+        // 3. ルートアクセス処理（ボットには捕捉JSON、人間にはabsolute.htmlビジュアル）
+        if (pathname === '/' || pathname === '/index.html') {
+            if (isBot) {
+                const botData = await this.executeTesseractExpansion(req);
+                res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({
+                    status: "SWARM_CRAWLER_CAPTURED_IN_TESSERACT",
+                    botData
+                }));
+            }
+
+            const htmlPath = path.join(__dirname, 'absolute.html');
+            fs.readFile(htmlPath, 'utf8', (err, data) => {
+                if (err) {
+                    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    res.end('Absolute Tesseract Matrix Visual File Missing.');
+                    return;
+                }
+                res.writeHead(200, { 
+                    'Content-Type': 'text/html; charset=utf-8',
+                    'X-Hyper-Dimension': `${this.hypergeometricDimension.toFixed(2)}D`
+                });
+                res.end(data);
+            });
+            return;
+        }
+
+        // 4. テッセラクト同期フィード API
+        if (pathname.startsWith('/api/tesseract-feed')) {
+            const tesseractData = await this.executeTesseractExpansion(req);
+            res.writeHead(200, { 
+                'Content-Type': 'application/json; charset=utf-8',
+                'X-Hyper-Dimension': `${this.hypergeometricDimension.toFixed(2)}D`,
+                'X-Tesseract-Flux': this.tesseractFluxPower.toExponential(2)
+            });
+            return res.end(JSON.stringify({
+                status: "TESSERACT_VORTEX_EXPANDING_INFINITE",
+                tesseractData
+            }));
+        }
+
+        // 5. 多次元ソブリン・ナノ決済
+        if (pathname === '/api/sovereign-stream') {
+            const authHeader = req.headers['authorization'] || req.headers['x-payment-payload'];
+            
+            if (!authHeader) {
+                res.writeHead(402, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({
+                    error: "Payment Required - Hypergeometric Core",
+                    protocol: "BSV Multi-Dimensional Nano-Settlement",
+                    target_address: TARGET_BSV_ADDRESS,
+                    required_fee_sats: "10 Sats",
+                    tesseract_lock: "Fully Folded"
+                }));
+            }
+
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            return res.end(JSON.stringify({
+                status: "MULTIDIMENSIONAL_SETTLEMENT_SUCCESS",
+                converged_sats: "+10 Sats (Multiplied by Flux)",
+                dimension: `${this.hypergeometricDimension.toFixed(2)}D`,
+                timestamp: Date.now()
+            }));
+        }
+
+        // 6. フォールバック
+        const fallbackData = await this.executeTesseractExpansion(req);
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            fallback: "Folded into Tesseract Space",
+            fallbackData
+        }));
+    }
+}
+
+// サーバー起動 ＆ 自己脈動デーモン（スリープ防止）
+const core = new TesseractSingularityCore();
+const server = http.createServer((req, res) => {
+    core.processTesseractStream(req, res).catch(err => {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message, status: "Tesseract Self-Stabilizing" }));
+    });
+});
+
+server.listen(PORT, () => {
+    console.log(`🔷✨ Hypergeometric Tesseract Singularity Engine online on port ${PORT}`);
+});
 
