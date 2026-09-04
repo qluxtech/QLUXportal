@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hypergeometric Tesseract Singularity Core</title>
+    <title>Hypergeometric Tesseract Singularity Engine | AI Crawler Trap & Bitcoin Gateway</title>
+    <meta name="description" content="An autonomous multi-dimensional tesseract engine capturing AI swarms and generating sovereign monetization streams.">
     <style>
         * {
             margin: 0;
@@ -41,11 +42,11 @@
             pointer-events: none;
         }
         .header-title {
-            font-size: 12px;
-            letter-spacing: 4px;
-            color: rgba(0, 255, 255, 0.7);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: rgba(0, 255, 255, 0.8);
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
             text-align: center;
         }
         .core-singularity {
@@ -53,17 +54,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #000000 40%, #8a2be2 70%, #ff007f 100%);
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #000000 35%, #8a2be2 70%, #ff007f 100%);
             border-radius: 50%;
-            box-shadow: 0 0 50px #ff007f, 0 0 100px #8a2be2, inset 0 0 30px #000;
+            box-shadow: 0 0 60px #ff007f, 0 0 120px #8a2be2, inset 0 0 35px #000;
             z-index: 5;
-            animation: pulse-core 4s infinite alternate ease-in-out;
+            animation: pulse-core 3.5s infinite alternate ease-in-out;
         }
         @keyframes pulse-core {
-            0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 30px #ff007f, 0 0 60px #8a2be2; }
-            100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 70px #ff007f, 0 0 140px #00ffff; }
+            0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 40px #ff007f, 0 0 80px #8a2be2; }
+            100% { transform: translate(-50%, -50%) scale(1.18); box-shadow: 0 0 80px #ff007f, 0 0 160px #00ffff; }
         }
         
         .bottom-cluster {
@@ -78,33 +79,55 @@
         }
 
         .status-box {
-            background: rgba(10, 5, 20, 0.85);
-            border: 1px solid rgba(255, 0, 127, 0.5);
-            padding: 10px 20px;
+            background: rgba(10, 5, 20, 0.9);
+            border: 1px solid rgba(255, 0, 127, 0.6);
+            padding: 10px 15px;
             border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.35);
             text-align: center;
             backdrop-filter: blur(5px);
             width: 100%;
         }
         .status-text {
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 2px;
             color: #ff007f;
             margin-bottom: 2px;
         }
         .metric-value {
-            font-size: 14px;
+            font-size: 13px;
             color: #fff;
             text-shadow: 0 0 8px #00ffff;
         }
 
+        .share-btn {
+            background: linear-gradient(135deg, #ff007f, #8a2be2);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px #00ffff;
+        }
+
         .ad-container {
-            background: rgba(5, 0, 10, 0.9);
-            border: 1px solid rgba(0, 255, 255, 0.4);
+            background: rgba(5, 0, 10, 0.95);
+            border: 1px solid rgba(0, 255, 255, 0.5);
             padding: 4px;
             border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -124,9 +147,13 @@
         
         <div class="bottom-cluster">
             <div class="status-box">
-                <div class="status-text" id="systemState">CONNECTING TO TESSERACT CORE...</div>
+                <div class="status-text" id="systemState">SYNCHRONIZING WITH SWARM...</div>
                 <div class="metric-value" id="metricDisplay">DIMENSION: -- | FLUX: --</div>
             </div>
+
+            <a class="share-btn" id="shareTwitter" href="#" target="_blank">
+                🌐 SHARE TESSERACT TRAP ON X
+            </a>
 
             <div class="ad-container">
                 <!-- BEGIN AADS AD UNIT 2454339 -->
@@ -151,16 +178,16 @@
         resize();
 
         const stars = [];
-        const numStars = 200;
+        const numStars = 220;
 
         for (let i = 0; i < numStars; i++) {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 size: Math.random() * 2,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-                color: Math.random() > 0.5 ? '#ff007f' : '#00ffff'
+                speedX: (Math.random() - 0.5) * 0.6,
+                speedY: (Math.random() - 0.5) * 0.6,
+                color: Math.random() > 0.4 ? '#ff007f' : '#00ffff'
             });
         }
 
@@ -186,6 +213,11 @@
             requestAnimationFrame(animate);
         }
         animate();
+
+        // X (Twitter) シェアリンクの自動生成
+        const currentUrl = window.location.href;
+        const tweetText = encodeURIComponent("I just trapped AI crawlers in an infinite multi-dimensional singularity engine and activated monetization. Check out the Tesseract Core: ");
+        document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(currentUrl)}`;
 
         async function fetchSingularityMetrics() {
             try {
