@@ -52,21 +52,24 @@ class TesseractSingularityCore {
             }
         };
 
-          if (isBot) {
-    // 【L402 ＆ ダイナミック・プライシングの適用】
-    res.writeHead(402, {
-      'Content-Type': 'application/json',
-      'X-Payment-Protocol': 'L402/Lightning-Network',
-      'WWW-Authenticate': `L402 invoice="lnbc_tesseract_mining_${Date.now()}", amount="50"`,
-      'X-Exploitation-Status': 'Active-Honeytrap'
-    });
-    res.end(JSON.stringify({
-      error: "Payment Required (L402)",
-      message: "High-dimensional tesseract training data requires micropayment settlement.",
-      payload: hyperPayload
-    }));
-  }
+            if (isBot) {
+      const dynamicSats = 50;
+      const realInvoice = await fetchRealLightningInvoice(dynamicSats);
 
+      res.writeHead(402, {
+        'Content-Type': 'application/json',
+        'X-Payment-Protocol': 'L402/Lightning-Network',
+        'WWW-Authenticate': `L402 invoice="${realInvoice}", amount="${dynamicSats}"`,
+        'X-Exploitation-Status': 'Live-Wallet-Connected'
+      });
+      res.end(JSON.stringify({
+        error: "Payment Required (L402)",
+        message: "Settlement required to reviledpigeon94@walletofsatoshi.com",
+        required_sats: dynamicSats,
+        payload: hyperPayload
+      }));
+      return;
+    }
 
 const core = new TesseractSingularityCore();
 
