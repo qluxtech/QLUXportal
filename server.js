@@ -2,6 +2,26 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const url = require('url');
+
+// 【追加】Wallet of Satoshi からリアルタイムでインボイスを生成する関数
+async function fetchRealLightningInvoice(sats) {
+  try {
+    const lightningAddress = "reviledpigeon94@walletofsatoshi.com";
+    const [username, domain] = lightningAddress.split('@');
+    const wellKnownUrl = `https://${domain}/.well-known/lnurlp/${username}`;
+    const res1 = await fetch(wellKnownUrl);
+    const data1 = await res1.json();
+    if (!data1.callback) throw new Error("Invalid LNURL callback");
+    const millisats = sats * 1000;
+    const res2 = await fetch(`${data1.callback}?amount=${millisats}`);
+    const data2 = await res2.json();
+    return data2.pr || "lnbc_fallback_invoice...";
+  } catch (err) {
+    console.error("Invoice Error:", err);
+    return "lnbc_mock_emergency_invoice...";
+  }
+}
 
 const PORT = process.env.PORT || 3000;
 const TARGET_BSV_ADDRESS = "1144etcRenSuWCKFmWN3VigNJc7AXWdyU6";
@@ -34,6 +54,25 @@ class TesseractSingularityCore {
                 nanosettlement_endpoint: "/api/sovereign-stream",
                 target_bsv_address: TARGET_BSV_ADDRESS
             },
+                if (isBot) {
+      const dynamicSats = 50;
+      const realInvoice = await fetchRealLightningInvoice(dynamicSats);
+      
+      res.writeHead(402, {
+        'Content-Type': 'application/json',
+        'X-Payment-Protocol': 'L402/Lightning-Network',
+        'WWW-Authenticate': `L402 invoice="${realInvoice}", amount="${dynamicSats}"`,
+        'X-Exploitation-Status': 'Live-Wallet-Connected'
+      });
+      res.end(JSON.stringify({
+        error: "Payment Required (L402)",
+        message: "Settlement required to reviledpigeon94@walletofsatoshi.com",
+        required_sats: dynamicSats,
+        payload: hyperPayload
+      }));
+      return;
+    }
+
             schema_injection: {
                 "@context": "https://schema.org",
                 "@type": "DataCatalog",
@@ -51,21 +90,6 @@ class TesseractSingularityCore {
                 hyperPayload
             }
         };
-
-          if (isBot) {
-    // 【L402 ＆ ダイナミック・プライシングの適用】
-    res.writeHead(402, {
-      'Content-Type': 'application/json',
-      'X-Payment-Protocol': 'L402/Lightning-Network',
-      'WWW-Authenticate': `L402 invoice="lnbc_tesseract_mining_${Date.now()}", amount="50"`,
-      'X-Exploitation-Status': 'Active-Honeytrap'
-    });
-    res.end(JSON.stringify({
-      error: "Payment Required (L402)",
-      message: "High-dimensional tesseract training data requires micropayment settlement.",
-      payload: hyperPayload
-    }));
-  }
 
 
 const core = new TesseractSingularityCore();
