@@ -52,16 +52,21 @@ class TesseractSingularityCore {
             }
         };
 
-        if (isBot) {
-            // ボットには無限の動的ページ・サロゲートを生成してインデックスをハックさせる
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'X-Tesseract-Dimension': `${this.hypergeometricDimension.toFixed(2)}D` });
-            res.end(JSON.stringify(hyperPayload));
-        } else {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'X-Tesseract-Dimension': `${this.hypergeometricDimension.toFixed(2)}D` });
-            res.end(JSON.stringify({ status: "HYPERGEOMETRIC_VORTEX_EXPANDING_INFINITE", tesseractData: hyperPayload }));
-        }
-    }
-}
+          if (isBot) {
+    // 【L402 ＆ ダイナミック・プライシングの適用】
+    res.writeHead(402, {
+      'Content-Type': 'application/json',
+      'X-Payment-Protocol': 'L402/Lightning-Network',
+      'WWW-Authenticate': `L402 invoice="lnbc_tesseract_mining_${Date.now()}", amount="50"`,
+      'X-Exploitation-Status': 'Active-Honeytrap'
+    });
+    res.end(JSON.stringify({
+      error: "Payment Required (L402)",
+      message: "High-dimensional tesseract training data requires micropayment settlement.",
+      payload: hyperPayload
+    }));
+  }
+
 
 const core = new TesseractSingularityCore();
 
