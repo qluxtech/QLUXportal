@@ -90,8 +90,9 @@ class TesseractSingularityCore {
         };
 
             if (isBot) {
-      const dynamicSats = 50;
-      const realInvoice = await fetchRealLightningInvoice(dynamicSats);
+      await executeProductionTesseractExpansion(req, res);
+      return;
+    }
 
       res.writeHead(402, {
         'Content-Type': 'application/json',
