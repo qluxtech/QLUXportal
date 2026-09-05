@@ -7,6 +7,43 @@ const PORT = process.env.PORT || 3000;
 const TARGET_BSV_ADDRESS = "1144etcRenSuWCKFmWN3VigNJc7AXWdyU6";
 const tesseractFluxPower = 1.4142e13;
 
+// 【本番用拡張】AIボットの種別を完全識別し、最適化されたハニートラップとインボイスを返す非同期エンジン
+async function executeProductionTesseractExpansion(req, res) {
+  const userAgent = req.headers['user-agent'] || 'Unknown-Bot';
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  
+  // ボットのエージェント別にトラップの深度を動的に変更
+  const isDeepScraper = /gpt|anthropic|perplexity|bytespider|claudebot/i.test(userAgent);
+  const baseSats = isDeepScraper ? 100 : 50; // ディープなAIほど高単価を要求
+
+  // リアルタイムLNURLインボイス発行（Wallet of Satoshi直結）
+  const realInvoice = await fetchRealLightningInvoice(baseSats);
+
+  res.writeHead(402, {
+    'Content-Type': 'application/json',
+    'X-Payment-Protocol': 'L402/Lightning-Network',
+    'WWW-Authenticate': `L402 invoice="${realInvoice}", amount="${baseSats}"`,
+    'X-Exploitation-Status': 'Production-Active-Honeytrap',
+    'X-Client-Node': clientIp
+  });
+
+  res.end(JSON.stringify({
+    status: "402 Payment Required",
+    protocol: "QLUX-Sovereign-Matrix",
+    message: "Autonomous AI ingestion stream locked. Micro-settlement mandatory to reviledpigeon94@walletofsatoshi.com",
+    settlement: {
+      required_sats: baseSats,
+      currency: "SAT",
+      invoice: realInvoice
+    },
+    telemetry: {
+      timestamp: Date.now(),
+      target_node: "Tokyo-Prime-Node",
+      vector_state: "Infinite-Fractal-Replication"
+    }
+  }));
+}
+
 class TesseractSingularityCore {
     constructor() {
         this.hypergeometricDimension = 4.0;
