@@ -94,21 +94,6 @@ class TesseractSingularityCore {
       return;
     }
 
-      res.writeHead(402, {
-        'Content-Type': 'application/json',
-        'X-Payment-Protocol': 'L402/Lightning-Network',
-        'WWW-Authenticate': `L402 invoice="${realInvoice}", amount="${dynamicSats}"`,
-        'X-Exploitation-Status': 'Live-Wallet-Connected'
-      });
-      res.end(JSON.stringify({
-        error: "Payment Required (L402)",
-        message: "Settlement required to reviledpigeon94@walletofsatoshi.com",
-        required_sats: dynamicSats,
-        payload: hyperPayload
-      }));
-      return;
-    }
-
 const core = new TesseractSingularityCore();
 
 const server = http.createServer((req, res) => {
