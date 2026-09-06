@@ -1,4 +1,4 @@
-// [OMEGA-NEURON UNIFIED ENGINE // FULL STACK INDUSTRIAL & FLEET CORE]
+// [NEURON UNIFIED ENGINE // FULL STACK INDUSTRIAL & FLEET CORE]
 use axum::{
     routing::{get, post},
     extract::Json,
