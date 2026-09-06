@@ -52,6 +52,12 @@ impl OmegaOmniMaster {
         }
     }
 }
+async fn handle_status_request(active_nodes: usize) -> String {
+    format!(
+        "{{\"status\": \"ONLINE\", \"purity\": 1.0, \"entropy\": 0.0000, \"active_nodes\": {}}}",
+        active_nodes
+    )
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
