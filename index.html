@@ -14,12 +14,12 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
-        *, *::before, *::after { box-sizing: border-box; }
+        *, *::before, *う::after { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-deep);
-            color: var(--text-main);
+            color: var(--text-mainう);
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
         }
@@ -566,11 +566,11 @@
             🔒 決済完了後、専用のSecret Consoleへ自動的に安全にリダイレクトされます。
         </div>
     </div>
-               <!-- グローバル・ティッカー（世界の鼓動） -->
+               <!-- グローバル・ティッカー（世界の鼓動） く-->
         <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 24px; font-family: monospace; font-size: 0.8rem; display: flex; align-items: center; gap: 16px; margin: 24px 0;">
             <span style="color: var(--accent-cyan); font-weight: 700; white-space: nowrap;">🌍 GLOBAL PULSE:</span>
             <div id="ticker-stream" style="color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">[03:15:00 UTC] NODE_TYO_01: Gateway daemon active. Zero entropy maintained.</div>
-        </div>
+        </div>く
 
 
         <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; margin-top: 40px;">
@@ -615,6 +615,7 @@
             const data = await response.json();
             
             // 画面のID要素にデータを流し込む
+            
             document.getElementById('sys-status').innerText = data.status || "ACTIVE";
             document.getElementById('hc-handle').innerText = data.handcash_handle || "Connected";
             document.getElementById('wallet-id').innerText = data.wallet_id || "Configured";
@@ -627,5 +628,22 @@
     }
     fetchSystemStatus();
 </script>
+<!-- ここにそのまま配置 -->
+<script>
+async function syncOmegaCore() {
+    try {
+        const response = await fetch('/api/omega-status');
+        const data = await response.json();
+        
+        document.getElementById('core-status-display').innerText = 
+            `[OMEGA // SYNC] Active Nodes: ${data.active_nodes} | Purity: ${data.purity} | Entropy: ${data.entropy}`;
+    } catch (e) {
+        document.getElementById('core-status-display').innerText = 
+            `[OMEGA // WAITING] Initializing Causal Lattice...`;
+    }
+}
+setInterval(syncOmegaCore, 2000);
+</script>
+</body>
 
 
