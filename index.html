@@ -642,6 +642,55 @@ async function syncOmegaCore() {
             `[OMEGA // WAITING] Initializing Causal Lattice...`;
     }
 }
+        setInterval(syncOmegaCore, 2000);
+</script>
+
+<!-- [OMEGA // HYPER-MAGNETIC DEPIN CLIENT] -->
+<script>
+class HyperSovereignClient {
+    constructor() {
+        this.nodeId = 'NODE_' + Math.random().toString(36).substring(2, 9).toUpperCase();
+        this.accumulatedCredits = 0;
+        this.initSovereignLoop();
+    }
+
+    initSovereignLoop() {
+        console.log(`[OMEGA DEPIN] Sovereign Node initialized: ${this.nodeId}`);
+        setInterval(() => {
+            this.accumulatedCredits += 1;
+            const creditDisplay = document.getElementById('sovereign-credit-counter');
+            if (creditDisplay) {
+                creditDisplay.innerText = `[CREDITS: ${this.accumulatedCredits} OMEGA] // STATUS: ACTIVE_MAGNETIC_NODE`;
+            }
+            this.pingMeshHeartbeat();
+        }, 3000);
+    }
+
+    async pingMeshHeartbeat() {
+        try {
+            const response = await fetch('/api/v1/omega/swarm-sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    agent_id: this.nodeId,
+                    compute_units: 1,
+                    auth_token: "sovereign_active_session"
+                })
+            });
+            if (response.ok) {
+                const data = await response.json();
+            }
+        } catch (e) {}
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    window.omegaSovereignClient = new HyperSovereignClient();
+});
+</script>
+
+</body>
+
 setInterval(syncOmegaCore, 2000);
 </script>
 </body>
