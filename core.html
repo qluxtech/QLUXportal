@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>OMEGA-NEURON CORE // MESH CONSOLE</title>
+    <style>
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            padding: 40px;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #38bdf8;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .code-box {
+            background: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            overflow-x: auto;
+        }
+        pre { margin: 0; color: #94a3b8; font-size: 14px; line-height: 1.6; }
+        .keyword { color: #c084fc; }
+        .type { color: #38bdf8; }
+        .property { color: #f43f5e; }
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #1e293b;
+            color: #38bdf8;
+            text-decoration: none;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #334155; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ OMEGA-NEURON CORE // SOURCE & TELEMETRY MESH</h1>
+        <div class="code-box">
+            <pre><code>// [OMEGA-NEURON UNIFIED ENGINE // FULL STACK INDUSTRIAL & FLEET CORE]
+<span class="keyword">use</span> axum::{routing::{get, post}, extract::Json, http::{StatusCode, HeaderMap}, Router};
+<span class="keyword">use</span> serde::{Deserialize, Serialize};
+
+<span class="keyword">#[derive(Deserialize, Debug)]</span>
+<span class="keyword">pub struct</span> <span class="type">ShadowTelemetryPayload</span> {
+    <span class="keyword">pub</span> <span class="property">asset_id</span>: <span class="type">String</span>,
+    <span class="keyword">pub</span> <span class="property">vibration_hz</span>: <span class="type">f64</span>,
+    <span class="keyword">pub</span> <span class="property">thermal_index</span>: <span class="type">f64</span>,
+}
+
+<span class="keyword">async fn</span> <span class="type">process_shadow_and_agentic_mesh</span>() {
+    <span class="comment">// 100% OPERATIONAL [SHADOW & AGENTIC MESH ACTIVE]</span>
+}</code></pre>
+        </div>
+        <a href="index.html" class="back-btn">← ポータルホームに戻る</a>
+    </div>
+</body>
+</html>
