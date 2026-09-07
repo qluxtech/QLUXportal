@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+く<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -794,4 +794,120 @@
 </html>
 
                 
+<!-- [QLUX PORTAL // BACKGROUND QUANTUM-MESH ANIMATION LAYER] -->
+<div class="bg-animation-layer">
+    <canvas id="quantum-mesh"></canvas>
+</div>
+
+<style>
+/* 背景アニメーションレイヤーのスタイル */
+.bg-animation-layer {
+    position: fixed; /* 画面全体に固定 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* コンテンツの背面に配置 */
+    pointer-events: none; /* クリックを透過させる */
+    background: radial-gradient(circle at center, #0b1120 0%, #030712 100%); /* ダークなベース */
+    overflow: hidden;
+}
+
+#quantum-mesh {
+    width: 100%;
+    height: 100%;
+    opacity: 0.6; /* コンテンツを邪魔しない透過度 */
+    filter: blur(1px); /* 粒子を少しぼかして光沢感を出す */
+}
+</style>
+
+<!-- [QUANTUM-MESH JAVASCRIPT ENGINE] -->
+<script>
+(function() {
+    const canvas = document.getElementById('quantum-mesh');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 1.5; /* 光粒子の速度 X */
+            this.vy = (Math.random() - 0.5) * 1.5; /* 光粒子の速度 Y */
+            this.radius = Math.random() * 1.8; /* 光粒子のサイズ */
+            this.alpha = Math.random() * 0.5 + 0.1;
+            this.color = `rgba(56, 189, 248, ${this.alpha})`; // #38bdf8 (accent-cyan)
+            this.life = Math.random() * 200 + 100;
+            this.decay = Math.random() * 0.8 + 0.2;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life -= this.decay;
+
+            if (this.life <= 0) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const numParticles = width * height / 15000; /* 画面サイズに応じた粒子数 */
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        /* 粒子間を細いラインで繋ぐ（メッシュ化） */
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) { /* 接続距離 */
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(14, 165, 233, ${0.1 * (1 - dist / 120)})`; // #0ea5e9 (accent-sky)
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    initParticles();
+    animate();
+})();
+</script>
 
