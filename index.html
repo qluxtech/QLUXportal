@@ -739,93 +739,47 @@ setInterval(syncOmegaCore, 2000);
 </script>
 </body>
 
-<!-- QLUX 地球規模・分散メッシュリアルタイム・ビジュアライザー -->
-<canvas id="qlux-mesh-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; background: #05080c;"></canvas>
+<!-- [QLUX PORTAL // FLOATING ACCESS BUTTON] -->
+<div class="omega-floating-gateway">
+    <a href="https://github.com/qluxtech/QLUXportal/blob/main/src/omega_neuron_core.rs" class="omega-portal-btn" target="_blank">
+        <span class="btn-glow"></span>
+        <span class="btn-text">⚡ VIEW OMEGA CORE ON GITHUB</span>
+    </a>
+</div>
 
-<script>
-(function() {
-    const canvas = document.getElementById('qlux-mesh-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    let width, height;
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+<style>
+.omega-floating-gateway {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99999; /* canvasよりも手前に絶対に表示させる */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-    const nodeCount = Math.floor(window.innerWidth / 25);
-    const nodes = [];
-    
-    for (let i = 0; i < nodeCount; i++) {
-        nodes.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6,
-            radius: Math.random() * 2 + 1.5,
-            pulse: Math.random() * Math.PI
-        });
-    }
+.omega-portal-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    letter-spacing: 1.2px;
+    border: 1px solid rgba(56, 189, 248, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(56, 189, 248, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
 
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.strokeStyle = 'rgba(0, 255, 102, 0.03)';
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i < nodes.length; i++) {
-            let n1 = nodes[i];
-            n1.x += n1.vx;
-            n1.y += n1.vy;
-
-            if (n1.x < 0 || n1.x > width) n1.vx *= -1;
-            if (n1.y < 0 || n1.y > height) n1.vy *= -1;
-
-            n1.pulse += 0.05;
-            let currentRadius = n1.radius + Math.sin(n1.pulse) * 0.5;
-            
-            ctx.fillStyle = '#00ff66';
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = '#00ff66';
-            ctx.beginPath();
-            ctx.arc(n1.x, n1.y, currentRadius, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            for (let j = i + 1; j < nodes.length; j++) {
-                let n2 = nodes[j];
-                let dx = n1.x - n2.x;
-                let dy = n1.y - n2.y;
-                let dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 130) {
-                    let alpha = (1 - dist / 130) * 0.25;
-                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(n1.x, n1.y);
-                    ctx.lineTo(n2.x, n2.y);
-                    ctx.stroke();
-
-                    if ((i + j) % 7 === 0) {
-                        let t = (Date.now() / 600 + i) % 1;
-                        let px = n1.x + (n2.x - n1.x) * t;
-                        let py = n1.y + (n2.y - n1.y) * t;
-                        
-                        ctx.fillStyle = '#ffffff';
-                        ctx.shadowBlur = 6;
-                        ctx.shadowColor = '#00f0ff';
-                        ctx.beginPath();
-                        ctx.arc(px, py, 1.2, 0, Math.PI * 2);
-                        ctx.fill();
-                        ctx.shadowBlur = 0;
-                    }
-                }
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-    animate();
-})();
-</script>
+.omega-portal-btn:hover {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    border-color: #38bdf8;
+    box-shadow: 0 6px 35px rgba(56, 189, 248, 0.6);
+    transform: translateY(-3px);
+}
+</style>
